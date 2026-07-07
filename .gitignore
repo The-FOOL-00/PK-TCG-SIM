@@ -1,0 +1,23 @@
+# --- Official competition data & assets (do not redistribute) ---
+# Redistribution violates the Kaggle competition rules. Teammates must
+# download these themselves from the competition's Data tab (see README).
+ptcg_engine/
+sample_submission/
+Card_ID List_EN.pdf
+Card_ID List_JP.pdf
+EN_Card_Data.csv
+JP_Card_Data.csv
+card_data.json
+
+# --- Build/run artifacts (regenerated locally, derived from the above) ---
+build/
+submission.tar.gz
+runs/
+
+# --- Python / environment ---
+venv/
+__pycache__/
+*.pyc
+
+# --- Local machine-specific tool config ---
+.claude/settings.local.json
