@@ -158,3 +158,50 @@ Tooling kept for a future PASS: `build_submission.py --learned-value`
 model loads from the bundle — validated end-to-end, then the v1 bundle was
 rebuilt and re-verified as the shipped artifact). ab_gate.py now collects
 the calibration table whenever the challenger runs with `+LV_TRACE=true`.
+
+## 2026-07-07 — Phase 2a: teacher characterization — flat MC plateaus at ~58%, below the 60% bar
+
+**Finding 1: `cg.api.search_begin` is not a search algorithm — it is a
+determinized forward simulator.** You supply predictions of every hidden zone
+(both decks, both prizes, opponent hand, face-down active); it returns a root
+SearchState. `search_step(id,[i])` applies option i and returns a new state;
+old ids stay live (tree branching), `search_release`/`search_end` free memory.
+`State.result` = winner index (−1 running); `State.yourIndex` = whose select
+each node is, so we simulate BOTH players. No depth/time/node parameters —
+any actual search is ours to build on top. `manual_coin` optionally
+de-randomizes coin flips.
+
+**Teacher built (`tools/searcher.py`):** flat determinized Monte Carlo. Per
+MAIN-phase single-select decision: rank options by v1 score, keep top-k; for
+each of `det` uniform determinizations (exact pools in mirror self-play),
+step each candidate and run `roll` rollouts with BOTH sides playing v1
+(`main.agent`) to `State.result` (rung-a value net evaluates at the 400-step
+cap); pick argmax mean. Non-MAIN/multi-select decisions stay v1.
+Driver calls cg.dll directly and parses raw JSON to dicts, so main.py's
+scorers run natively on search nodes. ab_gate spec: `+TEACHER=det,roll,topk`.
+
+**Speed** (search_begin 0.16 ms, search_step 0.053 ms, v1 rollout step
+0.075 ms incl. decide; amortized per searched decision from 300-game gates,
+6 workers): 2 samples/option ≈ 29 ms; 16 ≈ 215 ms; 32 ≈ 460 ms;
+64 ≈ 860 ms.
+
+**Strength (all n=300, seats alternated, via ab_gate.py):**
+
+| setting (det,roll,topk) | samples/opt | win rate | 95% CI | verdict vs 50% |
+|---|---|---|---|---|
+| 2,1,4 | 2 | 48.0% | [42.4, 53.6] | FAIL |
+| 8,2,4 | 16 | 56.0% | [50.3, 61.5] | PASS |
+| 16,2,4 | 32 | 58.7% | [53.0, 64.1] | PASS |
+| 32,2,4 | 64 | 57.0% | [51.3, 62.5] | PASS (≈32-sample result) |
+| 16,2,8 | 32, topk 8 | 58.7% | [53.0, 64.1] | PASS (= topk 4) |
+
+First CI-backed >50% challenger in the project — but the curve saturates at
+**~58%**: 64 samples buy nothing over 32, and widening candidates buys
+nothing. The ceiling is algorithmic, not statistical: 1-action lookahead
+whose rollouts assume v1 play forever after. Teacher searches ~58% of
+decisions, overrides v1 on 42–50% of those; overrides beyond ~45% add no
+strength (noise regime).
+
+**Per the Phase 2a decision rule (<60% CI-backed): STOPPED before any
+distillation data generation.** Alternative-teacher proposal + generation
+projections handed to the user for sign-off.

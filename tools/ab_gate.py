@@ -12,6 +12,8 @@ Agent specs name a deck plus optional policy flags, '+'-separated:
     deck.csv+v3              PTCG_V3_EVAL evaluator on
     deck.csv+NAME=VALUE      set any main.py module attribute per call
                              (forward-compat: learned value / distilled nets)
+    deck.csv+TEACHER=2,1,4   determinized-search teacher (tools/searcher.py),
+                             params det,roll,topk — local cg.dll, never ships
 
 Run:  python tools/ab_gate.py --challenger deck.csv+v3 --incumbent deck.csv \
           --games 300 --workers 6 --json-out runs/gate_v3_vs_v1.json
@@ -58,16 +60,26 @@ def parse_spec(spec):
     return deck_path, attrs
 
 
-def make_wrapper(deck, attrs, defaults):
+def make_wrapper(deck, attrs, defaults, game_seed=0):
     """Same contract as deck_compare.make_wrapper, generalized to any attrs.
 
     `defaults` holds the module-default value for every attr EITHER side
     touches — each call resets them all first, so one side's flags can't
     leak into the other side's turns (both seats share the module).
+
+    attrs["TEACHER"] = "det,roll,topk" swaps the policy for the determinized
+    search teacher (tools/searcher.py); remaining attrs still apply, so its
+    v1 rollouts run with main's defaults.
     """
     agent_mod = deck_compare.agent_mod
     n_energy = sum(1 for cid in deck
                    if agent_mod.CARDS.get(cid, {}).get("cardType") == 5)
+    t_agent = None
+    if attrs.get("TEACHER"):
+        from tools import searcher
+        det, roll, topk = (int(x) for x in str(attrs["TEACHER"]).split(","))
+        t_agent = searcher.make_agent(deck, det=det, roll=roll, topk=topk,
+                                      seed=game_seed)
 
     def wrapper(obs, _config):
         if obs.get("select") is None:
@@ -76,8 +88,13 @@ def make_wrapper(deck, attrs, defaults):
         for name, val in defaults.items():
             setattr(agent_mod, name, val)
         for name, val in attrs.items():
-            setattr(agent_mod, name, val)
+            if name != "TEACHER":
+                setattr(agent_mod, name, val)
+        if t_agent is not None:
+            return t_agent(obs, _config)
         return agent_mod.agent(obs)
+    if t_agent is not None:
+        wrapper.teacher = t_agent.teacher
     return wrapper
 
 
@@ -100,10 +117,12 @@ def play_chunk(args):
             "reasons_won": Counter(), "reasons_lost": Counter(), "crashes": 0}
         for s in ("chal", "inc")
     }
+    tstats = Counter()
     for g in range(n):
         seat_c = (seat_offset + g) % 2
         wrappers = [None, None]
-        wrappers[seat_c] = make_wrapper(deck_c, attrs_c, defaults)
+        wrappers[seat_c] = make_wrapper(deck_c, attrs_c, defaults,
+                                        game_seed=seat_offset * 100003 + g)
         wrappers[1 - seat_c] = make_wrapper(deck_i, attrs_i, defaults)
         if track:
             agent_mod.VALUE_TRACE[:] = []
@@ -133,7 +152,10 @@ def play_chunk(args):
                 st["reasons_lost"][reason] += 1
             else:
                 st["draws"] += 1
+        if hasattr(wrappers[seat_c], "teacher"):
+            tstats.update(wrappers[seat_c].teacher.stats)
     out["calib"] = calib
+    out["teacher_stats"] = dict(tstats)
     return out
 
 
@@ -175,6 +197,7 @@ def run_gate(spec_c, spec_i, games, workers):
         for s in ("chal", "inc")
     }
     calib = [[0, 0, 0.0] for _ in range(10)]
+    tstats = Counter()
     for ch in chunks:
         for s in total:
             for k, v in ch[s].items():
@@ -183,7 +206,9 @@ def run_gate(spec_c, spec_i, games, workers):
             calib[b][0] += n
             calib[b][1] += w
             calib[b][2] += sp
+        tstats.update(ch.get("teacher_stats") or {})
     total["calib"] = calib
+    total["teacher_stats"] = dict(tstats)
     return total
 
 
@@ -217,6 +242,12 @@ def report(spec_c, spec_i, games, total, json_out=None, note=None):
           f"(CI lower bound {lo*100:.1f}% {'>' if lo > 0.5 else '<='} 50%)")
     if note:
         print(f"  note       : {note}")
+    ts = total.get("teacher_stats") or {}
+    if ts.get("decisions"):
+        print(f"  teacher    : {ts['decisions']} decisions, "
+              f"{ts['searched']} searched ({ts['searched']/ts['decisions']*100:.0f}%), "
+              f"{ts['changed']} changed vs v1 "
+              f"({ts['changed']/max(1, ts['searched'])*100:.0f}% of searched)")
     calib = total.get("calib") or []
     calib_rows = None
     if any(b[0] for b in calib):
@@ -244,6 +275,7 @@ def report(spec_c, spec_i, games, total, json_out=None, note=None):
             "reasons_won": dict(st["reasons_won"]),
             "reasons_lost": dict(st["reasons_lost"]),
             "calibration": calib_rows,
+            "teacher_stats": ts or None,
         }
         Path(json_out).parent.mkdir(parents=True, exist_ok=True)
         Path(json_out).write_text(json.dumps(payload, indent=2), encoding="utf-8")
