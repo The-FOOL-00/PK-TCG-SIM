@@ -66,4 +66,14 @@ fallback chain untouched. Bundle stays DLL-free; deltas come from
 
 ## 2026-07-07 — Phase 0 gate: v3 (flag on) vs v1 via ab_gate.py, 300 games
 
-_Result pending — recorded below when the run completes._
+`python tools/ab_gate.py --challenger deck.csv+v3 --incumbent deck.csv
+--games 300 --workers 6` (runs/gate_v3_vs_v1_300g.json):
+
+- W/L/D 162/138/0 → win rate **54.0%**, 95% Wilson CI **[48.3%, 59.6%]**
+- Crashes: 0/0. Win reasons {3: 150, 1: 12}, loss reasons {3: 134, 1: 4}.
+- **VERDICT: FAIL** (CI lower bound 48.3% ≤ 50%). v3 stays OFF; the Phase 1
+  learned value model is its designated replacement. Incumbent/current best
+  remains the v1 heuristic policy.
+- Side finding: strong first-seat advantage — challenger won 108/150 (72%)
+  in seat 0 vs 54/150 (36%) in seat 1. Seat alternation in the protocol is
+  load-bearing; any comparison that doesn't alternate seats is invalid.
