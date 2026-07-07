@@ -51,11 +51,17 @@ improved routing on both sides → the deck itself is inferior.
 the formal gate said no — **54.0%, 95% CI [48.3%, 59.6%], n=300 → FAIL**
 (CI lower bound ≤ 50%). v3 stays off.
 
-**H3 — learned value model beats v1 (rung a, in flight).** 50,000 self-play
-games → 1.51M decision states (170-dim features, outcome labels). Local
-validation on a 1,971-game subsample: MLP (30,209 params) val AUC 0.725,
-val logloss 0.610 vs 0.693 coin-flip; calibration monotonic across all 10
-buckets. TODO: full-data metrics + ab_gate verdict after external training.
+**H3 — learned value model beats v1 (rung a, REJECTED at gate).** 50,000
+self-play games → 1.52M decision states (170-dim features, outcome labels).
+MLP (30,209 params) trained externally: val AUC **0.8445**, logloss 0.481
+(train 0.480 — no overfit). Deployed as tier + clipped ΔP(win) over
+analytically-constructed post-option feature vectors. Gate: **48.7%, 95% CI
+[43.1%, 54.3%], n=300 → FAIL**; flag stays off. In-game calibration
+(3,123 decisions) is monotone and tight at the extremes ([0.9,1.0)
+predicted 0.956 / actual 0.973) — the value function is *accurate*; greedy
+1-ply use of it simply isn't enough against v1's co-adapted heuristics.
+Together H2+H3 quantify the 1-ply ceiling and motivate rung b (depth via
+search distillation).
 
 **H4 — search distillation beats rung a (rung b).** TODO Phase 2: teacher
 strength measurement (gate: >60% CI-backed vs our best), imitation top-1
