@@ -1,0 +1,147 @@
+{
+  "data": "/kaggle/input/datasets/thefool00/ptcg-selfplay-v1",
+  "rows_train": 1369178,
+  "rows_val": 152184,
+  "epochs": 6,
+  "batch": 8192,
+  "lr": 0.001,
+  "logreg": {
+    "params": 171,
+    "train_logloss": 0.5773640871047974,
+    "val_logloss": 0.5765336751937866,
+    "train_auc": 0.7626791284016112,
+    "val_auc": 0.7633531910824862,
+    "val_calibration": [
+      {
+        "bucket": "[0.0, 0.1)",
+        "n": 1685,
+        "predicted_mean": 0.075004443526268,
+        "actual_win_rate": 0.06587537378072739
+      },
+      {
+        "bucket": "[0.1, 0.2)",
+        "n": 7088,
+        "predicted_mean": 0.15678837895393372,
+        "actual_win_rate": 0.15025395154953003
+      },
+      {
+        "bucket": "[0.2, 0.3)",
+        "n": 12353,
+        "predicted_mean": 0.2526172697544098,
+        "actual_win_rate": 0.24730834364891052
+      },
+      {
+        "bucket": "[0.3, 0.4)",
+        "n": 15751,
+        "predicted_mean": 0.35353562235832214,
+        "actual_win_rate": 0.32283663749694824
+      },
+      {
+        "bucket": "[0.4, 0.5)",
+        "n": 23361,
+        "predicted_mean": 0.4517439901828766,
+        "actual_win_rate": 0.39981165528297424
+      },
+      {
+        "bucket": "[0.5, 0.6)",
+        "n": 29864,
+        "predicted_mean": 0.5567708611488342,
+        "actual_win_rate": 0.5457741618156433
+      },
+      {
+        "bucket": "[0.6, 0.7)",
+        "n": 26143,
+        "predicted_mean": 0.6462748050689697,
+        "actual_win_rate": 0.6886738538742065
+      },
+      {
+        "bucket": "[0.7, 0.8)",
+        "n": 17244,
+        "predicted_mean": 0.7485067248344421,
+        "actual_win_rate": 0.7592206001281738
+      },
+      {
+        "bucket": "[0.8, 0.9)",
+        "n": 12725,
+        "predicted_mean": 0.846294641494751,
+        "actual_win_rate": 0.8806287050247192
+      },
+      {
+        "bucket": "[0.9, 1.0)",
+        "n": 5970,
+        "predicted_mean": 0.9341137409210205,
+        "actual_win_rate": 0.9695142507553101
+      }
+    ]
+  },
+  "mlp": {
+    "params": 30209,
+    "train_logloss": 0.4799526631832123,
+    "val_logloss": 0.481000691652298,
+    "train_auc": 0.8447407773161529,
+    "val_auc": 0.844465341784329,
+    "val_calibration": [
+      {
+        "bucket": "[0.0, 0.1)",
+        "n": 10788,
+        "predicted_mean": 0.05558764934539795,
+        "actual_win_rate": 0.054597701877355576
+      },
+      {
+        "bucket": "[0.1, 0.2)",
+        "n": 15466,
+        "predicted_mean": 0.14997392892837524,
+        "actual_win_rate": 0.15071770548820496
+      },
+      {
+        "bucket": "[0.2, 0.3)",
+        "n": 13585,
+        "predicted_mean": 0.24968521296977997,
+        "actual_win_rate": 0.25123298168182373
+      },
+      {
+        "bucket": "[0.3, 0.4)",
+        "n": 14094,
+        "predicted_mean": 0.35009196400642395,
+        "actual_win_rate": 0.3568184971809387
+      },
+      {
+        "bucket": "[0.4, 0.5)",
+        "n": 13706,
+        "predicted_mean": 0.44953328371047974,
+        "actual_win_rate": 0.45629650354385376
+      },
+      {
+        "bucket": "[0.5, 0.6)",
+        "n": 13793,
+        "predicted_mean": 0.5494068264961243,
+        "actual_win_rate": 0.5462191104888916
+      },
+      {
+        "bucket": "[0.6, 0.7)",
+        "n": 18187,
+        "predicted_mean": 0.6494753956794739,
+        "actual_win_rate": 0.6478253602981567
+      },
+      {
+        "bucket": "[0.7, 0.8)",
+        "n": 13449,
+        "predicted_mean": 0.7494227290153503,
+        "actual_win_rate": 0.7435497045516968
+      },
+      {
+        "bucket": "[0.8, 0.9)",
+        "n": 13997,
+        "predicted_mean": 0.8507622480392456,
+        "actual_win_rate": 0.8553261160850525
+      },
+      {
+        "bucket": "[0.9, 1.0)",
+        "n": 25119,
+        "predicted_mean": 0.9631725549697876,
+        "actual_win_rate": 0.9610653519630432
+      }
+    ]
+  },
+  "best": "mlp"
+}

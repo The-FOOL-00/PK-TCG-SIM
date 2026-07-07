@@ -16,6 +16,7 @@ NOT defined under that exec(), so all file access goes through _find_file().
 """
 
 import json
+import math
 import os
 import sys
 import time
@@ -30,6 +31,26 @@ AGENT_VERSION = "ptcg-heuristic-v1.0.0"
 # card_data.json only; full engine simulation is a local-tuning-only tool.
 # ---------------------------------------------------------------------------
 V3_EVAL = os.environ.get("PTCG_V3_EVAL", "0") == "1"
+
+# ---------------------------------------------------------------------------
+# Learned value model (rung a): MLP win-probability from the 170-dim
+# encode_state features, trained on self-play outcomes (training/train_value.py).
+# Off by default. When on, MAIN-phase and attach/promote selections are scored
+# tier + LV_SCALE * (P(win|after) - P(win|now)), the "after" feature vector
+# built analytically — same 1-ply philosophy as v3, learned value instead of
+# hand-tuned weights. Tiers are kept so turn structure (setup before attack)
+# survives; deltas are clipped so they cannot cross the setup/attack boundary.
+# Inference is numpy matmuls with a pure-python .npz reader + matmul fallback
+# when numpy is missing. Missing/corrupt weights file: one stderr warning,
+# then permanent fallback to the heuristic tiers. C1 validation,
+# resolve_selection, and the fallback chain are untouched.
+# ---------------------------------------------------------------------------
+LEARNED_VALUE = os.environ.get("PTCG_LEARNED_VALUE", "0") == "1"
+LV_WEIGHTS_FILE = "value_weights.npz"
+LV_SCALE = 400.0        # score points per unit of win-prob delta (within-tier)
+LV_DELTA_CLIP = 0.25    # |delta| cap: LV_SCALE*CLIP=100 < every tier gap that matters
+LV_TRACE = False        # A/B harness only: append P(win|now) per decision
+VALUE_TRACE = []
 
 # ---------------------------------------------------------------------------
 # Engine enums (values copied from the sample submission's cg/api.py)
@@ -537,6 +558,302 @@ def state_feature_names():
     return names
 
 
+# ---------------------------------------------------------------------------
+# Learned value model: loading + inference + analytic post-option features.
+# Weight file contract (training/train_value.py header): n_layers, n_features,
+# kind, W0..W{L-1} float32 [in,out], b0..b{L-1} float32 [out];
+# forward = relu hidden layers, sigmoid output = P(win | state).
+# ---------------------------------------------------------------------------
+
+# Feature indices derived from the encode_state layout (see state_feature_names).
+LVI_GLOBAL = 12 * N_SLOT_FEATURES        # first global feature ("turn")
+LVI_MY_PRIZES = LVI_GLOBAL + 1
+LVI_MY_HAND = LVI_GLOBAL + 5
+LVI_ENERGY_ATTACHED = LVI_GLOBAL + 10
+LVI_HAND_COUNTS = LVI_GLOBAL + 23
+LVI_OPP_ACTIVE = 6 * N_SLOT_FEATURES
+
+_LV = {"tried": False, "model": None}
+_LV_CACHE = {"key": None, "feats": None, "p": None}
+
+
+def _lv_read_npz_pure(fp):
+    """Minimal .npz reader (stdlib only) for the numpy-missing fallback.
+    Returns {name: (shape, values)} — float/int arrays as flat lists,
+    unicode scalars as str."""
+    import array
+    import ast
+    import struct
+    import zipfile
+    out = {}
+    with zipfile.ZipFile(fp) as z:
+        for name in z.namelist():
+            raw = z.read(name)
+            if raw[:6] != b"\x93NUMPY":
+                raise ValueError("bad .npy magic in %s" % name)
+            if raw[6] == 1:
+                hlen, off = struct.unpack("<H", raw[8:10])[0], 10
+            else:
+                hlen, off = struct.unpack("<I", raw[8:12])[0], 12
+            hdr = ast.literal_eval(raw[off:off + hlen].decode("latin1"))
+            if hdr.get("fortran_order"):
+                raise ValueError("fortran_order unsupported")
+            shape, descr = hdr["shape"], hdr["descr"]
+            body = raw[off + hlen:]
+            key = name[:-4] if name.endswith(".npy") else name
+            if descr.startswith("<U"):
+                out[key] = (shape, body.decode("utf-32-le").rstrip("\x00"))
+                continue
+            typecode = {"<f4": "f", "<f8": "d", "<i4": "i", "<i8": "q"}.get(descr)
+            if typecode is None:
+                raise ValueError("dtype %s unsupported in %s" % (descr, name))
+            a = array.array(typecode)
+            n = 1
+            for s in shape:
+                n *= s
+            a.frombytes(body[:a.itemsize * n])
+            if sys.byteorder == "big":
+                a.byteswap()
+            out[key] = (shape, list(a))
+    return out
+
+
+def _lv_load(fp):
+    """Load + validate the weights file. Returns a model dict or raises."""
+    try:
+        import numpy as np
+    except ImportError:
+        np = None
+    if np is not None:
+        d = np.load(fp)
+        n_layers, nf = int(d["n_layers"]), int(d["n_features"])
+        layers = [(np.asarray(d["W%d" % i], dtype=np.float32),
+                   np.asarray(d["b%d" % i], dtype=np.float32))
+                  for i in range(n_layers)]
+        dims = [(w.shape[0], w.shape[1], b.shape[0]) for w, b in layers]
+    else:
+        arrs = _lv_read_npz_pure(fp)
+        n_layers, nf = int(arrs["n_layers"][1][0]), int(arrs["n_features"][1][0])
+        layers = []
+        for i in range(n_layers):
+            (rows, cols), wvals = arrs["W%d" % i]
+            _bs, bvals = arrs["b%d" % i]
+            layers.append(([wvals[r * cols:(r + 1) * cols] for r in range(rows)],
+                           list(bvals)))
+        dims = [(len(w), len(w[0]), len(b)) for w, b in layers]
+    if nf != N_STATE_FEATURES:
+        raise ValueError("weights expect %d features, encoder has %d"
+                         % (nf, N_STATE_FEATURES))
+    if dims[0][0] != nf or dims[-1][1] != 1:
+        raise ValueError("layer dims %r do not match %d -> 1" % (dims, nf))
+    for (i_in, i_out, i_b), (j_in, _o, _b) in zip(dims, dims[1:]):
+        if i_out != i_b or i_out != j_in:
+            raise ValueError("inconsistent layer chain %r" % (dims,))
+    if dims[-1][1] != dims[-1][2]:
+        raise ValueError("inconsistent output bias %r" % (dims,))
+    return {"np": np, "layers": layers}
+
+
+def _lv_model():
+    """Cached model, loaded on first use. Any failure warns once to stderr and
+    pins the model to None so every scorer falls back to heuristic tiers."""
+    if _LV["tried"]:
+        return _LV["model"]
+    _LV["tried"] = True
+    fp = _find_file(LV_WEIGHTS_FILE)
+    if fp is None:
+        print("[agent] WARNING: %s not found; learned value disabled, "
+              "using heuristic tiers" % LV_WEIGHTS_FILE, file=sys.stderr, flush=True)
+        return None
+    try:
+        _LV["model"] = _lv_load(fp)
+    except Exception as e:
+        print("[agent] WARNING: failed loading %s (%s); learned value disabled, "
+              "using heuristic tiers" % (LV_WEIGHTS_FILE, e),
+              file=sys.stderr, flush=True)
+    return _LV["model"]
+
+
+def _lv_predict(model, rows):
+    """rows: list of feature lists -> list of win probabilities."""
+    np, layers = model["np"], model["layers"]
+    if np is not None:
+        h = np.asarray(rows, dtype=np.float32)
+        for w, b in layers[:-1]:
+            h = np.maximum(h @ w + b, 0.0)
+        w, b = layers[-1]
+        z = np.clip((h @ w + b).ravel(), -30.0, 30.0)
+        return (1.0 / (1.0 + np.exp(-z))).tolist()
+    out = []
+    last = len(layers) - 1
+    for row in rows:
+        h = row
+        for li, (w, b) in enumerate(layers):
+            nxt = list(b)
+            for i, hi in enumerate(h):
+                if hi != 0.0:
+                    wi = w[i]
+                    for j in range(len(nxt)):
+                        nxt[j] += hi * wi[j]
+            h = nxt if li == last else [v if v > 0.0 else 0.0 for v in nxt]
+        z = max(-30.0, min(30.0, h[0]))
+        out.append(1.0 / (1.0 + math.exp(-z)))
+    return out
+
+
+def _lv_now(cur, me, model):
+    """(features, P(win)) for the current state, cached per decision."""
+    key = (id(cur), cur.get("turn"), me)
+    if _LV_CACHE["key"] != key:
+        feats = encode_state(cur)
+        _LV_CACHE["key"] = key
+        _LV_CACHE["feats"] = feats
+        _LV_CACHE["p"] = _lv_predict(model, [feats])[0]
+        if LV_TRACE:
+            VALUE_TRACE.append(_LV_CACHE["p"])
+    return _LV_CACHE["feats"], _LV_CACHE["p"]
+
+
+def _lv_delta(model, p_now, feats_after):
+    d = _lv_predict(model, [feats_after])[0] - p_now
+    return LV_SCALE * max(-LV_DELTA_CLIP, min(LV_DELTA_CLIP, d))
+
+
+def _lv_slot_base(opp, area, index):
+    slot = 0 if area == AREA_ACTIVE else 1 + min(int(index or 0), 4)
+    return ((6 if opp else 0) + slot) * N_SLOT_FEATURES
+
+
+def _lv_spend_hand_card(f, cid):
+    """Approximate a card leaving our hand in feature space."""
+    f[LVI_MY_HAND] = max(0.0, f[LVI_MY_HAND] - 0.1)
+    if cid in HAND_SLOT_IDS:
+        hi = LVI_HAND_COUNTS + HAND_SLOT_IDS.index(cid)
+        f[hi] = max(0.0, f[hi] - 0.25)
+
+
+def _lv_after_attach(cur, me, feats, area, index, cid=None):
+    """Post-state features for attaching one energy to (area, index)."""
+    base = _lv_slot_base(False, area, index)
+    if area not in (AREA_ACTIVE, AREA_BENCH) or feats[base] == 0.0:
+        return None
+    f = list(feats)
+    f[base + 4] += 0.2                                   # +1 energy (/5 scale)
+    f[base + 8] = max(0.0, f[base + 8] - 0.25)           # energy_needed (/4)
+    f[LVI_ENERGY_ATTACHED] = 1.0
+    if cid is not None:
+        _lv_spend_hand_card(f, cid)
+    return f
+
+
+def _lv_after_evolve(cur, me, feats, cid, area, index):
+    pk = _pokemon_at(cur, me, area, index, me)
+    c = _card(cid)
+    base = _lv_slot_base(False, area, index)
+    if not pk or not c or feats[base] == 0.0:
+        return None
+    dmg_taken = max(0, (pk.get("maxHp") or 0) - (pk.get("hp") or 0))
+    new_pk = {"id": cid, "hp": max(10, (c.get("hp") or 0) - dmg_taken),
+              "maxHp": c.get("hp") or 0, "energies": pk.get("energies") or []}
+    opp_act = _active_pokemon(_opp(cur, me))
+    dyn = max((_attack_damage_est(aid, cur, me)
+               for aid in c.get("attacks") or []), default=None)
+    f = list(feats)
+    f[base:base + N_SLOT_FEATURES] = _encode_pokemon_slot(
+        new_pk, _card(opp_act.get("id")) if opp_act else None, dyn)
+    _lv_spend_hand_card(f, cid)
+    return f
+
+
+def _lv_after_attack(cur, me, feats, attack_id):
+    opp_pk = _active_pokemon(_opp(cur, me))
+    if not opp_pk:
+        return None
+    dmg = _attack_damage_est(attack_id, cur, me)
+    hp = opp_pk.get("hp") or 0
+    f = list(feats)
+    base = LVI_OPP_ACTIVE
+    if dmg >= hp > 0:
+        f[base:base + N_SLOT_FEATURES] = [0.0] * N_SLOT_FEATURES
+        f[LVI_MY_PRIZES] = max(
+            0.0, f[LVI_MY_PRIZES] - _prizes_for_ko(opp_pk.get("id")) / 6.0)
+    else:
+        f[base + 1] = max(0.0, f[base + 1] - dmg / ENC_HP_SCALE)
+        f[base + 3] += dmg / ENC_HP_SCALE
+    return f
+
+
+def _lv_after_bench(cur, me, feats, cid):
+    c = _card(cid)
+    if not c:
+        return None
+    for b in range(1, 6):
+        base = b * N_SLOT_FEATURES
+        if feats[base] == 0.0:
+            break
+    else:
+        return None
+    opp_act = _active_pokemon(_opp(cur, me))
+    dyn = max((_attack_damage_est(aid, cur, me)
+               for aid in c.get("attacks") or []), default=None)
+    new_pk = {"id": cid, "hp": c.get("hp") or 0, "maxHp": c.get("hp") or 0,
+              "energies": []}
+    f = list(feats)
+    f[base:base + N_SLOT_FEATURES] = _encode_pokemon_slot(
+        new_pk, _card(opp_act.get("id")) if opp_act else None, dyn)
+    _lv_spend_hand_card(f, cid)
+    return f
+
+
+def _lv_after_promote(feats, index):
+    """Swap our active slot with bench slot `index` in feature space."""
+    src = _lv_slot_base(False, AREA_BENCH, index)
+    if feats[src] == 0.0:
+        return None
+    f = list(feats)
+    f[0:N_SLOT_FEATURES], f[src:src + N_SLOT_FEATURES] = (
+        f[src:src + N_SLOT_FEATURES], f[0:N_SLOT_FEATURES])
+    return f
+
+
+def _lv_score_main(opt, sel, cur, me, model):
+    """Tier + learned win-prob delta for the option types whose post-state is
+    constructible in feature space; v1 scoring everywhere else."""
+    t = opt.get("type")
+    feats_now, p_now = _lv_now(cur, me, model)
+    if t == OT_ATTACK:
+        f = _lv_after_attack(cur, me, feats_now, opt.get("attackId"))
+        if f is not None:
+            opp_pk = _active_pokemon(_opp(cur, me))
+            dmg = _attack_damage_est(opt.get("attackId"), cur, me)
+            hp = (opp_pk or {}).get("hp") or 0
+            tier = WEIGHT_LETHAL if dmg >= hp > 0 else WEIGHT_ATTACK_BASE
+            return tier + _lv_delta(model, p_now, f)
+    elif t == OT_ATTACH:
+        cid = _option_card_id(opt, sel, cur, me)
+        if _card(cid).get("cardType") != CT_TOOL:
+            f = _lv_after_attach(cur, me, feats_now, opt.get("inPlayArea"),
+                                 opt.get("inPlayIndex"), cid)
+            if f is not None:
+                return WEIGHT_ATTACH_ENERGY + _lv_delta(model, p_now, f)
+    elif t == OT_EVOLVE:
+        cid = _option_card_id(opt, sel, cur, me)
+        f = _lv_after_evolve(cur, me, feats_now, cid,
+                             opt.get("inPlayArea"), opt.get("inPlayIndex"))
+        if f is not None:
+            return WEIGHT_EVOLVE + _lv_delta(model, p_now, f)
+    elif t == OT_PLAY:
+        cid = _hand_card_id(cur, me, opt.get("index"))
+        if _card(cid).get("cardType") == CT_POKEMON:
+            f = _lv_after_bench(cur, me, feats_now, cid)
+            if f is not None:
+                mine = _my(cur, me)
+                in_play = len(mine.get("active") or []) + len(mine.get("bench") or [])
+                tier = WEIGHT_BENCH_URGENT if in_play <= 1 else WEIGHT_BENCH
+                return tier + _lv_delta(model, p_now, f)
+    return _score_main(opt, sel, cur, me)
+
+
 def _v3_attach_target_delta(cur, me, area, index):
     """Value gained by attaching one energy to the Pokemon at (area, index)."""
     pk = _pokemon_at(cur, me, area, index, me)
@@ -640,6 +957,14 @@ def _score_card(opt, sel, cur, me, ctx):
 
     if ctx in (SC_SETUP_ACTIVE, SC_TO_ACTIVE, SC_SWITCH, SC_TO_FIELD):
         # promote/choose active: prefer high HP, energy already attached, big attacks
+        if LEARNED_VALUE and pk and opt.get("area") == AREA_BENCH \
+                and opt.get("playerIndex") in (None, me):
+            model = _lv_model()
+            if model is not None:
+                feats_now, p_now = _lv_now(cur, me, model)
+                f = _lv_after_promote(feats_now, opt.get("index"))
+                if f is not None:
+                    return 10.0 + _lv_delta(model, p_now, f)
         if pk:
             return (pk.get("hp") or 0) + 20.0 * len(pk.get("energies") or []) \
                 + _best_attack_info(pk.get("id"))[0] / 10.0
@@ -669,11 +994,20 @@ def _score_card(opt, sel, cur, me, ctx):
         if opt.get("area") == AREA_ACTIVE:
             s += ACTIVE_TARGET_BONUS
         return 10.0 + s
-    if ctx == SC_ATTACH_FROM:
-        if V3_EVAL:
-            return 10.0 + _v3_attach_target_delta(cur, me, opt.get("area"), opt.get("index"))
-        return 10.0 + _attach_target_score(cur, me, opt.get("area"), opt.get("index"))
-    if ctx == SC_ATTACH_TO:
+    if ctx in (SC_ATTACH_FROM, SC_ATTACH_TO):
+        if LEARNED_VALUE and opt.get("area") in (AREA_ACTIVE, AREA_BENCH) \
+                and opt.get("playerIndex") in (None, me):
+            model = _lv_model()
+            if model is not None:
+                feats_now, p_now = _lv_now(cur, me, model)
+                f = _lv_after_attach(cur, me, feats_now,
+                                     opt.get("area"), opt.get("index"))
+                if f is not None:
+                    return 10.0 + _lv_delta(model, p_now, f)
+        if ctx == SC_ATTACH_FROM:
+            if V3_EVAL:
+                return 10.0 + _v3_attach_target_delta(cur, me, opt.get("area"), opt.get("index"))
+            return 10.0 + _attach_target_score(cur, me, opt.get("area"), opt.get("index"))
         if V3_EVAL and opt.get("area") in (AREA_ACTIVE, AREA_BENCH):
             return 10.0 + _v3_attach_target_delta(cur, me, opt.get("area"), opt.get("index"))
         return 10.0
@@ -700,6 +1034,10 @@ def _score_option(opt, sel, cur, me):
     stype = sel.get("type")
     ctx = sel.get("context")
     if stype == ST_MAIN:
+        if LEARNED_VALUE:
+            model = _lv_model()
+            if model is not None:
+                return _lv_score_main(opt, sel, cur, me, model)
         if V3_EVAL:
             return _v3_score_main(opt, sel, cur, me)
         return _score_main(opt, sel, cur, me)

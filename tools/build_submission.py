@@ -9,11 +9,17 @@ Pipeline (all pure Python, Windows-safe):
   5. package                  - tarfile with main.py/deck.csv/card_data.json at top level,
                                 verify member names and the 190 MiB budget
 
-Run:  python tools/build_submission.py
+Run:  python tools/build_submission.py                  (v1 heuristic bundle)
+      python tools/build_submission.py --learned-value  (value-model bundle:
+          ships value_weights.npz, bakes PTCG_LEARNED_VALUE default to on,
+          stamps AGENT_VERSION ptcg-lv-v1.1.0; smoke + import checks run with
+          the model engaged)
 """
 
+import argparse
 import io
 import json
+import os
 import shutil
 import subprocess
 import sys
@@ -25,6 +31,8 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 SAMPLE_CG_DIR = REPO / "sample_submission" / "sample_submission"
 BUNDLE_FILES = ["main.py", "deck.csv", "card_data.json"]
+LV_WEIGHTS = "value_weights.npz"
+LV_VERSION = "ptcg-lv-v1.1.0"
 MAX_SIZE_MIB = 190
 
 sys.path.insert(0, str(SAMPLE_CG_DIR))
@@ -147,22 +155,56 @@ r = agent({"select": {"type": 1, "context": 8, "minCount": 2, "maxCount": 2,
                       "option": [{"type": 3}, {"type": 3}, {"type": 3}]},
            "logs": [], "current": {"yourIndex": 0, "players": [{}, {}]}})
 assert len(r) == 2 and len(set(r)) == 2 and all(0 <= i < 3 for i in r), f"bad multi-select: {r}"
+
+if len(sys.argv) > 2 and sys.argv[2] == "lv":
+    # learned-value bundle: flag baked on, weights must load from the bundle
+    assert env["LEARNED_VALUE"] is True, "PTCG_LEARNED_VALUE default not baked on"
+    assert env["AGENT_VERSION"] == "ptcg-lv-v1.1.0", env["AGENT_VERSION"]
+    model = env["_lv_model"]()
+    assert model is not None, "value_weights.npz failed to load from bundle"
+    p = env["_lv_predict"](model, [[0.0] * env["N_STATE_FEATURES"]])[0]
+    assert 0.0 < p < 1.0, f"degenerate model output {p}"
+    print("LV-CHECK-OK p_empty=%.4f numpy=%s" % (p, model["np"] is not None))
 print("IMPORT-CHECK-OK deck_head=%s" % deck[:3])
 '''
 
 
-def import_check(bundle_dir):
+def import_check(bundle_dir, learned_value=False):
+    args = [sys.executable, "-c", IMPORT_CHECK_CODE, str(bundle_dir)]
+    if learned_value:
+        args.append("lv")
     with tempfile.TemporaryDirectory() as td:
-        proc = subprocess.run(
-            [sys.executable, "-c", IMPORT_CHECK_CODE, str(bundle_dir)],
-            cwd=td, capture_output=True, text=True, timeout=120)
+        proc = subprocess.run(args, cwd=td, capture_output=True, text=True, timeout=120)
     if proc.returncode != 0 or "IMPORT-CHECK-OK" not in proc.stdout:
         raise SystemExit(f"import check failed:\nSTDOUT:{proc.stdout}\nSTDERR:{proc.stderr}")
-    return proc.stdout.strip()
+    if learned_value and "LV-CHECK-OK" not in proc.stdout:
+        raise SystemExit(f"learned-value check failed:\nSTDOUT:{proc.stdout}\nSTDERR:{proc.stderr}")
+    if learned_value and "WARNING" in proc.stderr:
+        raise SystemExit(f"learned-value bundle warned on load:\n{proc.stderr}")
+    return " ".join(proc.stdout.split())
 
 
-def build():
-    print(f"repo: {REPO}")
+def bake_learned_value(main_path):
+    """Flip the flag default on and stamp the version in the bundled main.py."""
+    src = main_path.read_text(encoding="utf-8")
+    flag_old = 'LEARNED_VALUE = os.environ.get("PTCG_LEARNED_VALUE", "0") == "1"'
+    flag_new = 'LEARNED_VALUE = os.environ.get("PTCG_LEARNED_VALUE", "1") == "1"'
+    ver_old = 'AGENT_VERSION = "ptcg-heuristic-v1.0.0"'
+    ver_new = f'AGENT_VERSION = "{LV_VERSION}"'
+    if flag_old not in src or ver_old not in src:
+        raise SystemExit("bake_learned_value: expected lines not found in main.py")
+    main_path.write_text(
+        src.replace(flag_old, flag_new).replace(ver_old, ver_new), encoding="utf-8")
+
+
+def build(learned_value=False):
+    print(f"repo: {REPO}" + ("   [learned-value bundle]" if learned_value else ""))
+    bundle_files = list(BUNDLE_FILES) + ([LV_WEIGHTS] if learned_value else [])
+    if learned_value:
+        if not (REPO / LV_WEIGHTS).is_file():
+            raise SystemExit(f"{LV_WEIGHTS} not found in repo root")
+        # smoke eval must exercise the model path (env read at main import)
+        os.environ["PTCG_LEARNED_VALUE"] = "1"
 
     deck = read_deck(REPO / "deck.csv")
     cards, attacks = load_engine_card_db()
@@ -185,13 +227,15 @@ def build():
     if bundle.exists():
         shutil.rmtree(bundle)
     bundle.mkdir(parents=True)
-    for name in BUNDLE_FILES:
+    for name in bundle_files:
         shutil.copy2(REPO / name, bundle / name)
-    print(f"[4/5] {import_check(bundle)}")
+    if learned_value:
+        bake_learned_value(bundle / "main.py")
+    print(f"[4/5] {import_check(bundle, learned_value)}")
 
     tar_path = REPO / "submission.tar.gz"
     with tarfile.open(tar_path, "w:gz") as tar:
-        for name in BUNDLE_FILES:
+        for name in bundle_files:
             tar.add(bundle / name, arcname=name)
 
     with tarfile.open(tar_path, "r:gz") as tar:
@@ -199,8 +243,9 @@ def build():
     nested = [m for m in members if "/" in m or "\\" in m]
     if nested:
         raise SystemExit(f"archive has nested paths: {nested}")
-    if "main.py" not in members or "deck.csv" not in members:
-        raise SystemExit(f"main.py/deck.csv missing from archive top level: {members}")
+    missing = [m for m in bundle_files if m not in members]
+    if missing:
+        raise SystemExit(f"missing from archive top level: {missing} (members={members})")
     size_mib = tar_path.stat().st_size / (1024 * 1024)
     if size_mib > MAX_SIZE_MIB:
         raise SystemExit(f"archive is {size_mib:.1f} MiB, exceeds {MAX_SIZE_MIB} MiB budget")
@@ -209,4 +254,7 @@ def build():
 
 
 if __name__ == "__main__":
-    build()
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--learned-value", action="store_true",
+                    help=f"bundle {LV_WEIGHTS} with PTCG_LEARNED_VALUE baked on")
+    build(ap.parse_args().learned_value)

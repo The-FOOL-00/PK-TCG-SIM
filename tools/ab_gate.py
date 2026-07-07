@@ -91,6 +91,10 @@ def play_chunk(args):
     agent_mod = deck_compare.agent_mod
     defaults = {name: getattr(agent_mod, name)
                 for name in set(attrs_c) | set(attrs_i) if hasattr(agent_mod, name)}
+    # value-model calibration: challenger runs with LV_TRACE -> main.py appends
+    # P(win|now) per decision; bucket those against the game's actual outcome.
+    track = bool(attrs_c.get("LV_TRACE")) and hasattr(agent_mod, "VALUE_TRACE")
+    calib = [[0, 0, 0.0] for _ in range(10)]  # per bucket: n, wins, sum(p)
     out = {
         s: {"wins_seat0": 0, "wins_seat1": 0, "losses": 0, "draws": 0,
             "reasons_won": Counter(), "reasons_lost": Counter(), "crashes": 0}
@@ -101,12 +105,21 @@ def play_chunk(args):
         wrappers = [None, None]
         wrappers[seat_c] = make_wrapper(deck_c, attrs_c, defaults)
         wrappers[1 - seat_c] = make_wrapper(deck_i, attrs_i, defaults)
+        if track:
+            agent_mod.VALUE_TRACE[:] = []
         buf = io.StringIO()
         with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
             env = deck_compare.make("cabt", debug=True)
             env.run(wrappers)
         ev = deck_compare.game_events(env)
         reason = (ev["result"] or {}).get("reason")
+        if track:
+            won = env.state[seat_c].reward == 1
+            for p in agent_mod.VALUE_TRACE:
+                b = min(9, max(0, int(p * 10)))
+                calib[b][0] += 1
+                calib[b][1] += 1 if won else 0
+                calib[b][2] += p
         for side, seat in (("chal", seat_c), ("inc", 1 - seat_c)):
             st = out[side]
             if env.state[seat].status in ("INVALID", "ERROR", "TIMEOUT"):
@@ -120,6 +133,7 @@ def play_chunk(args):
                 st["reasons_lost"][reason] += 1
             else:
                 st["draws"] += 1
+    out["calib"] = calib
     return out
 
 
@@ -160,10 +174,16 @@ def run_gate(spec_c, spec_i, games, workers):
             "reasons_won": Counter(), "reasons_lost": Counter(), "crashes": 0}
         for s in ("chal", "inc")
     }
+    calib = [[0, 0, 0.0] for _ in range(10)]
     for ch in chunks:
         for s in total:
             for k, v in ch[s].items():
                 total[s][k] += v
+        for b, (n, w, sp) in enumerate(ch.get("calib") or []):
+            calib[b][0] += n
+            calib[b][1] += w
+            calib[b][2] += sp
+    total["calib"] = calib
     return total
 
 
@@ -197,6 +217,21 @@ def report(spec_c, spec_i, games, total, json_out=None, note=None):
           f"(CI lower bound {lo*100:.1f}% {'>' if lo > 0.5 else '<='} 50%)")
     if note:
         print(f"  note       : {note}")
+    calib = total.get("calib") or []
+    calib_rows = None
+    if any(b[0] for b in calib):
+        calib_rows = [
+            {"bucket": f"[{i/10:.1f}, {(i+1)/10:.1f})", "n": b[0],
+             "predicted_mean": (b[2] / b[0]) if b[0] else None,
+             "actual_win_rate": (b[1] / b[0]) if b[0] else None}
+            for i, b in enumerate(calib)
+        ]
+        print("  calibration (challenger P(win|state) per decision vs game outcome):")
+        print("    bucket        n        predicted   actual")
+        for r in calib_rows:
+            if r["n"]:
+                print(f"    {r['bucket']}   {r['n']:7d}      "
+                      f"{r['predicted_mean']:.3f}       {r['actual_win_rate']:.3f}")
     print("=" * 64)
 
     if json_out:
@@ -208,6 +243,7 @@ def report(spec_c, spec_i, games, total, json_out=None, note=None):
             "crashes": crashes,
             "reasons_won": dict(st["reasons_won"]),
             "reasons_lost": dict(st["reasons_lost"]),
+            "calibration": calib_rows,
         }
         Path(json_out).parent.mkdir(parents=True, exist_ok=True)
         Path(json_out).write_text(json.dumps(payload, indent=2), encoding="utf-8")

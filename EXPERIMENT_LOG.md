@@ -120,3 +120,41 @@ vs v1 through ab_gate.py, 300+ games.
   (12 sides), Dudunsparce/Alakazam (8), Mega Kangaskhan ex/Raging Bolt (8),
   Marnie's Grimmsnarl ex (10 across variants); avg first attack turn 4.7,
   avg game 13.1 turns, 0 bad statuses in sample.
+
+## 2026-07-07 — Phase 1c: learned value model integrated; gate FAIL, stays off
+
+Kaggle full-data training (user-run, 1.52M rows): MLP val AUC **0.8445**,
+val logloss 0.4810 (train 0.4800 — no overfit); logreg 0.763/0.577.
+`value_weights.npz` + `metrics.json` in repo root.
+
+Integration (`PTCG_LEARNED_VALUE`, default off): MAIN-phase + attach/promote
+selections scored tier + 400 × clip(P(win|after) − P(win|now), ±0.25); the
+"after" vector built analytically in feature space via `_encode_pokemon_slot`
+(same encoder as training — no drift). Numpy inference; pure-python .npz
+reader + matmul fallback (parity 8.6e-8) if numpy missing; missing/corrupt
+weights → one stderr warning → heuristic tiers (verified: scores byte-equal
+v1). C1/resolve_selection/fallback chain untouched. Timing model-ON:
+**avg 0.195 ms, max 2.69 ms**/decision (numpy); pure-python ~12 ms per
+15-option decision — both trivial vs the 600 s budget. 0 crashes/fallbacks.
+
+Gate (`ab_gate.py`, 300 games, seats alternated,
+runs/gate_lv_vs_v1_300g.json): W/L/D 146/154/0 → **48.7%, 95% CI
+[43.1%, 54.3%] → VERDICT: FAIL.** Flag stays OFF; v1 remains incumbent;
+nothing ships.
+
+In-game calibration from the gate (challenger P(win) per decision vs actual
+outcome, 3,123 decisions): monotone and tight at the extremes —
+[0.0,0.1)→0.045, [0.9,1.0)→0.973; mid-buckets over-optimistic by ~5–10 pts
+(e.g. [0.5,0.6) predicted 0.551, actual 0.451).
+
+**Reading: the value function is accurate but greedy 1-ply use of it does not
+beat v1's co-adapted heuristics** — same lesson as v3 (54.0% FAIL). The
+mirror match appears to leave little 1-ply headroom; depth is the missing
+ingredient, which is exactly rung (b) — Phase 2 search distillation, where
+this dataset and encoder are reused as the imitation buffer.
+
+Tooling kept for a future PASS: `build_submission.py --learned-value`
+(ships weights, bakes flag on, stamps ptcg-lv-v1.1.0; LV-CHECK verifies the
+model loads from the bundle — validated end-to-end, then the v1 bundle was
+rebuilt and re-verified as the shipped artifact). ab_gate.py now collects
+the calibration table whenever the challenger runs with `+LV_TRACE=true`.
