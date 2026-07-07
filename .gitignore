@@ -15,7 +15,10 @@ submission.tar.gz
 runs/
 
 # --- Generated game data (self-play / distillation shards; never commit) ---
-data/
+# data/* + negation (not `data/`): git can't re-include a file whose parent
+# directory is excluded, and the schema doc must stay in version control.
+data/*
+!data/README_DATA.md
 
 # --- Python / environment ---
 venv/

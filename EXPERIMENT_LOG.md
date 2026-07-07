@@ -77,3 +77,46 @@ fallback chain untouched. Bundle stays DLL-free; deltas come from
 - Side finding: strong first-seat advantage — challenger won 108/150 (72%)
   in seat 0 vs 54/150 (36%) in seat 1. Seat alternation in the protocol is
   load-bearing; any comparison that doesn't alternate seats is invalid.
+
+## 2026-07-07 — Phase 1a: self-play value-model data generated
+
+`tools/gen_selfplay.py --games 50000 --workers 8 --out data/selfplay_v1`:
+**50,000 games in 39.3 min (1,272 games/min), 1,521,362 decision rows**
+across 8 shards (27 MB compressed). Per row: 170-dim `main.encode_state`
+vector (encoder added to main.py — shipped policy never calls it; train and
+inference share one definition), outcome ±1/0 for the acting player, turn,
+game_id. Schema + feature index map: `data/README_DATA.md` +
+`data/selfplay_v1/meta.json`. Policy: v1 heuristic both sides, deck.csv,
+V3_EVAL off. Acting-player win rate in data 0.544 (both seats logged;
+remainder draws).
+
+## 2026-07-07 — Phase 1b: train_value.py validated locally (2k-game subsample)
+
+`training/train_value.py --data data/selfplay_v1 --out runs/train_value_local2k
+--max-rows 60000` (1,971 games / 60,355 rows, split BY GAME, 5,423 val):
+
+- logreg (171 params): val logloss 0.6757 after 6 epochs, still improving.
+- MLP 170→128→64→1 (30,209 params): **val logloss 0.6099, val AUC 0.7247**
+  (coin-flip = 0.693). Calibration monotonic in all 10 buckets
+  (e.g. bucket [0.9,1.0): predicted 0.939, actual 0.921).
+- Weight file round-trips through the documented inference contract
+  (n_layers/W*/b* → relu/sigmoid matmuls) with plain numpy, no repo imports.
+- Runtime: seconds on CPU at this size; full 1.5M rows estimated 10–25 min.
+
+Conclusion: signal exists even at 4% of the data; the package is safe to run
+remotely. → TRAINING HANDOFF #1 (Kaggle notebook, see
+training/README_TRAINING.md). Gate after weights return: PTCG_LEARNED_VALUE
+vs v1 through ab_gate.py, 300+ games.
+
+## 2026-07-07 — Phase 3: ladder_watch + meta_miner live; meta_miner card-DB fix
+
+- `tools/ladder_watch.py`: submission 54418735 COMPLETE, μ 504.5 vs
+  leaderboard top 1133.5 / top-20 1054.3 / median 673.2 (4,459 teams).
+  No INVALID/timeout losses (would be P0).
+- `tools/meta_miner.py` bug: it labeled every ladder deck "unknown" because
+  it looked cards up in `main.CARDS`, which only contains OUR deck's 9 ids.
+  Fix: load the full 1,267-card DB from `EN_Card_Data.csv`. Regenerated
+  META.md (40 episodes of 2026-07-06): top-20 field = Cynthia's Garchomp ex
+  (12 sides), Dudunsparce/Alakazam (8), Mega Kangaskhan ex/Raging Bolt (8),
+  Marnie's Grimmsnarl ex (10 across variants); avg first attack turn 4.7,
+  avg game 13.1 turns, 0 bad statuses in sample.

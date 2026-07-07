@@ -411,6 +411,132 @@ def evaluate_state(cur):
     return v
 
 
+# ---------------------------------------------------------------------------
+# State feature encoder (RL groundwork). Pure feature extraction from
+# Observation.current + card_data.json — stdlib only, no engine calls.
+# The shipped policy never calls this unless a learned-value flag is on;
+# tools/gen_selfplay.py imports it so training data and runtime inference
+# share ONE feature definition (train/serve parity).
+# ---------------------------------------------------------------------------
+
+ENC_HP_SCALE = 350.0
+ENC_DMG_SCALE = 400.0
+N_HAND_SLOTS = 15
+HAND_SLOT_IDS = tuple(sorted(set(DECK)))[:N_HAND_SLOTS]
+N_SLOT_FEATURES = 11
+N_STATE_FEATURES = 12 * N_SLOT_FEATURES + 23 + N_HAND_SLOTS  # 170
+
+
+def _encode_pokemon_slot(pk, opp_active_card, dyn_dmg):
+    """11 features for one board slot; zeros when the slot is empty.
+
+    `dyn_dmg` (or None) overrides the static best-attack damage — needed for
+    deck-density attacks like Hammer-lanche whose db damage is 0.
+    """
+    if not pk:
+        return [0.0] * N_SLOT_FEATURES
+    c = _card(pk.get("id"))
+    hp = float(pk.get("hp") or 0)
+    max_hp = float(pk.get("maxHp") or c.get("hp") or 0)
+    n_energy = float(len(pk.get("energies") or []))
+    best_dmg, best_cost = _best_attack_info(pk.get("id"))
+    if dyn_dmg is not None:
+        best_dmg = max(best_dmg, dyn_dmg)
+    weak = 1.0 if (opp_active_card is not None
+                   and c.get("weakness") is not None
+                   and c.get("weakness") == opp_active_card.get("energyType")) else 0.0
+    return [
+        1.0,
+        hp / ENC_HP_SCALE,
+        max_hp / ENC_HP_SCALE,
+        max(0.0, max_hp - hp) / ENC_HP_SCALE,
+        n_energy / 5.0,
+        1.0 if c.get("ex") else 0.0,
+        1.0 if c.get("megaEx") else 0.0,
+        min(best_dmg, 800.0) / ENC_DMG_SCALE,
+        max(0.0, best_cost - n_energy) / 4.0,
+        (c.get("retreatCost") or 0) / 4.0,
+        weak,
+    ]
+
+
+def _encode_board_slots(cur, me, player, opp_active_card, dynamic):
+    """Active + 5 bench slots (padded). dynamic=True uses our density-aware
+    damage estimate — only valid for the observing player's own slots."""
+    out = []
+    board = [_active_pokemon(player)] + list(player.get("bench") or [])[:5]
+    while len(board) < 6:
+        board.append(None)
+    for pk in board[:6]:
+        dyn = None
+        if dynamic and pk:
+            dyn = max((_attack_damage_est(aid, cur, me)
+                       for aid in _card(pk.get("id")).get("attacks") or []),
+                      default=None)
+        out.extend(_encode_pokemon_slot(pk, opp_active_card, dyn))
+    return out
+
+
+def encode_state(cur):
+    """170-dim feature list for the observing player. All ~[0, 1] scaled."""
+    me = cur.get("yourIndex") or 0
+    mine, theirs = _my(cur, me), _opp(cur, me)
+    my_act, opp_act = _active_pokemon(mine), _active_pokemon(theirs)
+    my_act_card = _card(my_act.get("id")) if my_act else None
+    opp_act_card = _card(opp_act.get("id")) if opp_act else None
+
+    feats = _encode_board_slots(cur, me, mine, opp_act_card, True)
+    feats += _encode_board_slots(cur, me, theirs, my_act_card, False)
+
+    feats.append(min(float(cur.get("turn") or 0), 40.0) / 20.0)
+    feats.append(len(mine.get("prize") or []) / 6.0)
+    feats.append(len(theirs.get("prize") or []) / 6.0)
+    feats.append((mine.get("deckCount") or 0) / 60.0)
+    feats.append((theirs.get("deckCount") or 0) / 60.0)
+    feats.append((mine.get("handCount") or len(mine.get("hand") or [])) / 10.0)
+    feats.append((theirs.get("handCount") or 0) / 10.0)
+    feats.append(_count_basic_energy(mine.get("discard")) / 35.0)
+    feats.append(_count_basic_energy(theirs.get("discard")) / 35.0)
+    for flag in ("supporterPlayed", "energyAttached", "retreated"):
+        feats.append(1.0 if cur.get(flag) else 0.0)
+    for p in (mine, theirs):
+        for cond in ("poisoned", "burned", "asleep", "paralyzed", "confused"):
+            feats.append(1.0 if p.get(cond) else 0.0)
+    feats.append(1.0 if cur.get("firstPlayer") == me else 0.0)
+
+    counts = {}
+    for c in mine.get("hand") or []:
+        if c:
+            counts[c.get("id")] = counts.get(c.get("id"), 0) + 1
+    for i in range(N_HAND_SLOTS):
+        if i < len(HAND_SLOT_IDS):
+            feats.append(min(counts.get(HAND_SLOT_IDS[i], 0), 4) / 4.0)
+        else:
+            feats.append(0.0)
+    return feats
+
+
+def state_feature_names():
+    """Index map for encode_state — kept adjacent so they move together."""
+    slot_feats = ["present", "hp", "max_hp", "damage_taken", "energy",
+                  "is_ex", "is_mega_ex", "best_dmg", "energy_needed",
+                  "retreat_cost", "weak_to_opp_active"]
+    names = []
+    for side in ("my", "opp"):
+        for slot in ["active"] + ["bench%d" % i for i in range(5)]:
+            names += ["%s_%s_%s" % (side, slot, f) for f in slot_feats]
+    names += ["turn", "my_prizes_left", "opp_prizes_left", "my_deck", "opp_deck",
+              "my_hand_n", "opp_hand_n", "my_discard_energy", "opp_discard_energy",
+              "supporter_played", "energy_attached", "retreated"]
+    for side in ("my", "opp"):
+        names += ["%s_%s" % (side, c)
+                  for c in ("poisoned", "burned", "asleep", "paralyzed", "confused")]
+    names += ["i_am_first_player"]
+    names += ["hand_count_id%d" % cid for cid in HAND_SLOT_IDS]
+    names += ["hand_count_pad%d" % i for i in range(len(HAND_SLOT_IDS), N_HAND_SLOTS)]
+    return names
+
+
 def _v3_attach_target_delta(cur, me, area, index):
     """Value gained by attaching one energy to the Pokemon at (area, index)."""
     pk = _pokemon_at(cur, me, area, index, me)
