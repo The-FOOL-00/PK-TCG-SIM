@@ -63,9 +63,16 @@ predicted 0.956 / actual 0.973) — the value function is *accurate*; greedy
 Together H2+H3 quantify the 1-ply ceiling and motivate rung b (depth via
 search distillation).
 
-**H4 — search distillation beats rung a (rung b).** TODO Phase 2: teacher
-strength measurement (gate: >60% CI-backed vs our best), imitation top-1
-accuracy, gate verdict.
+**H4 — search distillation beats v1 (rung b, teacher phase done).** The
+engine's `search_begin` is a determinized forward simulator, not a search;
+we built flat determinized Monte Carlo on it (v1 rollouts, rung-a value net
+at the step cap). Strength curve (all n=300 gates): 2 samples/option 48.0%
+→ 16 samples 56.0% [50.3, 61.5] → 32 samples **58.7% [53.0, 64.1]** →
+64 samples 57.0% (saturated; wider candidate sets change nothing). First
+CI-backed >50% policy in the project, but below our pre-registered 60%
+teacher bar — the ceiling is the v1 rollout policy, motivating expert
+iteration (distill → roll out with student → re-distill). TODO: chosen
+teacher path, imitation accuracy, student gate verdict.
 
 **Methodological finding — seat matters.** In the H2 gate the challenger won
 72% in seat 0 vs 36% in seat 1 (n=150 each). Any comparison that does not
