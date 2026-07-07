@@ -23,6 +23,15 @@ import time
 AGENT_VERSION = "ptcg-heuristic-v1.0.0"
 
 # ---------------------------------------------------------------------------
+# v3 feature flag: 1-ply analytic state evaluation for MAIN-phase decisions.
+# Off by default so the shipped bundle behaves exactly like v1 unless enabled.
+# Toggle via env var (bundle-time) or module attribute (local A/B harness).
+# Runtime stays DLL-free: option scores use analytic deltas from
+# card_data.json only; full engine simulation is a local-tuning-only tool.
+# ---------------------------------------------------------------------------
+V3_EVAL = os.environ.get("PTCG_V3_EVAL", "0") == "1"
+
+# ---------------------------------------------------------------------------
 # Engine enums (values copied from the sample submission's cg/api.py)
 # ---------------------------------------------------------------------------
 AREA_DECK, AREA_HAND, AREA_DISCARD, AREA_ACTIVE, AREA_BENCH, AREA_PRIZE = 1, 2, 3, 4, 5, 6
@@ -73,6 +82,25 @@ ACTIVE_TARGET_BONUS = 100.0
 POWERING_UP_BONUS = 50.0
 ATTACK_DAMAGE_SCALE = 0.5         # attack score = base + min(dmg, 1900) * scale
 YESNO_MATCH = 10.0
+
+# ---------------------------------------------------------------------------
+# v3 evaluator weights (sign convention: positive = good for us).
+# evaluate_state() is a linear value function over Observation.current;
+# MAIN-phase options are scored tier + (evaluate_state(after) - evaluate_state(now)),
+# with the "after" state approximated analytically from card_data.json.
+# Tiers reuse the v1 constants so turn structure (setup before attack) holds.
+# ---------------------------------------------------------------------------
+V3_W_PRIZE = 60.0           # per prize card of differential (theirs remaining - ours)
+                            # tuned 2026-07-07: hill-climb over ACTIVE/ATTACKER_ENERGY/
+                            # PRIZE/KO_THREAT, 100-game rounds; this config confirmed
+                            # 53% vs v1 policy over 200 games (runs/tune_v3.json)
+V3_W_BOARD_HP = 0.10        # per point of on-board HP differential
+V3_W_ATTACKER_ENERGY = 40.0 # per useful energy (<= attack cost) on our best attacker
+V3_W_KO_THREAT = 60.0       # our active can KO the opposing active this turn
+V3_W_BENCH = 12.0           # per Pokemon on our bench
+V3_W_HAND = 2.0             # per card in our hand
+V3_W_ACTIVE = 30.0          # attach/evolve preference for the Active Spot: only
+                            # the active attacks, and retreat costs 3-4 here
 
 # Fallback deck (sample submission deck) used only if deck.csv is unreadable.
 FALLBACK_DECK = (
@@ -317,6 +345,125 @@ def _attach_target_score(cur, me, in_area, in_index):
     return s
 
 
+# ---------------------------------------------------------------------------
+# v3: state evaluator + analytic 1-ply option deltas (MAIN phase)
+# ---------------------------------------------------------------------------
+
+def _board(player):
+    return [pk for pk in (player.get("active") or []) + (player.get("bench") or []) if pk]
+
+
+def _prizes_for_ko(cid):
+    c = _card(cid)
+    if c.get("megaEx"):
+        return 3
+    if c.get("ex"):
+        return 2
+    return 1
+
+
+def _best_attacker(cur, me):
+    """Our board Pokemon with the strongest attack: (pk, best_dmg, cost_len)."""
+    best = None
+    for pk in _board(_my(cur, me)):
+        dmg, cost = _best_attack_info(pk.get("id"))
+        if best is None or dmg > best[1]:
+            best = (pk, dmg, cost)
+    return best
+
+
+def _active_ready_damage(cur, me):
+    """Best damage our active can deal THIS turn (attacks whose cost is paid)."""
+    pk = _active_pokemon(_my(cur, me))
+    if not pk:
+        return 0.0
+    n_energy = len(pk.get("energies") or [])
+    best = 0.0
+    for aid in _card(pk.get("id")).get("attacks") or []:
+        atk = ATTACKS.get(aid)
+        if atk and len(atk.get("energies") or []) <= n_energy:
+            best = max(best, _attack_damage_est(aid, cur, me))
+    return best
+
+
+def evaluate_state(cur):
+    """Linear value of Observation.current for the observing player.
+
+    Positive = good for us. Prize arrays hold cards REMAINING to take, so
+    fewer of ours remaining means we are ahead.
+    """
+    me = cur.get("yourIndex") or 0
+    mine, theirs = _my(cur, me), _opp(cur, me)
+    v = V3_W_PRIZE * (len(theirs.get("prize") or []) - len(mine.get("prize") or []))
+    my_hp = sum((pk.get("hp") or 0) for pk in _board(mine))
+    their_hp = sum((pk.get("hp") or 0) for pk in _board(theirs))
+    v += V3_W_BOARD_HP * (my_hp - their_hp)
+    best = _best_attacker(cur, me)
+    if best is not None:
+        pk, _dmg, cost = best
+        v += V3_W_ATTACKER_ENERGY * min(len(pk.get("energies") or []), cost)
+    opp_pk = _active_pokemon(theirs)
+    if opp_pk and (opp_pk.get("hp") or 0) > 0 \
+            and _active_ready_damage(cur, me) >= opp_pk["hp"]:
+        v += V3_W_KO_THREAT
+    v += V3_W_BENCH * len(mine.get("bench") or [])
+    v += V3_W_HAND * len(mine.get("hand") or [])
+    return v
+
+
+def _v3_attach_target_delta(cur, me, area, index):
+    """Value gained by attaching one energy to the Pokemon at (area, index)."""
+    pk = _pokemon_at(cur, me, area, index, me)
+    if not pk:
+        return 0.0
+    best = _best_attacker(cur, me)
+    dmg, cost = _best_attack_info(pk.get("id"))
+    n_energy = len(pk.get("energies") or [])
+    s = V3_W_ACTIVE if area == AREA_ACTIVE else 0.0
+    if best is not None and pk.get("serial") == best[0].get("serial") and n_energy < best[2]:
+        return s + V3_W_ATTACKER_ENERGY
+    if n_energy < cost:
+        return s + V3_W_ATTACKER_ENERGY * 0.25 + dmg / 100.0
+    return s + 1.0
+
+
+def _v3_score_main(opt, sel, cur, me):
+    """Tier + analytic evaluate_state delta for the option types where the
+    delta is computable from card_data.json; falls back to v1 elsewhere."""
+    t = opt.get("type")
+    mine = _my(cur, me)
+    if t == OT_ATTACK:
+        dmg = _attack_damage_est(opt.get("attackId"), cur, me)
+        opp_pk = _active_pokemon(_opp(cur, me))
+        opp_hp = (opp_pk or {}).get("hp") or 0
+        if opp_pk and dmg >= opp_hp > 0:
+            return WEIGHT_LETHAL + V3_W_PRIZE * _prizes_for_ko(opp_pk.get("id")) \
+                + V3_W_BOARD_HP * opp_hp
+        return WEIGHT_ATTACK_BASE + V3_W_BOARD_HP * min(dmg, opp_hp if opp_hp else dmg)
+    if t == OT_ATTACH:
+        cid = _option_card_id(opt, sel, cur, me)
+        if _card(cid).get("cardType") == CT_TOOL:
+            return WEIGHT_ATTACH_TOOL + _attach_target_score(
+                cur, me, opt.get("inPlayArea"), opt.get("inPlayIndex")) * 0.5
+        return WEIGHT_ATTACH_ENERGY + _v3_attach_target_delta(
+            cur, me, opt.get("inPlayArea"), opt.get("inPlayIndex"))
+    if t == OT_EVOLVE:
+        cid = _option_card_id(opt, sel, cur, me)
+        target = _pokemon_at(cur, me, opt.get("inPlayArea"), opt.get("inPlayIndex"), me)
+        c = _card(cid)
+        hp_gain = (c.get("hp") or 0) - ((target or {}).get("maxHp") or 0)
+        dmg_gain = _best_attack_info(cid)[0] - _best_attack_info((target or {}).get("id"))[0]
+        s = V3_W_ACTIVE if opt.get("inPlayArea") == AREA_ACTIVE else 0.0
+        return WEIGHT_EVOLVE + s + V3_W_BOARD_HP * max(0, hp_gain) + max(0, dmg_gain) / 10.0
+    if t == OT_PLAY:
+        cid = _hand_card_id(cur, me, opt.get("index"))
+        if _card(cid).get("cardType") == CT_POKEMON:
+            in_play = len(mine.get("active") or []) + len(mine.get("bench") or [])
+            tier = WEIGHT_BENCH_URGENT if in_play <= 1 else WEIGHT_BENCH
+            return tier + V3_W_BENCH + V3_W_BOARD_HP * (_card(cid).get("hp") or 0) - V3_W_HAND
+    return _score_main(opt, sel, cur, me)
+
+
 def _score_main(opt, sel, cur, me):
     t = opt.get("type")
     if t == OT_ATTACK:
@@ -397,8 +544,14 @@ def _score_card(opt, sel, cur, me, ctx):
             s += ACTIVE_TARGET_BONUS
         return 10.0 + s
     if ctx == SC_ATTACH_FROM:
+        if V3_EVAL:
+            return 10.0 + _v3_attach_target_delta(cur, me, opt.get("area"), opt.get("index"))
         return 10.0 + _attach_target_score(cur, me, opt.get("area"), opt.get("index"))
-    if ctx in (SC_ATTACH_TO, SC_LOOK, SC_EFFECT_TARGET):
+    if ctx == SC_ATTACH_TO:
+        if V3_EVAL and opt.get("area") in (AREA_ACTIVE, AREA_BENCH):
+            return 10.0 + _v3_attach_target_delta(cur, me, opt.get("area"), opt.get("index"))
+        return 10.0
+    if ctx in (SC_LOOK, SC_EFFECT_TARGET):
         return 10.0
     return 0.0
 
@@ -421,6 +574,8 @@ def _score_option(opt, sel, cur, me):
     stype = sel.get("type")
     ctx = sel.get("context")
     if stype == ST_MAIN:
+        if V3_EVAL:
+            return _v3_score_main(opt, sel, cur, me)
         return _score_main(opt, sel, cur, me)
     if stype in (ST_CARD, ST_CARD_OR_ATTACHED, ST_ATTACHED_CARD):
         return _score_card(opt, sel, cur, me, ctx)

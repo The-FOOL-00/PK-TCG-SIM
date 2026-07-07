@@ -14,6 +14,9 @@ build/
 submission.tar.gz
 runs/
 
+# --- Generated game data (self-play / distillation shards; never commit) ---
+data/
+
 # --- Python / environment ---
 venv/
 __pycache__/
