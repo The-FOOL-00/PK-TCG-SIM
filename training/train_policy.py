@@ -45,8 +45,9 @@ Forward pass per decision:
 
 Also writes: policy_weights_linear.npz, policy_weights_mlp.npz,
 policy_weights.npz (copy of the better one by val top-1 accuracy), and
-metrics.json (logloss, top-1 imitation accuracy, and the two floor
-baselines: v1-agreement rate and uniform-random expectation).
+metrics.json (logloss, top-1 imitation accuracy, the two floor baselines
+(v1-agreement rate and uniform-random expectation), per-epoch train/val
+curves, and the exact decision/game counts per split).
 
 Run:  python train_policy.py --data DATA_DIR --out OUT_DIR \
           [--epochs 10] [--batch 2048] [--lr 1e-3] [--max-decisions 0] [--seed 0]
@@ -74,6 +75,7 @@ class Dataset:
         self.ptr = np.concatenate([[0], np.cumsum(self.n)])
         self.label = label.astype(np.int64)
         self.game_id = game_id
+        self.n_games = len(np.unique(game_id))
 
     def __len__(self):
         return len(self.label)
@@ -92,21 +94,47 @@ class Dataset:
         return (self.state[idx], self.opt_x[rows], counts, seg, bptr, lab_pos)
 
 
+def find_shard_files(data_dir):
+    """Locate shards in data_dir or one subdirectory down (Kaggle sometimes
+    nests or flattens an uploaded dataset). On failure, list what WAS found
+    so a wrong --data is diagnosable from the message alone."""
+    root = Path(data_dir)
+    for pat in ("shard_*.npz", "*/shard_*.npz", "*.npz", "*/*.npz"):
+        files = sorted(root.glob(pat))
+        if files:
+            return files
+    found = []
+    if root.is_dir():
+        for p in sorted(root.iterdir()):
+            found.append(p.name + ("/" if p.is_dir() else ""))
+            if p.is_dir():
+                found.extend(f"    {q.name}" for q in sorted(p.iterdir())[:10])
+    listing = "\n  ".join(found[:50]) if found \
+        else "(directory is missing or empty)"
+    raise SystemExit(
+        f"no .npz shards found under {root} (looked for shard_*.npz then "
+        f"*.npz, there and one subdirectory down).\nContents found:\n"
+        f"  {listing}")
+
+
 def load_shards(data_dir, max_decisions=0):
-    files = sorted(Path(data_dir).glob("shard_*.npz")) \
-        or sorted(Path(data_dir).glob("*.npz"))
-    if not files:
-        raise SystemExit(f"no .npz shards found in {data_dir}")
+    """Returns (train Dataset, val Dataset, directory the shards were in)."""
+    files = find_shard_files(data_dir)
     parts = {k: [] for k in ("state", "opt_x", "n_options", "label", "game_id")}
     for f in files:
         d = np.load(f)
         for k in parts:
             parts[k].append(d[k])
-    state = np.concatenate(parts["state"]).astype(np.float32)
-    opt_x = np.concatenate(parts["opt_x"]).astype(np.float32)
+    state = np.concatenate(parts["state"]).astype(np.float32, copy=False)
+    opt_x = np.concatenate(parts["opt_x"]).astype(np.float32, copy=False)
     n_options = np.concatenate(parts["n_options"])
     label = np.concatenate(parts["label"])
     game_id = np.concatenate(parts["game_id"])
+    del parts
+    mb = (state.nbytes + opt_x.nbytes) / 2**20
+    print(f"loaded {len(files)} shards from {files[0].parent} "
+          f"(~{mb:.0f} MB of features; expect ~{2.5 * mb:.0f} MB peak RSS "
+          f"while splitting)", flush=True)
 
     if max_decisions and len(label) > max_decisions:
         games = np.unique(game_id)
@@ -129,7 +157,7 @@ def load_shards(data_dir, max_decisions=0):
           f"games: {len(np.unique(game_id))}  "
           f"option rows: {len(opt_x)}  "
           f"mean options/decision: {n_options.mean():.1f}", flush=True)
-    return tr, va
+    return tr, va, files[0].parent
 
 
 # ---------------------------------------------------------------- model ----
@@ -229,7 +257,8 @@ def train(model, tr, va, epochs, batch, lr, seed, tag):
     ms = [[np.zeros_like(w), np.zeros_like(b)] for w, b in ps]
     vs = [[np.zeros_like(w), np.zeros_like(b)] for w, b in ps]
     beta1, beta2, eps, t = 0.9, 0.999, 1e-8, 0
-    best = {"acc": -1.0, "ll": float("inf"), "epoch": 0, "model": None}
+    best = {"acc": -1.0, "ll": float("inf"), "epoch": 0, "model": None,
+            "history": []}
     for epoch in range(1, epochs + 1):
         order = rng.permutation(len(tr))
         t0 = time.perf_counter()
@@ -249,6 +278,10 @@ def train(model, tr, va, epochs, batch, lr, seed, tag):
                     layer[j] -= lr * mh / (np.sqrt(vh) + eps)
         tr_ll, tr_acc = evaluate(model, tr)
         va_ll, va_acc = evaluate(model, va)
+        dt = time.perf_counter() - t0
+        best["history"].append(
+            {"epoch": epoch, "train_ce": tr_ll, "train_acc": tr_acc,
+             "val_ce": va_ll, "val_acc": va_acc, "seconds": round(dt, 1)})
         star = ""
         if (va_acc, -va_ll) > (best["acc"], -best["ll"]):
             best.update(acc=va_acc, ll=va_ll, epoch=epoch,
@@ -257,7 +290,7 @@ def train(model, tr, va, epochs, batch, lr, seed, tag):
         print(f"[{tag}] epoch {epoch}/{epochs}: "
               f"train CE {tr_ll:.4f} acc {tr_acc:.4f} | "
               f"val CE {va_ll:.4f} acc {va_acc:.4f} "
-              f"({time.perf_counter()-t0:.0f}s){star}", flush=True)
+              f"({dt:.0f}s){star}", flush=True)
     return best
 
 
@@ -298,13 +331,14 @@ def main():
 
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
-    tr, va = load_shards(args.data, args.max_decisions)
+    tr, va, shard_dir = load_shards(args.data, args.max_decisions)
     if tr.state.shape[1] != N_STATE or tr.opt_x.shape[1] != N_OPT:
         raise SystemExit(f"feature dims {tr.state.shape[1]}/{tr.opt_x.shape[1]} "
                          f"!= expected {N_STATE}/{N_OPT}")
     # v1_top is the last option feature; confirm from meta.json when present
+    # (looked up next to the shards, in case the dataset dir is nested)
     v1_top_col = N_OPT - 1
-    meta_fp = Path(args.data) / "meta.json"
+    meta_fp = shard_dir / "meta.json"
     if meta_fp.is_file():
         names = json.loads(meta_fp.read_text(encoding="utf-8")).get(
             "option_feature_names") or []
@@ -326,6 +360,7 @@ def main():
         results[tag] = {"params": n_par, "best_epoch": best["epoch"],
                         "val_logloss": best["ll"],
                         "val_top1_accuracy": best["acc"],
+                        "epoch_curves": best["history"],
                         "model": best["model"]}
         save_weights(out / f"policy_weights_{tag}.npz", best["model"],
                      f"policy_{tag}")
@@ -334,10 +369,13 @@ def main():
                                             -results[k]["val_logloss"]))
     save_weights(out / "policy_weights.npz", results[best_name]["model"],
                  f"policy_{best_name}")
-    metrics = {"data": str(args.data),
+    metrics = {"data": str(args.data), "shard_dir": str(shard_dir),
                "decisions_train": len(tr), "decisions_val": len(va),
+               "games_train": tr.n_games, "games_val": va.n_games,
+               "option_rows_train": len(tr.opt_x),
+               "option_rows_val": len(va.opt_x),
                "epochs": args.epochs, "batch": args.batch, "lr": args.lr,
-               "baselines": floors, "best": best_name}
+               "seed": args.seed, "baselines": floors, "best": best_name}
     for tag, r in results.items():
         metrics[tag] = {k: v for k, v in r.items() if k != "model"}
     (out / "metrics.json").write_text(json.dumps(metrics, indent=2),

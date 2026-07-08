@@ -84,26 +84,31 @@ Create ONE private Kaggle dataset (e.g. `ptcg-distill-c1`) containing:
 ```python
 !python /kaggle/input/ptcg-distill-c1/train_policy.py \
     --data /kaggle/input/ptcg-distill-c1 \
-    --out  /kaggle/working
+    --out  /kaggle/working --epochs 15
 ```
 
-(If you nested the shards in a subfolder, point `--data` there. The script
-globs `shard_*.npz` in that one directory.)
+(Nesting is handled: the script looks for `shard_*.npz` in `--data` and one
+subdirectory down, and reads `meta.json` from wherever the shards are. If it
+finds no shards it exits with a listing of what IS under `--data` — fix the
+path from that.)
 
 ### Expected output / runtime
 
-- Prints floor baselines first (v1-agreement + uniform-random accuracy),
-  then per-epoch train/val cross-entropy and top-1 accuracy for `linear`
-  (212 params) then `mlp` (~37k params), 10 epochs each. On 500k decisions
-  expect roughly **20–45 min total on CPU** (~1–3 min/epoch for the MLP).
-- If val accuracy is still climbing at epoch 10, rerun with `--epochs 15`
+- Prints the shard count + RAM estimate, floor baselines (v1-agreement +
+  uniform-random accuracy), then per-epoch train/val cross-entropy and
+  top-1 accuracy for `linear` (212 params) then `mlp` (~37k params). On
+  500k decisions expect roughly **25–60 min total on CPU** (~1 min/epoch
+  for the MLP; measured 0.3 s/epoch on a 5.8k-decision dry run, scaled).
+  Peak RAM is ~2–3 GB — far inside the ~30 GB Kaggle CPU box.
+- If val accuracy is still climbing at epoch 15, rerun with `--epochs 25`
   — the saved weights are always the best-val-accuracy epoch snapshot, so
   extra epochs can only help.
 - Files in `/kaggle/working`:
   - `policy_weights.npz`  <- **the one file to download back**
   - `policy_weights_linear.npz`, `policy_weights_mlp.npz` (cheap insurance)
-  - `metrics.json` (top-1 imitation accuracy + baselines — download too;
-    the integration gate report needs it)
+  - `metrics.json` (top-1 imitation accuracy, baselines, per-epoch
+    train/val curves, and exact decision/game counts per split — download
+    too; the integration gate report needs it)
 
 ### What to hand back
 
