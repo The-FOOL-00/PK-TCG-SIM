@@ -15,6 +15,21 @@ perspective:
 Non-searched decisions are pure v1 and are not logged (the student keeps v1
 for those phases at inference).
 
+INTERRUPTIBLE / RESUMABLE:
+  - Shards are flushed every --shard-decisions (default 2,500 ≈ half an
+    hour per worker) and written atomically (tmp + os.replace), so files on
+    disk are always complete and valid.
+  - Graceful stop: create a file named STOP in the output directory
+    (e.g. ``New-Item -ItemType File data\\distill_c1\\STOP``). Every worker
+    finishes its current game, flushes its buffer, and exits — zero loss.
+    A stale STOP file is removed automatically at the next launch.
+  - Resume: on launch, existing shards in --out are scanned; only the
+    REMAINDER up to --decisions is generated. game_id numbering continues
+    from each worker's own previous shards, so ids never collide across
+    launches (a hard kill costs at most the unflushed buffer; a partial
+    .tmp file is ignored, an unreadable shard is renamed .bad and its
+    decisions regenerated).
+
 Known caveat (accepted for cycle 1, see EXPERIMENT_LOG.md): teacher
 determinizations assume the opponent's 60-card list is OUR deck list — exact
 in mirror self-play, an information leak vs ladder conditions.
@@ -29,7 +44,8 @@ Output: .npz shards under --out (gitignored), each holding
                decision order (reconstruct offsets via cumsum of n_options)
 plus meta.json (schema, feature name maps, teacher config, AGENT_VERSION).
 
-Run:  python tools/gen_distill.py --decisions 500000 --workers 8 \
+Run (fresh or resume — same command):
+      python tools/gen_distill.py --decisions 500000 --workers 8 \
           --out data/distill_c1
 """
 
@@ -37,6 +53,8 @@ import argparse
 import contextlib
 import io
 import json
+import os
+import re
 import sys
 import time
 from pathlib import Path
@@ -45,21 +63,27 @@ REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
 
 TEACHER_CFG = {"det": 16, "roll": 2, "topk": 4, "cap": 400}
-SHARD_DECISIONS_DEFAULT = 40_000  # ~28 MB state + ~66 MB opt_x raw per shard
+SHARD_DECISIONS_DEFAULT = 2_500   # ~30 min/worker; hard-kill loss bound
+GAME_ID_STRIDE = 10_000_000       # game_id = worker_id * STRIDE + game index
+STOP_NAME = "STOP"
+SHARD_RE = re.compile(r"shard_w(\d+)_(\d+)\.npz$")
 
 
 def _flush(out_dir, worker_id, seq, buf):
     import numpy as np
     path = Path(out_dir) / f"shard_w{worker_id}_{seq:03d}.npz"
-    np.savez_compressed(
-        path,
-        state=np.asarray(buf["state"], dtype=np.float32),
-        n_options=np.asarray(buf["n_options"], dtype=np.int16),
-        label=np.asarray(buf["label"], dtype=np.int16),
-        turn=np.asarray(buf["turn"], dtype=np.int16),
-        game_id=np.asarray(buf["game_id"], dtype=np.int32),
-        opt_x=np.concatenate(buf["opt_rows"], axis=0),
-    )
+    tmp = path.with_name(path.name + ".tmp")
+    with open(tmp, "wb") as f:
+        np.savez_compressed(
+            f,
+            state=np.asarray(buf["state"], dtype=np.float32),
+            n_options=np.asarray(buf["n_options"], dtype=np.int16),
+            label=np.asarray(buf["label"], dtype=np.int16),
+            turn=np.asarray(buf["turn"], dtype=np.int16),
+            game_id=np.asarray(buf["game_id"], dtype=np.int32),
+            opt_x=np.concatenate(buf["opt_rows"], axis=0),
+        )
+    os.replace(tmp, path)  # readers never see a partial shard
     print(f"[w{worker_id}] wrote {path.name}: {len(buf['label'])} decisions",
           flush=True)
     for v in buf.values():
@@ -67,8 +91,40 @@ def _flush(out_dir, worker_id, seq, buf):
     return seq + 1
 
 
+def scan_existing(out_dir):
+    """Inventory complete shards. Returns (decisions_done_total,
+    {worker: next_seq}, {worker: next_game_index}). Unreadable shards are
+    renamed .bad (their decisions get regenerated); .tmp leftovers deleted."""
+    import numpy as np
+    done, next_seq, next_game = 0, {}, {}
+    out = Path(out_dir)
+    for tmp in out.glob("*.npz.tmp"):
+        tmp.unlink()
+        print(f"[scan] removed partial {tmp.name}", flush=True)
+    for fp in sorted(out.glob("shard_w*_*.npz")):
+        m = SHARD_RE.match(fp.name)
+        if not m:
+            continue
+        w, seq = int(m.group(1)), int(m.group(2))
+        try:
+            d = np.load(fp)
+            n = int(len(d["label"]))
+            max_gidx = int(d["game_id"].max()) % GAME_ID_STRIDE
+        except Exception as e:
+            bad = fp.with_suffix(".npz.bad")
+            fp.rename(bad)
+            print(f"[scan] WARNING: unreadable shard {fp.name} ({e}) -> "
+                  f"{bad.name}; its decisions will be regenerated", flush=True)
+            continue
+        done += n
+        next_seq[w] = max(next_seq.get(w, 0), seq + 1)
+        next_game[w] = max(next_game.get(w, 0), max_gidx + 1)
+    return done, next_seq, next_game
+
+
 def run_worker(args):
-    worker_id, n_decisions, out_dir, shard_decisions = args
+    (worker_id, n_decisions, out_dir, shard_decisions,
+     start_seq, game_offset) = args
     import numpy as np
     sio = io.StringIO()
     with contextlib.redirect_stdout(sio), contextlib.redirect_stderr(sio):
@@ -77,9 +133,10 @@ def run_worker(args):
     from tools import searcher
 
     deck = agent_mod.DECK
+    stop_fp = Path(out_dir) / STOP_NAME
     buf = {"state": [], "n_options": [], "label": [], "turn": [],
            "game_id": [], "opt_rows": []}
-    seq, games, logged = 0, 0, 0
+    seq, games, logged = start_seq, 0, 0
     stats_total = {"decisions": 0, "searched": 0, "changed": 0}
     # one teacher per seat: separate cg.dll search arenas, distinct rng streams
     teachers = [searcher.Teacher(deck, seed=worker_id * 2 + s, **TEACHER_CFG)
@@ -113,8 +170,12 @@ def run_worker(args):
             return ans
         return wrapper
 
+    stopped = False
     while logged < n_decisions:
-        game_id = worker_id * 10_000_000 + games
+        if stop_fp.exists():
+            stopped = True
+            break
+        game_id = worker_id * GAME_ID_STRIDE + game_offset + games
         before = len(buf["label"])
         with contextlib.redirect_stdout(io.StringIO()), \
                 contextlib.redirect_stderr(io.StringIO()):
@@ -133,15 +194,17 @@ def run_worker(args):
     for t in teachers:
         for k in stats_total:
             stats_total[k] += t.stats[k]
-    print(f"[w{worker_id}] DONE: {games} games, {logged} decisions, "
+    word = "STOPPED (flushed clean)" if stopped else "DONE"
+    print(f"[w{worker_id}] {word}: {games} games, {logged} decisions, "
           f"teacher stats {stats_total}", flush=True)
-    return games, logged, stats_total
+    return games, logged, stats_total, stopped
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--decisions", type=int, default=500_000,
-                    help="total searched decisions to log across all workers")
+                    help="TOTAL searched decisions in --out, across all "
+                         "launches (resume generates only the remainder)")
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--out", default="data/distill_c1")
     ap.add_argument("--shard-decisions", type=int,
@@ -151,6 +214,19 @@ def main():
     import main as agent_mod
     out_dir = REPO / args.out
     out_dir.mkdir(parents=True, exist_ok=True)
+    stop_fp = out_dir / STOP_NAME
+    if stop_fp.exists():
+        stop_fp.unlink()
+        print("removed stale STOP file from a previous stop", flush=True)
+
+    done, next_seq, next_game = scan_existing(out_dir)
+    remaining = max(0, args.decisions - done)
+    print(f"target {args.decisions} decisions; {done} already on disk; "
+          f"{remaining} to generate", flush=True)
+    if remaining == 0:
+        print("nothing to do — dataset already complete", flush=True)
+        return
+
     meta = {
         "agent_version": agent_mod.AGENT_VERSION,
         "phase": "2c cycle 1 — search distillation data",
@@ -177,9 +253,9 @@ def main():
     (out_dir / "meta.json").write_text(json.dumps(meta, indent=2),
                                        encoding="utf-8")
 
-    base, extra = divmod(args.decisions, args.workers)
+    base, extra = divmod(remaining, args.workers)
     jobs = [(w, base + (1 if w < extra else 0), str(out_dir),
-             args.shard_decisions)
+             args.shard_decisions, next_seq.get(w, 0), next_game.get(w, 0))
             for w in range(args.workers) if base + (1 if w < extra else 0) > 0]
     t0 = time.perf_counter()
     if args.workers <= 1:
@@ -193,11 +269,15 @@ def main():
     logged = sum(r[1] for r in results)
     stats = {k: sum(r[2][k] for r in results)
              for k in ("decisions", "searched", "changed")}
+    stopped = any(r[3] for r in results)
     pct = 100.0 * stats["changed"] / max(1, stats["searched"])
-    print(f"DONE: {games} games, {logged} decisions in {dt/3600:.2f} h "
-          f"({logged/dt:.1f} dec/s) -> {out_dir}", flush=True)
-    print(f"teacher totals: {stats} (override rate {pct:.0f}% of searched)",
-          flush=True)
+    word = "STOPPED by STOP file (all buffers flushed; rerun the same " \
+           "command to resume)" if stopped else "DONE"
+    print(f"{word}: {games} games, {logged} decisions this launch in "
+          f"{dt/3600:.2f} h ({logged/dt:.1f} dec/s); dataset now has "
+          f"{done + logged}/{args.decisions} -> {out_dir}", flush=True)
+    print(f"teacher totals this launch: {stats} "
+          f"(override rate {pct:.0f}% of searched)", flush=True)
 
 
 if __name__ == "__main__":

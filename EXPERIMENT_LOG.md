@@ -251,6 +251,21 @@ to **~11–12 h at 8 workers** (the approved estimate was ~8.5 h; the delta is
 both-seats search costing slightly more than the one-sided gate timings
 predicted). Runs overnight; log at `runs/gen_distill_c1.log`.
 
+**Addendum (same day, ~10:30): generation restarted with stop/resume.**
+A planned 15:15 laptop shutdown surfaced that the first version flushed
+shards only every 40k decisions/worker (first write ≈ 6 h in) with no
+resume — a mid-day stop would have lost everything. Fixed in
+gen_distill.py: 2,500-decision shards written atomically (tmp+os.replace),
+graceful stop via a STOP file in the output dir (workers finish the current
+game, flush, exit — zero loss), and resume that scans existing shards and
+generates only the remainder with per-worker game_id continuation
+(unreadable shards quarantined to .bad and regenerated). Stop→resume cycle
+tested end-to-end: 385 flushed at STOP + 138 on relaunch, ids collision-free,
+loader consumes the multi-launch dataset. Cost of the fix: the first
+launch's ~77k buffered decisions (~1.5 h) were unrecoverable (running
+workers had no flush trigger) — killed and restarted from zero at ~10:30
+as a detached process. Timeline: pause 15:15, resume ~18:00, same command.
+
 → Next: TRAINING HANDOFF #2 (Kaggle, see training/README_TRAINING.md Run 2).
 After policy_weights.npz returns (plan, to confirm then): integrate behind
 `PTCG_DISTILLED` + fallback chain + time guard; ab_gate S1 vs v1 AND S1 vs
