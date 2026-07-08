@@ -272,3 +272,46 @@ After policy_weights.npz returns (plan, to confirm then): integrate behind
 teacher-guided; then rebuild the teacher with S1 rollouts and gate
 teacher(S1) vs teacher(v1) — the iteration-slope number that decides cycle 2
 vs Path B.
+
+## 2026-07-09 — Strategic pivot Phase A: runtime engine feasibility (VERIFIED)
+
+Pivot rationale (full narrative now in report/WRITEUP_DRAFT.md §2b): v1 at
+μ≈512 (below the 600 start), both 1-ply upgrades failed gates, S1 only +0.9%
+over its imitation floor, while the determinized-MC teacher (58.7% CI-backed)
+uses ~215 ms of an available ~15 s/decision. New plan: ship belief-sampled
+determinized search as the agent; nets become its accelerators.
+
+**A1 findings:**
+- The official sample submission bundles `cg/` with binaries for ALL
+  platforms: cg.dll, libcg.so (Linux x86-64), libcg-arm64.so, libcg.dylib;
+  `cg/sim.py` picks by platform at import. Its main.py does a plain
+  `import cg` — bundling the engine is the intended pattern. The Linux build
+  is exercised by every ladder episode (the interpreter runs it), so the
+  binary itself is battle-tested.
+- The pip package (kaggle-environments 1.30.1) ships `envs/cabt/cg/` with
+  cg.dll+libcg.so but NO search bindings (no api.py; sim.py lacks
+  SearchBegin/SearchStep/AgentStart) → pip-package import is NOT a usable
+  path for search; the bundle must carry the sample's cg/. (Escape hatch if
+  ever needed: bind the symbols manually against the interpreter's loaded
+  libcg.so — same exports.)
+- `search_begin_input` is delivered in the live agent observation (interpreter
+  sets it every step; it is stripped only from saved replays).
+  `remainingOverageTime` starts at 600 s/player, actTimeout=0.
+
+**A2 probe built (tools/build_probe.py → build/probe_submission.tar.gz,
+1.90 MiB, 13 members, cg/ nested like the sample):**
+- Probe = v1 main.py + appended hook; answers byte-identical to v1 (agent()
+  called unconditionally); at exec it imports cg and logs platform/outcome;
+  at the first MAIN-phase single-select it runs one search_begin/search_step
+  on a mirror-guess determinization and logs timings; any failure → one
+  stderr line, play unaffected.
+- Checks passed: kaggle-style exec load (no __file__, cwd elsewhere, last
+  callable = agent_probe); cg-stripped copy logs "cg-import FAILED" and plays
+  v1; real cabt game via kaggle_environments: status DONE/DONE, probe won,
+  "search OK turn=1 options=8 begin_ms=0.96 step_ms=0.08".
+- Note: agent stderr is captured into env.logs by kaggle_environments (not
+  process stderr) — on-ladder probe output will be in the episode agent logs.
+
+→ AWAITING USER: decision whether to submit the probe (one slot, plays as
+v1). Phases B–F (belief search in main.py, nets in search, time governor,
+gates E1–E5, ship) queued behind the Phase A verdict.

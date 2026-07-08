@@ -8,13 +8,15 @@
 ## 1. Approach & rationale (Model Score: clarity, originality)
 
 - Deterministic heuristic agent (`ptcg-heuristic-v1.0.0`), pure stdlib at
-  runtime, no engine dependency in the bundle; every candidate improvement is
-  developed behind a feature flag and only ships after a statistical gate.
+  runtime; every candidate improvement is developed behind a feature flag and
+  only ships after a statistical gate. (The original "no engine in the
+  bundle" rule was self-imposed caution, lifted by evidence — see §2b.)
 - Ladder-validated baseline: μ ≈ 600 (leaderboard median 674, top-20 cutoff
   1054, 4,500 teams as of 2026-07-07).
 - Improvement ladder (rungs): (a) learned value model trained on self-play
   outcomes → (b) search distillation from `cg.api.search_begin` into a
-  <100k-param option-scoring net. Analytic v3 evaluator was the non-learned
+  <100k-param option-scoring net → (c) the search itself at test time, nets
+  as its accelerators (§2b). Analytic v3 evaluator was the non-learned
   control rung — it FAILED its gate and stayed off (see §2), which is the
   point of the methodology: nothing ships on vibes.
 - Safety machinery in every variant: C1 validation asserts,
@@ -73,6 +75,50 @@ CI-backed >50% policy in the project, but below our pre-registered 60%
 teacher bar — the ceiling is the v1 rollout policy, motivating expert
 iteration (distill → roll out with student → re-distill). TODO: chosen
 teacher path, imitation accuracy, student gate verdict.
+
+## 2b. Strategic pivot — the search plays at test time (2026-07-09)
+
+Three independent lines of evidence forced a re-plan. (i) *Ladder reality:*
+v1 sat at μ ≈ 512 after two days — below the 600 starting rating; the field
+average already beats careful heuristics. (ii) *1-ply is exhausted:* both
+1-ply upgrades failed their gates (H2 54.0%, H3 48.7%) despite an accurate
+value function (AUC 0.844), and the distilled student cleared its imitation
+floor by only +0.9% — depth, not better 1-ply scoring, is the remaining
+axis. (iii) *Unused legal budget:* our only CI-backed >50% player is the
+determinized-MC teacher itself (58.7% [53.0, 64.1] vs v1) at ~215 ms per
+decision, while the ladder allows 600 s/player of overage with
+`actTimeout=0` — roughly 15 s/decision available; we had been using <2% of
+legal thinking time. The Expert Iteration / AlphaZero family (ExIt-OOS for
+imperfect information, PIMC in trick-taking games) is unanimous on the
+conclusion: the search plays at test time; the nets guide and accelerate it.
+
+The plan therefore inverted: ship belief-sampled determinized search as the
+agent. The teacher's mirror-only exact-knowledge assumption is replaced by
+honest belief sampling — track every opponent card revealed in the logs,
+sample the unknown remainder uniformly over the legal pool (4-copy limits,
+observed energy types), consistency-check every sample. The trained nets
+move inside the search: the rung-a value net truncates rollouts (~10×
+cheaper samples → more determinizations per second, i.e. better belief
+coverage), and the rung-b distilled policy plays the rollouts — the ExIt
+loop operating where it now matters. Every degradation path (engine import
+failure, search exception, sampling failure, time pressure) falls back to
+the gated v1 heuristic.
+
+**Engine feasibility (Phase A, verified 2026-07-09):** the official sample
+submission ships `cg/` with binaries for every platform — including
+`libcg.so` (Linux x86-64), the same engine build the ladder's own
+interpreter executes every episode — and its `main.py` does a plain
+`import cg`, so bundling the engine is the intended pattern, not a hack.
+The pip package's internal copy exposes no search bindings, so the bundle
+must carry `cg/`. A probe bundle (byte-identical v1 play + one
+`search_begin`/`search_step` cycle logged to stderr) passes the exec-style
+load check, plays a clean full game locally (search cycle ≈ 1 ms), and
+degrades to pure v1 with the engine deleted — submittable insurance that
+answers the only question local testing cannot (does the ladder sandbox
+allow the import?) for the cost of one slot playing at v1 strength.
+TODO: on-ladder probe verdict; belief-search gates E1–E5 (search+belief vs
+v1; +value truncation at equal wall-time; S1 vs v1 rollouts; teacher(S1) vs
+teacher(v1) slope; best config vs ladder incumbent).
 
 **Methodological finding — seat matters.** In the H2 gate the challenger won
 72% in seat 0 vs 36% in seat 1 (n=150 each). Any comparison that does not
