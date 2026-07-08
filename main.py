@@ -559,6 +559,111 @@ def state_feature_names():
 
 
 # ---------------------------------------------------------------------------
+# Option feature encoder (Phase 2c search distillation). Same contract as
+# encode_state: pure extraction from the observation + card_data.json, shared
+# by tools/gen_distill.py (training data) and any future distilled-policy
+# inference, so features can never drift between train and serve. The shipped
+# v1 policy never calls this.
+# ---------------------------------------------------------------------------
+
+N_OPTION_TYPES = 17    # OptionType enum 0..16
+N_CARD_TYPES = 7       # CardType enum 0..6
+N_OPTION_FEATURES = N_OPTION_TYPES + N_CARD_TYPES + N_SLOT_FEATURES + 6  # 41
+
+
+def _option_target_pokemon(opt, cur, me):
+    """Our board Pokemon the option acts on (attach/evolve target, attacker,
+    retreater), or None when the option has no board target."""
+    t = opt.get("type")
+    if t in (OT_ATTACK, OT_RETREAT):
+        return _active_pokemon(_my(cur, me))
+    area, index = opt.get("inPlayArea"), opt.get("inPlayIndex")
+    if area is None:
+        area, index = opt.get("area"), opt.get("index")
+    if area in (AREA_ACTIVE, AREA_BENCH):
+        return _pokemon_at(cur, opt.get("playerIndex"), area, index, me)
+    return None
+
+
+def encode_option(opt, sel, cur, me, v1_rank=0.0, v1_top=0.0):
+    """41 features for one option of a MAIN-phase decision, ~[0, 1] scaled."""
+    t = opt.get("type")
+    feats = [0.0] * N_OPTION_TYPES
+    if isinstance(t, int) and 0 <= t < N_OPTION_TYPES:
+        feats[t] = 1.0
+
+    if t == OT_PLAY:
+        cid = _hand_card_id(cur, me, opt.get("index"))
+    else:
+        cid = _option_card_id(opt, sel, cur, me)
+    c = _card(cid)
+    ct = c.get("cardType")
+    ct_onehot = [0.0] * N_CARD_TYPES
+    if isinstance(ct, int) and 0 <= ct < N_CARD_TYPES:
+        ct_onehot[ct] = 1.0
+    feats += ct_onehot
+
+    opp_act = _active_pokemon(_opp(cur, me))
+    opp_act_card = _card(opp_act.get("id")) if opp_act else None
+    pk = _option_target_pokemon(opt, cur, me)
+    if pk is None and t == OT_PLAY and ct == CT_POKEMON:
+        # benching from hand: encode the card as the slot it would become
+        pk = {"id": cid, "hp": c.get("hp"), "maxHp": c.get("hp"), "energies": []}
+    dyn = None
+    if pk:
+        dyn = max((_attack_damage_est(aid, cur, me)
+                   for aid in _card(pk.get("id")).get("attacks") or []),
+                  default=None)
+    feats += _encode_pokemon_slot(pk, opp_act_card, dyn)
+
+    dmg = _attack_damage_est(opt.get("attackId"), cur, me) if t == OT_ATTACK else 0.0
+    ko = 1.0 if (t == OT_ATTACK and opp_act
+                 and (opp_act.get("hp") or 0) > 0 and dmg >= opp_act["hp"]) else 0.0
+    feats.append(min(dmg, 800.0) / ENC_DMG_SCALE)
+    feats.append(ko)
+    feats.append(min(_card_value(cid), 400.0) / 400.0)
+    feats.append(1.0 if (opt.get("inPlayArea") == AREA_ACTIVE
+                         or t in (OT_ATTACK, OT_RETREAT)) else 0.0)
+    feats.append(v1_rank)
+    feats.append(v1_top)
+    return feats
+
+
+def encode_options(sel, cur):
+    """Feature rows for every option of one decision (list of 41-dim lists).
+
+    The v1-prior features (rank in v1 order, is-v1-top-choice) always come
+    from the plain v1 MAIN scorer `_score_main`, independent of any policy
+    flag, so a learned policy that consumes them cannot recurse into itself.
+    """
+    me = cur.get("yourIndex") or 0
+    options = sel.get("option") or []
+    n = len(options)
+    scores = [_score_main(o or {}, sel, cur, me) for o in options]
+    order = sorted(range(n), key=lambda i: (-scores[i], i))
+    rank = [0.0] * n
+    for r, i in enumerate(order):
+        rank[i] = r / (n - 1) if n > 1 else 0.0
+    top = order[0] if n else None
+    return [encode_option(options[i] or {}, sel, cur, me,
+                          rank[i], 1.0 if i == top else 0.0)
+            for i in range(n)]
+
+
+def option_feature_names():
+    """Index map for encode_option — kept adjacent so they move together."""
+    slot_feats = ["present", "hp", "max_hp", "damage_taken", "energy",
+                  "is_ex", "is_mega_ex", "best_dmg", "energy_needed",
+                  "retreat_cost", "weak_to_opp_active"]
+    names = ["opt_type_%d" % i for i in range(N_OPTION_TYPES)]
+    names += ["card_type_%d" % i for i in range(N_CARD_TYPES)]
+    names += ["target_%s" % f for f in slot_feats]
+    names += ["attack_dmg", "ko_if_used", "card_value", "targets_active",
+              "v1_rank", "v1_top"]
+    return names
+
+
+# ---------------------------------------------------------------------------
 # Learned value model: loading + inference + analytic post-option features.
 # Weight file contract (training/train_value.py header): n_layers, n_features,
 # kind, W0..W{L-1} float32 [in,out], b0..b{L-1} float32 [out];

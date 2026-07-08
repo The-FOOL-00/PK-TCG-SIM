@@ -205,3 +205,55 @@ strength (noise regime).
 **Per the Phase 2a decision rule (<60% CI-backed): STOPPED before any
 distillation data generation.** Alternative-teacher proposal + generation
 projections handed to the user for sign-off.
+
+## 2026-07-08 — Phase 2c cycle 1: distillation pipeline built + validated; 500k-decision generation launched
+
+**Sign-off: PATH A** (expert iteration with the (16,2,4) teacher). The 60%
+bar is satisfied in purpose: 58.7% [53.0, 64.1] with a diagnosed,
+iteration-fixable ceiling; Path B stays in reserve if the cycle-1 slope
+disappoints. **Known caveat, accepted for cycle 1: teacher determinizations
+sample the opponent's hidden zones from OUR 60-card list — exact only in
+mirror self-play. Under ladder conditions this is an information leak; the
+student inherits whatever bias that induces.**
+
+Built (all validated end-to-end on a local subsample before launch):
+
+- `main.encode_option` / `encode_options` / `option_feature_names` — 41-dim
+  per-option features (OptionType one-hot 17, referenced-card CardType
+  one-hot 7, 11-dim target-slot block, attack dmg, KO flag, card value,
+  targets-active, v1 rank + v1-top prior). Same shared train/serve contract
+  as `encode_state`; v1-prior features use `_score_main` directly so they
+  are flag-independent. Shipped v1 behavior untouched.
+- `tools/gen_distill.py` — both seats teacher-guided at (16,2,4), logs per
+  SEARCHED decision (state 170, all option rows, teacher-chosen index,
+  turn, game_id) to `data/distill_c1/` shards + meta.json (schema +
+  teacher config + caveat). Schema doc in data/README_DATA.md.
+- `training/train_policy.py` — standalone numpy-only; softmax cross-entropy
+  over each decision's options, split BY GAME, linear baseline (212 params)
+  + MLP (trunk 170→128→64, head concat(64,41)→64→1, **36,993 params**,
+  <100k ✓). Saves best-val-accuracy epoch snapshot as `policy_weights.npz`
+  (+ per-model files) and metrics.json with top-1 imitation accuracy and
+  the two floors (v1-agreement, uniform).
+
+Local validation (133 games / 2,482 searched decisions @ real (16,2,4)
+config, 6 workers, 9.5 dec/s): schema invariants pass (labels in range,
+opt row counts align, exactly one v1_top per decision); MLP val top-1
+**53.1%** vs v1-agreement floor 52.8% and uniform 23.3% — at the floor with
+CE still falling at epoch 10, as expected at 0.5% of the data (the learnable
+signal is the 45% of searched decisions where the teacher overrides v1).
+Weight file round-trips through the documented inference contract with
+plain numpy (53.4% recomputed independently). Teacher searched 57% of
+decisions, override rate 45% — matches Phase 2a.
+
+Generation launched: `gen_distill.py --decisions 500000 --workers 8` →
+`data/distill_c1/` (~27k games expected). Measured throughput extrapolates
+to **~11–12 h at 8 workers** (the approved estimate was ~8.5 h; the delta is
+both-seats search costing slightly more than the one-sided gate timings
+predicted). Runs overnight; log at `runs/gen_distill_c1.log`.
+
+→ Next: TRAINING HANDOFF #2 (Kaggle, see training/README_TRAINING.md Run 2).
+After policy_weights.npz returns (plan, to confirm then): integrate behind
+`PTCG_DISTILLED` + fallback chain + time guard; ab_gate S1 vs v1 AND S1 vs
+teacher-guided; then rebuild the teacher with S1 rollouts and gate
+teacher(S1) vs teacher(v1) — the iteration-slope number that decides cycle 2
+vs Path B.
