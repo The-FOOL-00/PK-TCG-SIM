@@ -42,6 +42,7 @@ MAX_SIZE_MIB = 190
 SHIP_VERSION = "ptcg-search-v2.0.0"
 
 sys.path.insert(0, str(SAMPLE_CG.parent))
+sys.path.insert(0, str(REPO))   # so spawned smoke workers can import tools/main
 
 
 def load_engine_db():
@@ -109,7 +110,7 @@ def bake_card_data(cards, attacks):
     return {"cards": out_cards, "attacks": out_attacks, "pool": pool}
 
 
-def bake_ship_config(main_path, rollout, cap):
+def bake_ship_config(main_path, rollout, cap, version):
     """Flip search defaults ON and stamp the config into the bundled main.py."""
     src = main_path.read_text(encoding="utf-8")
     subs = [
@@ -122,7 +123,7 @@ def bake_ship_config(main_path, rollout, cap):
         ('SEARCH_CAP = int(os.environ.get("PTCG_SEARCH_CAP", "0"))',
          f'SEARCH_CAP = int(os.environ.get("PTCG_SEARCH_CAP", "{cap}"))'),
         ('AGENT_VERSION = "ptcg-heuristic-v1.0.0"',
-         f'AGENT_VERSION = "{SHIP_VERSION}"'),
+         f'AGENT_VERSION = "{version}"'),
     ]
     for old, new in subs:
         if old not in src:
@@ -163,13 +164,13 @@ def run(code, args, cwd, timeout=300):
                           cwd=cwd, capture_output=True, text=True, timeout=timeout)
 
 
-def build(rollout, cap, games):
+def build(rollout, cap, games, deck_file="deck.csv", version=SHIP_VERSION):
     cards, attacks = load_engine_db()
-    deck = read_deck(REPO / "deck.csv")
+    deck = read_deck(REPO / deck_file)
     errs = validate_deck(deck, cards)
     if errs:
-        raise SystemExit("deck INVALID: " + "; ".join(errs))
-    print(f"[1/6] deck.csv valid (60 cards, {len(set(deck))} unique)")
+        raise SystemExit(f"{deck_file} INVALID: " + "; ".join(errs))
+    print(f"[1/6] {deck_file} valid (60 cards, {len(set(deck))} unique)  version={version}")
 
     need_value = cap > 0
     need_policy = rollout == "s1"
@@ -185,7 +186,7 @@ def build(rollout, cap, games):
     (bundle / "cg").mkdir(parents=True)
 
     shutil.copy2(REPO / "main.py", bundle / "main.py")
-    shutil.copy2(REPO / "deck.csv", bundle / "deck.csv")
+    shutil.copy2(REPO / deck_file, bundle / "deck.csv")   # bundle deck is always deck.csv
     (bundle / "card_data.json").write_text(
         json.dumps(bake_card_data(cards, attacks), indent=1), encoding="utf-8")
     for fn, need in extra:
@@ -193,7 +194,7 @@ def build(rollout, cap, games):
             shutil.copy2(REPO / fn, bundle / fn)
     for name in CG_FILES:
         shutil.copy2(SAMPLE_CG / name, bundle / "cg" / name)
-    bake_ship_config(bundle / "main.py", rollout, cap)
+    bake_ship_config(bundle / "main.py", rollout, cap, version)
     top_files = ["main.py", "deck.csv", "card_data.json"] + \
                 [fn for fn, need in extra if need]
     print(f"[2/6] bundle assembled: {top_files} + cg/  "
@@ -214,12 +215,10 @@ def build(rollout, cap, games):
         raise SystemExit(f"no-cg fallback FAILED:\n{p.stdout}\n{p.stderr}")
     print("[4/6] no-cg fallback OK (agent loads + plays v1 without engine)")
 
-    p = run(SMOKE_CHECK, [bundle / "main.py", rollout, cap, games], REPO, timeout=1200)
-    if p.returncode != 0 or "SMOKE-OK" not in p.stdout:
-        raise SystemExit(f"{games}-game smoke FAILED:\n{p.stdout[-2000:]}\n{p.stderr[-2000:]}")
-    print(f"[5/6] {p.stdout.strip().splitlines()[-1]}")
+    print(f"[5/6] {smoke_parallel(read_deck(bundle / 'deck.csv'), rollout, cap, games)}")
 
-    tar_path = REPO / "submission_search.tar.gz"
+    suffix = "" if deck_file == "deck.csv" else "_" + Path(deck_file).stem
+    tar_path = REPO / f"submission_search{suffix}.tar.gz"
     with tarfile.open(tar_path, "w:gz") as tar:
         for name in top_files:
             tar.add(bundle / name, arcname=name)
@@ -234,44 +233,71 @@ def build(rollout, cap, games):
     if size_mib > MAX_SIZE_MIB:
         raise SystemExit(f"{size_mib:.1f} MiB > {MAX_SIZE_MIB}")
     print(f"[6/6] {tar_path.name} OK: {size_mib:.2f} MiB, {len(members)} members")
-    print(f"SEARCH BUNDLE OK  ({SHIP_VERSION})")
+    print(f"SEARCH BUNDLE OK  ({version})")
 
 
-SMOKE_CHECK = r'''
-import io, contextlib, sys, time
-sys.path.insert(0, r"{repo}".format(repo=r"''' + str(REPO) + r'''"))
-main_path, rollout, cap, games = sys.argv[1], sys.argv[2], int(sys.argv[3]), int(sys.argv[4])
-import main
-from tools import deck_compare
-deck = deck_compare.read_deck(main.DECK) if False else deck_compare.read_deck(r"''' + str(REPO / "deck.csv") + r'''")
-crashes = fallbacks = 0
-dec_ms = []
-for g in range(games):
-    def mk(seat):
+def _smoke_chunk(args):
+    """Worker: play n self-play games at the ship config; return crashes,
+    fallbacks, and per-decision times. Fresh interpreter per worker (spawn),
+    so this exercises a clean import like the ladder does."""
+    import contextlib
+    import io
+    import time as _t
+    deck, rollout, cap, n = args
+    import main
+    from tools import deck_compare
+    crashes = fallbacks = 0
+    dec_ms = []
+
+    def mk():
         def w(obs, _cfg):
             if obs.get("select") is None:
                 return list(deck)
-            main.SEARCH = True; main.SEARCH_BELIEF = "comp"
-            main.ROLLOUT = rollout; main.SEARCH_CAP = cap; main.GOVERNOR = True
-            t0 = time.perf_counter(); a = main.agent(obs); dec_ms.append((time.perf_counter()-t0)*1000)
+            main.DECK = list(deck)   # belief sampler samples our zones from DECK
+            main.SEARCH = True
+            main.SEARCH_BELIEF = "comp"
+            main.ROLLOUT = rollout
+            main.SEARCH_CAP = cap
+            main.GOVERNOR = True
+            t0 = _t.perf_counter()
+            a = main.agent(obs)
+            dec_ms.append((_t.perf_counter() - t0) * 1000)
             return a
         return w
-    buf = io.StringIO()
-    with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
-        env = deck_compare.make("cabt", debug=True)
-        env.run([mk(0), mk(1)])
-    for s in (0, 1):
-        if env.state[s].status in ("INVALID", "ERROR", "TIMEOUT"):
-            crashes += 1
-    fallbacks += main.STATS.get("fallbacks", 0)
-    main.STATS["fallbacks"] = 0
-dec_ms.sort()
-p99 = dec_ms[min(len(dec_ms)-1, int(0.99*len(dec_ms)))]
-assert crashes == 0, "crashes=%d" % crashes
-assert fallbacks == 0, "fallbacks=%d" % fallbacks
-print("SMOKE-OK %d games 0 crash 0 fallback  decision p50 %.0fms p99 %.0fms max %.0fms" % (
-    games, dec_ms[len(dec_ms)//2], p99, dec_ms[-1]))
-'''
+
+    for _g in range(n):
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf), contextlib.redirect_stderr(buf):
+            env = deck_compare.make("cabt", debug=True)
+            env.run([mk(), mk()])
+        for s in (0, 1):
+            if env.state[s].status in ("INVALID", "ERROR", "TIMEOUT"):
+                crashes += 1
+        fallbacks += main.STATS.get("fallbacks", 0)
+        main.STATS["fallbacks"] = 0
+    return crashes, fallbacks, dec_ms
+
+
+def smoke_parallel(deck, rollout, cap, games, workers=6):
+    from concurrent.futures import ProcessPoolExecutor
+    base, extra = divmod(games, workers)
+    jobs = [(deck, rollout, cap, base + (1 if w < extra else 0))
+            for w in range(workers)]
+    jobs = [j for j in jobs if j[3]]
+    crashes = fallbacks = 0
+    dec_ms = []
+    with ProcessPoolExecutor(max_workers=len(jobs)) as ex:
+        for c, f, d in ex.map(_smoke_chunk, jobs):
+            crashes += c
+            fallbacks += f
+            dec_ms.extend(d)
+    dec_ms.sort()
+    p = lambda q: dec_ms[min(len(dec_ms) - 1, int(q * len(dec_ms)))]  # noqa: E731
+    if crashes or fallbacks:
+        raise SystemExit(f"smoke FAILED: crashes={crashes} fallbacks={fallbacks}")
+    return (f"SMOKE-OK {games} games 0 crash 0 fallback  "
+            f"decision p50 {p(0.50):.0f}ms p90 {p(0.90):.0f}ms "
+            f"p99 {p(0.99):.0f}ms max {dec_ms[-1]:.0f}ms")
 
 
 if __name__ == "__main__":
@@ -279,5 +305,7 @@ if __name__ == "__main__":
     ap.add_argument("--rollout", choices=["v1", "s1"], default="v1")
     ap.add_argument("--cap", type=int, default=0)
     ap.add_argument("--games", type=int, default=30)
+    ap.add_argument("--deck", default="deck.csv", help="deck file to bundle as deck.csv")
+    ap.add_argument("--version", default=SHIP_VERSION, help="AGENT_VERSION to stamp")
     args = ap.parse_args()
-    build(args.rollout, args.cap, args.games)
+    build(args.rollout, args.cap, args.games, args.deck, args.version)

@@ -1,0 +1,33 @@
+{
+  "challenger": "metaB_alakazam.csv+SEARCH=true+SEARCH_BELIEF=comp+GOVERNOR=false",
+  "incumbent": "deck.csv+SEARCH=true+SEARCH_BELIEF=comp+GOVERNOR=false",
+  "games": 300,
+  "wins": 224,
+  "losses": 76,
+  "draws": 0,
+  "wins_by_seat": [
+    124,
+    100
+  ],
+  "win_rate": 0.7466666666666667,
+  "wilson95": [
+    0.6945458844004171,
+    0.7925502497954735
+  ],
+  "verdict": "PASS",
+  "crashes": {
+    "chal": 0,
+    "inc": 0
+  },
+  "reasons_won": {
+    "3": 187,
+    "1": 37
+  },
+  "reasons_lost": {
+    "2": 6,
+    "3": 53,
+    "1": 17
+  },
+  "calibration": null,
+  "teacher_stats": null
+}
