@@ -84,7 +84,10 @@ GOVERNOR = os.environ.get("PTCG_GOVERNOR", "1") == "1"
 POLICY_WEIGHTS_FILE = "policy_weights.npz"
 GOV_CAP_S = 3.0              # per-decision budget ceiling
 GOV_STICKY_S = 0.2           # budget below this -> heuristic-only for the game
-GOV_P90_TURNS = 24.0         # p90 game length in turns (validated in Phase D)
+GOV_P90_TURNS = 20.0         # conservative game length: mirror p99 (27k-game
+                             # distill_c1 distribution: p50=5 p90=12 p99=20),
+                             # padded because ladder field games run longer
+                             # (META.md field average 13.1 turns)
 
 # ---------------------------------------------------------------------------
 # Engine enums (values copied from the sample submission's cg/api.py)

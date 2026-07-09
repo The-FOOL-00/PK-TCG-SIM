@@ -365,3 +365,28 @@ suite with BOTH seats searching (16,2,4): 0 crashes, 0 fallbacks, avg
 **S1 retrained locally (Handoff #2 obsolete — generation had finished and
 cores were free):** 500,139 decisions, 30 epochs, val top-1 56.34% vs
 v1-agreement floor 55.10% (+1.24%); policy_weights.npz at repo root.
+
+## 2026-07-09 — Phase C (nets in search) + Phase D (time governor)
+
+**C1 value truncation** (SEARCH_CAP + rung-a value net at the leaf, terminal
+outcomes kept): wall speedup vs terminal rollouts at teacher config —
+K=6: 2.9x, K=10: 2.3x, K=16: 1.8x (rollouts from real positions average
+~25 steps, so the gain is bounded well below the hoped 10x). K strength
+pilots deferred until E1 passes (they only inform E2).
+**C2 s1 rollouts** (policy_weights.npz, numpy forward per contract): works
+end-to-end; per-step choice cost 0.113 ms vs v1's 0.015 ms = **7.6x** (>3x
+threshold noted) -> at equal wall time s1 buys ~4x fewer samples. s1
+rollouts also run ~2x longer before terminating. E3 must be equal-wall-time.
+
+**D governor**: budget = min(3s, 0.5*remainingOverageTime /
+max(est_remaining_decisions, 8)); est from live decisions/turn x
+(GOV_P90_TURNS - turn). GOV_P90_TURNS=20 from the 27,260-game distill_c1
+distribution (turns p50=5 p90=12 p99=20 max=34), padded above mirror-p90
+because ladder field games run longer (META 13.1 avg). Degradation
+full->1/2->1/4 det->skip, sticky heuristic below 0.2s budget; in-loop
+budget check aborts remaining determinizations. Telemetry: [gov] one-liner
+per game (decisions, spent, max, worst-3) via stderr -> episode logs.
+**Stress (50 games, det=48 = 3x ship config, terminal rollouts):** own-time
+mean 10.0s / p90 21.2s / max 35.6s (requirement <400s); decisions p50
+370ms / p99 3.07s / max 3.10s (requirement p99<3.5s); 0 sticky, 0 crashes
+-> PASS with 17x headroom.
