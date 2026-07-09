@@ -593,3 +593,35 @@ arch blind spot) 3) Option A already-done (=548) 4) Option D fast-policy/RL
 (real long-term answer, weeks not days). STOP for Phase 2 sign-off.
 Data gap: no real v2.1.0 loss episodes (only 2 self-mirror agent logs); asked
 user to drop them in data/loss_episodes/.
+
+## 2026-07-10 — Stage 1 Garchomp: G1 FAILED, STOP per protocol
+
+G1 (search+Garchomp+PILOT=garchomp vs v2.0.0 old deck, 300g, governor off,
+0 crashes): **39.3% [34.0, 45.0] -> FAIL** (CI upper 45% < 50%). Loss reasons
+138 prizes / 44 no-active -> we lose the prize race. G2/G3 (vs Alakazam, vs
+Mewtwo) were killed unfinished — search-vs-search at 300g on long
+Alakazam/Mewtwo-stall games is impractically slow, and G1 already decided the
+STOP.
+
+Failure-mode analysis (tools/analyze_garchomp_losses.py, 30g governor-on,
+20% win — same direction as G1): **first-attack turn 10.8 vs nasuo445's 4.1;
+Garchomp ex online turn 13.6 (vs ~6), and NEVER online in 7/30 games.** Root
+cause is SETUP SPEED, not attack selection: our search + v1-rollout cannot
+sequence the 3-stage Gible->Gabite->Garchomp ex chain fast enough, so the
+attacker arrives ~7 turns late and we lose the race to our own fast aggro
+deck. The tempo heuristic (attack once loaded) and ex-evolution bonus can't
+help a not-loaded problem — the telemetry showed exactly this (turn-4
+'not-loaded, active=Gabite, 1 energy').
+
+**Strategic finding (two data points now):** our search+heuristic architecture
+mishandles BOTH complex meta decks it has tried — Alakazam (ladder μ548) and
+Garchomp (gate 39.3% vs our own old deck) — while piloting our SIMPLE aggro
+deck to μ614. The blocker is architectural: the search only searches MAIN
+single-selects and rolls out with a v1 heuristic tuned for 1-step
+attach-and-attack; it cannot plan the multi-turn evolution/combo setup that
+every top-ladder deck requires. Deck-specific heuristic patches do not fix a
+shallow-planning problem. This directly informs Stages 2-4: only an approach
+that LEARNS the setup sequencing (distillation from a competent teacher / BC
+from top replays / RL) can pilot these decks — OR we accept the architecture's
+ceiling is the simple deck (v2.0.0, 614). Per protocol: STOP, no patching,
+report for user direction on whether/how to proceed to Stage 2.
