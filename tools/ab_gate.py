@@ -90,6 +90,10 @@ def make_wrapper(deck, attrs, defaults, game_seed=0):
     def wrapper(obs, _config):
         if obs.get("select") is None:
             return list(deck)
+        # the belief sampler samples our OWN hidden zones from agent_mod.DECK,
+        # so a search agent piloting a non-default deck needs DECK set to the
+        # deck it is actually playing (harmless for v1, which ignores it).
+        agent_mod.DECK = list(deck)
         agent_mod.TOTAL_BASIC_ENERGY = n_energy
         for name, val in defaults.items():
             setattr(agent_mod, name, val)
