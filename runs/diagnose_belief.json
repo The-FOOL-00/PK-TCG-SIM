@@ -1,0 +1,27 @@
+{
+  "n": 249,
+  "games": 40,
+  "agreement": {
+    "comp~mirror": 142,
+    "comp~v1": 205,
+    "mirror~v1": 154
+  },
+  "override": {
+    "mirror": 95,
+    "comp": 44
+  },
+  "edge": {
+    "total": 95,
+    "comp_third": 14,
+    "comp_reverts_v1": 72,
+    "comp_follows": 9
+  },
+  "gap_mean": {
+    "comp": 0.021085019623598898,
+    "mirror": 0.07065763052208836
+  },
+  "gap_zero_frac": {
+    "comp": 0.7550200803212851,
+    "mirror": 0.3855421686746988
+  }
+}

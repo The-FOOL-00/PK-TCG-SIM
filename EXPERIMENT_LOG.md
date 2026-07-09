@@ -390,3 +390,40 @@ per game (decisions, spent, max, worst-3) via stderr -> episode logs.
 mean 10.0s / p90 21.2s / max 35.6s (requirement <400s); decisions p50
 370ms / p99 3.07s / max 3.10s (requirement p99<3.5s); 0 sticky, 0 crashes
 -> PASS with 17x headroom.
+
+## 2026-07-09 — Phase E1: the key gate (belief-search vs v1) — FAIL, diagnosed
+
+**E1 (deck.csv+SEARCH=true vs deck.csv, 300 games, seats alternated):
+49.0% [43.4, 54.6] -> FAIL.** Companion mirror-belief run (exact-knowledge
+determinization): 58.3% [52.7, 63.8] -> PASS, reproducing the 2a teacher's
+58.7%. Zero crashes either side. So the runtime search port is faithful;
+honest belief sampling is what erases the edge.
+
+**Diagnosis (tools/diagnose_belief.py, 249 identical searched positions,
+matched per-position RNG for comp vs mirror):**
+- override rate vs v1: mirror 38%, comp 18%
+- edge capture on the 38% of positions where MIRROR overrides v1 (its whole
+  source of advantage): comp makes the SAME override 9%, reverts to v1 76%,
+  picks a third option 15% -> comp banks essentially none of the edge.
+- value separation (top1-top2 mean rollout value): mirror median gap 0.031
+  (39% zero-gap); comp median 0.000 with **76% zero-gap positions**. Honest
+  belief -> flat value landscape -> search can't rank candidates -> falls
+  back to v1 -> plays at v1 strength (49% ~= 50%).
+Conclusion: the bottleneck is BELIEF QUALITY, not search budget. More
+determinizations can't sharpen a flat landscape. The fix is realistic
+opponent sampling (META.md archetype priors via the existing
+sample_opponent_deck(prior=...) hook), not more compute.
+
+**Structural caveat:** E1's incumbent is v1 on OUR deck, so it's a mirror
+match — mirror belief is tautologically correct there and honest belief is
+penalized for hedging against variation the gate doesn't contain. The gate
+proves correct belief = +9pt, and that current honest belief banks none of
+it; it can't fairly rank the two beliefs for varied ladder opponents.
+
+-> STOP for user input (per plan): E1 is the decision gate. Options on the
+table: (A) archetype-prior belief from META.md then re-gate; (B) ship the
+mirror/exact-belief config (PASS, but assumes opp=our deck — a bet that
+ladder opponents are close enough, contradicted by our deck being an
+extreme 35-energy outlier); (C) a fairer gate vs a DIFFERENT opponent deck
+to rank beliefs honestly; (D) abandon runtime search, ship S1 (val top-1
+56.34%, +1.24% over floor) or stay v1. Phases E2-E5/F held pending.

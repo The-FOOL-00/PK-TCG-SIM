@@ -1,0 +1,32 @@
+{
+  "challenger": "deck.csv+SEARCH=true+SEARCH_BELIEF=mirror",
+  "incumbent": "deck.csv",
+  "games": 300,
+  "wins": 175,
+  "losses": 125,
+  "draws": 0,
+  "wins_by_seat": [
+    115,
+    60
+  ],
+  "win_rate": 0.5833333333333334,
+  "wilson95": [
+    0.5268355964602695,
+    0.6377239083356395
+  ],
+  "verdict": "PASS",
+  "crashes": {
+    "chal": 0,
+    "inc": 0
+  },
+  "reasons_won": {
+    "3": 160,
+    "1": 15
+  },
+  "reasons_lost": {
+    "3": 118,
+    "1": 7
+  },
+  "calibration": null,
+  "teacher_stats": null
+}

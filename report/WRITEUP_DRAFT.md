@@ -116,9 +116,37 @@ load check, plays a clean full game locally (search cycle ≈ 1 ms), and
 degrades to pure v1 with the engine deleted — submittable insurance that
 answers the only question local testing cannot (does the ladder sandbox
 allow the import?) for the cost of one slot playing at v1 strength.
-TODO: on-ladder probe verdict; belief-search gates E1–E5 (search+belief vs
-v1; +value truncation at equal wall-time; S1 vs v1 rollouts; teacher(S1) vs
-teacher(v1) slope; best config vs ladder incumbent).
+TODO: on-ladder probe verdict; belief-search gates E2–E5.
+
+**E1 — the key gate (search+belief vs v1, 300 games, seats alternated).**
+How much of the mirror teacher's 58.7% survives honest uncertainty? Answer:
+**none of it.** Belief-sampled search scored **49.0% [43.4, 54.6] → FAIL**,
+while the same search with exact opponent knowledge (mirror determinization)
+scored **58.3% [52.7, 63.8] → PASS**, faithfully reproducing the teacher.
+The search port is correct; the belief is what fails.
+
+*Diagnosis* (comp-belief vs mirror-exact search on 249 identical searched
+positions, matched RNG). Mirror overrides the v1 heuristic on 38% of
+searched decisions — that override set is the entire source of its edge. On
+exactly those positions, honest belief makes the *same* override only 9% of
+the time and reverts to the v1 answer 76% of the time: it captures almost
+none of the edge. The mechanism is a collapsed value signal — the top-two
+candidates' rollout values are separated by a median gap of 0.031 under
+mirror belief but **0.000 under honest belief (76% of positions have zero
+separation)**. With vague opponent decks the determinized rollouts can't
+tell the candidates apart, so the search falls back to v1 and the agent
+plays at ≈ v1 strength (49.0% ≈ 50%). More determinizations cannot fix a
+flat landscape; the fix is a *sharper belief*, i.e. sampling realistic
+opponent decks (archetype priors from META.md via the `sample_opponent_deck`
+prior hook) rather than a generic legal-composition prior.
+
+*Structural caveat on the gate itself.* E1's opponent is v1 on our own
+deck, so the match is a mirror by construction — which makes exact/mirror
+belief tautologically correct and penalizes honest hedging against variation
+that the gate contains none of. The gate therefore cannot fairly rank the
+two beliefs for real ladder play (varied opponents); it only proves that
+*correct* belief converts to +9pt of strength, and that our current honest
+belief is not yet accurate enough to bank any of it.
 
 **Methodological finding — seat matters.** In the H2 gate the challenger won
 72% in seat 0 vs 36% in seat 1 (n=150 each). Any comparison that does not
