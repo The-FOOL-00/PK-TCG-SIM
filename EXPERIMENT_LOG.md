@@ -315,3 +315,53 @@ determinized search as the agent; nets become its accelerators.
 → AWAITING USER: decision whether to submit the probe (one slot, plays as
 v1). Phases B–F (belief search in main.py, nets in search, time governor,
 gates E1–E5, ship) queued behind the Phase A verdict.
+
+## 2026-07-09 — Phase B: belief-sampled determinized search in main.py (PTCG_SEARCH)
+
+Search stack integrated into main.py behind module flags (ab_gate-settable):
+SEARCH, SEARCH_DET/ROLL/TOPK (default teacher config 16/2/4), SEARCH_CAP
+(C1 value truncation, 0=terminal), ROLLOUT (v1|s1), GOVERNOR, SEARCH_BELIEF.
+Engine loads from a bundled cg/ (repo root carries a gitignored copy so the
+local layout matches the bundle). The hook can only substitute WHICH legal
+option is returned; C1 validation/resolve_selection untouched (fault suite
+proves it).
+
+**B1 CardTracker** — serial-keyed (engine serials unique per match, so
+reprocessing repeated log entries is a no-op). hand_known / floating
+(hand-or-deck after face-down shuffles) / serial_id (4-copy budget) /
+energy_types. New-game reset = turn regression or prize-count growth from a
+nonzero baseline. Validated on 20 recorded games (mirror + deck_v2
+opponents): 392 decisions, serial identities == omniscient transcript,
+revealed multiset <= true opponent list, hand_known always inside the true
+hand at adjacent opponent decisions, and 1,176 sampled determinizations
+accepted by SearchBegin with zero errors.
+
+**B2 sampler finding (the day's big one): uniform-over-pool belief builds a
+strawman opponent.** Basic energy is 8/1,267 of the card pool, so uniform
+remainder sampling gives the opponent ~no energy; 96-98% of rollout values
+saturate at 1.0 and candidate discrimination vanishes (0 overrides). A
+composition prior (energy 30% / pokemon 35% / trainer 35%) fixes the count
+but not type coherence (energy that no sampled pokemon can use) — still 96%
+saturation. Adding per-determinization type coherence (dominant energy type
+sampled from observed evidence, matching pokemon 6x boosted) restores
+override rates to mirror level. Belief modes shipped: comp (default,
+honest), mirror (= the 2a teacher's list-knowledge determinization),
+uniform (A/B reference). Archetype priors from META.md remain a hook
+(SEARCH_PRIOR / sample_opponent_deck(prior=...)).
+
+**Diagnosis (E1-failure protocol run pre-emptively, n=56 identical searched
+positions):** mirror search deviates from v1 on 43% of decisions (teacher
+was 45% — the runtime port is faithful); comp deviates on only 20% and
+agrees with mirror's override choice 52% — belief quality, not search
+budget, is where mirror strength bleeds. comp's remaining signal is
+loss-avoidance (its win-values stay saturated).
+
+**B4 robustness:** fault suite green — no-engine / SearchBegin-raises /
+sampler-raises / budget-zero(sticky) each yield answers byte-identical to
+v1 on replayed streams; healthy control overrides 9/100 legally. 30-game
+suite with BOTH seats searching (16,2,4): 0 crashes, 0 fallbacks, avg
+145 ms max 1.2 s per decision.
+
+**S1 retrained locally (Handoff #2 obsolete — generation had finished and
+cores were free):** 500,139 decisions, 30 epochs, val top-1 56.34% vs
+v1-agreement floor 55.10% (+1.24%); policy_weights.npz at repo root.

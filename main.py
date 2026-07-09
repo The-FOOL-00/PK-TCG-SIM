@@ -15,11 +15,15 @@ as the agent, so `agent` must stay the final def in this module. __file__ is
 NOT defined under that exec(), so all file access goes through _find_file().
 """
 
+import atexit
+import ctypes
 import json
 import math
 import os
+import random
 import sys
 import time
+from collections import Counter
 
 AGENT_VERSION = "ptcg-heuristic-v1.0.0"
 
@@ -51,6 +55,36 @@ LV_SCALE = 400.0        # score points per unit of win-prob delta (within-tier)
 LV_DELTA_CLIP = 0.25    # |delta| cap: LV_SCALE*CLIP=100 < every tier gap that matters
 LV_TRACE = False        # A/B harness only: append P(win|now) per decision
 VALUE_TRACE = []
+
+# ---------------------------------------------------------------------------
+# Runtime belief-sampled determinized search (Phase B/C/D pivot, 2026-07-09).
+# When SEARCH is on, MAIN-phase single-selects are decided by flat
+# determinized Monte Carlo on the engine's search_begin/search_step API
+# (bundled cg/), with the opponent's hidden zones sampled from a belief
+# maintained by CardTracker. Everything else stays on the v1 path, and every
+# failure mode (no engine, search exception, sampling inconsistency, time
+# pressure) independently degrades to v1 with one stderr line. C1 validation,
+# resolve_selection and the fallback chain are untouched — the search can
+# only substitute WHICH legal option is preferred, never bypass validation.
+#   SEARCH_CAP > 0 truncates rollouts at that many engine steps and scores
+# the leaf with the rung-a value net (Phase C1); 0 = roll to terminal.
+#   ROLLOUT selects the rollout policy: "v1" heuristic or "s1" distilled
+# policy net from policy_weights.npz (Phase C2).
+#   GOVERNOR enables the per-decision time budget (Phase D).
+# ---------------------------------------------------------------------------
+SEARCH = os.environ.get("PTCG_SEARCH", "0") == "1"
+SEARCH_DET = int(os.environ.get("PTCG_SEARCH_DET", "16"))    # determinizations
+SEARCH_ROLL = int(os.environ.get("PTCG_SEARCH_ROLL", "2"))   # rollouts/candidate
+SEARCH_TOPK = int(os.environ.get("PTCG_SEARCH_TOPK", "4"))   # candidates by v1 score
+SEARCH_CAP = int(os.environ.get("PTCG_SEARCH_CAP", "0"))     # rollout step cap, 0=terminal
+SEARCH_SEED = int(os.environ.get("PTCG_SEARCH_SEED", "0"))
+SEARCH_MIN_BASICS = 1        # sampled opp deck must keep >= this many Basics at setup
+ROLLOUT = os.environ.get("PTCG_ROLLOUT", "v1")               # v1 | s1
+GOVERNOR = os.environ.get("PTCG_GOVERNOR", "1") == "1"
+POLICY_WEIGHTS_FILE = "policy_weights.npz"
+GOV_CAP_S = 3.0              # per-decision budget ceiling
+GOV_STICKY_S = 0.2           # budget below this -> heuristic-only for the game
+GOV_P90_TURNS = 24.0         # p90 game length in turns (validated in Phase D)
 
 # ---------------------------------------------------------------------------
 # Engine enums (values copied from the sample submission's cg/api.py)
@@ -1248,6 +1282,684 @@ def _validate_result(result, sel):
     return cleaned, ok
 
 
+# ===========================================================================
+# Belief-sampled determinized search (PTCG_SEARCH). Layout:
+#   engine glue        _search_lib / _sb_begin / _sb_step / _sb_release / _sb_end
+#   card pool          _pool (full 1,267-card db baked into card_data.json)
+#   belief             CardTracker (per-perspective, serial-keyed => idempotent
+#                      against the engine's repeated log entries)
+#   determinization    _sample_determinization (+ sample_opponent_deck hook)
+#   rollouts           _rollout_choose (v1 | s1 policy net) / _rollout
+#   time governor      _gov_* (budget, degradation curve, telemetry ring)
+#   search             _searchable / _search_decide (called from agent())
+# ===========================================================================
+
+_SES = {"lib": None, "ptr": None, "tried": False, "errs": 0}
+
+
+def _search_lib():
+    """Engine handle, loaded once. On the ladder the eager call below runs
+    while Kaggle still has the agent dir on sys.path (exec window); locally
+    the repo root carries a cg/ copy. Failure => one stderr line, search off."""
+    if _SES["lib"] is not None or _SES["tried"]:
+        return _SES["lib"]
+    _SES["tried"] = True
+    try:
+        marker = _find_file(os.path.join("cg", "sim.py"))
+        if marker:
+            parent = os.path.dirname(os.path.dirname(marker))
+            if parent not in sys.path:
+                sys.path.insert(0, parent)
+        import cg.sim as _sim  # loads platform lib + GameInitialize()
+        _SES["lib"] = _sim.lib
+        _SES["ptr"] = _sim.lib.AgentStart()
+    except Exception as e:
+        print("[search] cg engine unavailable (%r) - heuristic-only mode" % e,
+              file=sys.stderr, flush=True)
+    return _SES["lib"]
+
+
+def _carr(v):
+    return (ctypes.c_int * len(v))(*v)
+
+
+def _sb_begin(sbi, your_deck, your_prize, opp_deck, opp_prize, opp_hand, opp_active):
+    r = json.loads(_SES["lib"].SearchBegin(
+        _SES["ptr"], sbi.encode("ascii"), len(sbi),
+        _carr(your_deck), _carr(your_prize), _carr(opp_deck), _carr(opp_prize),
+        _carr(opp_hand), _carr(opp_active), 0))
+    if r.get("error"):
+        raise RuntimeError("SearchBegin error %s" % r["error"])
+    return r["state"]
+
+
+def _sb_step(search_id, select):
+    r = json.loads(_SES["lib"].SearchStep(_SES["ptr"], search_id,
+                                          _carr(select), len(select)))
+    if r.get("error"):
+        raise RuntimeError("SearchStep error %s" % r["error"])
+    return r["state"]
+
+
+def _sb_release(search_id):
+    try:
+        _SES["lib"].SearchRelease(_SES["ptr"], search_id)
+    except Exception:
+        pass
+
+
+def _sb_end():
+    try:
+        _SES["lib"].SearchEnd(_SES["ptr"])
+    except Exception:
+        pass
+
+
+_POOL_CACHE = None
+
+
+def _pool():
+    """Full card pool {id: {name, cardType, energyType, basic}} baked into
+    card_data.json at build time. Empty dict if absent (sampler degrades)."""
+    global _POOL_CACHE
+    if _POOL_CACHE is None:
+        pool = {}
+        fp = _find_file("card_data.json")
+        if fp:
+            try:
+                with open(fp, "r", encoding="utf-8") as f:
+                    pool = {int(k): v
+                            for k, v in (json.load(f).get("pool") or {}).items()}
+            except Exception as e:
+                print("[search] card pool unreadable (%s); mirror-guess sampling" % e,
+                      file=sys.stderr, flush=True)
+        if not pool:
+            print("[search] no card pool in card_data.json; mirror-guess sampling",
+                  file=sys.stderr, flush=True)
+        _POOL_CACHE = pool
+    return _POOL_CACHE
+
+
+# Log types consumed by CardTracker (values from cg/api.py LogType).
+LOG_DRAW, LOG_MOVE_CARD, LOG_MOVE_CARD_REVERSE = 4, 6, 7
+LOG_PLAY, LOG_ATTACH, LOG_EVOLVE = 10, 11, 12
+
+
+class CardTracker:
+    """Opponent-knowledge belief from one player's perspective.
+
+    Every card in a match has a unique serial, so all knowledge is keyed by
+    serial => reprocessing a repeated log entry is a no-op (Observation.logs
+    repeats entries across steps). Zones we can see (board, discard, revealed
+    prizes) come straight from `current`; the tracker's real product is:
+      hand_known  serial->id  cards known to be in the opponent's hand now
+      floating    serial->id  revealed cards ambiguous between hand and deck
+                  (face-down shuffles demote hand knowledge here)
+      serial_id   serial->id  every opponent card ever identified (for the
+                  4-copy budget of the deck belief)
+      energy_types            opponent energy types observed so far
+    New game = turn regression or a prize count growing back (prizes only
+    ever shrink within a game).
+    """
+
+    def __init__(self, me):
+        self.me = me
+        self.reset()
+
+    def reset(self):
+        self.serial_id = {}
+        self.hand_known = {}
+        self.floating = {}
+        self.energy_types = set()
+        self.last_turn = -1
+        self.last_prizes = (99, 99)
+
+    def _forget(self, serial):
+        self.hand_known.pop(serial, None)
+        self.floating.pop(serial, None)
+
+    def _see(self, serial, cid):
+        if serial is not None and cid is not None:
+            self.serial_id[serial] = cid
+
+    def update(self, obs):
+        """Consume one of our observations. Returns True if a new game was
+        detected (tracker was reset before processing)."""
+        cur = obs.get("current") or {}
+        players = cur.get("players") or [{}, {}]
+        turn = cur.get("turn") or 0
+        mine = players[self.me] if len(players) > self.me else {}
+        theirs = players[1 - self.me] if len(players) > 1 - self.me else {}
+        n_my_pr = len(mine.get("prize") or [])
+        n_op_pr = len(theirs.get("prize") or [])
+        # prizes only shrink within a game; growth from a nonzero baseline =
+        # new game (growth from 0 is the setup->dealt transition, same game)
+        fresh = (turn < self.last_turn
+                 or 0 < self.last_prizes[0] < n_my_pr
+                 or 0 < self.last_prizes[1] < n_op_pr)
+        if fresh:
+            self.reset()
+
+        opp = 1 - self.me
+        for lg in obs.get("logs") or []:
+            if not isinstance(lg, dict) or lg.get("playerIndex") != opp:
+                continue
+            t = lg.get("type")
+            cid, ser = lg.get("cardId"), lg.get("serial")
+            if t == LOG_MOVE_CARD and ser is not None and cid is not None:
+                self._see(ser, cid)
+                to = lg.get("toArea")
+                if to == AREA_HAND:
+                    self.floating.pop(ser, None)
+                    self.hand_known[ser] = cid
+                elif to == AREA_DECK:
+                    self.hand_known.pop(ser, None)
+                    self.floating[ser] = cid   # certainly deck; hand-or-deck is safe
+                else:
+                    self._forget(ser)          # visible zone: `current` covers it
+            elif t == LOG_MOVE_CARD_REVERSE:
+                if lg.get("fromArea") == AREA_HAND:
+                    # an unidentified hand card moved face-down: we no longer
+                    # know WHICH, so every hand-known card demotes to floating
+                    self.floating.update(self.hand_known)
+                    self.hand_known.clear()
+            elif t in (LOG_PLAY, LOG_ATTACH, LOG_EVOLVE):
+                self._see(ser, cid)
+                self._forget(ser)
+            elif t == LOG_DRAW and ser is not None and cid is not None:
+                # opponent draws normally arrive as DRAW_REVERSE; if the engine
+                # reveals one (card effect), remember it
+                self._see(ser, cid)
+                self.hand_known[ser] = cid
+
+        # visible opponent zones: ingest identities, clear stale hand knowledge
+        for card in (theirs.get("discard") or []) + [c for c in theirs.get("prize") or [] if c]:
+            if isinstance(card, dict):
+                self._see(card.get("serial"), card.get("id"))
+                self._forget(card.get("serial"))
+        for pk in (theirs.get("active") or []) + (theirs.get("bench") or []):
+            if not pk:
+                continue
+            self._see(pk.get("serial"), pk.get("id"))
+            self._forget(pk.get("serial"))
+            for zone in ("energyCards", "tools", "preEvolution"):
+                for card in pk.get(zone) or []:
+                    if isinstance(card, dict):
+                        self._see(card.get("serial"), card.get("id"))
+                        self._forget(card.get("serial"))
+            for et in pk.get("energies") or []:
+                if isinstance(et, int):
+                    self.energy_types.add(et)
+
+        pool = _pool()
+        for cid in self.serial_id.values():
+            info = pool.get(cid)
+            if info and info.get("cardType") == CT_BASIC_ENERGY \
+                    and info.get("energyType") is not None:
+                self.energy_types.add(info["energyType"])
+
+        # bookkeeping sanity: hand knowledge can never exceed the hand count
+        if len(self.hand_known) > (theirs.get("handCount") or 0):
+            self.floating.update(self.hand_known)
+            self.hand_known.clear()
+
+        self.last_turn = turn
+        self.last_prizes = (n_my_pr, n_op_pr)
+        return fresh
+
+
+def _sd_visible_ids(player, include_hand):
+    """Card ids visible in a player's zones (searcher.py logic)."""
+    ids = []
+    if include_hand:
+        ids += [c["id"] for c in player.get("hand") or [] if c]
+    for pk in (player.get("active") or []) + (player.get("bench") or []):
+        if pk:  # face-down active shows as None
+            ids.append(pk["id"])
+            for zone in ("energyCards", "tools", "preEvolution"):
+                ids += [c["id"] for c in pk.get(zone) or [] if c]
+    ids += [c["id"] for c in player.get("discard") or [] if c]
+    ids += [c["id"] for c in player.get("prize") or [] if c]
+    return ids
+
+
+def _sd_fill_prize(prize, sampled):
+    """Keep revealed prize cards in position, fill hidden slots from sampled."""
+    out, k = [], 0
+    for c in prize or []:
+        if c:
+            out.append(c["id"])
+        else:
+            out.append(sampled[k])
+            k += 1
+    return out
+
+
+# Belief over the unseen part of the opponent's list. "comp" (default) is a
+# STRUCTURAL prior only — real decks are ~1/3 energy, ~1/3 Pokemon, ~1/3
+# trainers, while the raw pool is 8/1267 basic energy: uniform-over-pool
+# sampling produces energy-less strawman opponents whose rollouts all
+# saturate at a win, erasing candidate discrimination (measured: 96% of
+# rollout values = 1.0). "uniform" keeps the raw pool for A/B reference;
+# "mirror" assumes our own list (the teacher's exact-knowledge determinization,
+# used as the diagnosis comparator). Card-level archetype priors from META.md
+# plug in through SEARCH_PRIOR / the `prior` argument without code changes.
+SEARCH_BELIEF = os.environ.get("PTCG_SEARCH_BELIEF", "comp")
+_COMP_TARGETS = {"energy": 0.30, "pokemon": 0.35, "trainer": 0.35}
+_COMP_PRIOR_CACHE = None
+
+
+def _comp_prior():
+    """Card-id -> weight implementing the composition prior (cached)."""
+    global _COMP_PRIOR_CACHE
+    if _COMP_PRIOR_CACHE is None:
+        pool = _pool()
+        cats = {"energy": [], "pokemon": [], "trainer": []}
+        for cid, info in pool.items():
+            ct = info.get("cardType")
+            if ct in (CT_BASIC_ENERGY, CT_SPECIAL_ENERGY):
+                cats["energy"].append(cid)
+            elif ct == CT_POKEMON:
+                cats["pokemon"].append(cid)
+            else:
+                cats["trainer"].append(cid)
+        prior = {}
+        for cat, ids in cats.items():
+            w = _COMP_TARGETS[cat] / max(1, len(ids))
+            for cid in ids:
+                prior[cid] = w
+        _COMP_PRIOR_CACHE = prior
+    return _COMP_PRIOR_CACHE
+
+
+def sample_opponent_deck(n, known_ids, tracker, rng, prior=None):
+    """Sample n unseen opponent cards from the legal pool subject to the
+    4-copy-per-name limit (revealed copies included; basic energy exempt) and
+    observed-energy-type consistency. `prior` (card id -> weight) is the
+    archetype hook; None = the SEARCH_BELIEF default. Raises ValueError on
+    underflow."""
+    pool = _pool()
+    if not pool or SEARCH_BELIEF == "mirror":
+        # exact-knowledge guess: remainder of OUR list (teacher determinization)
+        base = list((Counter(DECK) - Counter(known_ids)).elements())
+        rng.shuffle(base)
+        if len(base) < n:
+            raise ValueError("mirror pool underflow (%d/%d)" % (len(base), n))
+        return base[:n]
+    dom_type = None
+    if prior is None and SEARCH_BELIEF == "comp":
+        prior = _comp_prior()
+        # type coherence: a deck whose energy doesn't match its Pokemon can
+        # never pay attack costs — an iid sample is a strawman opponent even
+        # with the right energy COUNT. Pick one dominant energy type per
+        # determinization (from observed evidence when we have it) and build
+        # the sample around it.
+        etypes_seen = sorted(tracker.energy_types)
+        if etypes_seen:
+            dom_type = etypes_seen[rng.randrange(len(etypes_seen))]
+        else:
+            all_et = sorted({info.get("energyType") for info in pool.values()
+                             if info.get("cardType") == CT_BASIC_ENERGY
+                             and info.get("energyType") is not None})
+            if all_et:
+                dom_type = all_et[rng.randrange(len(all_et))]
+    name_used = Counter()
+    for cid in known_ids:
+        info = pool.get(cid)
+        if info and info.get("cardType") != CT_BASIC_ENERGY:
+            name_used[info["name"]] += 1
+    etypes = tracker.energy_types
+    cands, weights = [], []
+    for cid, info in pool.items():
+        if info.get("cardType") == CT_BASIC_ENERGY:
+            if etypes and info.get("energyType") not in etypes:
+                continue
+            if dom_type is not None and info.get("energyType") != dom_type:
+                continue
+        elif name_used[info["name"]] >= 4:
+            continue
+        w = 1.0 if prior is None else max(0.0, prior.get(cid, 1.0))
+        if (dom_type is not None and info.get("cardType") == CT_POKEMON
+                and info.get("energyType") == dom_type):
+            w *= 6.0
+        cands.append(cid)
+        weights.append(w)
+    out = []
+    guard = 0
+    while len(out) < n and guard < 40 * (n + 1) and cands:
+        guard += 1
+        if prior is None:
+            cid = cands[rng.randrange(len(cands))]
+        else:
+            cid = rng.choices(cands, weights=weights, k=1)[0]
+        info = pool[cid]
+        if info.get("cardType") != CT_BASIC_ENERGY:
+            if name_used[info["name"]] >= 4:
+                continue
+            name_used[info["name"]] += 1
+        out.append(cid)
+    if len(out) < n:
+        raise ValueError("pool sampling underflow (%d/%d)" % (len(out), n))
+    return out
+
+
+def _sample_determinization(obs, tracker, rng):
+    """One full hidden-state assignment for search_begin, consistent with the
+    observation and the tracker's belief. Raises ValueError on inconsistency
+    (the caller resamples and eventually falls back to the heuristic)."""
+    cur = obs["current"]
+    me = tracker.me
+    mine, theirs = cur["players"][me], cur["players"][1 - me]
+
+    # --- our side: full 60-card list is known, sample order/prizes uniformly
+    my_pool = list((Counter(DECK) - Counter(_sd_visible_ids(mine, True))).elements())
+    rng.shuffle(my_pool)
+    n_hp = sum(1 for c in mine.get("prize") or [] if not c)
+    if len(my_pool) < n_hp:
+        raise ValueError("own pool underflow")
+    my_prize = _sd_fill_prize(mine.get("prize"), my_pool[:n_hp])
+    my_deck = my_pool[n_hp:]
+
+    # --- opponent: revealed knowledge + sampled remainder
+    visible = _sd_visible_ids(theirs, False)
+    hand_known = list(tracker.hand_known.values())
+    floating = list(tracker.floating.values())
+    hc = theirs.get("handCount") or 0
+    dc = theirs.get("deckCount") or 0
+    n_ohp = sum(1 for c in theirs.get("prize") or [] if not c)
+    active = theirs.get("active") or []
+    facedown = 1 if (active and active[0] is None) else 0
+    unknown = (hc - len(hand_known)) + dc + n_ohp + facedown
+    if unknown < 0:
+        raise ValueError("hand knowledge exceeds hand count")
+    if len(floating) > unknown - n_ohp - facedown:
+        floating = floating[:max(0, unknown - n_ohp - facedown)]  # stale belief
+    need = unknown - len(floating)
+    remainder = sample_opponent_deck(need, visible + hand_known + floating,
+                                     tracker, rng, prior=SEARCH_PRIOR)
+
+    pool = _pool()
+    # prizes are set aside at game start => only never-seen cards can be there
+    opp_prize = _sd_fill_prize(theirs.get("prize"), remainder[:n_ohp])
+    rest = remainder[n_ohp:]
+    opp_active = []
+    if facedown:
+        idx = next((i for i, c in enumerate(rest)
+                    if (pool.get(c) or {}).get("basic")), None)
+        if idx is None:
+            raise ValueError("no basic for face-down active")
+        opp_active = [rest.pop(idx)]
+    mix = rest + floating
+    rng.shuffle(mix)
+    n_fill = hc - len(hand_known)
+    opp_hand = hand_known + mix[:n_fill]
+    opp_deck = mix[n_fill:]
+    if len(opp_hand) != hc or len(opp_deck) != dc:
+        raise ValueError("zone count mismatch")
+    if pool and dc > 0 and (cur.get("turn") or 0) <= 1:
+        # engine requires a Basic in the predicted deck at setup
+        n_basics = sum(1 for c in opp_deck if (pool.get(c) or {}).get("basic"))
+        if n_basics < SEARCH_MIN_BASICS:
+            raise ValueError("no basic in sampled setup deck")
+    return {"your_deck": my_deck, "your_prize": my_prize,
+            "opp_deck": opp_deck, "opp_prize": opp_prize,
+            "opp_hand": opp_hand, "opp_active": opp_active}
+
+
+SEARCH_PRIOR = None   # archetype-prior hook consumed by sample_opponent_deck
+
+
+# ------------------------------------------------------- rollout policies ----
+
+_POL = {"model": None, "tried": False}
+
+
+def _pol_model():
+    """Distilled policy net (policy_weights.npz, contract in
+    training/train_policy.py). Needs numpy; anything missing => one stderr
+    line and v1 rollouts."""
+    if _POL["model"] is not None or _POL["tried"]:
+        return _POL["model"]
+    _POL["tried"] = True
+    try:
+        import numpy as np
+        fp = _find_file(POLICY_WEIGHTS_FILE)
+        if fp is None:
+            raise FileNotFoundError(POLICY_WEIGHTS_FILE)
+        z = np.load(fp)
+        n_trunk, n_head = int(z["n_trunk"]), int(z["n_head"])
+        model = {
+            "np": np,
+            "trunk": [(z["TW%d" % i].astype(np.float32),
+                       z["Tb%d" % i].astype(np.float32)) for i in range(n_trunk)],
+            "head": [(z["HW%d" % i].astype(np.float32),
+                      z["Hb%d" % i].astype(np.float32)) for i in range(n_head)],
+        }
+        _POL["model"] = model
+    except Exception as e:
+        print("[search] policy net unavailable (%r); v1 rollouts" % e,
+              file=sys.stderr, flush=True)
+    return _POL["model"]
+
+
+def _pol_choose(model, sel, cur):
+    """argmax option by the policy net (ties -> lowest index), or None."""
+    np = model["np"]
+    emb = np.asarray(encode_state(cur), dtype=np.float32)
+    for W, b in model["trunk"]:
+        emb = np.maximum(emb @ W + b, 0.0)
+    rows = np.asarray(encode_options(sel, cur), dtype=np.float32)
+    h = np.concatenate([np.repeat(emb[None, :], len(rows), 0), rows], axis=1)
+    for W, b in model["head"][:-1]:
+        h = np.maximum(h @ W + b, 0.0)
+    W, b = model["head"][-1]
+    logits = (h @ W + b).ravel()
+    return int(np.argmax(logits))
+
+
+def _rollout_choose(node_obs):
+    """Selection for one rollout node (plays BOTH seats). ROLLOUT=s1 uses the
+    policy net on MAIN single-selects; everything else v1. Never raises."""
+    sel = node_obs.get("select") or {}
+    try:
+        if (ROLLOUT == "s1" and sel.get("type") == ST_MAIN
+                and sel.get("minCount", 1) == 1 and sel.get("maxCount", 1) == 1
+                and len(sel.get("option") or []) > 1):
+            model = _pol_model()
+            if model is not None:
+                return [_pol_choose(model, sel, node_obs.get("current") or {})]
+        result, _top, _scores = _decide(node_obs)
+        result, _ok = _validate_result(result, sel)
+        return result
+    except Exception:
+        return _legal_fallback(sel)
+
+
+def _rollout(node, me, cap):
+    """Play a search node to terminal (or `cap` engine steps, then the rung-a
+    value net scores the leaf). Returns a value in [0,1] for player `me`
+    (equivalent to the [-1,1] convention up to the affine map 2v-1)."""
+    steps = 0
+    prev_id = None
+    while True:
+        cur = node["observation"]["current"]
+        if cur["result"] != -1:
+            v = 1.0 if cur["result"] == me else (0.5 if cur["result"] == 2 else 0.0)
+            break
+        if steps >= cap:
+            v = 0.5
+            model = _lv_model()
+            if model is not None:
+                p = _lv_predict(model, [encode_state(cur)])[0]
+                v = p if cur["yourIndex"] == me else 1.0 - p
+            break
+        nxt = _sb_step(node["searchId"], _rollout_choose(node["observation"]))
+        if prev_id is not None:
+            _sb_release(prev_id)
+        prev_id = node["searchId"]
+        node = nxt
+        steps += 1
+    if prev_id is not None:
+        _sb_release(prev_id)
+    return v
+
+
+# ----------------------------------------------------------- time governor ----
+
+_GOV = {"n_dec": 0, "spent": 0.0, "max_dec": 0.0, "sticky": False,
+        "ema_det": None, "ring": [], "games": 0, "hooked": False}
+
+
+def _gov_flush():
+    """One-line game telemetry to stderr (ladder episode logs)."""
+    if _GOV["n_dec"] == 0:
+        return
+    worst = sorted(_GOV["ring"], key=lambda r: -r[2])[:3]
+    print("[gov] game=%d decisions=%d spent=%.1fs max=%.2fs sticky=%s worst(turn,budget,spent,det)=%s"
+          % (_GOV["games"], _GOV["n_dec"], _GOV["spent"], _GOV["max_dec"],
+             _GOV["sticky"], [(t, round(b, 2) if b is not None else None,
+                               round(s, 2), d) for t, b, s, d in worst]),
+          file=sys.stderr, flush=True)
+    _GOV.update({"n_dec": 0, "spent": 0.0, "max_dec": 0.0, "sticky": False,
+                 "ring": [], "games": _GOV["games"] + 1})
+
+
+def _gov_budget(obs):
+    """Per-decision time budget in seconds, None = unlimited (governor off)."""
+    if not GOVERNOR:
+        return None
+    remaining = obs.get("remainingOverageTime")
+    if not isinstance(remaining, (int, float)):
+        remaining = 600.0
+    turn = (obs.get("current") or {}).get("turn") or 0
+    dpt = (_GOV["n_dec"] / max(1.0, float(turn))) if turn else 4.0
+    est = max(8.0, dpt * max(GOV_P90_TURNS - turn, 2.0))
+    return max(0.0, min(GOV_CAP_S, 0.5 * float(remaining) / est))
+
+
+def _gov_det(budget):
+    """Degradation curve: full det -> /2 -> /4 -> 0 (skip search)."""
+    if budget is None:
+        return SEARCH_DET
+    per_det = _GOV["ema_det"] or 0.015
+    for div in (1, 2, 4):
+        d = max(1, SEARCH_DET // div)
+        if per_det * d <= budget:
+            return d
+    return 0
+
+
+def _gov_note(turn, budget, spent, dets):
+    _GOV["n_dec"] += 1
+    _GOV["spent"] += spent
+    _GOV["max_dec"] = max(_GOV["max_dec"], spent)
+    if dets:
+        per = spent / dets
+        _GOV["ema_det"] = per if _GOV["ema_det"] is None \
+            else 0.7 * _GOV["ema_det"] + 0.3 * per
+    _GOV["ring"].append((turn, budget, spent, dets))
+    if len(_GOV["ring"]) > 64:
+        _GOV["ring"].pop(0)
+
+
+# ------------------------------------------------------------------ search ----
+
+_TRACKERS = {}
+_SEARCH_RNG = random.Random(SEARCH_SEED)
+
+
+def _searchable(obs, sel, cur):
+    return (isinstance(sel, dict) and isinstance(cur, dict)
+            and obs.get("search_begin_input")
+            and cur.get("result", -1) == -1
+            and sel.get("type") == ST_MAIN
+            and sel.get("minCount", 1) == 1 and sel.get("maxCount", 1) == 1
+            and len(sel.get("option") or []) > 1)
+
+
+def _search_decide(obs, sel, cur, v1_result, scores, t0):
+    """Belief-sampled flat determinized MC over the top-k options by v1 score.
+    Returns v1_result untouched on any degradation. The caller wraps this in
+    try/except, so even a bug here cannot break the v1 answer."""
+    me = cur.get("yourIndex") or 0
+    tr = _TRACKERS.get(me)
+    if tr is None:
+        tr = _TRACKERS[me] = CardTracker(me)
+    if tr.update(obs):
+        _gov_flush()
+    if not _GOV["hooked"]:
+        _GOV["hooked"] = True
+        atexit.register(_gov_flush)
+
+    if _GOV["sticky"] or not _searchable(obs, sel, cur) or _search_lib() is None:
+        _gov_note((cur.get("turn") or 0), None, time.perf_counter() - t0, 0)
+        return v1_result
+
+    budget = _gov_budget(obs)
+    if budget is not None and budget < GOV_STICKY_S:
+        _GOV["sticky"] = True
+        print("[search] budget %.2fs < %.2fs: heuristic-only for the rest of the game"
+              % (budget, GOV_STICKY_S), file=sys.stderr, flush=True)
+        _gov_note((cur.get("turn") or 0), budget, time.perf_counter() - t0, 0)
+        return v1_result
+    dets = _gov_det(budget)
+    options = sel.get("option") or []
+    order = sorted(range(len(options)), key=lambda i: (-scores[i], i))
+    cands = order[:SEARCH_TOPK]
+    if dets <= 0 or len(cands) < 2:
+        _gov_note((cur.get("turn") or 0), budget, time.perf_counter() - t0, 0)
+        return v1_result
+
+    STATS["searched"] = STATS.get("searched", 0) + 1
+    cap = SEARCH_CAP if SEARCH_CAP > 0 else 400
+    rolls = max(1, SEARCH_ROLL)
+    totals = {i: 0.0 for i in cands}
+    n = 0
+    fails = 0
+    dets_run = 0
+    for _d in range(dets):
+        if budget is not None and time.perf_counter() - t0 > budget:
+            break
+        try:
+            det = _sample_determinization(obs, tr, _SEARCH_RNG)
+        except Exception as e:
+            fails += 1
+            if fails >= 5:
+                print("[search] sampling failed %dx (%r); heuristic for this decision"
+                      % (fails, e), file=sys.stderr, flush=True)
+                break
+            continue
+        try:
+            root = _sb_begin(obs["search_begin_input"], **det)
+            for i in cands:
+                for _r in range(rolls):
+                    node = _sb_step(root["searchId"], [i])
+                    totals[i] += _rollout(node, me, cap)
+            n += rolls
+            dets_run += 1
+        except Exception as e:
+            fails += 1
+            if fails >= 5:
+                print("[search] engine search failed %dx (%r); heuristic for this decision"
+                      % (fails, e), file=sys.stderr, flush=True)
+                break
+        finally:
+            _sb_end()
+    spent = time.perf_counter() - t0
+    _gov_note((cur.get("turn") or 0), budget, spent, dets_run)
+    if n == 0:
+        return v1_result
+    best = max(cands, key=lambda i: (totals[i] / n, -cands.index(i)))
+    if [best] != v1_result:
+        STATS["search_changed"] = STATS.get("search_changed", 0) + 1
+    return [best]
+
+
+if SEARCH:
+    _search_lib()
+    _pool()
+
+
 def _decide(obs):
     """Score all options and resolve. Returns (indices, top_score)."""
     sel = obs["select"]
@@ -1281,6 +1993,14 @@ def agent(obs):
             info = {"phase": "deck", "n_options": 60, "chosen": None}
         else:
             result, top, _scores = _decide(obs)
+            if SEARCH:
+                try:
+                    result = _search_decide(obs, sel, cur, result, _scores, t0)
+                except Exception as e:
+                    _SES["errs"] += 1
+                    if _SES["errs"] <= 3:
+                        print("[search] hook error (%r); v1 answer kept" % e,
+                              file=sys.stderr, flush=True)
             result, was_clean = _validate_result(result, sel)
             if not was_clean:
                 fallback = True

@@ -27,3 +27,4 @@ __pycache__/
 
 # --- Local machine-specific tool config ---
 .claude/settings.local.json
+/cg/
