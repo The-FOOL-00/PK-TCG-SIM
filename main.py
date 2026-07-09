@@ -72,6 +72,19 @@ VALUE_TRACE = []
 # policy net from policy_weights.npz (Phase C2).
 #   GOVERNOR enables the per-decision time budget (Phase D).
 # ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# Deck-specific piloting (Stage 1: Garchomp). PILOT="" reproduces v2.0.0
+# byte-for-byte; PILOT="garchomp" adds tempo scoring traced to nasuo445's
+# rank-6 replays (attacks 93% of turns once loaded, first-attack turn 4).
+# The heuristics only touch MAIN scoring and emit stderr telemetry; C1
+# validation / resolve_selection / the fallback chain are untouched.
+# ---------------------------------------------------------------------------
+PILOT = os.environ.get("PTCG_PILOT", "")
+WEIGHT_TEMPO_LOADED = 2450.0   # loaded attack outranks marginal setup after the
+                               # turn's draw supporter has resolved (see below)
+WEIGHT_EVOLVE_EX_BONUS = 150.0  # evolving toward an ex (win condition) over a
+                                # side-line evolve; stays within the evolve tier
+
 SEARCH = os.environ.get("PTCG_SEARCH", "0") == "1"
 SEARCH_DET = int(os.environ.get("PTCG_SEARCH_DET", "16"))    # determinizations
 SEARCH_ROLL = int(os.environ.get("PTCG_SEARCH_ROLL", "2"))   # rollouts/candidate
@@ -1172,6 +1185,30 @@ def _score_yesno(opt, ctx, cur, me):
     return YESNO_MATCH if is_yes == want_yes else -YESNO_MATCH
 
 
+def _pilot_score_main(opt, sel, cur, me):
+    """Garchomp tempo layer over v1 MAIN scoring. Traced to nasuo445's replays:
+    they attack 93% of turns once a loaded attacker exists (first attack turn 4),
+    playing the once-per-turn draw supporter first and then swinging. We keep v1
+    ordering until the turn's supporter has resolved (so the draw engine still
+    fires), then let a loaded attack outrank the remaining marginal setup so the
+    attack is never deferred across turns."""
+    base = _score_main(opt, sel, cur, me)
+    t = opt.get("type")
+    if t == OT_ATTACK and (cur.get("turn") or 0) >= 4 and base < WEIGHT_LETHAL:
+        dmg = _attack_damage_est(opt.get("attackId"), cur, me)
+        if dmg > 0 and cur.get("supporterPlayed"):
+            return max(base, WEIGHT_TEMPO_LOADED + min(dmg, 1900.0) * ATTACK_DAMAGE_SCALE)
+    elif t == OT_EVOLVE:
+        # evolution rush: nasuo445 gets Garchomp ex online by ~turn 6. Nudge
+        # evolutions toward an ex (the win condition) above ordinary evolves so
+        # the attacker line completes before side pieces (e.g. Roserade).
+        cid = _option_card_id(opt, sel, cur, me)
+        c = _card(cid)
+        if c.get("ex") or c.get("megaEx"):
+            return base + WEIGHT_EVOLVE_EX_BONUS
+    return base
+
+
 def _score_option(opt, sel, cur, me):
     stype = sel.get("type")
     ctx = sel.get("context")
@@ -1182,6 +1219,8 @@ def _score_option(opt, sel, cur, me):
                 return _lv_score_main(opt, sel, cur, me, model)
         if V3_EVAL:
             return _v3_score_main(opt, sel, cur, me)
+        if PILOT == "garchomp":
+            return _pilot_score_main(opt, sel, cur, me)
         return _score_main(opt, sel, cur, me)
     if stype in (ST_CARD, ST_CARD_OR_ATTACHED, ST_ATTACHED_CARD):
         return _score_card(opt, sel, cur, me, ctx)
@@ -1973,6 +2012,35 @@ if SEARCH:
     _pool()
 
 
+def _pilot_telemetry(sel, cur, result):
+    """Cheap ladder telemetry (Garchomp): on our real MAIN decisions from turn
+    4 on, note when we DON'T attack and why — 'SKIP' = an attack was available
+    and we chose something else (the tempo failure), 'not-loaded' = no legal
+    attack yet (a setup-speed problem). One stderr line, only when not
+    attacking, so it stays quiet on healthy turns."""
+    if PILOT != "garchomp" or sel.get("type") != ST_MAIN:
+        return
+    turn = cur.get("turn") or 0
+    if turn < 4:
+        return
+    options = sel.get("option") or []
+    chosen_types = {(options[i] or {}).get("type") for i in result}
+    if OT_ATTACK in chosen_types:
+        return  # we attacked — healthy, stay quiet
+    # only log a genuine SKIP: an attack was legal and we chose otherwise. The
+    # 'not-loaded' case (no legal attack) is expected setup, not a skip, so we
+    # stay quiet there to keep ladder logs cheap.
+    if not any((o or {}).get("type") == OT_ATTACK for o in options):
+        return
+    me = cur.get("yourIndex") or 0
+    act = _active_pokemon(_my(cur, me)) or {}
+    print("[tempo] turn=%s SKIP attack-available chose=%s active=%s energies=%d supPlayed=%s"
+          % (turn, sorted(t for t in chosen_types if t is not None),
+             act.get("id"), len(act.get("energies") or []),
+             bool(cur.get("supporterPlayed"))),
+          file=sys.stderr, flush=True)
+
+
 def _decide(obs):
     """Score all options and resolve. Returns (indices, top_score)."""
     sel = obs["select"]
@@ -2019,6 +2087,11 @@ def agent(obs):
                 fallback = True
                 STATS["fallbacks"] += 1
                 _log_fallback("post-scoring validation fixed the result", turn, sel)
+            if PILOT:
+                try:
+                    _pilot_telemetry(sel, cur, result)
+                except Exception:
+                    pass
             options = sel.get("option") or []
             chosen_types = [(options[i] or {}).get("type") for i in result]
             info = {"phase": "move", "n_options": len(options), "chosen": result}
