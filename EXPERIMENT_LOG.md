@@ -427,3 +427,87 @@ ladder opponents are close enough, contradicted by our deck being an
 extreme 35-energy outlier); (C) a fairer gate vs a DIFFERENT opponent deck
 to rank beliefs honestly; (D) abandon runtime search, ship S1 (val top-1
 56.34%, +1.24% over floor) or stay v1. Phases E2-E5/F held pending.
+
+## 2026-07-09 — Step 1: FAIR cross-deck gates (belief ranked honestly)
+
+**Probe verdict (Kaggle episodes 84888843-0/1): runtime cg + search GREEN
+on-ladder.** Image = Linux-x86_64 / Python 3.11.13. Timings: SearchBegin
+3.28-3.33 ms (local 0.16 ms -> ~20x sandbox overhead — matters: 16 dets pay
+one begin each = ~53 ms fixed/decision before rollouts), SearchStep
+0.12-0.31 ms (local 0.05). Phase F: pin deps to Py3.11; Phase D time model
+built from Kaggle numbers.
+
+E1 was a mirror match (v1 on OUR deck both sides), so it structurally
+favored mirror belief. Step 1 re-gates against 3 REAL top-ladder decks
+(extracted from episode replays, all validate_deck-legal, v1 pilots each
+0-crash): metaA Cynthia's Garchomp ex (5 energy), metaB Dudunsparce/Alakazam
+(3 energy, the 73%-ladder deck), metaC Mega Kangaskhan ex (16 energy,
+multi-type) — vs our 35-energy mono-water build.
+
+Gates (belief-search + our deck vs v1 + opp deck, 300 games, seats
+alternated, 0 crashes all sides):
+
+| opponent | v1+our baseline | comp (honest) | mirror (wrong here) |
+|---|---|---|---|
+| Garchomp ex   | ~72% | 73.7% [68.4,78.3] PASS | 71.0% [65.6,75.8] PASS |
+| Alakazam      | ~38% | 42.7% [37.2,48.3] FAIL | 40.7% [35.3,46.3] FAIL |
+| Kangaskhan    | ~75% | 75.3% [70.2,79.9] PASS | 72.3% [67.0,77.1] PASS |
+
+**Key finding — the E1 mirror-advantage was a gate artifact.** On every
+cross-deck opponent honest comp belief EQUALS OR BEATS mirror belief
+(+2.7 / +2.0 / +3.0 pt), reversing E1 where mirror beat comp by 9pt in the
+mirror match. Against opponents that actually differ, confidently-wrong
+mirror belief is no better (slightly worse) than honest-but-vague belief.
+**But the lift over the v1 baseline is small** (+1.2 / +4.7 / +0.3 pt): the
+two PASSes are matchups v1 already wins, and in the one with real headroom
+(Alakazam, which we lose) search improves 38->42.7% but cannot flip it.
+Diagnosis (override-agreement, value separation, oracle ceiling, det sweep)
+below decides whether archetype priors (Step 2) have room.
+
+**Diagnosis per opponent (30 games each; oracle = search handed the TRUE
+opponent list = belief-accuracy ceiling; det sweep = compute cofounder):**
+
+| opponent | value-sep zero-gap comp/mirror/oracle | oracle overrides v1 | comp captures of oracle's overrides | comp det4/16/48 zero-gap |
+|---|---|---|---|---|
+| Garchomp   | 64% / 47% / 41% | 43% | 11% | 81/62/50% |
+| Alakazam   | 55% / 32% / 33% | 49% | 18% | 78/52/34% |
+| Kangaskhan | 74% / 56% / 49% | 37% | 12% | 84/77/58% |
+
+Reading: (i) belief accuracy HAS headroom — perfect belief (oracle) roughly
+halves the flat-value fraction vs honest comp on every deck, and would
+override v1 on 37-49% of decisions where comp captures only 11-18% of those.
+(ii) Compute is NOT irrelevant after all — raising det 4->48 sharpens comp's
+value separation substantially (e.g. Alakazam 78->34% zero-gap), sometimes
+approaching oracle's det=16 level; but separation != correctness (a wrong
+belief just gets more confident). (iii) mirror on cross-deck OVERRIDES v1
+even more than oracle (confidently wrong) yet gates ~= comp -> in these
+lopsided matchups the exact option rarely swings the game.
+Whether that headroom converts to WINS is answered by the oracle GATES
+(perfect-belief ceiling, 300 games each) — [pending].
+
+**Oracle ceiling gates (perfect belief, 300 games each) — the number that
+decides Step 2:**
+
+| opponent | v1 base | comp (honest) | mirror (wrong) | oracle (perfect) |
+|---|---|---|---|---|
+| Garchomp   | 72.5% | 73.7% [68.4,78.3] | 71.0% [65.6,75.8] | 78.3% [73.3,82.6] |
+| Alakazam   | 37.5% | 42.7% [37.2,48.3] | 40.7% [35.3,46.3] | 51.3% [45.7,56.9] |
+| Kangaskhan | 75.0% | 75.3% [70.2,79.9] | 72.3% [67.0,77.1] | 73.3% [68.1,78.0] |
+
+**Verdict — Option 1 (archetype priors) is JUSTIFIED, with a caveat.**
+(i) Perfect belief converts to wins: oracle beats comp by +4.6 (Garchomp)
+and +8.6 (Alakazam) pt on the matchups with headroom, and on Alakazam — the
+deck we LOSE to at v1 — perfect knowledge swings us +13.8pt (37.5->51.3%),
+loss to coin-flip. That comp->oracle gap is precisely what META archetype
+priors close, so Step 2 has real, quantified headroom (~+5 to +9pt on
+contested matchups). comp already banks ~a third of it (Alakazam +5.2 of
++13.8). (ii) CAVEAT: against the single strongest archetype (Alakazam/
+Dudunsparce, 73% ladder win rate) even PERFECT search only reaches parity
+(51.3%, CI still spans 50%) — our 35-energy deck is the limiter there, a
+separate lever no belief fixes. (iii) Kangaskhan has zero headroom (oracle
+~= comp ~= base 73-75%): matchup decided by deck power, not decision
+quality. Net: we're strong vs most of the field (Garchomp/Kangaskhan
+~73-78%), weak vs the Alakazam cluster; search+honest-belief adds a little
+now and archetype priors can add materially more where it matters.
+
+-> STOP for user sign-off before Step 2 (archetype-prior belief).

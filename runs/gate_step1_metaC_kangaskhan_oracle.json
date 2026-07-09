@@ -1,0 +1,32 @@
+{
+  "challenger": "deck.csv+SEARCH=true+SEARCH_BELIEF=oracle+ORACLE=metaC_kangaskhan.csv+GOVERNOR=false",
+  "incumbent": "metaC_kangaskhan.csv",
+  "games": 300,
+  "wins": 220,
+  "losses": 80,
+  "draws": 0,
+  "wins_by_seat": [
+    119,
+    101
+  ],
+  "win_rate": 0.7333333333333333,
+  "wilson95": [
+    0.680572605868549,
+    0.7801940075599961
+  ],
+  "verdict": "PASS",
+  "crashes": {
+    "chal": 0,
+    "inc": 0
+  },
+  "reasons_won": {
+    "1": 194,
+    "2": 14,
+    "3": 12
+  },
+  "reasons_lost": {
+    "3": 80
+  },
+  "calibration": null,
+  "teacher_stats": null
+}

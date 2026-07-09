@@ -1,0 +1,47 @@
+{
+  "n": 297,
+  "games": 30,
+  "opponent": "metaC_kangaskhan",
+  "mirror": false,
+  "reference": "oracle",
+  "agreement": {
+    "comp~oracle": 166,
+    "comp~v1": 231,
+    "oracle~v1": 187
+  },
+  "override": {
+    "comp": 66,
+    "mirror": 97,
+    "oracle": 110
+  },
+  "edge": {
+    "total": 110,
+    "comp_reverts_v1": 79,
+    "comp_third": 17,
+    "comp_follows": 14
+  },
+  "gap_mean": {
+    "comp": 0.01738279245116494,
+    "mirror": 0.03009259259259259,
+    "oracle": 0.03293350168350168
+  },
+  "gap_zero_frac": {
+    "comp": 0.7407407407407407,
+    "mirror": 0.5656565656565656,
+    "oracle": 0.4983164983164983
+  },
+  "lowdet": {
+    "4": {
+      "gap_mean": 0.0242003367003367,
+      "zero_frac": 0.8484848484848485
+    },
+    "16": {
+      "gap_mean": 0.016308922558922558,
+      "zero_frac": 0.7744107744107744
+    },
+    "48": {
+      "gap_mean": 0.014104327201575674,
+      "zero_frac": 0.5824915824915825
+    }
+  }
+}

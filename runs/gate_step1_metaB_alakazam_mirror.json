@@ -1,0 +1,33 @@
+{
+  "challenger": "deck.csv+SEARCH=true+SEARCH_BELIEF=mirror+GOVERNOR=false",
+  "incumbent": "metaB_alakazam.csv",
+  "games": 300,
+  "wins": 122,
+  "losses": 178,
+  "draws": 0,
+  "wins_by_seat": [
+    65,
+    57
+  ],
+  "win_rate": 0.4066666666666667,
+  "wilson95": [
+    0.3526017598634212,
+    0.46309159476516065
+  ],
+  "verdict": "FAIL",
+  "crashes": {
+    "chal": 0,
+    "inc": 0
+  },
+  "reasons_won": {
+    "3": 62,
+    "2": 29,
+    "1": 31
+  },
+  "reasons_lost": {
+    "3": 161,
+    "1": 17
+  },
+  "calibration": null,
+  "teacher_stats": null
+}

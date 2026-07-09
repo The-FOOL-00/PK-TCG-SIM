@@ -1,0 +1,47 @@
+{
+  "n": 459,
+  "games": 30,
+  "opponent": "metaA_garchomp",
+  "mirror": false,
+  "reference": "oracle",
+  "agreement": {
+    "comp~oracle": 225,
+    "comp~v1": 333,
+    "oracle~v1": 258
+  },
+  "override": {
+    "comp": 126,
+    "mirror": 195,
+    "oracle": 201
+  },
+  "edge": {
+    "total": 201,
+    "comp_reverts_v1": 131,
+    "comp_third": 47,
+    "comp_follows": 23
+  },
+  "gap_mean": {
+    "comp": 0.02687266589931673,
+    "mirror": 0.03839869281045752,
+    "oracle": 0.05827886710239651
+  },
+  "gap_zero_frac": {
+    "comp": 0.6492374727668845,
+    "mirror": 0.4749455337690632,
+    "oracle": 0.41612200435729846
+  },
+  "lowdet": {
+    "4": {
+      "gap_mean": 0.037668166645601686,
+      "zero_frac": 0.8169934640522876
+    },
+    "16": {
+      "gap_mean": 0.0270208781159002,
+      "zero_frac": 0.6296296296296297
+    },
+    "48": {
+      "gap_mean": 0.022111703788478824,
+      "zero_frac": 0.5010893246187363
+    }
+  }
+}

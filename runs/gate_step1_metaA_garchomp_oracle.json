@@ -1,0 +1,33 @@
+{
+  "challenger": "deck.csv+SEARCH=true+SEARCH_BELIEF=oracle+ORACLE=metaA_garchomp.csv+GOVERNOR=false",
+  "incumbent": "metaA_garchomp.csv",
+  "games": 300,
+  "wins": 235,
+  "losses": 65,
+  "draws": 0,
+  "wins_by_seat": [
+    126,
+    109
+  ],
+  "win_rate": 0.7833333333333333,
+  "wilson95": [
+    0.7332901513759227,
+    0.8262121649301679
+  ],
+  "verdict": "PASS",
+  "crashes": {
+    "chal": 0,
+    "inc": 0
+  },
+  "reasons_won": {
+    "1": 187,
+    "3": 47,
+    "2": 1
+  },
+  "reasons_lost": {
+    "3": 63,
+    "1": 2
+  },
+  "calibration": null,
+  "teacher_stats": null
+}

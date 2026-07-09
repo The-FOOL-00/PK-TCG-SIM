@@ -1,0 +1,47 @@
+{
+  "n": 335,
+  "games": 30,
+  "opponent": "metaB_alakazam",
+  "mirror": false,
+  "reference": "oracle",
+  "agreement": {
+    "comp~oracle": 137,
+    "comp~v1": 203,
+    "oracle~v1": 169
+  },
+  "override": {
+    "comp": 132,
+    "mirror": 193,
+    "oracle": 166
+  },
+  "edge": {
+    "total": 166,
+    "comp_reverts_v1": 97,
+    "comp_third": 38,
+    "comp_follows": 31
+  },
+  "gap_mean": {
+    "comp": 0.03036031034677776,
+    "mirror": 0.049813432835820896,
+    "oracle": 0.06688432835820896
+  },
+  "gap_zero_frac": {
+    "comp": 0.5552238805970149,
+    "mirror": 0.3253731343283582,
+    "oracle": 0.3373134328358209
+  },
+  "lowdet": {
+    "4": {
+      "gap_mean": 0.03745066358415938,
+      "zero_frac": 0.7880597014925373
+    },
+    "16": {
+      "gap_mean": 0.03278562143278211,
+      "zero_frac": 0.5283582089552239
+    },
+    "48": {
+      "gap_mean": 0.02460400309327953,
+      "zero_frac": 0.3492537313432836
+    }
+  }
+}

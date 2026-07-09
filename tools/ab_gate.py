@@ -80,6 +80,12 @@ def make_wrapper(deck, attrs, defaults, game_seed=0):
         det, roll, topk = (int(x) for x in str(attrs["TEACHER"]).split(","))
         t_agent = searcher.make_agent(deck, det=det, roll=roll, topk=topk,
                                       seed=game_seed)
+    # ORACLE=<deckfile>: diagnosis-only ceiling gate — the belief search is
+    # handed the opponent's TRUE 60-card list (SEARCH_ORACLE_DECK) to sample
+    # from. Not a shippable mode; measures how much perfect belief could buy.
+    oracle_deck = None
+    if attrs.get("ORACLE"):
+        oracle_deck = deck_compare.read_deck(REPO / str(attrs["ORACLE"]))
 
     def wrapper(obs, _config):
         if obs.get("select") is None:
@@ -87,8 +93,10 @@ def make_wrapper(deck, attrs, defaults, game_seed=0):
         agent_mod.TOTAL_BASIC_ENERGY = n_energy
         for name, val in defaults.items():
             setattr(agent_mod, name, val)
+        if hasattr(agent_mod, "SEARCH_ORACLE_DECK"):
+            agent_mod.SEARCH_ORACLE_DECK = oracle_deck
         for name, val in attrs.items():
-            if name != "TEACHER":
+            if name not in ("TEACHER", "ORACLE"):
                 setattr(agent_mod, name, val)
         if t_agent is not None:
             return t_agent(obs, _config)
