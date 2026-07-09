@@ -533,3 +533,25 @@ the bottleneck. **Ship config = comp belief + terminal rollouts + v1 rollout
 policy + governor** — the CI-backed Step-1 config (73.7/42.7/75.3 vs the 3
 meta decks) and NUMPY-FREE (value/policy nets never touched at runtime ->
 no Python-3.11 numpy pin needed). E4 (mirror teacher slope) skipped per user.
+
+## 2026-07-09 — Deck offensive: ship v2.1.0-alakazam
+
+Feasibility gate (deck offensive step 2): our belief-search agent piloting
+the winning Dudunsparce/Alakazam list (metaB_alakazam.csv, extracted from 10
+top-ladder games) vs the SAME agent piloting our current 35-energy deck:
+**74.7% [69.5, 79.3] PASS, 0 crashes, both seats (124/100)**. Switching to
+the stronger deck wins by itself — the deck was the ceiling, exactly as the
+oracle diagnosis predicted. Why our old deck lost to it: Alakazam runs 4x
+Enhanced Hammer (energy denial) + a Rare Candy/Poffin/Hilda/Dawn draw engine
++ low-cost attackers (Dudunsparce HP140/dmg90) — a hard counter to our
+energy-dependent Hammer-lanche.
+
+Bundle ptcg-search-v2.1.0-alakazam (submission_search_metaB_alakazam.tar.gz,
+2.00 MiB, 13 members): identical agent + search config (comp/terminal/v1/
+governor, numpy-free), only deck.csv swapped to the Alakazam list; full
+1267-card card_data covers it. Checks green: deck valid (60/1 ACE SPEC/8
+basics), exec-load (search baked on), no-cg fallback, 30-game parallel smoke
+0 crash/0 fallback (decision p50 746ms p90 2265ms p99 3160ms max 3390ms —
+Alakazam games are longer so slightly above our-deck's p99 2.37s, still far
+under any timeout; governor bounds each decision to budget + one det).
+Confirmatory gate v2.1.0 vs v1+Alakazam [running, non-blocking].
