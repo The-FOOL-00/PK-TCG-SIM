@@ -1,0 +1,32 @@
+{
+  "challenger": "deck.csv+SEARCH=true+SEARCH_BELIEF=comp+GOVERNOR=false+ROLLOUT=s1+SEARCH_CAP=0",
+  "incumbent": "deck.csv+SEARCH=true+SEARCH_BELIEF=comp+GOVERNOR=false+ROLLOUT=v1+SEARCH_CAP=0",
+  "games": 200,
+  "wins": 90,
+  "losses": 110,
+  "draws": 0,
+  "wins_by_seat": [
+    62,
+    28
+  ],
+  "win_rate": 0.45,
+  "wilson95": [
+    0.3826406840224836,
+    0.5192438486152432
+  ],
+  "verdict": "FAIL",
+  "crashes": {
+    "chal": 0,
+    "inc": 0
+  },
+  "reasons_won": {
+    "3": 81,
+    "1": 9
+  },
+  "reasons_lost": {
+    "3": 100,
+    "1": 10
+  },
+  "calibration": null,
+  "teacher_stats": null
+}

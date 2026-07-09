@@ -511,3 +511,25 @@ quality. Net: we're strong vs most of the field (Garchomp/Kangaskhan
 now and archetype priors can add materially more where it matters.
 
 -> STOP for user sign-off before Step 2 (archetype-prior belief).
+
+## 2026-07-09 — Phase F: ship-config pilots + bundle (comp+terminal+v1)
+
+Decision to skip Step 2 (archetype priors) per user: oracle ceiling shows
+priors capture only a fraction of a comp->oracle gap that even at maximum
+(oracle) only reaches PARITY vs the top Alakazam deck; ladder signal + the
+deck offensive are higher-EV than a few points of opponent modeling. Ship
+now, then attack the deck.
+
+Phase C measured K TIMING only; ran the deferred STRENGTH pilots (200-game
+self-play, both sides search, det16, governor off) to pick the ship config:
+- E3 s1-rollouts vs v1-rollouts (both terminal): s1 **45.0% [38.3,51.9]** ->
+  s1 rollouts do NOT help (worse/neutral) at 7.6x the per-step cost. REJECT.
+- E2 value-trunc K=10 vs terminal (both v1): cap10 **51.5% [44.6,58.3]** ->
+  truncation strength-neutral; its only gain is speed we don't need (governor
+  keeps terminal safe: stress max own-time 35.6s at 3x). REJECT.
+Both confirm the diagnosis prediction: neither net-in-the-loop addition
+converts, because belief quality (not rollout fidelity or sample count) was
+the bottleneck. **Ship config = comp belief + terminal rollouts + v1 rollout
+policy + governor** — the CI-backed Step-1 config (73.7/42.7/75.3 vs the 3
+meta decks) and NUMPY-FREE (value/policy nets never touched at runtime ->
+no Python-3.11 numpy pin needed). E4 (mirror teacher slope) skipped per user.
