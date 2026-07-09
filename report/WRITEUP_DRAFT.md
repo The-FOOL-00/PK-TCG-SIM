@@ -148,6 +148,38 @@ two beliefs for real ladder play (varied opponents); it only proves that
 *correct* belief converts to +9pt of strength, and that our current honest
 belief is not yet accurate enough to bank any of it.
 
+**Fair cross-deck gates (resolving the caveat).** We re-gated against three
+*real* top-ladder decklists extracted from episode replays — Cynthia's
+Garchomp ex (5 energy), Dudunsparce/Alakazam (3 energy, a 73%-win-rate
+field deck), Mega Kangaskhan ex (16 energy) — each piloted by v1, all
+structurally unlike our 35-energy mono-Water build. Win rates of
+belief-search + our deck vs v1 + opponent deck (300 games each):
+
+| opponent | v1 baseline | honest belief | exact-mirror belief | *perfect* belief (oracle) |
+|---|---|---|---|---|
+| Garchomp ex   | 72.5% | 73.7% [68.4,78.3] | 71.0% | **78.3%** [73.3,82.6] |
+| Dudunsparce/Alakazam | 37.5% | 42.7% [37.2,48.3] | 40.7% | **51.3%** [45.7,56.9] |
+| Mega Kangaskhan | 75.0% | 75.3% [70.2,79.9] | 72.3% | 73.3% |
+
+Three findings. (1) **E1's mirror-advantage was a gate artifact:** against
+opponents that actually differ, honest belief equals or beats exact-mirror
+belief on all three decks — confidently-wrong belief is no better than
+honest-but-vague belief once the opponent isn't us. (2) **Belief accuracy is
+the lever, and it converts:** the oracle column (search handed the
+opponent's true 60-card list) beats honest belief by +4.6 and +8.6 pt on the
+two decks with headroom, and on the deck we *lose* to (Alakazam) perfect
+knowledge swings us +13.8 pt — a clear loss to a coin flip. The gap between
+honest and oracle belief is exactly what meta-archetype priors are built to
+close. A position-level diagnosis agrees: perfect belief roughly halves the
+fraction of decisions where the search cannot separate its candidates
+(Alakazam 55%→33% flat), and honest belief currently captures only 11–18% of
+the overrides perfect belief would make. (3) **A deck-power ceiling:** even
+*perfect* search only reaches parity against the strongest field deck
+(Alakazam 51.3%, CI spanning 50%) — against the best archetypes our deck,
+not our decision quality, is the limiter. Net: the agent is strong across
+most of the field (73–78%) and the search + a sharper belief is the right
+next investment where decisions still swing games.
+
 **Methodological finding — seat matters.** In the H2 gate the challenger won
 72% in seat 0 vs 36% in seat 1 (n=150 each). Any comparison that does not
 alternate seats is invalid; ab_gate.py alternates by construction.
