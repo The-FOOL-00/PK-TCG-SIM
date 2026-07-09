@@ -1582,6 +1582,15 @@ def sample_opponent_deck(n, known_ids, tracker, rng, prior=None):
     archetype hook; None = the SEARCH_BELIEF default. Raises ValueError on
     underflow."""
     pool = _pool()
+    if SEARCH_BELIEF == "oracle" and SEARCH_ORACLE_DECK:
+        # diagnosis only: sample the remainder of the opponent's TRUE list.
+        # Upper bound on belief accuracy — never a shippable mode (we can't
+        # know the opponent's deck), used to prove belief is the bottleneck.
+        base = list((Counter(SEARCH_ORACLE_DECK) - Counter(known_ids)).elements())
+        rng.shuffle(base)
+        if len(base) < n:
+            raise ValueError("oracle pool underflow (%d/%d)" % (len(base), n))
+        return base[:n]
     if not pool or SEARCH_BELIEF == "mirror":
         # exact-knowledge guess: remainder of OUR list (teacher determinization)
         base = list((Counter(DECK) - Counter(known_ids)).elements())
@@ -1710,6 +1719,7 @@ def _sample_determinization(obs, tracker, rng):
 
 
 SEARCH_PRIOR = None   # archetype-prior hook consumed by sample_opponent_deck
+SEARCH_ORACLE_DECK = None   # diagnosis-only: true opponent list for oracle belief
 
 
 # ------------------------------------------------------- rollout policies ----
