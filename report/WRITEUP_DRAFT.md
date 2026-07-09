@@ -180,6 +180,24 @@ not our decision quality, is the limiter. Net: the agent is strong across
 most of the field (73–78%) and the search + a sharper belief is the right
 next investment where decisions still swing games.
 
+**Methodological finding — the ladder falsified a local gate (the strongest
+lesson).** After the fair cross-deck gates supported switching decks, a
+feasibility gate said our search agent piloting the Dudunsparce/Alakazam
+list beat our search agent piloting our old deck **74.7% [69.5, 79.3]**. We
+shipped it. On the ladder it scored **μ=548 — 66 points BELOW** the old-deck
+build (μ=614). The gate was structurally incapable of predicting this: its
+opponent was *our own agent on our old deck* (not the ladder field), and
+*both* sides mispiloted the complex Alakazam engine symmetrically, so the
+comparison could not surface the piloting weakness they shared. Ladder intel
+then showed the decisive irony — the rank-1 player (μ=1260) plays a deck
+**byte-identical to the one we shipped**, but pilots it as a 44-turn denial
+grind attacking from turn 4, while our search mishandles the trainer-combo
+sub-decisions it doesn't even enumerate (attacking at turn 11, never
+attacking in 30% of games). The lesson, now a hard rule: a deck gate must use
+strong, *representative* opponents (the actual top-team decks) and be
+anchored to a known ladder result, never to a weak or self-mirrored
+reference. Local win-rate against the wrong opponent predicts nothing.
+
 **Methodological finding — seat matters.** In the H2 gate the challenger won
 72% in seat 0 vs 36% in seat 1 (n=150 each). Any comparison that does not
 alternate seats is invalid; ab_gate.py alternates by construction.

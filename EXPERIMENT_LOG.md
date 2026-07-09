@@ -555,3 +555,41 @@ basics), exec-load (search baked on), no-cg fallback, 30-game parallel smoke
 Alakazam games are longer so slightly above our-deck's p99 2.37s, still far
 under any timeout; governor bounds each decision to budget + one det).
 Confirmatory gate v2.1.0 vs v1+Alakazam [running, non-blocking].
+
+## 2026-07-09 — LADDER VERDICT + Phase 1 intel (v2.1.0 FAILED, root-caused)
+
+Ladder: v2.0.0 (old deck+search) μ=614/25g — search architecture works.
+v2.1.0 (Alakazam+search) μ=548/6g — FAILED, -66 vs v2.0.0. Sanjay PPO 616.8.
+Top-5 threshold ~1100. The 74.7% feasibility gate was non-predictive: its
+opponent was our-own-agent+old-deck (not the ladder field) and both sides
+mispiloted Alakazam symmetrically -> couldn't surface shared piloting
+weakness. Full narrative in report/WRITEUP_DRAFT.md 2 + report/LADDER_INTEL.md.
+
+Phase 1 intel (tools/analyze_top_replays.py over 47 replays;
+tools/diagnose_alakazam_piloting.py):
+- **Majkel1337 (rank1 μ1260) plays a deck BYTE-IDENTICAL to our
+  metaB_alakazam.csv (19/19 ids, 60/60 copies).** We already ship the rank-1
+  deck. Gap = 100% piloting. He grinds 44-turn denial games (4.0 denial/game,
+  first-attack turn 4.1); we attack turn 11.2, never attack in 30% of games,
+  28.8-turn games (denial rate matches at 4.2 — tempo/close-out is the failure,
+  not denial).
+- **Top teams run FAST POLICIES** (median 31-92ms: kashiwashira 33ms Mewtwo
+  stall, nasuo445 31ms Garchomp, Majkel 92ms). We + Project Mew run SEARCH
+  (200-320ms median); Project Mew (only search team in elite pool) goes 16-15
+  ~50%. Search is competitive but not how anyone reaches top-2.
+- **Meta triangle:** Alakazam decks-out Mewtwo stall (5-0); Mewtwo out-prizes
+  Alakazam in longest games; **Garchomp (nasuo445) went 2-0 beating BOTH** and
+  is META's highest lb archetype — the meta counter and simplest top-deck pilot.
+- Mechanistic root cause: our search only searches MAIN single-selects + v1
+  rollout; Alakazam's strength lives in trainer sub-decisions (Rare Candy,
+  Boss's Orders, multi-select) the search skips -> mishandles combo decks
+  (614 simple deck vs 548 combo deck, same architecture).
+
+RECOMMENDATION (report/LADDER_INTEL.md §RECOMMENDATION): immediate free action
+= ensure live slot is v2.0.0 (614) not v2.1.0 (548). Ranked: 1) Option C
+Garchomp (meta counter, simplest pilot, best arch-fit; gate vs v2.0.0 AND top
+decks) 2) Option B fix Alakazam piloting (highest ceiling=rank1 deck but fights
+arch blind spot) 3) Option A already-done (=548) 4) Option D fast-policy/RL
+(real long-term answer, weeks not days). STOP for Phase 2 sign-off.
+Data gap: no real v2.1.0 loss episodes (only 2 self-mirror agent logs); asked
+user to drop them in data/loss_episodes/.

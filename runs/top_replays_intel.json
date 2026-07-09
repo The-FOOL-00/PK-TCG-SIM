@@ -1,0 +1,999 @@
+{
+  "Project Mew": {
+    "sides": 31,
+    "wins": 16,
+    "decks": [
+      {
+        "deck": "Mega Abomasnow ex / Kyogre",
+        "energy": 35,
+        "etypes": [
+          "3"
+        ],
+        "n": 23
+      },
+      {
+        "deck": "Dudunsparce / Alakazam",
+        "energy": 3,
+        "etypes": [
+          "5"
+        ],
+        "n": 8
+      }
+    ],
+    "timing_ms": {
+      "n": 932,
+      "median": 319.7485000000029,
+      "p50": 320.0120000000197,
+      "p90": 1740.4269999999542,
+      "p99": 2702.207000000044,
+      "max": 2968.236000000047
+    },
+    "avg_turns": 8.483870967741936,
+    "avg_first_attack": 4.285714285714286,
+    "denial_per_game": 0.4838709677419355,
+    "rare_candy_per_game": 0.1935483870967742
+  },
+  "Majkel1337": {
+    "sides": 14,
+    "wins": 9,
+    "decks": [
+      {
+        "deck": "Dudunsparce / Alakazam",
+        "energy": 3,
+        "etypes": [
+          "5"
+        ],
+        "n": 14
+      }
+    ],
+    "timing_ms": {
+      "n": 2307,
+      "median": 91.83099999995648,
+      "p50": 91.83099999995648,
+      "p90": 112.9240000000209,
+      "p99": 243.86600000002545,
+      "max": 12307.912999999986
+    },
+    "avg_turns": 44,
+    "avg_first_attack": 4.071428571428571,
+    "denial_per_game": 4.0,
+    "rare_candy_per_game": 1.8571428571428572
+  },
+  "kashiwashira": {
+    "sides": 11,
+    "wins": 4,
+    "decks": [
+      {
+        "deck": "Team Rocket's Mewtwo ex / Team Rocket's Spidops",
+        "energy": 9,
+        "etypes": [
+          "1"
+        ],
+        "n": 11
+      }
+    ],
+    "timing_ms": {
+      "n": 1120,
+      "median": 32.77600000001257,
+      "p50": 32.779000000005,
+      "p90": 38.521999999943546,
+      "p99": 87.40899999997964,
+      "max": 418.94300000001294
+    },
+    "avg_turns": 51.72727272727273,
+    "avg_first_attack": 11.090909090909092,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "capbloo": {
+    "sides": 3,
+    "wins": 1,
+    "decks": [
+      {
+        "deck": "Alakazam / Alakazam",
+        "energy": 2,
+        "etypes": [
+          "5"
+        ],
+        "n": 3
+      }
+    ],
+    "timing_ms": {
+      "n": 322,
+      "median": 84.42800000000261,
+      "p50": 84.5560000000205,
+      "p90": 286.6360000000441,
+      "p99": 294.57800000000134,
+      "max": 335.83499999997457
+    },
+    "avg_turns": 14.666666666666666,
+    "avg_first_attack": 4.666666666666667,
+    "denial_per_game": 1.0,
+    "rare_candy_per_game": 1.6666666666666667
+  },
+  "nasuo445": {
+    "sides": 2,
+    "wins": 2,
+    "decks": [
+      {
+        "deck": "Cynthia's Garchomp ex / Cynthia's Roserade",
+        "energy": 5,
+        "etypes": [
+          "6"
+        ],
+        "n": 2
+      }
+    ],
+    "timing_ms": {
+      "n": 199,
+      "median": 30.591999999955988,
+      "p50": 30.591999999955988,
+      "p90": 35.275999999953456,
+      "p99": 270.90499999997064,
+      "max": 279.20700000004217
+    },
+    "avg_turns": 16.5,
+    "avg_first_attack": 4.5,
+    "denial_per_game": 0.5,
+    "rare_candy_per_game": 0.0
+  },
+  "yaya__k": {
+    "sides": 1,
+    "wins": 1,
+    "decks": [
+      {
+        "deck": "Dudunsparce / Alakazam",
+        "energy": 4,
+        "etypes": [
+          "5"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 53,
+      "median": 6044.850999999994,
+      "p50": 6044.850999999994,
+      "p90": 7329.926999999998,
+      "p99": 8047.019999999975,
+      "max": 8047.019999999975
+    },
+    "avg_turns": 11,
+    "avg_first_attack": 4,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 1.0
+  },
+  "Kirderf": {
+    "sides": 1,
+    "wins": 0,
+    "decks": [
+      {
+        "deck": "Mega Abomasnow ex / Kyogre",
+        "energy": 35,
+        "etypes": [
+          "3"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 17,
+      "median": 470.7100000000537,
+      "p50": 470.7100000000537,
+      "p90": 583.4810000000061,
+      "p99": 11978.878000000008,
+      "max": 11978.878000000008
+    },
+    "avg_turns": 10,
+    "avg_first_attack": 8,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "Reossann": {
+    "sides": 1,
+    "wins": 0,
+    "decks": [
+      {
+        "deck": "Mega Starmie ex / Fezandipiti ex",
+        "energy": 5,
+        "etypes": [
+          "3"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 19,
+      "median": 31.862000000046464,
+      "p50": 31.862000000046464,
+      "p90": 35.91200000005301,
+      "p99": 201.82199999999284,
+      "max": 201.82199999999284
+    },
+    "avg_turns": 7,
+    "avg_first_attack": 5,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "Electoria": {
+    "sides": 1,
+    "wins": 1,
+    "decks": [
+      {
+        "deck": "Dragapult ex / Fezandipiti ex",
+        "energy": 8,
+        "etypes": [
+          "2",
+          "5"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 35,
+      "median": 63.097999999968124,
+      "p50": 63.097999999968124,
+      "p90": 152.608999999984,
+      "p99": 849.0679999999884,
+      "max": 849.0679999999884
+    },
+    "avg_turns": 7,
+    "avg_first_attack": 6,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "ys1997": {
+    "sides": 1,
+    "wins": 0,
+    "decks": [
+      {
+        "deck": "Mega Abomasnow ex / Kyogre",
+        "energy": 35,
+        "etypes": [
+          "3"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 27,
+      "median": 32.858000000032916,
+      "p50": 32.858000000032916,
+      "p90": 37.049000000024535,
+      "p99": 10386.709999999994,
+      "max": 10386.709999999994
+    },
+    "avg_turns": 11,
+    "avg_first_attack": 6,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "Leundai": {
+    "sides": 1,
+    "wins": 1,
+    "decks": [
+      {
+        "deck": "Mega Starmie ex / Cinderace",
+        "energy": 9,
+        "etypes": [
+          "3"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 32,
+      "median": 30.396999999993568,
+      "p50": 30.55800000004183,
+      "p90": 37.64100000000781,
+      "p99": 203.93400000000383,
+      "max": 203.93400000000383
+    },
+    "avg_turns": 6,
+    "avg_first_attack": 2,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "EMANUELE MARLIA": {
+    "sides": 1,
+    "wins": 0,
+    "decks": [
+      {
+        "deck": "Mega Lucario ex / Riolu",
+        "energy": 18,
+        "etypes": [
+          "6"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 14,
+      "median": 36.72000000000253,
+      "p50": 38.873999999964326,
+      "p90": 93.32700000004479,
+      "p99": 232.74300000002768,
+      "max": 232.74300000002768
+    },
+    "avg_turns": 5,
+    "avg_first_attack": 3,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "Obaachan Sensei to AI Gundan": {
+    "sides": 1,
+    "wins": 0,
+    "decks": [
+      {
+        "deck": "Marnie's Grimmsnarl ex / Fezandipiti ex",
+        "energy": 10,
+        "etypes": [
+          "7"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 69,
+      "median": 24.85100000001239,
+      "p50": 24.85100000001239,
+      "p90": 31.084999999961838,
+      "p99": 383.3799999999883,
+      "max": 383.3799999999883
+    },
+    "avg_turns": 13,
+    "avg_first_attack": 8,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 2.0
+  },
+  "ykk": {
+    "sides": 1,
+    "wins": 1,
+    "decks": [
+      {
+        "deck": "Mega Kangaskhan ex / Crustle",
+        "energy": 1,
+        "etypes": [
+          "1"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 43,
+      "median": 34.38699999998107,
+      "p50": 34.38699999998107,
+      "p90": 42.48100000000932,
+      "p99": 87103.21499999998,
+      "max": 87103.21499999998
+    },
+    "avg_turns": 18,
+    "avg_first_attack": 6,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "YounsungLEE": {
+    "sides": 1,
+    "wins": 0,
+    "decks": [
+      {
+        "deck": "Mega Lucario ex / Hariyama",
+        "energy": 13,
+        "etypes": [
+          "6"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 65,
+      "median": 31.32200000004559,
+      "p50": 31.32200000004559,
+      "p90": 39.168000000017855,
+      "p99": 209.30399999997462,
+      "max": 209.30399999997462
+    },
+    "avg_turns": 9,
+    "avg_first_attack": 3,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "Rattanunt": {
+    "sides": 1,
+    "wins": 0,
+    "decks": [
+      {
+        "deck": "Mega Abomasnow ex / Kyogre",
+        "energy": 35,
+        "etypes": [
+          "3"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 12,
+      "median": 25.120000000015352,
+      "p50": 25.120000000015352,
+      "p90": 31.824000000028718,
+      "p99": 226.86699999997018,
+      "max": 226.86699999997018
+    },
+    "avg_turns": 5,
+    "avg_first_attack": 3,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "Dustin L": {
+    "sides": 1,
+    "wins": 1,
+    "decks": [
+      {
+        "deck": "Archaludon ex / Duraludon",
+        "energy": 14,
+        "etypes": [
+          "8"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 18,
+      "median": 23.917999999980566,
+      "p50": 24.004999999988286,
+      "p90": 88.21499999999105,
+      "p99": 132.8409999999849,
+      "max": 132.8409999999849
+    },
+    "avg_turns": 3,
+    "avg_first_attack": 3,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "ONunez55": {
+    "sides": 1,
+    "wins": 1,
+    "decks": [
+      {
+        "deck": "Hop\u2019s Snorlax / Hop's Trevenant",
+        "energy": 0,
+        "etypes": [],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 28,
+      "median": 38.19099999998343,
+      "p50": 39.17100000001028,
+      "p90": 61.807000000044354,
+      "p99": 349.09300000003896,
+      "max": 349.09300000003896
+    },
+    "avg_turns": 6,
+    "avg_first_attack": 5,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "moeuuu": {
+    "sides": 1,
+    "wins": 1,
+    "decks": [
+      {
+        "deck": "Mega Lucario ex / Hariyama",
+        "energy": 14,
+        "etypes": [
+          "6"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 46,
+      "median": 31.916000000023814,
+      "p50": 31.96000000002641,
+      "p90": 35.68700000005265,
+      "p99": 254.90400000001046,
+      "max": 254.90400000001046
+    },
+    "avg_turns": 8,
+    "avg_first_attack": 3,
+    "denial_per_game": 1.0,
+    "rare_candy_per_game": 0.0
+  },
+  "tanitou": {
+    "sides": 1,
+    "wins": 0,
+    "decks": [
+      {
+        "deck": "Mega Venusaur ex / Teal Mask Ogerpon ex",
+        "energy": 15,
+        "etypes": [
+          "1"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 15,
+      "median": 22.05700000001798,
+      "p50": 22.05700000001798,
+      "p90": 24.371999999971194,
+      "p99": 125.93300000003183,
+      "max": 125.93300000003183
+    },
+    "avg_turns": 4,
+    "avg_first_attack": null,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "Gachimoto": {
+    "sides": 1,
+    "wins": 1,
+    "decks": [
+      {
+        "deck": "Mega Starmie ex / Mega Froslass ex",
+        "energy": 9,
+        "etypes": [
+          "3"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 21,
+      "median": 20.84700000000339,
+      "p50": 20.84700000000339,
+      "p90": 23.644999999987704,
+      "p99": 150.29200000003584,
+      "max": 150.29200000003584
+    },
+    "avg_turns": 5,
+    "avg_first_attack": 4,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "NangJP": {
+    "sides": 1,
+    "wins": 0,
+    "decks": [
+      {
+        "deck": "Ceruledge ex / Lunatone",
+        "energy": 21,
+        "etypes": [
+          "2",
+          "6"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 43,
+      "median": 25.419000000056258,
+      "p50": 25.419000000056258,
+      "p90": 27.873999999997068,
+      "p99": 193.2570000000169,
+      "max": 193.2570000000169
+    },
+    "avg_turns": 12,
+    "avg_first_attack": 3,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "nynyny67": {
+    "sides": 1,
+    "wins": 0,
+    "decks": [
+      {
+        "deck": "Mega Starmie ex / Cinderace",
+        "energy": 9,
+        "etypes": [
+          "3"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 18,
+      "median": 31.144999999980882,
+      "p50": 31.28900000001522,
+      "p90": 33.647999999971034,
+      "p99": 90.22300000003725,
+      "max": 90.22300000003725
+    },
+    "avg_turns": 6,
+    "avg_first_attack": 3,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "kaliafluorido": {
+    "sides": 1,
+    "wins": 0,
+    "decks": [
+      {
+        "deck": "Dragapult ex / Fezandipiti ex",
+        "energy": 8,
+        "etypes": [
+          "2",
+          "5"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 109,
+      "median": 30.73800000004212,
+      "p50": 30.73800000004212,
+      "p90": 33.2859999999755,
+      "p99": 37.7650000000358,
+      "max": 245.09100000000217
+    },
+    "avg_turns": 13,
+    "avg_first_attack": 5,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 1.0
+  },
+  "openrasmus": {
+    "sides": 1,
+    "wins": 0,
+    "decks": [
+      {
+        "deck": "Mega Lopunny ex / Dudunsparce",
+        "energy": 0,
+        "etypes": [],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 34,
+      "median": 30.876500000033502,
+      "p50": 31.00500000005013,
+      "p90": 33.792999999946005,
+      "p99": 314.4399999999905,
+      "max": 314.4399999999905
+    },
+    "avg_turns": 13,
+    "avg_first_attack": 3,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "Yuichi Yoshida": {
+    "sides": 1,
+    "wins": 0,
+    "decks": [
+      {
+        "deck": "Mega Abomasnow ex / Kyogre",
+        "energy": 35,
+        "etypes": [
+          "3"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 21,
+      "median": 3681.7869999999857,
+      "p50": 3681.7869999999857,
+      "p90": 5886.473000000024,
+      "p99": 7544.3330000000515,
+      "max": 7544.3330000000515
+    },
+    "avg_turns": 9,
+    "avg_first_attack": 3,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "takahiro k0bayashi": {
+    "sides": 1,
+    "wins": 1,
+    "decks": [
+      {
+        "deck": "Mega Lucario ex / Hariyama",
+        "energy": 14,
+        "etypes": [
+          "6"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 17,
+      "median": 22.83199999999397,
+      "p50": 22.83199999999397,
+      "p90": 26.297999999997046,
+      "p99": 132.56300000000465,
+      "max": 132.56300000000465
+    },
+    "avg_turns": 2,
+    "avg_first_attack": 2,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "nakonisu": {
+    "sides": 1,
+    "wins": 1,
+    "decks": [
+      {
+        "deck": "Team Rocket's Mewtwo ex / Lillie\u2019s Clefairy ex",
+        "energy": 8,
+        "etypes": [
+          "1",
+          "5"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 34,
+      "median": 24.980500000026495,
+      "p50": 25.061000000050626,
+      "p90": 28.177000000027874,
+      "p99": 178.745000000049,
+      "max": 178.745000000049
+    },
+    "avg_turns": 6,
+    "avg_first_attack": 3,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "Hidden State Labs": {
+    "sides": 1,
+    "wins": 0,
+    "decks": [
+      {
+        "deck": "Mega Abomasnow ex / Kyogre",
+        "energy": 35,
+        "etypes": [
+          "3"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 26,
+      "median": 21.467000000029657,
+      "p50": 21.515000000022155,
+      "p90": 25.621000000001004,
+      "p99": 126.11600000002454,
+      "max": 126.11600000002454
+    },
+    "avg_turns": 8,
+    "avg_first_attack": 3,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "Juan Zapata": {
+    "sides": 1,
+    "wins": 0,
+    "decks": [
+      {
+        "deck": "Dudunsparce / Alakazam",
+        "energy": 4,
+        "etypes": [
+          "5"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 82,
+      "median": 23.099499999943873,
+      "p50": 23.12199999994391,
+      "p90": 25.282999999944877,
+      "p99": 91.40800000000127,
+      "max": 91.40800000000127
+    },
+    "avg_turns": 15,
+    "avg_first_attack": 6,
+    "denial_per_game": 3.0,
+    "rare_candy_per_game": 0.0
+  },
+  "minfaox3": {
+    "sides": 1,
+    "wins": 1,
+    "decks": [
+      {
+        "deck": "Marnie's Grimmsnarl ex / Munkidori",
+        "energy": 10,
+        "etypes": [
+          "7"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 47,
+      "median": 31.066000000009808,
+      "p50": 31.066000000009808,
+      "p90": 39.47500000003856,
+      "p99": 357.3310000000447,
+      "max": 357.3310000000447
+    },
+    "avg_turns": 13,
+    "avg_first_attack": 7,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 1.0
+  },
+  "Fumi": {
+    "sides": 1,
+    "wins": 1,
+    "decks": [
+      {
+        "deck": "Archaludon ex / Cinderace",
+        "energy": 11,
+        "etypes": [
+          "8"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 58,
+      "median": 24.473999999997886,
+      "p50": 24.54499999998916,
+      "p90": 27.578999999946063,
+      "p99": 234.86500000001342,
+      "max": 234.86500000001342
+    },
+    "avg_turns": 10,
+    "avg_first_attack": 5,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "Little Rascal": {
+    "sides": 1,
+    "wins": 1,
+    "decks": [
+      {
+        "deck": "Marnie's Grimmsnarl ex / Dudunsparce",
+        "energy": 10,
+        "etypes": [
+          "7"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 75,
+      "median": 34.35899999999492,
+      "p50": 34.35899999999492,
+      "p90": 39.30000000002565,
+      "p99": 235.92599999994945,
+      "max": 235.92599999994945
+    },
+    "avg_turns": 14,
+    "avg_first_attack": 6,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 1.0
+  },
+  "Shunsuke Higashi": {
+    "sides": 1,
+    "wins": 0,
+    "decks": [
+      {
+        "deck": "Ceruledge ex / Fezandipiti ex",
+        "energy": 18,
+        "etypes": [
+          "2",
+          "6"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 53,
+      "median": 35.52799999999934,
+      "p50": 35.52799999999934,
+      "p90": 41.92000000000462,
+      "p99": 217.29100000004564,
+      "max": 217.29100000004564
+    },
+    "avg_turns": 12,
+    "avg_first_attack": 7,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "Junliang Ye": {
+    "sides": 1,
+    "wins": 1,
+    "decks": [
+      {
+        "deck": "Mega Starmie ex / Cinderace",
+        "energy": 9,
+        "etypes": [
+          "3"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 46,
+      "median": 24.428499999999076,
+      "p50": 24.47800000004463,
+      "p90": 35.81599999995433,
+      "p99": 123.5349999999471,
+      "max": 123.5349999999471
+    },
+    "avg_turns": 11,
+    "avg_first_attack": 3,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "Bruno Ramos Martins": {
+    "sides": 1,
+    "wins": 0,
+    "decks": [
+      {
+        "deck": "Mega Abomasnow ex / Kyogre",
+        "energy": 35,
+        "etypes": [
+          "3"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 9,
+      "median": 33.631000000013955,
+      "p50": 33.631000000013955,
+      "p90": 50.46700000002602,
+      "p99": 50.46700000002602,
+      "max": 50.46700000002602
+    },
+    "avg_turns": 4,
+    "avg_first_attack": 4,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  },
+  "Super Mippo": {
+    "sides": 1,
+    "wins": 0,
+    "decks": [
+      {
+        "deck": "Crustle / Great Tusk",
+        "energy": 9,
+        "etypes": [
+          "6"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 26,
+      "median": 26.57099999998991,
+      "p50": 26.66399999998248,
+      "p90": 33.3259999999882,
+      "p99": 205.00800000002073,
+      "max": 205.00800000002073
+    },
+    "avg_turns": 11,
+    "avg_first_attack": 2,
+    "denial_per_game": 2.0,
+    "rare_candy_per_game": 0.0
+  },
+  "Gotem Penguin": {
+    "sides": 1,
+    "wins": 1,
+    "decks": [
+      {
+        "deck": "Mega Froslass ex / Dudunsparce",
+        "energy": 6,
+        "etypes": [
+          "3"
+        ],
+        "n": 1
+      }
+    ],
+    "timing_ms": {
+      "n": 59,
+      "median": 531.270999999947,
+      "p50": 531.270999999947,
+      "p90": 538.5770000000321,
+      "p99": 540.7519999999977,
+      "max": 540.7519999999977
+    },
+    "avg_turns": 14,
+    "avg_first_attack": 3,
+    "denial_per_game": 0.0,
+    "rare_candy_per_game": 0.0
+  }
+}
