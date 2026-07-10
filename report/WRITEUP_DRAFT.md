@@ -204,6 +204,25 @@ the sequencing knowledge the search cannot compute. Feasibility confirmed:
 99.2% of top-team decisions recover clean (state, chosen-index) targets and
 74% are directly encodable with the existing feature scheme.
 
+**Behavior cloning tested — imitation accuracy does not equal strength.**
+We trained a 25k-param BC policy on 4,610 winning MAIN-phase decisions of the
+rank-7 Garchomp pilot (nasuo445), with dropout/L2/early stopping. Imitation
+looked excellent — **val top-1 69.4%** against a 20.8% agree-with-v1 floor,
+i.e. the net learned strongly non-heuristic play. It did not convert:
+**31.0% [26.0, 36.4]** vs our incumbent (G6a) and **42.7% [37.2, 48.3]** vs
+our own search piloting the *same deck* (G6b, the pure piloting A/B). The
+imitator attacked at turn 14.6 vs its teacher's 4.1. Diagnosis, two
+structural causes: (i) *sub-decision blindness* — the BC net answers only
+MAIN-phase selections (60% of decisions), while the deck's setup actually
+runs through fetch-target sub-decisions (which Pokémon Buddy-Buddy Poffin
+retrieves) that remained on the heuristic, so the imitated line's pieces
+never reach the hand; (ii) *compounding off-distribution error* — 69%
+per-decision fidelity gives ~0.69⁵ ≈ 16% chance of following a 5-step
+setup line, and the first deviation leaves states the demonstrator never
+produced, where validation accuracy is uninformative. Both causes are
+textbook BC pathologies; measuring them cost one day and redirected the
+plan before a second (larger) BC training run repeated the lesson.
+
 **Methodological finding — the ladder falsified a local gate (the strongest
 lesson).** After the fair cross-deck gates supported switching decks, a
 feasibility gate said our search agent piloting the Dudunsparce/Alakazam
