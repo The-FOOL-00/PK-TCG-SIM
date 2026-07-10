@@ -659,3 +659,32 @@ replays? Answer: YES.
   do the bulk download (target the deck we'll pilot).
 
 VERDICT: 3A PASS — extraction is clean. STOP for user sign-off before 3B.
+
+## 2026-07-10 — Refreshed 3A intel (harvest via Kaggle HTTP API)
+
+Kaggle CLI 2.2.3 rejects all creds client-side (buggy expiry check); the
+OAuth bearer from ~/.kaggle/credentials.json works via direct HTTP (valid
+until ~19:54 local; renew with `py -3.12 -m kaggle auth login`). Built
+tools/harvest_episodes.py: leaderboard snapshot + newest-days-first scan of
+the daily episode datasets, parallel per-file zip fetch, keep top-10 games
+only, resume-safe ledger. 64% of random episodes involve a top-10 team; 812
+episodes kept (~2,100s wall).
+
+Leaderboard churn: NEW #1 Yushin Ito 1277.8 (Grimmsnarl/Fezandipiti E10);
+Majkel 1260->1153.7 (#2); kashiwashira + Mewtwo stall OUT of top tier;
+Kangaskhan now /Crustle E1 (was /Raging Bolt E16). Majkel's primary Alakazam
+list STILL byte-identical to our metaB_alakazam.csv (119 sides).
+
+Refreshed feasibility (908 episodes, 628 winning top-10 sides): alignment
+99.7% clean; 29,429 MAIN-single targets, ALL encode with the existing 170+41
+scheme; category mix shifted to 60% MAIN-single / 30% ST_CARD sub-decisions
+(meta is more fetch/effect-heavy -> BC covers 60% of decisions, rest v1).
+No team under the 200-decision data-thin bar (min Sota 474).
+
+Per-deck BC pools (winning sides): Alakazam(Majkel-list) 6,821; Fezandipiti/
+Dudunsparce family 5,371 (weighted rating 1,169, incl. new #1); Garchomp
+4,610; capbloo-Alakazam family 4,151; Kangaskhan/Crustle 3,006; Grimmsnarl/
+Fezandipiti 2,385 (single pilot, data-thin). Full tables in
+report/LADDER_INTEL_REFRESHED.md. Recommendation: 1) Alakazam (volume +
+ready infra + cleanest G7 science) 2) Fezandipiti/Dudunsparce (ceiling)
+3) Garchomp (simplicity). STOPPED for deck pick before 3B.
