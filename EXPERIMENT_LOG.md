@@ -625,3 +625,37 @@ that LEARNS the setup sequencing (distillation from a competent teacher / BC
 from top replays / RL) can pilot these decks — OR we accept the architecture's
 ceiling is the simple deck (v2.0.0, 614). Per protocol: STOP, no patching,
 report for user direction on whether/how to proceed to Stage 2.
+
+## 2026-07-10 — Stage 3A: BC feasibility (tools/bc_feasibility.py) — CLEAN, GO
+
+Question: can we recover (state, chosen-option-index) BC targets from top-team
+replays? Answer: YES.
+- **Alignment (verified):** the ACTIVE agent's observation.select at steps[i]
+  is answered by that same agent's action at steps[i+1]. Naive same-step
+  pairing is WRONG (off-by-one; deck action shows against a yes/no obs). With
+  the shift: **99.2% clean index recovery** (2057 valid / 17 invalid over 49
+  episodes). The visualize transcript also carries per-entry obs/action/selected
+  as a backup path.
+- **Decision mix (winning top-team sides only, 1530+... = 2057 decisions):**
+  MAIN-single 74% (1530) | non-MAIN type1/ST_CARD 18% (378, fetch/target
+  sub-decisions) | yes-no 4% | energy 2% | evolve-subselect 1% | MAIN-multi 1%.
+- **Encodability: ALL 1530 MAIN-single decisions encode cleanly** with the
+  EXISTING train_policy.py 170-dim state + 41-dim option scheme (0 failures) —
+  no new encoding needed. The setup SEQUENCING our search couldn't plan (play/
+  evolve/attack ordering) lives in these MAIN-single decisions, exactly the
+  target BC captures; the 26% sub-decisions stay on the v1 heuristic (same
+  division of labor the search uses).
+- **Volume:** 1530 targets from 47 episodes / 15 winning top-team sides
+  (Majkel 1146, kashiwashira 262, nasuo445 122). Scales to ~15-20k at 500
+  episodes. Modest — flag as the main risk (BC on expert data can work at this
+  scale, but per-deck balance matters: an Alakazam BC has 1146 targets, Garchomp
+  only 122).
+- **Opponent turns (Q3):** we can only imitate the ACTIVE decider, filtered to
+  winning top-team sides. 0/15 games had BOTH sides as winning top teams -> we
+  get ONE side per game, data ~1x NOT 2x.
+- **Extraction cost:** LOW — alignment+encoding already work with existing code;
+  ~1 day incl. the bulk download. Under the 2-day threshold. BLOCKER for 3B:
+  Kaggle CLI is NOT available in this environment -> user must supply creds or
+  do the bulk download (target the deck we'll pilot).
+
+VERDICT: 3A PASS — extraction is clean. STOP for user sign-off before 3B.
