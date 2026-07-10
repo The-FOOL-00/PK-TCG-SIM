@@ -34,7 +34,7 @@ def name_fn():
     return lambda cid: cs[cid].name if cid in cs else f"#{cid}", cs
 
 
-def run(games):
+def run(games, mode="search"):
     name, cs = name_fn()
     gar = deck_compare.read_deck(REPO / "metaC_garchomp_nasuo.csv")
     old = deck_compare.read_deck(REPO / "deck.csv")
@@ -53,9 +53,15 @@ def run(games):
             if obs.get("select") is None:
                 return list(gar)
             main.DECK = list(gar)
-            main.SEARCH = True
-            main.SEARCH_BELIEF = "comp"
-            main.PILOT = "garchomp"
+            if mode == "bc":
+                main.BC = "garchomp"
+                main.SEARCH = False
+                main.PILOT = ""
+            else:
+                main.BC = ""
+                main.SEARCH = True
+                main.SEARCH_BELIEF = "comp"
+                main.PILOT = "garchomp"
             main.GOVERNOR = True
             return main.agent(obs)
 
@@ -63,6 +69,7 @@ def run(games):
             if obs.get("select") is None:
                 return list(old)
             main.DECK = list(old)
+            main.BC = ""
             main.SEARCH = True
             main.SEARCH_BELIEF = "comp"
             main.PILOT = ""
@@ -104,7 +111,7 @@ def run(games):
         if not won and reason is not None:
             loss_reasons[reason] += 1
 
-    print(f"search+Garchomp(PILOT) vs v2.0.0, {games} games\n")
+    print(f"{'BC' if mode == 'bc' else 'search+PILOT'}+Garchomp vs v2.0.0, {games} games\n")
     print(f"  record          : {wins}W / {losses}L  ({100*wins/games:.0f}% win)")
     print(f"  loss reasons    : {dict(loss_reasons)}  (1=prizes 2=deckout 3=no-active)")
     print(f"  first-attack turn: ours {st.mean(first_atk):.1f}  vs nasuo445 4.1"
@@ -119,5 +126,6 @@ def run(games):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--games", type=int, default=30)
+    ap.add_argument("--mode", choices=["search", "bc"], default="search")
     args = ap.parse_args()
-    run(args.games)
+    run(args.games, args.mode)

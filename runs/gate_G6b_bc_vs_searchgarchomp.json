@@ -1,0 +1,34 @@
+{
+  "challenger": "metaC_garchomp_nasuo.csv+BC=garchomp",
+  "incumbent": "metaC_garchomp_nasuo.csv+SEARCH=true+SEARCH_BELIEF=comp+PILOT=garchomp+GOVERNOR=false",
+  "games": 300,
+  "wins": 128,
+  "losses": 172,
+  "draws": 0,
+  "wins_by_seat": [
+    70,
+    58
+  ],
+  "win_rate": 0.4266666666666667,
+  "wilson95": [
+    0.3719735758386311,
+    0.4832140599409689
+  ],
+  "verdict": "FAIL",
+  "crashes": {
+    "chal": 0,
+    "inc": 0
+  },
+  "reasons_won": {
+    "1": 101,
+    "2": 11,
+    "3": 16
+  },
+  "reasons_lost": {
+    "2": 41,
+    "1": 111,
+    "3": 20
+  },
+  "calibration": null,
+  "teacher_stats": null
+}

@@ -688,3 +688,39 @@ Fezandipiti 2,385 (single pilot, data-thin). Full tables in
 report/LADDER_INTEL_REFRESHED.md. Recommendation: 1) Alakazam (volume +
 ready infra + cleanest G7 science) 2) Fezandipiti/Dudunsparce (ceiling)
 3) Garchomp (simplicity). STOPPED for deck pick before 3B.
+
+## 2026-07-11 — Stage 3B-Garchomp: G6a/G6b FAIL — BC-as-scoped diagnosed
+
+Training looked excellent: val top-1 69.4% vs floors uniform 16.0 /
+always-0 21.4 / **v1-agreement 20.8** (net learned strongly non-v1 play;
+compare S1's +1.2pt over floor). It did not convert:
+- **G6a (SHIP-CRITICAL) BC-Garchomp vs v2.0.0: 31.0% [26.0,36.4] FAIL**
+  (worse than search+Garchomp's 39.3%; 158 prize-race losses, 0 crashes).
+- **G6b BC vs search+Garchomp, SAME deck (pure piloting): 42.7% [37.2,48.3]
+  FAIL** — BC pilots the deck no better (worse) than the search it was
+  meant to replace.
+- G6c (vs search+Alakazam) still running; coverage only, doesn't change
+  the verdict.
+
+Loss analysis (24g, BC mode): **first-attack turn 14.6** (search+PILOT
+10.8, nasuo 4.1), ex online 15.6, 21% win. BC did NOT reproduce the
+demonstrated tempo. Two structural causes:
+1. **Sub-decision blindness.** BC controls only MAIN single-selects (60%);
+   the fetch TARGETS (Buddy-Buddy Poffin / Fighting Gong picks — the
+   actual setup mechanism) are ST_CARD sub-decisions answered by v1. BC
+   says "play Poffin", v1 fetches the wrong Pokemon -> the hand never
+   contains the pieces nasuo's line needs. (The winning pool has 14,960
+   ST_CARD targets — MORE than MAIN — currently unused.)
+2. **Compounding off-distribution error** (the classic BC failure): 69%
+   per-decision on nasuo's states -> P(follow a 5-step line) ~ 0.69^5 =
+   16%; first deviation leaves the net off-distribution where val accuracy
+   says nothing.
+
+**Alakazam-BC go/no-go: NO-GO as currently scoped.** Both causes apply at
+least as strongly to Alakazam (its engine is MORE sub-decision-heavy: Rare
+Candy targets, Night Stretcher, Poffin). Training it unchanged would burn a
+day to learn the same lesson. Salvage options reported to user: (A) BC-full
+— extend imitation to ST_CARD sub-decisions (new option encoder; ~doubles
+usable data; directly removes cause 1); (B) hybrid — BC as rollout/prior
+INSIDE the search (lookahead corrects compounding error; ExIt-style);
+(C) halt Stage 3, advance to Stage 4 decision gate. v2.0.0 stays incumbent.
