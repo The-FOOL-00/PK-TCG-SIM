@@ -80,6 +80,17 @@ VALUE_TRACE = []
 # validation / resolve_selection / the fallback chain are untouched.
 # ---------------------------------------------------------------------------
 PILOT = os.environ.get("PTCG_PILOT", "")
+
+# ---------------------------------------------------------------------------
+# Behavior-cloned pilot (Stage 3B): a small policy net imitating a named
+# top-ladder player's MAIN-single decisions (training/train_bc.py; weights
+# follow the policy_weights.npz contract). BC="" keeps every path
+# byte-identical; BC="garchomp"|"alakazam" loads bc_weights_<name>.npz and
+# answers MAIN single-selects with the net (sub-decisions stay on the v1
+# heuristic — the same division of labor the search uses). Missing weights or
+# numpy: one stderr line, v1 behavior. C1 validation untouched.
+# ---------------------------------------------------------------------------
+BC = os.environ.get("PTCG_BC", "")
 WEIGHT_TEMPO_LOADED = 2450.0   # loaded attack outranks marginal setup after the
                                # turn's draw supporter has resolved (see below)
 WEIGHT_EVOLVE_EX_BONUS = 150.0  # evolving toward an ex (win condition) over a
@@ -1809,6 +1820,54 @@ def _pol_choose(model, sel, cur):
     return int(np.argmax(logits))
 
 
+_BC = {"model": None, "tried": None}
+
+
+def _bc_model():
+    """BC policy net for the active BC flag (same contract as _pol_model)."""
+    if _BC["tried"] == BC:
+        return _BC["model"]
+    _BC["tried"] = BC
+    _BC["model"] = None
+    if not BC:
+        return None
+    try:
+        import numpy as np
+        fp = _find_file("bc_weights_%s.npz" % BC)
+        if fp is None:
+            raise FileNotFoundError("bc_weights_%s.npz" % BC)
+        z = np.load(fp)
+        n_trunk, n_head = int(z["n_trunk"]), int(z["n_head"])
+        _BC["model"] = {
+            "np": np,
+            "trunk": [(z["TW%d" % i].astype(np.float32),
+                       z["Tb%d" % i].astype(np.float32)) for i in range(n_trunk)],
+            "head": [(z["HW%d" % i].astype(np.float32),
+                      z["Hb%d" % i].astype(np.float32)) for i in range(n_head)],
+        }
+    except Exception as e:
+        print("[bc] weights unavailable (%r); v1 behavior" % e,
+              file=sys.stderr, flush=True)
+    return _BC["model"]
+
+
+def _bc_decide(obs, sel, cur, v1_result):
+    """(result, handled) — the BC net's choice on MAIN single-selects."""
+    if not (isinstance(sel, dict) and isinstance(cur, dict)
+            and sel.get("type") == ST_MAIN
+            and sel.get("minCount", 1) == 1 and sel.get("maxCount", 1) == 1
+            and len(sel.get("option") or []) > 1):
+        return v1_result, False
+    model = _bc_model()
+    if model is None:
+        return v1_result, False
+    i = _pol_choose(model, sel, cur)
+    STATS["bc_decisions"] = STATS.get("bc_decisions", 0) + 1
+    if [i] != v1_result:
+        STATS["bc_changed"] = STATS.get("bc_changed", 0) + 1
+    return [i], True
+
+
 def _rollout_choose(node_obs):
     """Selection for one rollout node (plays BOTH seats). ROLLOUT=s1 uses the
     policy net on MAIN single-selects; everything else v1. Never raises."""
@@ -2074,7 +2133,16 @@ def agent(obs):
             info = {"phase": "deck", "n_options": 60, "chosen": None}
         else:
             result, top, _scores = _decide(obs)
-            if SEARCH:
+            bc_handled = False
+            if BC:
+                try:
+                    result, bc_handled = _bc_decide(obs, sel, cur, result)
+                except Exception as e:
+                    _SES["errs"] += 1
+                    if _SES["errs"] <= 3:
+                        print("[bc] hook error (%r); v1 answer kept" % e,
+                              file=sys.stderr, flush=True)
+            if SEARCH and not bc_handled:
                 try:
                     result = _search_decide(obs, sel, cur, result, _scores, t0)
                 except Exception as e:
