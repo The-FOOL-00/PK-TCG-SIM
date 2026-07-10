@@ -724,3 +724,10 @@ day to learn the same lesson. Salvage options reported to user: (A) BC-full
 usable data; directly removes cause 1); (B) hybrid — BC as rollout/prior
 INSIDE the search (lookahead corrects compounding error; ExIt-style);
 (C) halt Stage 3, advance to Stage 4 decision gate. v2.0.0 stays incumbent.
+
+**G6c landed (async):** BC-Garchomp vs search+Alakazam (v2.1.0 config):
+44.7% [39.1, 50.3] FAIL, 0 crashes. Consistent with G6a/G6b — BC-as-scoped
+is below every incumbent config. Interesting detail: 64 of BC's 134 wins
+come by DECKOUT (reason 2) — the BC net did absorb some of the meta's
+grind-them-out texture — but it loses the prize race 127 times. Verdict
+unchanged: NO-GO on Alakazam BC as scoped; stop-report stands.
