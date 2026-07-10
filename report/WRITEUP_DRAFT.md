@@ -180,6 +180,30 @@ not our decision quality, is the limiter. Net: the agent is strong across
 most of the field (73–78%) and the search + a sharper belief is the right
 next investment where decisions still swing games.
 
+**Architectural finding — the search cannot plan multi-turn setup (two decks,
+same failure).** After the Alakazam ladder failure, ladder intel showed the
+rank-1 player (μ=1260) plays a deck byte-identical to ours but pilots it as a
+44-turn denial grind attacking from turn 4, and that the entire top of the
+ladder runs *fast learned policies* (31–92 ms/decision), not search. We then
+tested a second complex meta deck — nasuo445's rank-6 Cynthia's Garchomp —
+with deck-specific tempo/evolution heuristics added. It **failed its gate at
+39.3% [34.0, 45.0] vs our own simple deck (v2.0.0)**, losing the prize race.
+Loss-episode analysis pinned the cause precisely: we get the Garchomp ex
+attacker online at **turn 13.6 (never, in 7/30 games)** and first attack at
+**turn 10.8**, versus nasuo445's ~turn 6 and 4.1 — the tempo heuristics could
+not help because the failure is *not-loaded* (setup speed), not attack
+selection. Two complex decks (Alakazam μ=548, Garchomp 39.3%) now show the
+same failure mode while the same architecture pilots our *one-step* aggro deck
+to μ=614. The diagnosis is architectural: the search only searches single-
+select MAIN decisions and rolls out with a heuristic tuned for attach-and-
+attack; it cannot sequence the multi-turn evolution/combo setup every
+top-ladder deck requires, and deck-specific heuristic patches do not fix a
+shallow-planning problem. This is what motivated the pivot to a *learned*
+policy (behavior cloning from top-team replays) — an approach that can encode
+the sequencing knowledge the search cannot compute. Feasibility confirmed:
+99.2% of top-team decisions recover clean (state, chosen-index) targets and
+74% are directly encodable with the existing feature scheme.
+
 **Methodological finding — the ladder falsified a local gate (the strongest
 lesson).** After the fair cross-deck gates supported switching decks, a
 feasibility gate said our search agent piloting the Dudunsparce/Alakazam
