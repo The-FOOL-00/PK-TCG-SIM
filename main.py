@@ -83,14 +83,26 @@ PILOT = os.environ.get("PTCG_PILOT", "")
 
 # ---------------------------------------------------------------------------
 # Behavior-cloned pilot (Stage 3B): a small policy net imitating a named
-# top-ladder player's MAIN-single decisions (training/train_bc.py; weights
-# follow the policy_weights.npz contract). BC="" keeps every path
-# byte-identical; BC="garchomp"|"alakazam" loads bc_weights_<name>.npz and
-# answers MAIN single-selects with the net (sub-decisions stay on the v1
-# heuristic — the same division of labor the search uses). Missing weights or
-# numpy: one stderr line, v1 behavior. C1 validation untouched.
+# top-ladder player's decisions (training/train_bc.py / train_bc_full.py;
+# weights follow the policy_weights.npz contract). BC="" keeps every path
+# byte-identical; BC=<tag> loads bc_weights_<tag>.npz. Single-head weights
+# answer MAIN single-selects only (sub-decisions stay on the v1 heuristic).
+# Two-headed BC-full weights (e.g. BC="garchomp_full") additionally answer
+# ST_CARD-family sub-decisions (fetch/bench/promote/discard picks) with a
+# card head over encode_card_option features; multi-selects are picked by
+# iterative argmax, mirroring the Plackett-Luce training decomposition.
+# Missing weights or numpy: one stderr line, v1 behavior. C1 validation and
+# resolve_selection untouched.
 # ---------------------------------------------------------------------------
 BC = os.environ.get("PTCG_BC", "")
+# Deck-identity tables (HAND_SLOT_IDS / CARD_SLOT_IDS) are frozen at import
+# from deck.csv. When a harness swaps DECK at runtime (ab_gate non-default
+# decks, BC extraction) those tables silently describe the WRONG deck — the
+# prior BC trained with a hand-count block that could only ever see 1 of the
+# Garchomp deck's 20 ids. DYN_DECK_TABLES=1 re-derives both tables from the
+# CURRENT DECK (cached); default 0 keeps every existing config byte-identical.
+# On-ladder bundles ship deck.csv = the piloted deck, so both settings agree.
+DYN_DECK_TABLES = os.environ.get("PTCG_DYN_DECK_TABLES", "0") == "1"
 WEIGHT_TEMPO_LOADED = 2450.0   # loaded attack outranks marginal setup after the
                                # turn's draw supporter has resolved (see below)
 WEIGHT_EVOLVE_EX_BONUS = 150.0  # evolving toward an ex (win condition) over a
@@ -508,6 +520,24 @@ HAND_SLOT_IDS = tuple(sorted(set(DECK)))[:N_HAND_SLOTS]
 N_SLOT_FEATURES = 11
 N_STATE_FEATURES = 12 * N_SLOT_FEATURES + 23 + N_HAND_SLOTS  # 170
 
+N_CARD_SLOTS = 20
+CARD_SLOT_IDS = tuple(sorted(set(DECK)))[:N_CARD_SLOTS]
+_DECK_TABLES = {"key": None, "hand": HAND_SLOT_IDS, "card": CARD_SLOT_IDS}
+
+
+def _deck_tables():
+    """(hand_slot_ids, card_slot_ids) — import-time constants unless
+    DYN_DECK_TABLES, then re-derived from the current DECK (cached)."""
+    if not DYN_DECK_TABLES:
+        return HAND_SLOT_IDS, CARD_SLOT_IDS
+    key = tuple(DECK)
+    if _DECK_TABLES["key"] != key:
+        ids = tuple(sorted(set(key)))
+        _DECK_TABLES["key"] = key
+        _DECK_TABLES["hand"] = ids[:N_HAND_SLOTS]
+        _DECK_TABLES["card"] = ids[:N_CARD_SLOTS]
+    return _DECK_TABLES["hand"], _DECK_TABLES["card"]
+
 
 def _encode_pokemon_slot(pk, opp_active_card, dyn_dmg):
     """11 features for one board slot; zeros when the slot is empty.
@@ -590,9 +620,10 @@ def encode_state(cur):
     for c in mine.get("hand") or []:
         if c:
             counts[c.get("id")] = counts.get(c.get("id"), 0) + 1
+    hand_ids, _card_ids = _deck_tables()
     for i in range(N_HAND_SLOTS):
-        if i < len(HAND_SLOT_IDS):
-            feats.append(min(counts.get(HAND_SLOT_IDS[i], 0), 4) / 4.0)
+        if i < len(hand_ids):
+            feats.append(min(counts.get(hand_ids[i], 0), 4) / 4.0)
         else:
             feats.append(0.0)
     return feats
@@ -721,6 +752,146 @@ def option_feature_names():
     names += ["target_%s" % f for f in slot_feats]
     names += ["attack_dmg", "ko_if_used", "card_value", "targets_active",
               "v1_rank", "v1_top"]
+    return names
+
+
+# ---------------------------------------------------------------------------
+# ST_CARD option encoder (Stage 3B Option A: BC-full). Same train/serve-parity
+# contract as encode_options, for the CARD/ATTACHED_CARD/CARD_OR_ATTACHED
+# sub-decisions (fetch targets, bench picks, promotes, discards) that v1
+# answers with _score_card. Card identity is one-hot over OUR deck's distinct
+# ids (like HAND_SLOT_IDS, but complete) because the setup lines BC must
+# imitate are which-of-my-cards choices; off-deck ids (opponent board targets)
+# fall into the unknown slot and are described by type/stat/board features.
+# The selection's `contextCard` is always null in replays, so the effect
+# source is characterized only by (context, option areas) — fields present
+# identically at serve time.
+# ---------------------------------------------------------------------------
+
+CARD_CTX_BUCKETS = (
+    (SC_SETUP_ACTIVE,), (SC_SETUP_BENCH,), (SC_SWITCH,),
+    (SC_TO_ACTIVE, SC_TO_FIELD), (SC_TO_BENCH,), (SC_TO_HAND,),
+    (SC_DISCARD, SC_DETACH_FROM), (SC_TO_DECK, SC_TO_DECK_BOTTOM, SC_TO_PRIZE),
+    (SC_DMG_COUNTER, SC_DMG_COUNTER_ANY, SC_DAMAGE), (SC_REMOVE_DMG, SC_HEAL),
+    (SC_EVOLVES_FROM, SC_EVOLVES_TO),
+)  # + 1 trailing "other" bucket
+CARD_OPT_AREAS = (AREA_DECK, AREA_HAND, AREA_DISCARD, AREA_ACTIVE,
+                  AREA_BENCH, AREA_PRIZE, AREA_STADIUM, AREA_LOOKING)
+N_CARD_OPTION_FEATURES = (N_CARD_SLOTS + 1) + N_CARD_TYPES + 5 \
+    + N_SLOT_FEATURES + len(CARD_OPT_AREAS) + 1 \
+    + (len(CARD_CTX_BUCKETS) + 1) + 6 + 2  # 73
+
+
+def encode_card_option(opt, sel, cur, me, v1_rank=0.0, v1_top=0.0):
+    """73 features for one option of an ST_CARD-family decision, ~[0,1]."""
+    cid = _option_card_id(opt, sel, cur, me)
+    c = _card(cid)
+
+    _hand_ids, card_ids = _deck_tables()
+    feats = [0.0] * (N_CARD_SLOTS + 1)
+    feats[card_ids.index(cid) if cid in card_ids else N_CARD_SLOTS] = 1.0
+
+    ct = c.get("cardType")
+    ct_onehot = [0.0] * N_CARD_TYPES
+    if isinstance(ct, int) and 0 <= ct < N_CARD_TYPES:
+        ct_onehot[ct] = 1.0
+    feats += ct_onehot
+
+    best_dmg, _cost = _best_attack_info(cid)
+    feats += [
+        1.0 if c.get("basic") else 0.0,
+        (c.get("hp") or 0) / ENC_HP_SCALE,
+        1.0 if (c.get("ex") or c.get("megaEx")) else 0.0,
+        min(best_dmg, 800.0) / ENC_DMG_SCALE,
+        min(_card_value(cid), 400.0) / 400.0,
+    ]
+
+    area, pi = opt.get("area"), opt.get("playerIndex")
+    is_mine = pi in (None, me)
+    pk = None
+    if area in (AREA_ACTIVE, AREA_BENCH):
+        pk = _pokemon_at(cur, pi, area, opt.get("index"), me)
+    dyn = None
+    if pk and is_mine:
+        dyn = max((_attack_damage_est(aid, cur, me)
+                   for aid in _card(pk.get("id")).get("attacks") or []),
+                  default=None)
+    opp_act = _active_pokemon(_opp(cur, me))
+    opp_act_card = _card(opp_act.get("id")) if opp_act else None
+    feats += _encode_pokemon_slot(pk, opp_act_card if is_mine else None, dyn)
+
+    area_onehot = [0.0] * len(CARD_OPT_AREAS)
+    if area in CARD_OPT_AREAS:
+        area_onehot[CARD_OPT_AREAS.index(area)] = 1.0
+    feats += area_onehot
+    feats.append(0.0 if is_mine else 1.0)
+
+    ctx = sel.get("context")
+    ctx_onehot = [0.0] * (len(CARD_CTX_BUCKETS) + 1)
+    for i, bucket in enumerate(CARD_CTX_BUCKETS):
+        if ctx in bucket:
+            ctx_onehot[i] = 1.0
+            break
+    else:
+        ctx_onehot[-1] = 1.0
+    feats += ctx_onehot
+
+    stype = sel.get("type")
+    n = len(sel.get("option") or [])
+    mx = sel.get("maxCount")
+    mx = n if mx is None else mx
+    feats += [
+        1.0 if stype == ST_CARD else 0.0,
+        1.0 if stype == ST_ATTACHED_CARD else 0.0,
+        1.0 if stype == ST_CARD_OR_ATTACHED else 0.0,
+        min(float(sel.get("minCount") or 0), 6.0) / 6.0,
+        min(float(mx), 6.0) / 6.0,
+        min(float(n), 20.0) / 20.0,
+    ]
+    feats.append(v1_rank)
+    feats.append(v1_top)
+    return feats
+
+
+def encode_card_options(sel, cur):
+    """Feature rows for every option of one ST_CARD-family decision.
+
+    The v1-prior features come from the plain `_score_card` ordering (same
+    anti-recursion rule as encode_options: independent of any policy flag).
+    """
+    me = cur.get("yourIndex") or 0
+    ctx = sel.get("context")
+    options = sel.get("option") or []
+    n = len(options)
+    scores = [_score_card(o or {}, sel, cur, me, ctx) for o in options]
+    order = sorted(range(n), key=lambda i: (-scores[i], i))
+    rank = [0.0] * n
+    for r, i in enumerate(order):
+        rank[i] = r / (n - 1) if n > 1 else 0.0
+    top = order[0] if n else None
+    return [encode_card_option(options[i] or {}, sel, cur, me,
+                               rank[i], 1.0 if i == top else 0.0)
+            for i in range(n)]
+
+
+def card_option_feature_names():
+    """Index map for encode_card_option — kept adjacent so they move together."""
+    slot_feats = ["present", "hp", "max_hp", "damage_taken", "energy",
+                  "is_ex", "is_mega_ex", "best_dmg", "energy_needed",
+                  "retreat_cost", "weak_to_opp_active"]
+    names = ["deck_id_%d" % cid for cid in CARD_SLOT_IDS]
+    names += ["deck_id_pad%d" % i for i in range(len(CARD_SLOT_IDS), N_CARD_SLOTS)]
+    names += ["card_id_unknown"]
+    names += ["card_type_%d" % i for i in range(N_CARD_TYPES)]
+    names += ["is_basic", "card_hp", "is_ex_or_mega", "card_best_dmg", "card_value"]
+    names += ["target_%s" % f for f in slot_feats]
+    names += ["area_%d" % a for a in CARD_OPT_AREAS]
+    names += ["is_opponent_target"]
+    names += ["ctx_bucket_%d" % i for i in range(len(CARD_CTX_BUCKETS))]
+    names += ["ctx_other"]
+    names += ["st_card", "st_attached", "st_card_or_attached",
+              "min_count", "max_count", "n_options"]
+    names += ["v1_rank", "v1_top"]
     return names
 
 
@@ -1824,7 +1995,11 @@ _BC = {"model": None, "tried": None}
 
 
 def _bc_model():
-    """BC policy net for the active BC flag (same contract as _pol_model)."""
+    """BC policy net for the active BC flag (same contract as _pol_model).
+
+    Two formats: single-head (bc_weights_garchomp.npz, MAIN only) and
+    two-headed BC-full ("policy_two_head": shared trunk, MAIN head HW*/Hb*
+    plus ST_CARD head CW*/Cb* over the 73-dim encode_card_option rows)."""
     if _BC["tried"] == BC:
         return _BC["model"]
     _BC["tried"] = BC
@@ -1838,34 +2013,90 @@ def _bc_model():
             raise FileNotFoundError("bc_weights_%s.npz" % BC)
         z = np.load(fp)
         n_trunk, n_head = int(z["n_trunk"]), int(z["n_head"])
-        _BC["model"] = {
+        model = {
             "np": np,
             "trunk": [(z["TW%d" % i].astype(np.float32),
                        z["Tb%d" % i].astype(np.float32)) for i in range(n_trunk)],
             "head": [(z["HW%d" % i].astype(np.float32),
                       z["Hb%d" % i].astype(np.float32)) for i in range(n_head)],
+            "head_card": None,
         }
+        if "n_head_card" in z:
+            model["head_card"] = [
+                (z["CW%d" % i].astype(np.float32),
+                 z["Cb%d" % i].astype(np.float32))
+                for i in range(int(z["n_head_card"]))]
+        _BC["model"] = model
     except Exception as e:
         print("[bc] weights unavailable (%r); v1 behavior" % e,
               file=sys.stderr, flush=True)
     return _BC["model"]
 
 
+def _bc_card_choose(model, sel, cur):
+    """ST_CARD-family picks by the BC-full card head: iterative argmax over
+    the shrinking option set up to maxCount picks (mirrors the Plackett-Luce
+    decomposition the head was trained on)."""
+    np = model["np"]
+    options = sel.get("option") or []
+    n = len(options)
+    mn = sel.get("minCount") or 0
+    mx = sel.get("maxCount")
+    mx = n if mx is None else mx
+    k = min(mx, n)
+    if k <= 0:
+        return []
+    emb = np.asarray(encode_state(cur), dtype=np.float32)
+    for W, b in model["trunk"]:
+        emb = np.maximum(emb @ W + b, 0.0)
+    remaining = list(range(n))
+    picks = []
+    red = dict(sel)
+    for j in range(k):
+        red["option"] = [options[i] for i in remaining]
+        red["minCount"], red["maxCount"] = max(0, mn - j), mx - j
+        rows = np.asarray(encode_card_options(red, cur), dtype=np.float32)
+        h = np.concatenate([np.repeat(emb[None, :], len(rows), 0), rows], axis=1)
+        for W, b in model["head_card"][:-1]:
+            h = np.maximum(h @ W + b, 0.0)
+        W, b = model["head_card"][-1]
+        logits = (h @ W + b).ravel()
+        i = int(np.argmax(logits))
+        picks.append(remaining[i])
+        remaining.pop(i)
+        if not remaining:
+            break
+    return picks
+
+
 def _bc_decide(obs, sel, cur, v1_result):
-    """(result, handled) — the BC net's choice on MAIN single-selects."""
-    if not (isinstance(sel, dict) and isinstance(cur, dict)
-            and sel.get("type") == ST_MAIN
-            and sel.get("minCount", 1) == 1 and sel.get("maxCount", 1) == 1
-            and len(sel.get("option") or []) > 1):
+    """(result, handled) — BC's choice on MAIN single-selects, and (BC-full
+    only) on ST_CARD-family selections via the card head. Head-fire telemetry
+    in STATS: bc_main / bc_card fired, bc_v1 = eligible but fell back."""
+    if not (isinstance(sel, dict) and isinstance(cur, dict)):
+        return v1_result, False
+    stype = sel.get("type")
+    nopt = len(sel.get("option") or [])
+    is_main = (stype == ST_MAIN and sel.get("minCount", 1) == 1
+               and sel.get("maxCount", 1) == 1 and nopt > 1)
+    is_card = stype in (ST_CARD, ST_ATTACHED_CARD, ST_CARD_OR_ATTACHED) \
+        and nopt > 1
+    if not (is_main or is_card):
         return v1_result, False
     model = _bc_model()
-    if model is None:
+    if model is None or (is_card and model.get("head_card") is None):
+        STATS["bc_v1"] = STATS.get("bc_v1", 0) + 1
         return v1_result, False
-    i = _pol_choose(model, sel, cur)
+    if is_main:
+        result = [_pol_choose(model, sel, cur)]
+        STATS["bc_main"] = STATS.get("bc_main", 0) + 1
+    else:
+        result = _bc_card_choose(model, sel, cur)
+        STATS["bc_card"] = STATS.get("bc_card", 0) + 1
     STATS["bc_decisions"] = STATS.get("bc_decisions", 0) + 1
-    if [i] != v1_result:
+    if result != v1_result:
         STATS["bc_changed"] = STATS.get("bc_changed", 0) + 1
-    return [i], True
+    return result, True
 
 
 def _rollout_choose(node_obs):

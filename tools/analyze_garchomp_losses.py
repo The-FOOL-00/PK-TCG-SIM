@@ -34,7 +34,7 @@ def name_fn():
     return lambda cid: cs[cid].name if cid in cs else f"#{cid}", cs
 
 
-def run(games, mode="search"):
+def run(games, mode="search", bc_tag="garchomp"):
     name, cs = name_fn()
     gar = deck_compare.read_deck(REPO / "metaC_garchomp_nasuo.csv")
     old = deck_compare.read_deck(REPO / "deck.csv")
@@ -45,7 +45,7 @@ def run(games, mode="search"):
     first_atk = []
     ex_online_turn = []
     skip_lines = 0
-    n_dec = 0
+    our_decisions = [0]
     for g in range(games):
         seat = g % 2
 
@@ -53,8 +53,10 @@ def run(games, mode="search"):
             if obs.get("select") is None:
                 return list(gar)
             main.DECK = list(gar)
+            our_decisions[0] += 1
             if mode == "bc":
-                main.BC = "garchomp"
+                main.BC = bc_tag
+                main.DYN_DECK_TABLES = True
                 main.SEARCH = False
                 main.PILOT = ""
             else:
@@ -121,11 +123,20 @@ def run(games, mode="search"):
           if ex_online_turn else "  Garchomp ex: never came online")
     print(f"  tempo SKIP lines: {skip_lines} over {games} games "
           f"({skip_lines/games:.1f}/game — loaded attacks we declined)")
+    if mode == "bc":
+        s = main.STATS
+        nd = max(1, our_decisions[0])
+        print(f"  head-fire (our {our_decisions[0]} decisions): "
+              f"MAIN {s.get('bc_main', 0)} ({100*s.get('bc_main', 0)/nd:.0f}%)  "
+              f"CARD {s.get('bc_card', 0)} ({100*s.get('bc_card', 0)/nd:.0f}%)  "
+              f"eligible-but-v1 {s.get('bc_v1', 0)}  "
+              f"changed-vs-v1 {s.get('bc_changed', 0)}")
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--games", type=int, default=30)
     ap.add_argument("--mode", choices=["search", "bc"], default="search")
+    ap.add_argument("--bc-tag", default="garchomp")
     args = ap.parse_args()
-    run(args.games, args.mode)
+    run(args.games, args.mode, args.bc_tag)
