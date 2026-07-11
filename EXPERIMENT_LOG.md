@@ -800,3 +800,7 @@ bc_weights_garchomp_full.npz; NO cg/ (no search) -> 0.22 MiB. exec-load in
 bare temp dir OK; weights-stripped fallback -> v1 + one stderr line OK;
 30-game smoke 0 crash / 0 fallback; decision p50 1ms p99 3ms (top-10 speed
 class). STOPPED at stop point (d) for ship sign-off.
+G6b-full landed: BC-full vs search+Garchomp (the 39.3% failure config):
+**69.7% [64.2, 74.6] PASS**, 0 crashes (W 178 prizes / 21 no-active /
+10 deckout). Full matrix: G6a-full 60.7 PASS, G6b-full 69.7 PASS, G6c-full
+77.0 PASS — Option A complete, all gates green.
