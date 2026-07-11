@@ -180,29 +180,32 @@ not our decision quality, is the limiter. Net: the agent is strong across
 most of the field (73–78%) and the search + a sharper belief is the right
 next investment where decisions still swing games.
 
-**Architectural finding — the search cannot plan multi-turn setup (two decks,
-same failure).** After the Alakazam ladder failure, ladder intel showed the
-rank-1 player (μ=1260) plays a deck byte-identical to ours but pilots it as a
-44-turn denial grind attacking from turn 4, and that the entire top of the
-ladder runs *fast learned policies* (31–92 ms/decision), not search. We then
-tested a second complex meta deck — nasuo445's rank-6 Cynthia's Garchomp —
-with deck-specific tempo/evolution heuristics added. It **failed its gate at
-39.3% [34.0, 45.0] vs our own simple deck (v2.0.0)**, losing the prize race.
-Loss-episode analysis pinned the cause precisely: we get the Garchomp ex
-attacker online at **turn 13.6 (never, in 7/30 games)** and first attack at
-**turn 10.8**, versus nasuo445's ~turn 6 and 4.1 — the tempo heuristics could
-not help because the failure is *not-loaded* (setup speed), not attack
-selection. Two complex decks (Alakazam μ=548, Garchomp 39.3%) now show the
-same failure mode while the same architecture pilots our *one-step* aggro deck
-to μ=614. The diagnosis is architectural: the search only searches single-
-select MAIN decisions and rolls out with a heuristic tuned for attach-and-
-attack; it cannot sequence the multi-turn evolution/combo setup every
-top-ladder deck requires, and deck-specific heuristic patches do not fix a
-shallow-planning problem. This is what motivated the pivot to a *learned*
-policy (behavior cloning from top-team replays) — an approach that can encode
-the sequencing knowledge the search cannot compute. Feasibility confirmed:
-99.2% of top-team decisions recover clean (state, chosen-index) targets and
-74% are directly encodable with the existing feature scheme.
+**Architectural finding — the search mispilots complex decks (two decks, same
+failure) — with a methodological correction.** After the Alakazam ladder
+failure, ladder intel showed the rank-1 player (μ=1260) plays a deck
+byte-identical to ours but pilots it as a 44-turn denial grind attacking from
+turn 4, and that the entire top of the ladder runs *fast learned policies*
+(31–92 ms/decision), not search. We then tested a second complex meta deck —
+nasuo445's rank-6 Cynthia's Garchomp — with deck-specific tempo/evolution
+heuristics added. It **failed its gate at 39.3% [34.0, 45.0] vs our own simple
+deck (v2.0.0)**, losing the prize race. Two complex decks (Alakazam μ=548,
+Garchomp 39.3%) showed the same failure while the same architecture pilots our
+*one-step* aggro deck to μ=614 — that gate/ladder evidence stands. But our
+*mechanism* story at the time ("attacker online turn 13.6, first attack 10.8 —
+a setup-speed failure") was wrong, and we caught it ourselves: the diagnostic
+tool had a sys.path shadow bug that silently imported the sample submission's
+*random* agent, so its tempo telemetry measured random play. Re-measurement
+with the fixed tool shows search+Garchomp actually attacks at **turn 6.4**
+(37% win over 30 diagnostic games, consistent with the 39.3% gate) — the
+failure is not setup *speed* but setup *quality*: which Pokémon the fetch
+effects retrieve, what the discards give up, and prize-race decision quality
+in the mid-game. The architectural conclusion survives on the gate evidence
+alone — the search only searches single-select MAIN decisions and rolls out
+with a heuristic blind to the sub-decision layer where complex decks live —
+and it motivated the pivot to a *learned* policy (behavior cloning from
+top-team replays). Feasibility confirmed: 99.2% of top-team decisions recover
+clean (state, chosen-index) targets and 74% are directly encodable with the
+existing feature scheme.
 
 **Behavior cloning tested — imitation accuracy does not equal strength.**
 We trained a 25k-param BC policy on 4,610 winning MAIN-phase decisions of the
@@ -210,18 +213,36 @@ rank-7 Garchomp pilot (nasuo445), with dropout/L2/early stopping. Imitation
 looked excellent — **val top-1 69.4%** against a 20.8% agree-with-v1 floor,
 i.e. the net learned strongly non-heuristic play. It did not convert:
 **31.0% [26.0, 36.4]** vs our incumbent (G6a) and **42.7% [37.2, 48.3]** vs
-our own search piloting the *same deck* (G6b, the pure piloting A/B). The
-imitator attacked at turn 14.6 vs its teacher's 4.1. Diagnosis, two
-structural causes: (i) *sub-decision blindness* — the BC net answers only
-MAIN-phase selections (60% of decisions), while the deck's setup actually
-runs through fetch-target sub-decisions (which Pokémon Buddy-Buddy Poffin
-retrieves) that remained on the heuristic, so the imitated line's pieces
-never reach the hand; (ii) *compounding off-distribution error* — 69%
-per-decision fidelity gives ~0.69⁵ ≈ 16% chance of following a 5-step
-setup line, and the first deviation leaves states the demonstrator never
-produced, where validation accuracy is uninformative. Both causes are
-textbook BC pathologies; measuring them cost one day and redirected the
-plan before a second (larger) BC training run repeated the lesson.
+our own search piloting the *same deck* (G6b, the pure piloting A/B). Clean
+re-measurement (after the diagnostic-tool fix above) shows the MAIN-only
+imitator was not slow — it attacked at turn 6.8, close to its teacher's 5.9 —
+but got its attacker line online in only 17 of 30 games and won 10%.
+Diagnosis, two structural causes: (i) *sub-decision blindness* — the BC net
+answered only MAIN-phase selections (60% of decisions), while the deck's
+engine actually runs through ST_CARD sub-decisions (which Pokémon Buddy-Buddy
+Poffin fetches, what Hilda discards) that remained on the heuristic, so the
+imitated line's pieces never reached the hand; (ii) *compounding
+off-distribution error* — 69% per-decision fidelity gives ~0.69⁵ ≈ 16% chance
+of following a 5-step line. Both are textbook BC pathologies.
+
+**BC-full — imitating the sub-decisions converts imitation into strength
+(first gate PASS over the incumbent).** Cause (i) was testable: we built a
+73-dim option encoder for the ST_CARD selection family (card identity over
+the piloted deck, board-slot/area/context features, v1-prior), decomposed
+multi-selects Plackett-Luce style into sequential single choices (serve
+mirrors with iterative argmax), and trained a two-headed net — one shared
+170-dim state trunk, separate MAIN (41-dim) and ST_CARD (73-dim) option
+heads, 27.9k params — on 4,610 MAIN + 2,397 ST_CARD winning-side targets.
+Val: MAIN 68.9% (floor 21.4%), ST_CARD 76.1% (always-first floor 51.6%);
+the diagnosed killer contexts train strongest — Buddy-Buddy Poffin bench
+fetches 100% vs v1's 36%, hand discards 87% vs v1's 9%. It converted:
+**G6a-full 60.7% [55.0, 66.0] PASS vs the incumbent v2.0.0** (first
+challenger to beat it; 0 crashes) and **G6c-full 77.0% [71.9, 81.4]** vs the
+MAIN-only BC — same weights, same MAIN head, the *only* change is who answers
+the sub-decisions. That isolates the mechanism causally: piloting a combo
+deck lives in the sub-decisions. The shipped policy runs at ~1 ms/decision
+(p99 3 ms) — the same fast-policy class the ladder's top-10 use, ~1000x
+faster than our search agent.
 
 **Methodological finding — the ladder falsified a local gate (the strongest
 lesson).** After the fair cross-deck gates supported switching decks, a

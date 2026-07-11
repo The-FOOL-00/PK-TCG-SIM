@@ -20,9 +20,15 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
-sys.path.insert(0, str(REPO / "sample_submission" / "sample_submission"))
 
+# our main.py MUST be imported before the sample dir goes on sys.path — the
+# sample ships its own main.py (a random agent) that otherwise shadows ours.
+# Every pre-2026-07-11 run of this tool had that shadow bug: its games were
+# played by the SAMPLE agent, so all its historical tempo numbers are invalid.
 import main  # noqa: E402
+assert hasattr(main, "STATS"), "imported the sample's main.py, not ours"
+sys.path.insert(1, str(REPO / "sample_submission" / "sample_submission"))
+
 from tools import deck_compare  # noqa: E402
 
 GARCHOMP_EX_NAME = "Cynthia's Garchomp ex"
@@ -57,6 +63,10 @@ def run(games, mode="search", bc_tag="garchomp"):
             if mode == "bc":
                 main.BC = bc_tag
                 main.DYN_DECK_TABLES = True
+                main.SEARCH = False
+                main.PILOT = ""
+            elif mode == "v1":
+                main.BC = ""
                 main.SEARCH = False
                 main.PILOT = ""
             else:
@@ -113,7 +123,8 @@ def run(games, mode="search", bc_tag="garchomp"):
         if not won and reason is not None:
             loss_reasons[reason] += 1
 
-    print(f"{'BC' if mode == 'bc' else 'search+PILOT'}+Garchomp vs v2.0.0, {games} games\n")
+    label = {"bc": "BC(%s)" % bc_tag, "v1": "v1-only"}.get(mode, "search+PILOT")
+    print(f"{label}+Garchomp vs v2.0.0, {games} games\n")
     print(f"  record          : {wins}W / {losses}L  ({100*wins/games:.0f}% win)")
     print(f"  loss reasons    : {dict(loss_reasons)}  (1=prizes 2=deckout 3=no-active)")
     print(f"  first-attack turn: ours {st.mean(first_atk):.1f}  vs nasuo445 4.1"
@@ -136,7 +147,7 @@ def run(games, mode="search", bc_tag="garchomp"):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--games", type=int, default=30)
-    ap.add_argument("--mode", choices=["search", "bc"], default="search")
+    ap.add_argument("--mode", choices=["search", "bc", "v1"], default="search")
     ap.add_argument("--bc-tag", default="garchomp")
     args = ap.parse_args()
     run(args.games, args.mode, args.bc_tag)

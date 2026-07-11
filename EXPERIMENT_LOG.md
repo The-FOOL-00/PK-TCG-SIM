@@ -731,3 +731,72 @@ is below every incumbent config. Interesting detail: 64 of BC's 134 wins
 come by DECKOUT (reason 2) — the BC net did absorb some of the meta's
 grind-them-out texture — but it loses the prize race 127 times. Verdict
 unchanged: NO-GO on Alakazam BC as scoped; stop-report stands.
+
+## 2026-07-11 — TOOLING BUG: analyze/diagnose tools drove the SAMPLE agent
+
+Found while wiring BC-full head-fire telemetry (main.STATS missing at
+runtime): tools/analyze_garchomp_losses.py and
+tools/diagnose_alakazam_piloting.py insert
+sample_submission/sample_submission at sys.path[0] BEFORE `import main` —
+and that directory ships its own main.py (the 38-line random sample agent).
+Every historical run of BOTH tools bound `main` to the SAMPLE agent: their
+games were random-vs-random (both wrappers call main.agent).
+
+INVALIDATED numbers (diagnostic-only, never gate results):
+- search+PILOT "first-attack 10.8 / ex online 13.6 / 20% win" (2026-07-10)
+- prior-BC "first-attack 14.6 / ex online 15.6 / 21% win" (2026-07-11)
+- diagnose_alakazam_piloting's Majkel-comparison telemetry
+NOT affected: all ab_gate gates (G1, G6a/b/c — deck_compare imports repo
+main first), bc_feasibility (inserts sample path after import), extraction,
+training, ladder results. The Stage-1/3B verdicts stand (they were decided
+by gates), but every piloting-signature number must be re-measured.
+
+Fix: import main before the sample-path insert + assert hasattr(main,
+"STATS") in both tools. Re-measuring 30g signatures for search+PILOT,
+BC-prior, BC-full with the fixed tool (A4).
+
+## 2026-07-11 — Stage 3B Option A: BC-full — G6a-full PASS (first incumbent beat)
+
+Build: 73-dim ST_CARD option encoder (encode_card_option: deck-id one-hot,
+card stats, board slot, area + context buckets, v1-prior from _score_card);
+extraction extended to the ST_CARD family with Plackett-Luce decomposition of
+multi-selects (2,445 raw -> 2,397 steps, 0 bad-action / 0 encode-fail; deck
+fetches 1,297, Poffin 120, Night Stretcher 92); two-headed net, shared
+170->80->48 trunk + MAIN(41d)/CARD(73d) heads, 27.9k params. Extraction also
+fixed a dead feature: the hand-count block was keyed to OUR deck's ids (1/20
+Garchomp overlap) — now dynamic via PTCG_DYN_DECK_TABLES=1 (default 0 =
+byte-identical). Val: MAIN 68.9% (floors 21.4 always-0 / 20.8 v1 / 16.0
+uniform; prior BC 69.4 — parity), CARD 76.1% (floors 51.6 always-0 / 49.5 v1 /
+23.3 uniform). Per-context: Poffin TO_BENCH/deck 100% (v1 36%), DISCARD/hand
+87% (v1 9%), TO_HAND/deck 61.9% (v1 46%), TO_HAND/discard 60% (v1 20%).
+Integrated behind PTCG_BC=garchomp_full (two-head loader, iterative-argmax
+card picks mirroring the PL training scheme); fault suite ALL OK.
+
+A4 piloting signature, 30g vs v2.0.0 each, FIXED tool (see shadow-bug entry):
+  BC-full        53% win  first-attack 6.4  ex online 6.9 (27/30)
+  search+PILOT   37% win  first-attack 6.4  ex online 7.8 (23/30)  [~= its 39.3% gate: tool validated]
+  v1-only        30% win  first-attack 4.6  ex online 7.0 (20/30)
+  BC-prior       10% win  first-attack 6.8  ex online 7.2 (17/30)
+  nasuo445 truth (140 replays, 80 wins): first-attack 5.9 mean / 6.0 median,
+  ex online 5.9. (The logged "4.1" was stale/wrong too.)
+Head-fire over BC-full's 2,113 decisions: MAIN 61%, CARD 28%, eligible-but-v1
+0 — integration clean. KEY REVISION: first-attack turn was never the
+discriminator (v1 attacks EARLIEST at 4.6 and still loses); the failure was
+sub-decision QUALITY — what gets fetched/discarded — and consistency
+(ex-online games 17/30 -> 27/30).
+
+Gates (300g, seats alternated, Wilson CI, governor off, 0 crashes all):
+- G6a-full (SHIP-CRITICAL) BC-full vs v2.0.0:
+  **60.7% [55.0, 66.0] PASS** — first challenger ever to beat the incumbent.
+  Win reasons 162 no-active / 20 prizes.
+- G6c-full BC-full vs BC-prior (isolates ST_CARD head; only change is who
+  answers sub-decisions): **77.0% [71.9, 81.4] PASS** — causal proof of the
+  sub-decision-blindness diagnosis.
+- G6b-full BC-full vs search+Garchomp: running, appended below.
+
+Ship: v2.2.0 bundle built (tools/build_search_submission.py --bc): main.py
+with PTCG_BC=garchomp_full baked, deck.csv=metaC list, card_data.json,
+bc_weights_garchomp_full.npz; NO cg/ (no search) -> 0.22 MiB. exec-load in
+bare temp dir OK; weights-stripped fallback -> v1 + one stderr line OK;
+30-game smoke 0 crash / 0 fallback; decision p50 1ms p99 3ms (top-10 speed
+class). STOPPED at stop point (d) for ship sign-off.

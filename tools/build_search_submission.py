@@ -110,21 +110,30 @@ def bake_card_data(cards, attacks):
     return {"cards": out_cards, "attacks": out_attacks, "pool": pool}
 
 
-def bake_ship_config(main_path, rollout, cap, version):
-    """Flip search defaults ON and stamp the config into the bundled main.py."""
+def bake_ship_config(main_path, rollout, cap, version, bc=""):
+    """Stamp the ship config into the bundled main.py: search defaults ON
+    (search ship) or the BC flag baked (BC ship, search stays off)."""
     src = main_path.read_text(encoding="utf-8")
-    subs = [
-        ('SEARCH = os.environ.get("PTCG_SEARCH", "0") == "1"',
-         'SEARCH = os.environ.get("PTCG_SEARCH", "1") == "1"'),
-        ('GOVERNOR = os.environ.get("PTCG_GOVERNOR", "1") == "1"',
-         'GOVERNOR = os.environ.get("PTCG_GOVERNOR", "1") == "1"'),
-        ('ROLLOUT = os.environ.get("PTCG_ROLLOUT", "v1")',
-         f'ROLLOUT = os.environ.get("PTCG_ROLLOUT", "{rollout}")'),
-        ('SEARCH_CAP = int(os.environ.get("PTCG_SEARCH_CAP", "0"))',
-         f'SEARCH_CAP = int(os.environ.get("PTCG_SEARCH_CAP", "{cap}"))'),
-        ('AGENT_VERSION = "ptcg-heuristic-v1.0.0"',
-         f'AGENT_VERSION = "{version}"'),
-    ]
+    if bc:
+        subs = [
+            ('BC = os.environ.get("PTCG_BC", "")',
+             f'BC = os.environ.get("PTCG_BC", "{bc}")'),
+            ('AGENT_VERSION = "ptcg-heuristic-v1.0.0"',
+             f'AGENT_VERSION = "{version}"'),
+        ]
+    else:
+        subs = [
+            ('SEARCH = os.environ.get("PTCG_SEARCH", "0") == "1"',
+             'SEARCH = os.environ.get("PTCG_SEARCH", "1") == "1"'),
+            ('GOVERNOR = os.environ.get("PTCG_GOVERNOR", "1") == "1"',
+             'GOVERNOR = os.environ.get("PTCG_GOVERNOR", "1") == "1"'),
+            ('ROLLOUT = os.environ.get("PTCG_ROLLOUT", "v1")',
+             f'ROLLOUT = os.environ.get("PTCG_ROLLOUT", "{rollout}")'),
+            ('SEARCH_CAP = int(os.environ.get("PTCG_SEARCH_CAP", "0"))',
+             f'SEARCH_CAP = int(os.environ.get("PTCG_SEARCH_CAP", "{cap}"))'),
+            ('AGENT_VERSION = "ptcg-heuristic-v1.0.0"',
+             f'AGENT_VERSION = "{version}"'),
+        ]
     for old, new in subs:
         if old not in src:
             raise SystemExit(f"bake: expected line not found: {old!r}")
@@ -158,13 +167,40 @@ else:
 print("EXEC-CHECK-OK cg=%s pool=%d" % (want_cg, len(env["_pool"]())))
 '''
 
+EXEC_CHECK_BC = r'''
+import os, sys
+bundle, mode = sys.argv[1], sys.argv[2]   # mode: "weights" | "noweights"
+with open(os.path.join(bundle, "main.py"), encoding="utf-8") as f:
+    src = f.read()
+sys.path.append(bundle)
+env = {}
+exec(compile(src, "main.py", "exec"), env)
+ag = [v for v in env.values() if callable(v)][-1]
+assert ag.__name__ == "agent", ag.__name__
+assert env["SEARCH"] is False, "search must be OFF in the BC ship"
+assert env["BC"], "BC flag not baked"
+assert env["AGENT_VERSION"].startswith("ptcg-bc"), env["AGENT_VERSION"]
+deck = ag({"select": None, "logs": [], "current": None})
+assert isinstance(deck, list) and len(deck) == 60 and all(isinstance(x, int) for x in deck)
+r = ag({"select": {"type": 0, "context": 0, "minCount": 1, "maxCount": 1,
+                   "option": [{"type": 14}]}, "logs": [], "current": None})
+assert r == [0], r
+model = env["_bc_model"]()
+if mode == "weights":
+    assert model is not None, "bundled BC weights failed to load"
+    assert model.get("head_card") is not None, "card head missing"
+else:
+    assert model is None, "weights loaded but bundle has none"
+print("EXEC-CHECK-BC-OK mode=%s" % mode)
+'''
+
 
 def run(code, args, cwd, timeout=300):
     return subprocess.run([sys.executable, "-c", code, *map(str, args)],
                           cwd=cwd, capture_output=True, text=True, timeout=timeout)
 
 
-def build(rollout, cap, games, deck_file="deck.csv", version=SHIP_VERSION):
+def build(rollout, cap, games, deck_file="deck.csv", version=SHIP_VERSION, bc=""):
     cards, attacks = load_engine_db()
     deck = read_deck(REPO / deck_file)
     errs = validate_deck(deck, cards)
@@ -172,18 +208,25 @@ def build(rollout, cap, games, deck_file="deck.csv", version=SHIP_VERSION):
         raise SystemExit(f"{deck_file} INVALID: " + "; ".join(errs))
     print(f"[1/6] {deck_file} valid (60 cards, {len(set(deck))} unique)  version={version}")
 
-    need_value = cap > 0
-    need_policy = rollout == "s1"
-    extra = ([("value_weights.npz", need_value)] +
-             [("policy_weights.npz", need_policy)])
+    if bc:
+        need_value = need_policy = False
+        extra = [(f"bc_weights_{bc}.npz", True)]
+    else:
+        need_value = cap > 0
+        need_policy = rollout == "s1"
+        extra = ([("value_weights.npz", need_value)] +
+                 [("policy_weights.npz", need_policy)])
     for fn, need in extra:
         if need and not (REPO / fn).is_file():
             raise SystemExit(f"{fn} required for this config but missing")
 
-    bundle = REPO / "build" / "search_bundle"
+    bundle = REPO / "build" / ("bc_bundle" if bc else "search_bundle")
     if bundle.exists():
         shutil.rmtree(bundle)
-    (bundle / "cg").mkdir(parents=True)
+    if bc:
+        bundle.mkdir(parents=True)   # BC ship carries no engine: cg/ omitted
+    else:
+        (bundle / "cg").mkdir(parents=True)
 
     shutil.copy2(REPO / "main.py", bundle / "main.py")
     shutil.copy2(REPO / deck_file, bundle / "deck.csv")   # bundle deck is always deck.csv
@@ -192,38 +235,60 @@ def build(rollout, cap, games, deck_file="deck.csv", version=SHIP_VERSION):
     for fn, need in extra:
         if need:
             shutil.copy2(REPO / fn, bundle / fn)
-    for name in CG_FILES:
-        shutil.copy2(SAMPLE_CG / name, bundle / "cg" / name)
-    bake_ship_config(bundle / "main.py", rollout, cap, version)
+    if not bc:
+        for name in CG_FILES:
+            shutil.copy2(SAMPLE_CG / name, bundle / "cg" / name)
+    bake_ship_config(bundle / "main.py", rollout, cap, version, bc)
     top_files = ["main.py", "deck.csv", "card_data.json"] + \
                 [fn for fn, need in extra if need]
-    print(f"[2/6] bundle assembled: {top_files} + cg/  "
-          f"(config: belief=comp rollout={rollout} cap={cap} governor=on)")
+    print(f"[2/6] bundle assembled: {top_files}" + ("" if bc else " + cg/") + "  "
+          + (f"(config: BC={bc} search=off)" if bc else
+             f"(config: belief=comp rollout={rollout} cap={cap} governor=on)"))
 
-    with tempfile.TemporaryDirectory() as td:
-        p = run(EXEC_CHECK, [bundle, "cg"], td)
-    if p.returncode != 0 or "EXEC-CHECK-OK" not in p.stdout:
-        raise SystemExit(f"exec-load check FAILED:\n{p.stdout}\n{p.stderr}")
-    print(f"[3/6] exec-load check OK ({p.stdout.strip().splitlines()[-1]})")
+    if bc:
+        with tempfile.TemporaryDirectory() as td:
+            p = run(EXEC_CHECK_BC, [bundle, "weights"], td)
+        if p.returncode != 0 or "EXEC-CHECK-BC-OK" not in p.stdout:
+            raise SystemExit(f"exec-load check FAILED:\n{p.stdout}\n{p.stderr}")
+        print(f"[3/6] exec-load check OK ({p.stdout.strip().splitlines()[-1]})")
 
-    with tempfile.TemporaryDirectory() as td:
-        stripped = Path(td) / "b"
-        shutil.copytree(bundle, stripped)
-        shutil.rmtree(stripped / "cg")
-        p = run(EXEC_CHECK, [stripped, "nocg"], td)
-    if p.returncode != 0 or "EXEC-CHECK-OK" not in p.stdout:
-        raise SystemExit(f"no-cg fallback FAILED:\n{p.stdout}\n{p.stderr}")
-    print("[4/6] no-cg fallback OK (agent loads + plays v1 without engine)")
+        with tempfile.TemporaryDirectory() as td:
+            stripped = Path(td) / "b"
+            shutil.copytree(bundle, stripped)
+            (stripped / f"bc_weights_{bc}.npz").unlink()
+            p = run(EXEC_CHECK_BC, [stripped, "noweights"], td)
+        if p.returncode != 0 or "EXEC-CHECK-BC-OK" not in p.stdout:
+            raise SystemExit(f"no-weights fallback FAILED:\n{p.stdout}\n{p.stderr}")
+        print("[4/6] no-weights fallback OK (agent loads + plays v1, one stderr line)")
 
-    print(f"[5/6] {smoke_parallel(read_deck(bundle / 'deck.csv'), rollout, cap, games)}")
+        print(f"[5/6] {smoke_parallel(read_deck(bundle / 'deck.csv'), rollout, cap, games, bc=bc)}")
+    else:
+        with tempfile.TemporaryDirectory() as td:
+            p = run(EXEC_CHECK, [bundle, "cg"], td)
+        if p.returncode != 0 or "EXEC-CHECK-OK" not in p.stdout:
+            raise SystemExit(f"exec-load check FAILED:\n{p.stdout}\n{p.stderr}")
+        print(f"[3/6] exec-load check OK ({p.stdout.strip().splitlines()[-1]})")
+
+        with tempfile.TemporaryDirectory() as td:
+            stripped = Path(td) / "b"
+            shutil.copytree(bundle, stripped)
+            shutil.rmtree(stripped / "cg")
+            p = run(EXEC_CHECK, [stripped, "nocg"], td)
+        if p.returncode != 0 or "EXEC-CHECK-OK" not in p.stdout:
+            raise SystemExit(f"no-cg fallback FAILED:\n{p.stdout}\n{p.stderr}")
+        print("[4/6] no-cg fallback OK (agent loads + plays v1 without engine)")
+
+        print(f"[5/6] {smoke_parallel(read_deck(bundle / 'deck.csv'), rollout, cap, games)}")
 
     suffix = "" if deck_file == "deck.csv" else "_" + Path(deck_file).stem
-    tar_path = REPO / f"submission_search{suffix}.tar.gz"
+    prefix = "submission_bc" if bc else "submission_search"
+    tar_path = REPO / f"{prefix}{suffix}.tar.gz"
     with tarfile.open(tar_path, "w:gz") as tar:
         for name in top_files:
             tar.add(bundle / name, arcname=name)
-        tar.add(bundle / "cg", arcname="cg",
-                filter=lambda ti: None if "__pycache__" in ti.name else ti)
+        if not bc:
+            tar.add(bundle / "cg", arcname="cg",
+                    filter=lambda ti: None if "__pycache__" in ti.name else ti)
     with tarfile.open(tar_path, "r:gz") as tar:
         members = tar.getnames()
     bad = [m for m in members if "\\" in m or ".." in m]
@@ -233,7 +298,7 @@ def build(rollout, cap, games, deck_file="deck.csv", version=SHIP_VERSION):
     if size_mib > MAX_SIZE_MIB:
         raise SystemExit(f"{size_mib:.1f} MiB > {MAX_SIZE_MIB}")
     print(f"[6/6] {tar_path.name} OK: {size_mib:.2f} MiB, {len(members)} members")
-    print(f"SEARCH BUNDLE OK  ({version})")
+    print(f"{'BC' if bc else 'SEARCH'} BUNDLE OK  ({version})")
 
 
 def _smoke_chunk(args):
@@ -243,7 +308,7 @@ def _smoke_chunk(args):
     import contextlib
     import io
     import time as _t
-    deck, rollout, cap, n = args
+    deck, rollout, cap, n, bc = args
     import main
     from tools import deck_compare
     crashes = fallbacks = 0
@@ -254,11 +319,16 @@ def _smoke_chunk(args):
             if obs.get("select") is None:
                 return list(deck)
             main.DECK = list(deck)   # belief sampler samples our zones from DECK
-            main.SEARCH = True
-            main.SEARCH_BELIEF = "comp"
-            main.ROLLOUT = rollout
-            main.SEARCH_CAP = cap
-            main.GOVERNOR = True
+            if bc:
+                main.BC = bc
+                main.DYN_DECK_TABLES = True
+                main.SEARCH = False
+            else:
+                main.SEARCH = True
+                main.SEARCH_BELIEF = "comp"
+                main.ROLLOUT = rollout
+                main.SEARCH_CAP = cap
+                main.GOVERNOR = True
             t0 = _t.perf_counter()
             a = main.agent(obs)
             dec_ms.append((_t.perf_counter() - t0) * 1000)
@@ -278,10 +348,10 @@ def _smoke_chunk(args):
     return crashes, fallbacks, dec_ms
 
 
-def smoke_parallel(deck, rollout, cap, games, workers=6):
+def smoke_parallel(deck, rollout, cap, games, workers=6, bc=""):
     from concurrent.futures import ProcessPoolExecutor
     base, extra = divmod(games, workers)
-    jobs = [(deck, rollout, cap, base + (1 if w < extra else 0))
+    jobs = [(deck, rollout, cap, base + (1 if w < extra else 0), bc)
             for w in range(workers)]
     jobs = [j for j in jobs if j[3]]
     crashes = fallbacks = 0
@@ -307,5 +377,9 @@ if __name__ == "__main__":
     ap.add_argument("--games", type=int, default=30)
     ap.add_argument("--deck", default="deck.csv", help="deck file to bundle as deck.csv")
     ap.add_argument("--version", default=SHIP_VERSION, help="AGENT_VERSION to stamp")
+    ap.add_argument("--bc", default="", help="BC ship: bake PTCG_BC=<tag>, bundle "
+                    "bc_weights_<tag>.npz, no cg/ (e.g. garchomp_full)")
     args = ap.parse_args()
-    build(args.rollout, args.cap, args.games, args.deck, args.version)
+    if args.bc and args.version == SHIP_VERSION:
+        raise SystemExit("--bc requires an explicit --version (ptcg-bc-...)")
+    build(args.rollout, args.cap, args.games, args.deck, args.version, args.bc)

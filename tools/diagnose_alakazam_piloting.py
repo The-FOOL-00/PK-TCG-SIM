@@ -19,9 +19,13 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO))
-sys.path.insert(0, str(REPO / "sample_submission" / "sample_submission"))
 
+# our main.py must win over the sample dir's random-agent main.py (see
+# analyze_garchomp_losses.py — same shadow bug invalidated its old numbers).
 import main  # noqa: E402
+assert hasattr(main, "STATS"), "imported the sample's main.py, not ours"
+sys.path.insert(1, str(REPO / "sample_submission" / "sample_submission"))
+
 from tools import deck_compare  # noqa: E402
 
 MAJKEL = {"avg_turns": 44.0, "first_attack": 4.1, "denial_per_game": 4.0,

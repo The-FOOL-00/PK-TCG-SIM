@@ -1,0 +1,34 @@
+{
+  "challenger": "metaC_garchomp_nasuo.csv+BC=garchomp_full+DYN_DECK_TABLES=true",
+  "incumbent": "metaC_garchomp_nasuo.csv+BC=garchomp",
+  "games": 300,
+  "wins": 231,
+  "losses": 69,
+  "draws": 0,
+  "wins_by_seat": [
+    129,
+    102
+  ],
+  "win_rate": 0.77,
+  "wilson95": [
+    0.7191446136117753,
+    0.8140281819269698
+  ],
+  "verdict": "PASS",
+  "crashes": {
+    "chal": 0,
+    "inc": 0
+  },
+  "reasons_won": {
+    "1": 189,
+    "3": 22,
+    "2": 20
+  },
+  "reasons_lost": {
+    "1": 43,
+    "3": 3,
+    "2": 23
+  },
+  "calibration": null,
+  "teacher_stats": null
+}
