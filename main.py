@@ -95,6 +95,18 @@ PILOT = os.environ.get("PTCG_PILOT", "")
 # resolve_selection untouched.
 # ---------------------------------------------------------------------------
 BC = os.environ.get("PTCG_BC", "")
+# Draw-brake (Stage 4, ablatable): BC-v2 on the list-0 Alakazam engine
+# self-deckouts in stalled games — it keeps firing optional self-draw/fetch
+# actions with no deck-economy model (thin-deck states are absent from
+# win-side training data; winners close by T12-15). BC_BRAKE=N (cards)
+# arms an inference-time rule on the BC MAIN path only: when OUR deckCount
+# <= N and we are strictly behind on prizes, optional self-draw/fetch
+# options (BRAKE_DRAW_ACTIONS below, derived empirically from deck-count
+# deltas in stage4/eval/brake_analyze.py) are excluded from the BC head's
+# choice. 0 (default) = off, byte-identical. Weights untouched; the picked
+# index is always a legal option, so C1 validation / resolve_selection /
+# fallback chain are unaffected. G7c ablates this flag.
+BC_BRAKE = int(os.environ.get("PTCG_BC_BRAKE", "0") or "0")
 # Deck-identity tables (HAND_SLOT_IDS / CARD_SLOT_IDS) are frozen at import
 # from deck.csv. When a harness swaps DECK at runtime (ab_gate non-default
 # decks, BC extraction) those tables silently describe the WRONG deck — the
@@ -2069,6 +2081,63 @@ def _bc_card_choose(model, sel, cur):
     return picks
 
 
+# Optional self-draw/fetch MAIN actions of the list-0 Alakazam engine, as
+# (option type, card id). Measured mean own-deck consumption per action in
+# brake diagnostics: Enriching Energy +3.7, Fezandipiti ex ability +2.8,
+# Dawn +2.7, Hilda +1.8, Buddy-Buddy Poffin +1.6, Poke Pad +1.0,
+# Dudunsparce ability (pure draw, spammed 2.7x/game). Deliberately EXCLUDED:
+# evolutions/Rare Candy (their consumption is triggered bonus draws — blocking
+# them would stunt board development) and Sacred Ash (returns cards to deck).
+BRAKE_DRAW_ACTIONS = frozenset({
+    (OT_ABILITY, 140),   # Fezandipiti ex ability
+    (OT_ABILITY, 66),    # Dudunsparce ability
+    (OT_ATTACH, 13),     # Enriching Energy
+    (OT_PLAY, 1231),     # Dawn
+    (OT_PLAY, 1225),     # Hilda
+    (OT_PLAY, 1086),     # Buddy-Buddy Poffin
+    (OT_PLAY, 1152),     # Poke Pad
+})
+
+
+def _bc_brake_mask(sel, cur):
+    """Allowed option indices under the draw-brake, or None when the brake
+    does not bind (flag off, deck not thin, not behind, nothing to exclude,
+    or exclusion would leave no options)."""
+    if not BC_BRAKE:
+        return None
+    me = cur.get("yourIndex")
+    players = cur.get("players") or []
+    if me is None or not isinstance(players, list) or len(players) < 2:
+        return None
+    mine, theirs = players[me], players[1 - me]
+    if (mine.get("deckCount") or 0) > BC_BRAKE:
+        return None
+    if len(mine.get("prize") or []) <= len(theirs.get("prize") or []):
+        return None                      # only when strictly behind on prizes
+    options = sel.get("option") or []
+    allowed = []
+    for i, opt in enumerate(options):
+        t = opt.get("type")
+        cid = None
+        try:
+            if t == OT_PLAY:
+                cid = _hand_card_id(cur, me, opt.get("index"))
+            elif t == OT_ABILITY:
+                pk = _pokemon_at(cur, me, opt.get("inPlayArea"),
+                                 opt.get("inPlayIndex"), me)
+                cid = (pk or {}).get("id")
+            elif t == OT_ATTACH:
+                cid = _option_card_id(opt, sel, cur, me)
+        except Exception:
+            cid = None
+        if (t, cid) in BRAKE_DRAW_ACTIONS:
+            continue
+        allowed.append(i)
+    if not allowed or len(allowed) == len(options):
+        return None
+    return allowed
+
+
 def _bc_decide(obs, sel, cur, v1_result):
     """(result, handled) — BC's choice on MAIN single-selects, and (BC-full
     only) on ST_CARD-family selections via the card head. Head-fire telemetry
@@ -2088,7 +2157,18 @@ def _bc_decide(obs, sel, cur, v1_result):
         STATS["bc_v1"] = STATS.get("bc_v1", 0) + 1
         return v1_result, False
     if is_main:
-        result = [_pol_choose(model, sel, cur)]
+        mask = None
+        try:
+            mask = _bc_brake_mask(sel, cur)
+        except Exception:
+            mask = None
+        if mask:
+            red = dict(sel)
+            red["option"] = [sel["option"][i] for i in mask]
+            result = [mask[_pol_choose(model, red, cur)]]
+            STATS["bc_brake"] = STATS.get("bc_brake", 0) + 1
+        else:
+            result = [_pol_choose(model, sel, cur)]
         STATS["bc_main"] = STATS.get("bc_main", 0) + 1
     else:
         result = _bc_card_choose(model, sel, cur)
