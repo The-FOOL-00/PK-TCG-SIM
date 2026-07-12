@@ -100,7 +100,7 @@ BC = os.environ.get("PTCG_BC", "")
 # actions with no deck-economy model (thin-deck states are absent from
 # win-side training data; winners close by T12-15). BC_BRAKE=N (cards)
 # arms an inference-time rule on the BC MAIN path only: when OUR deckCount
-# <= N and we are strictly behind on prizes, optional self-draw/fetch
+# <= N and we are not ahead on prizes (parity included), optional self-draw/fetch
 # options (BRAKE_DRAW_ACTIONS below, derived empirically from deck-count
 # deltas in stage4/eval/brake_analyze.py) are excluded from the BC head's
 # choice. 0 (default) = off, byte-identical. Weights untouched; the picked
@@ -2101,8 +2101,8 @@ BRAKE_DRAW_ACTIONS = frozenset({
 
 def _bc_brake_mask(sel, cur):
     """Allowed option indices under the draw-brake, or None when the brake
-    does not bind (flag off, deck not thin, not behind, nothing to exclude,
-    or exclusion would leave no options)."""
+    does not bind (flag off, deck not thin, ahead on prizes, nothing to
+    exclude, or exclusion would leave no options)."""
     if not BC_BRAKE:
         return None
     me = cur.get("yourIndex")
@@ -2112,8 +2112,8 @@ def _bc_brake_mask(sel, cur):
     mine, theirs = players[me], players[1 - me]
     if (mine.get("deckCount") or 0) > BC_BRAKE:
         return None
-    if len(mine.get("prize") or []) <= len(theirs.get("prize") or []):
-        return None                      # only when strictly behind on prizes
+    if len(mine.get("prize") or []) < len(theirs.get("prize") or []):
+        return None            # fires when not ahead on prizes (parity included)
     options = sel.get("option") or []
     allowed = []
     for i, opt in enumerate(options):

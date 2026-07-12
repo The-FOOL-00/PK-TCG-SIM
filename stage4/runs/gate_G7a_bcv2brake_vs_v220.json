@@ -1,0 +1,34 @@
+{
+  "challenger": "stage4/deck_list0.csv+BC=list0_b+DYN_DECK_TABLES=true+BC_BRAKE=10",
+  "incumbent": "metaC_garchomp_nasuo.csv+BC=garchomp_full+DYN_DECK_TABLES=true",
+  "games": 300,
+  "wins": 117,
+  "losses": 183,
+  "draws": 0,
+  "wins_by_seat": [
+    68,
+    49
+  ],
+  "win_rate": 0.39,
+  "wilson95": [
+    0.3365300216309911,
+    0.446251432038409
+  ],
+  "verdict": "FAIL",
+  "crashes": {
+    "chal": 0,
+    "inc": 0
+  },
+  "reasons_won": {
+    "1": 89,
+    "2": 24,
+    "3": 4
+  },
+  "reasons_lost": {
+    "1": 107,
+    "2": 52,
+    "3": 24
+  },
+  "calibration": null,
+  "teacher_stats": null
+}
