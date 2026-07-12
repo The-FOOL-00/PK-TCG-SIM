@@ -529,8 +529,15 @@ minus 24–48h ladder convergence:
   iterations on the home box.
 - **Jul 13–20:** this sign-off, then port/build (trainer, league, export,
   lab package), local smoke.
-- If the user confirms Aug 16, everything shifts +2 days of margin — margin,
-  not scope.
+- ~~If the user confirms Aug 16, everything shifts +2 days of margin — margin,
+  not scope.~~ **CONFIRMED 2026-08-16** (user verified from the competition
+  rules page, 2026-07-12). Binding dates move: internal freeze **Aug 12 →
+  Aug 14** (48h ladder-convergence buffer preserved), nothing trains after
+  **Aug 12** (was Aug 10), ship battery window **Aug 10–12** (was Aug 8–10),
+  main training window **Jul 26 – Aug 10** (~96h more training compute).
+  The Aug 10 rescope trigger moves to **Aug 12**. Scope unchanged — the
+  extra 48h is training margin and one extra battery re-run slot, not new
+  work items.
 
 ~10 days of genuine slack exist in this plan; K2's 300k-game bound is
 reachable even at 8 cores inside the window.
@@ -608,6 +615,9 @@ with three pre-registered configs, not a checklist item:
 
 **Timeline.** Approved contingent on the user verifying Aug 14 vs Aug 16
 from the competition page; Aug 14 assumed for all scoping until then.
+**RESOLVED 2026-07-12: deadline verified as 2026-08-16.** Freeze Aug 14,
+train-stop Aug 12, ship battery Aug 10–12, K2 window gains ~96h — see the
+amended §11 dates, which are now binding.
 
 Approved as-is: dataset = none (§6), shipping = raw policy head (§7),
 gates G8a/b/c unchanged (§9).

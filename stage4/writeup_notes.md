@@ -152,3 +152,10 @@ thin-deck states the expert corpus never contained.
 (iv) **CPU economics.** Search-free games are 3–10× cheaper and games are
 the entire budget on unknown lab cores; self-play is CPU-bound (teammate's
 Colab-verified finding).
+
+Timeline note (2026-07-12): deadline verified from the competition rules
+page as **2026-08-16** (teammate's report had said 08-14 — planning had
+built to the earlier date per policy). Internal freeze moves Aug 12 → Aug 14,
+train-stop Aug 10 → Aug 12: ~96 core-hours of extra training compute across
+two labs, allocated to the main window and one ship-battery re-run slot,
+not to new scope. Operational schedule: stage4/rl_ours/scoping.md.
