@@ -1,0 +1,826 @@
+{
+ "summary": {
+  "label": "c_vs_lucario",
+  "games": 100,
+  "wins": 86,
+  "losses": 14,
+  "win_rate": 0.86,
+  "crashes": 0,
+  "win_reasons": {
+   "prizes": 72,
+   "no-active": 11,
+   "deckout": 3
+  },
+  "loss_reasons": {
+   "deckout": 8,
+   "prizes": 4,
+   "no-active": 2
+  },
+  "win_turns_median": 13.0,
+  "loss_turns_median": 15.0,
+  "wins_by_T12": 38,
+  "self_deckout_losses": 8
+ },
+ "games": [
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 14,
+   "our_prizes": 6,
+   "opp_prizes": 3
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 16,
+   "our_prizes": 6,
+   "opp_prizes": 0
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 15,
+   "our_prizes": 6,
+   "opp_prizes": 3
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 10,
+   "our_prizes": 6,
+   "opp_prizes": 2
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 13,
+   "our_prizes": 6,
+   "opp_prizes": 4
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 12,
+   "our_prizes": 6,
+   "opp_prizes": 0
+  },
+  {
+   "reward": -1,
+   "status": "DONE",
+   "reason": "deckout",
+   "turns": 17,
+   "our_prizes": 1,
+   "opp_prizes": 3
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 14,
+   "our_prizes": 6,
+   "opp_prizes": 3
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "no-active",
+   "turns": 15,
+   "our_prizes": 6,
+   "opp_prizes": 1
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 14,
+   "our_prizes": 6,
+   "opp_prizes": 1
+  },
+  {
+   "reward": -1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 14,
+   "our_prizes": 3,
+   "opp_prizes": 6
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 10,
+   "our_prizes": 6,
+   "opp_prizes": 3
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 15,
+   "our_prizes": 6,
+   "opp_prizes": 3
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 12,
+   "our_prizes": 6,
+   "opp_prizes": 2
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 13,
+   "our_prizes": 6,
+   "opp_prizes": 3
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 16,
+   "our_prizes": 6,
+   "opp_prizes": 2
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "no-active",
+   "turns": 9,
+   "our_prizes": 4,
+   "opp_prizes": 1
+  },
+  {
+   "reward": -1,
+   "status": "DONE",
+   "reason": "no-active",
+   "turns": 13,
+   "our_prizes": 0,
+   "opp_prizes": 2
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 11,
+   "our_prizes": 6,
+   "opp_prizes": 4
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 12,
+   "our_prizes": 6,
+   "opp_prizes": 1
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "no-active",
+   "turns": 9,
+   "our_prizes": 3,
+   "opp_prizes": 1
+  },
+  {
+   "reward": -1,
+   "status": "DONE",
+   "reason": "deckout",
+   "turns": 16,
+   "our_prizes": 4,
+   "opp_prizes": 4
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 13,
+   "our_prizes": 6,
+   "opp_prizes": 2
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 12,
+   "our_prizes": 6,
+   "opp_prizes": 1
+  },
+  {
+   "reward": -1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 16,
+   "our_prizes": 2,
+   "opp_prizes": 6
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 16,
+   "our_prizes": 6,
+   "opp_prizes": 0
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 11,
+   "our_prizes": 6,
+   "opp_prizes": 2
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "no-active",
+   "turns": 8,
+   "our_prizes": 2,
+   "opp_prizes": 0
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 17,
+   "our_prizes": 6,
+   "opp_prizes": 0
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 16,
+   "our_prizes": 6,
+   "opp_prizes": 0
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 15,
+   "our_prizes": 6,
+   "opp_prizes": 0
+  },
+  {
+   "reward": -1,
+   "status": "DONE",
+   "reason": "no-active",
+   "turns": 6,
+   "our_prizes": 0,
+   "opp_prizes": 2
+  },
+  {
+   "reward": -1,
+   "status": "DONE",
+   "reason": "deckout",
+   "turns": 17,
+   "our_prizes": 5,
+   "opp_prizes": 4
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "deckout",
+   "turns": 15,
+   "our_prizes": 5,
+   "opp_prizes": 3
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "no-active",
+   "turns": 5,
+   "our_prizes": 2,
+   "opp_prizes": 0
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "no-active",
+   "turns": 6,
+   "our_prizes": 3,
+   "opp_prizes": 1
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 13,
+   "our_prizes": 6,
+   "opp_prizes": 1
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 12,
+   "our_prizes": 6,
+   "opp_prizes": 4
+  },
+  {
+   "reward": -1,
+   "status": "DONE",
+   "reason": "deckout",
+   "turns": 13,
+   "our_prizes": 3,
+   "opp_prizes": 3
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 14,
+   "our_prizes": 6,
+   "opp_prizes": 3
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "no-active",
+   "turns": 11,
+   "our_prizes": 6,
+   "opp_prizes": 1
+  },
+  {
+   "reward": -1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 15,
+   "our_prizes": 5,
+   "opp_prizes": 6
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 13,
+   "our_prizes": 6,
+   "opp_prizes": 2
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 12,
+   "our_prizes": 6,
+   "opp_prizes": 1
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 13,
+   "our_prizes": 6,
+   "opp_prizes": 1
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 8,
+   "our_prizes": 6,
+   "opp_prizes": 0
+  },
+  {
+   "reward": -1,
+   "status": "DONE",
+   "reason": "deckout",
+   "turns": 33,
+   "our_prizes": 5,
+   "opp_prizes": 2
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 12,
+   "our_prizes": 6,
+   "opp_prizes": 1
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 23,
+   "our_prizes": 6,
+   "opp_prizes": 2
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "no-active",
+   "turns": 6,
+   "our_prizes": 1,
+   "opp_prizes": 0
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 15,
+   "our_prizes": 6,
+   "opp_prizes": 3
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 12,
+   "our_prizes": 6,
+   "opp_prizes": 3
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 15,
+   "our_prizes": 6,
+   "opp_prizes": 3
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 10,
+   "our_prizes": 6,
+   "opp_prizes": 3
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 21,
+   "our_prizes": 6,
+   "opp_prizes": 0
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "no-active",
+   "turns": 14,
+   "our_prizes": 5,
+   "opp_prizes": 1
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 15,
+   "our_prizes": 6,
+   "opp_prizes": 3
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 12,
+   "our_prizes": 6,
+   "opp_prizes": 5
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 11,
+   "our_prizes": 6,
+   "opp_prizes": 0
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 14,
+   "our_prizes": 6,
+   "opp_prizes": 4
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 19,
+   "our_prizes": 6,
+   "opp_prizes": 3
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 16,
+   "our_prizes": 6,
+   "opp_prizes": 0
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "deckout",
+   "turns": 16,
+   "our_prizes": 4,
+   "opp_prizes": 0
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 12,
+   "our_prizes": 6,
+   "opp_prizes": 0
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 13,
+   "our_prizes": 6,
+   "opp_prizes": 4
+  },
+  {
+   "reward": -1,
+   "status": "DONE",
+   "reason": "deckout",
+   "turns": 12,
+   "our_prizes": 3,
+   "opp_prizes": 3
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 17,
+   "our_prizes": 6,
+   "opp_prizes": 3
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 12,
+   "our_prizes": 6,
+   "opp_prizes": 1
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 13,
+   "our_prizes": 6,
+   "opp_prizes": 3
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 14,
+   "our_prizes": 6,
+   "opp_prizes": 3
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 9,
+   "our_prizes": 6,
+   "opp_prizes": 0
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 16,
+   "our_prizes": 6,
+   "opp_prizes": 1
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 13,
+   "our_prizes": 6,
+   "opp_prizes": 2
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 16,
+   "our_prizes": 6,
+   "opp_prizes": 1
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 11,
+   "our_prizes": 6,
+   "opp_prizes": 0
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 16,
+   "our_prizes": 6,
+   "opp_prizes": 0
+  },
+  {
+   "reward": -1,
+   "status": "DONE",
+   "reason": "deckout",
+   "turns": 15,
+   "our_prizes": 3,
+   "opp_prizes": 4
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 10,
+   "our_prizes": 6,
+   "opp_prizes": 3
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 9,
+   "our_prizes": 6,
+   "opp_prizes": 0
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 14,
+   "our_prizes": 6,
+   "opp_prizes": 1
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "no-active",
+   "turns": 5,
+   "our_prizes": 1,
+   "opp_prizes": 1
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 12,
+   "our_prizes": 6,
+   "opp_prizes": 1
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 11,
+   "our_prizes": 6,
+   "opp_prizes": 1
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 12,
+   "our_prizes": 6,
+   "opp_prizes": 0
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 11,
+   "our_prizes": 6,
+   "opp_prizes": 0
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 14,
+   "our_prizes": 6,
+   "opp_prizes": 2
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 21,
+   "our_prizes": 6,
+   "opp_prizes": 3
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 14,
+   "our_prizes": 6,
+   "opp_prizes": 2
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 15,
+   "our_prizes": 6,
+   "opp_prizes": 0
+  },
+  {
+   "reward": -1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 17,
+   "our_prizes": 1,
+   "opp_prizes": 6
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 11,
+   "our_prizes": 6,
+   "opp_prizes": 0
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "no-active",
+   "turns": 8,
+   "our_prizes": 3,
+   "opp_prizes": 3
+  },
+  {
+   "reward": -1,
+   "status": "DONE",
+   "reason": "deckout",
+   "turns": 15,
+   "our_prizes": 5,
+   "opp_prizes": 4
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "deckout",
+   "turns": 13,
+   "our_prizes": 4,
+   "opp_prizes": 0
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 13,
+   "our_prizes": 6,
+   "opp_prizes": 1
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 14,
+   "our_prizes": 6,
+   "opp_prizes": 2
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 9,
+   "our_prizes": 6,
+   "opp_prizes": 0
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 16,
+   "our_prizes": 6,
+   "opp_prizes": 1
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 11,
+   "our_prizes": 6,
+   "opp_prizes": 0
+  },
+  {
+   "reward": 1,
+   "status": "DONE",
+   "reason": "prizes",
+   "turns": 16,
+   "our_prizes": 6,
+   "opp_prizes": 0
+  }
+ ]
+}
