@@ -123,10 +123,18 @@ def fetch_ids(ids_file, date, dest, workers):
           f"{len(ids) - len(todo)} already present")
 
 
-def run(days, quota, workers, max_scan):
+def run(days, quota, workers, max_scan, lb_csv=None, out_dir=None):
+    global OUT, LEDGER, MANIFEST
+    if out_dir:
+        OUT = Path(out_dir)
+        LEDGER = OUT / "_scanned_ids.txt"
+        MANIFEST = OUT / "_manifest.csv"
     OUT.mkdir(parents=True, exist_ok=True)
-    lb = list(csv.DictReader(open(REPO / "data" / "leaderboard_snapshot_2026-07-10.csv",
-                                  encoding="utf-8")))
+    lb_path = Path(lb_csv) if lb_csv else REPO / "data" / "leaderboard_snapshot_2026-07-10.csv"
+    lb = list(csv.DictReader(open(lb_path, encoding="utf-8-sig")))
+    if "team" not in lb[0]:   # full Kaggle LB export (TeamName/Score columns)
+        lb.sort(key=lambda r: -float(r.get("Score") or 0))
+        lb = [{"team": r["TeamName"]} for r in lb]
     top10 = [r["team"] for r in lb[:10]]
     print("top-10:", top10)
 
@@ -256,10 +264,15 @@ if __name__ == "__main__":
                     help="targeted mode: file of episode ids (one per line)")
     ap.add_argument("--date", default=None, help="targeted mode: dataset day YYYY-MM-DD")
     ap.add_argument("--dest", default=None, help="targeted mode: output directory")
+    ap.add_argument("--lb-csv", default=None,
+                    help="leaderboard CSV for top-10 (default: 2026-07-10 snapshot)")
+    ap.add_argument("--out-dir", default=None,
+                    help="output directory (default: data/top_replays_bulk)")
     args = ap.parse_args()
     if args.fetch_ids:
         if not args.dest:
             ap.error("--fetch-ids needs --dest")
         fetch_ids(args.fetch_ids, args.date, args.dest, args.workers)
     else:
-        run(args.days, args.quota, args.workers, args.max_scan)
+        run(args.days, args.quota, args.workers, args.max_scan,
+            args.lb_csv, args.out_dir)
