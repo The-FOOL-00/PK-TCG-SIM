@@ -115,3 +115,40 @@ when challenger and incumbent play different decks.
 Data-shape fix (adding expert LOSING long games / thin-deck states to
 extraction) held as fallback if the brake underperforms. Would test whether
 the "sees-it-can't-do-it" class is curable inside pure imitation.
+
+## 5. Choosing PPO over AlphaZero (chapter-five seed, 2026-07-12)
+
+After G7a killed the imitation line — chapter 1's pathology surviving every
+within-paradigm fix, twice — the RL algorithm was chosen by survey
+(stage4/rl_ours/algorithm_survey.md), not inherited. PPO league self-play,
+warm-started by direct weight copy from BC-v2 and KL-anchored to it, was
+chosen over the AlphaZero family our teammate had already built. Four
+reasons, in the order they decided it:
+
+(i) **Optimize the deployed objective.** The ladder artifact is a raw ~1ms
+numpy policy. PPO's training objective is that object's win rate. This is
+the direct repair of chapter 1's lesson: BC optimized static decision
+accuracy — a proxy that read 82–97% while head-to-head strength read
+39–45% — and AZ substitutes another proxy, a search-support net whose raw
+head is a byproduct. Twice burned by proxy objectives, we picked the
+algorithm with none.
+
+(ii) **Failure-mode asymmetry, observed not theorized.** The teammate's AZ
+run destroyed its own SL prior (34–35% → 5% vs its target in 20 iterations:
+a replay buffer holding under two iterations of data, 40% adversarial
+opponent games from iteration 1, two determinizations, no KL anchor).
+Anchored PPO's characteristic failure is plateau at the warm start —
+bounded, diagnosable, recoverable. Under a fixed deadline, bounded worst
+case beat higher theoretical ceiling.
+
+(iii) **Losses in the gradient.** G7a's loss anatomy: 52 of 300 games were
+self-deckouts with the brake armed. Win-only imitation structurally cannot
+see this failure (chapter 1); the brake only splints it (chapter 3).
+On-policy RL makes every self-deckout a negative gradient — the first
+training signal in the project that touches the pathology directly. It also
+supersedes chapter 4's data-shape fallback: self-play generates the
+thin-deck states the expert corpus never contained.
+
+(iv) **CPU economics.** Search-free games are 3–10× cheaper and games are
+the entire budget on unknown lab cores; self-play is CPU-bound (teammate's
+Colab-verified finding).

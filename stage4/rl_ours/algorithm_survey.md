@@ -566,3 +566,48 @@ against the serve path before any training).
 **STOP.** Survey complete. No implementation begins until the user signs
 off: (1) algorithm = PPO league (pivot: Gumbel-AZ), (2) reuse-vs-rebuild
 table §5, (3) net-width start point §7, (4) timeline-to-Aug-12 §11.
+
+---
+
+## Sign-off amendments (user, 2026-07-12) — these override the sections above
+
+All four sign-offs granted with the following modifications, which are the
+binding versions:
+
+**Leakage audit (amends §5, §8).** Our own audit on OUR encoder + OUR
+determinizer (if/when used) is a hard pre-training gate, not inherited from
+the teammate's 6/6 on his stack. Pre-registered: **any leakage-audit fail =
+immediate STOP; no training without our own 6/6 pass.**
+
+**K2 pivot ladder (amends §9, §12).** If K2 plateau fires (no gate ≥44% by
+150k games / ≥48% by 300k), the first pivot is **capacity growth, not
+Gumbel-AZ**: copy the 27.8k weights into a wider net (128k first, then 256k
+if needed) with new-column initialization, re-anchor the KL, continue PPO.
+Gumbel-AZ pivots only after BOTH capacity levels plateau. Added mid-run
+diagnostic to separate the two conditions: if training reward reaches ~90th
+percentile of small-net-achievable while ladder gates stay <44%, log as
+**capacity-limited** (grow net) — distinct from **plateau** (algorithm
+pivot). Distinct diagnoses, distinct fixes.
+
+**nproc fork gate (amends §8, §11).** Core count on arrival is a fork gate
+with three pre-registered configs, not a checklist item:
+- **≥16 cores — central config.** ~4,400+ games/h (~106k/day at 16c);
+  ~40–50 PPO update epochs/day at 4–6k games/iter; target ≥300k total games
+  inside the Jul 26–Aug 8 window with full K2 headroom; expected μ range as
+  §10 central-to-high (700–730, tail to 760).
+- **8–16 cores — reduced config.** ~2,200–4,400 games/h (53–106k/day);
+  games-per-iter halved to keep update cadence; K2 bound reachable but
+  without re-run slack — one training restart consumes the margin; μ
+  expectation trimmed to §10 central (700–720), high tail de-weighted.
+- **<8 cores — Colab-scale, explicit go/no-go.** Lab supplements rather
+  than replaces the home box (6 cores). **Kill criterion: if combined
+  sustained throughput <1,500 games/h (≈36k/day), the 150k-game K2 floor is
+  not reachable by Aug 8 → NO-GO on the RL run entirely**; ride v2.2.0
+  (BC-v2 at 39.0% is not a shippable alternative) and bank the survey +
+  pipeline for the writeup.
+
+**Timeline.** Approved contingent on the user verifying Aug 14 vs Aug 16
+from the competition page; Aug 14 assumed for all scoping until then.
+
+Approved as-is: dataset = none (§6), shipping = raw policy head (§7),
+gates G8a/b/c unchanged (§9).
