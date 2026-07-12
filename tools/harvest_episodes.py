@@ -8,6 +8,11 @@ scanned-ids ledger; stops when every team hits --quota or days are exhausted.
 Writes a manifest CSV (episode, date, teams, rewards) for the filter step.
 
 Run:  py -3.12 -X utf8 tools/harvest_episodes.py --days 4 --quota 28 --workers 6
+
+Targeted mode (fetch specific episode ids into a directory, e.g. for loss
+analysis; ids come from the EpisodeService metadata, one per line or CSV):
+      py -3.12 -X utf8 tools/harvest_episodes.py --fetch-ids ids.txt \
+          --date 2026-07-11 --dest analysis/phase1_v2_2_0_losses/replays_raw
 """
 
 import argparse
@@ -70,6 +75,52 @@ def teams_of(data):
     d = json.loads(data)
     info = d.get("info") or {}
     return (info.get("TeamNames") or ["?", "?"], d.get("rewards") or [None, None])
+
+
+def fetch_episode_cdn(eid):
+    """Fallback for episodes not (yet) in a daily dataset: public replay CDN.
+    Daily datasets exclude episodes of submissions made that same day, so
+    fresh submissions' games are only reachable here until the next day."""
+    url = f"https://www.kaggleusercontent.com/episodes/{eid}.json"
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(req, timeout=180) as r:
+        return r.read()
+
+
+def fetch_ids(ids_file, date, dest, workers):
+    """Targeted mode: download specific episode ids (daily dataset if --date
+    given, falling back to the replay CDN on 404)."""
+    dest = Path(dest)
+    dest.mkdir(parents=True, exist_ok=True)
+    ids = [ln.strip().split(",")[0] for ln in Path(ids_file).read_text().splitlines()
+           if ln.strip() and ln.strip().split(",")[0].isdigit()]
+    slug = f"pokemon-tcg-ai-battle-episodes-{date}" if date else None
+    todo = [i for i in ids if not (dest / f"{i}.json").exists()]
+    print(f"{len(ids)} ids, {len(todo)} to fetch (dataset={slug or 'CDN only'}) -> {dest}")
+
+    def fetch_one(eid):
+        if slug:
+            try:
+                return fetch_episode(slug, f"{eid}.json")
+            except Exception:
+                pass
+        return fetch_episode_cdn(eid)
+
+    ok = miss = 0
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        futs = {ex.submit(fetch_one, i): i for i in todo}
+        for fut in as_completed(futs):
+            eid = futs[fut]
+            try:
+                (dest / f"{eid}.json").write_bytes(fut.result())
+                ok += 1
+            except Exception as e:
+                miss += 1
+                print(f"  {eid}: {e!r}", file=sys.stderr)
+            if (ok + miss) % 10 == 0:
+                print(f"  {ok} fetched, {miss} failed", flush=True)
+    print(f"done: {ok} fetched, {miss} failed, "
+          f"{len(ids) - len(todo)} already present")
 
 
 def run(days, quota, workers, max_scan):
@@ -201,5 +252,14 @@ if __name__ == "__main__":
     ap.add_argument("--quota", type=int, default=28)
     ap.add_argument("--workers", type=int, default=6)
     ap.add_argument("--max-scan", type=int, default=0, help="stop after N downloads this run")
+    ap.add_argument("--fetch-ids", default=None,
+                    help="targeted mode: file of episode ids (one per line)")
+    ap.add_argument("--date", default=None, help="targeted mode: dataset day YYYY-MM-DD")
+    ap.add_argument("--dest", default=None, help="targeted mode: output directory")
     args = ap.parse_args()
-    run(args.days, args.quota, args.workers, args.max_scan)
+    if args.fetch_ids:
+        if not args.dest:
+            ap.error("--fetch-ids needs --dest")
+        fetch_ids(args.fetch_ids, args.date, args.dest, args.workers)
+    else:
+        run(args.days, args.quota, args.workers, args.max_scan)
