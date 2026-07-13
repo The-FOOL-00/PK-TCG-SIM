@@ -68,6 +68,17 @@ class PolicyNet(nn.Module):
         return self.main_logits(state, rows) if kind == "main" \
             else self.card_logits(state, rows)
 
+    def main_logits_batched(self, states, rows, mask):
+        """Batched MAIN logits for the PPO update.
+        states (B,170), rows (B,M,41), mask (B,M) bool. Returns (B,M) with
+        masked-out options set to -1e9 (so log_softmax zeroes them)."""
+        emb = torch.relu(self.t1(torch.relu(self.t0(states))))   # (B,48)
+        B, M, _ = rows.shape
+        h = torch.cat([emb.unsqueeze(1).expand(B, M, -1), rows], dim=2)
+        h = torch.relu(self.h0(h))
+        logits = self.h1(h).squeeze(-1)                          # (B,M)
+        return logits.masked_fill(~mask, -1e9)
+
     # ---- warm start / export ----
     def load_bc_npz(self, path=common.BC_WEIGHTS):
         m = common.load_policy_npz(path)
@@ -96,7 +107,9 @@ class PolicyNet(nn.Module):
 
 
 class ValueNet(nn.Module):
-    """Critic over raw state: 170 -> 128 -> 64 -> 1 (matches value_weights_mlp)."""
+    """Critic over raw state: 170 -> 128 -> 64 -> 1, sigmoid output = P(win),
+    matching value_weights_mlp's contract (relu hidden, sigmoid = P(win|state)).
+    Values and returns live in [0,1] ({win:1, draw:0.5, loss:0})."""
 
     def __init__(self):
         super().__init__()
@@ -107,7 +120,7 @@ class ValueNet(nn.Module):
     def forward(self, state):
         x = torch.relu(self.v0(state))
         x = torch.relu(self.v1(x))
-        return self.v2(x).squeeze(-1)
+        return torch.sigmoid(self.v2(x).squeeze(-1))
 
     def load_warmstart(self, path=common.VALUE_WARMSTART):
         import pathlib
