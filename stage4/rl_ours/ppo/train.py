@@ -212,10 +212,12 @@ def run_iteration(pnet, vnet, bc_ref, opt, cfg, rng, checkpoints, it,
     # win rate vs the self-anchor subset (curriculum-invariant signal)
     anch = [o for spec, o in outcomes if spec == common.BC_ANCHOR_SPEC]
     inc = [o for spec, o in outcomes if spec == common.V220_SPEC]
-    stats["winrate_anchor"] = (float(np.mean([1.0 if o == 1 else 0.0 for o in anch]))
-                               if anch else None)
-    stats["winrate_incumbent"] = (float(np.mean([1.0 if o == 1 else 0.0 for o in inc]))
-                                  if inc else None)
+    stats["n_anchor"] = len(anch)
+    stats["wins_anchor"] = int(sum(1 for o in anch if o == 1))
+    stats["n_incumbent"] = len(inc)
+    stats["wins_incumbent"] = int(sum(1 for o in inc if o == 1))
+    stats["winrate_anchor"] = (stats["wins_anchor"] / len(anch)) if anch else None
+    stats["winrate_incumbent"] = (stats["wins_incumbent"] / len(inc)) if inc else None
     stats["mean_outcome"] = float(np.mean([o for _s, o in outcomes]))
     stats["iter"] = it
     return stats
