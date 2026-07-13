@@ -229,11 +229,27 @@ def train(cfg, n_iters, out_dir, log_path=None, ckpt_every=10, verbose=True):
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    pnet = net.build_policy(warmstart=True)
+    if cfg.get("wide"):
+        th = tuple(cfg.get("trunk_hidden", (320, 160)))
+        mh = cfg.get("main_hidden", 160)
+        if cfg.get("grow_src"):
+            # capacity ladder rung N>1: grow an ARBITRARY trained checkpoint
+            # (e.g. best 128k iter) into the wider target, function-preservingly.
+            pnet = net.build_policy_grown(
+                src=cfg["grow_src"], trunk_hidden=th, main_hidden=mh,
+                emb=cfg.get("emb", 48))
+            pnet.train()
+        else:
+            # rung 1: embed the 27.8k BC-v2 (default warm start)
+            pnet = net.build_policy_wide(
+                warmstart=True, trunk_hidden=th,
+                emb=cfg.get("emb", 48), main_hidden=mh)
+    else:
+        pnet = net.build_policy(warmstart=True)
     pnet.train()
     vnet = net.build_value(warmstart=True)
     vnet.train()
-    bc_ref = net.build_policy(warmstart=True)   # frozen KL anchor
+    bc_ref = net.build_policy(warmstart=True)   # frozen KL anchor: 27.8k BC-v2
     bc_ref.eval()
     for p in bc_ref.parameters():
         p.requires_grad_(False)
@@ -295,11 +311,31 @@ def main():
     ap.add_argument("--workers", type=int, default=1)
     ap.add_argument("--ckpt-every", type=int, default=10)
     ap.add_argument("--seed", type=int, default=0)
+    # capacity growth: build the 128k wide net (Net2WiderNet embed of BC-v2)
+    ap.add_argument("--wide", action="store_true",
+                    help="use WiderPolicyNet (trunk 170->320->160->48, MAIN "
+                         "head 89->160->1), function-preservingly embedded")
+    ap.add_argument("--trunk-hidden", default="320,160",
+                    help="comma-separated wide-trunk hidden dims (needs 2 for "
+                         "the 3-layer embed); only used with --wide")
+    ap.add_argument("--main-hidden", type=int, default=160,
+                    help="wide MAIN-head hidden width; only used with --wide")
+    ap.add_argument("--grow-src", default=None,
+                    help="grow this trained policy npz (ladder rung >1, e.g. a "
+                         "128k checkpoint -> 256k). Omit to warm-start the wide "
+                         "net from BC-v2. KL anchor stays the frozen 27.8k BC-v2.")
     args = ap.parse_args()
     cfg = dict(DEFAULT_CFG)
     cfg["games_per_iter"] = args.games_per_iter
     cfg["workers"] = args.workers
     cfg["seed"] = args.seed
+    if args.wide:
+        cfg["wide"] = True
+        cfg["trunk_hidden"] = tuple(int(x) for x in args.trunk_hidden.split(","))
+        cfg["main_hidden"] = args.main_hidden
+        if args.grow_src:
+            gs = Path(args.grow_src)
+            cfg["grow_src"] = str(gs if gs.is_absolute() else common.REPO / gs)
     if args.kl_coef is not None:
         cfg["kl_coef"] = args.kl_coef
     if args.incumbent_share is not None:

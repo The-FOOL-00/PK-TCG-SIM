@@ -144,7 +144,7 @@ def worker_collect(job):
     import torch as _t
     from . import net as _net
     policy_sd, value_sd, cfg, opp_specs, seats, seed = job
-    pnet = _net.PolicyNet()
+    pnet = _net.make_policy(cfg)
     pnet.load_state_dict(_t.load(policy_sd, map_location="cpu"))
     pnet.eval()
     vnet = _net.ValueNet()
