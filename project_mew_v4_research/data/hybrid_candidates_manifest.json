@@ -1,0 +1,1570 @@
+{
+  "HYB_F1_FireSafeguard_Gouging_M1_F2_1088": {
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Gouging_M1_F2_1088.csv"
+  },
+  "HYB_F1_FireSafeguard_Gouging_M1_F2_1159": {
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Gouging_M1_F2_1159.csv"
+  },
+  "HYB_F1_FireSafeguard_Gouging_M1_F2_1158": {
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Gouging_M1_F2_1158.csv"
+  },
+  "HYB_F1_FireSafeguard_Gouging_M1_F4_1088": {
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Gouging_M1_F4_1088.csv"
+  },
+  "HYB_F1_FireSafeguard_Gouging_M1_F4_1159": {
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Gouging_M1_F4_1159.csv"
+  },
+  "HYB_F1_FireSafeguard_Gouging_M1_F4_1158": {
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Gouging_M1_F4_1158.csv"
+  },
+  "HYB_F1_FireSafeguard_Gouging_M2_F2_1088": {
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Gouging_M2_F2_1088.csv"
+  },
+  "HYB_F1_FireSafeguard_Gouging_M2_F2_1159": {
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Gouging_M2_F2_1159.csv"
+  },
+  "HYB_F1_FireSafeguard_Gouging_M2_F2_1158": {
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Gouging_M2_F2_1158.csv"
+  },
+  "HYB_F1_FireSafeguard_Gouging_M2_F4_1088": {
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Gouging_M2_F4_1088.csv"
+  },
+  "HYB_F1_FireSafeguard_Gouging_M2_F4_1159": {
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Gouging_M2_F4_1159.csv"
+  },
+  "HYB_F1_FireSafeguard_Gouging_M2_F4_1158": {
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Gouging_M2_F4_1158.csv"
+  },
+  "HYB_F1_FireSafeguard_Gouging_M4_F2_1088": {
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Gouging_M4_F2_1088.csv"
+  },
+  "HYB_F1_FireSafeguard_Gouging_M4_F2_1159": {
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Gouging_M4_F2_1159.csv"
+  },
+  "HYB_F1_FireSafeguard_Gouging_M4_F2_1158": {
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Gouging_M4_F2_1158.csv"
+  },
+  "HYB_F1_FireSafeguard_Gouging_M4_F4_1088": {
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Gouging_M4_F4_1088.csv"
+  },
+  "HYB_F1_FireSafeguard_Gouging_M4_F4_1159": {
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Gouging_M4_F4_1159.csv"
+  },
+  "HYB_F1_FireSafeguard_Gouging_M4_F4_1158": {
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Gouging_M4_F4_1158.csv"
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M1_F2_1088": {
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Hearthflame_M1_F2_1088.csv"
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M1_F2_1159": {
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Hearthflame_M1_F2_1159.csv"
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M1_F2_1158": {
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Hearthflame_M1_F2_1158.csv"
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M1_F4_1088": {
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Hearthflame_M1_F4_1088.csv"
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M1_F4_1159": {
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Hearthflame_M1_F4_1159.csv"
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M1_F4_1158": {
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Hearthflame_M1_F4_1158.csv"
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M2_F2_1088": {
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Hearthflame_M2_F2_1088.csv"
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M2_F2_1159": {
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Hearthflame_M2_F2_1159.csv"
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M2_F2_1158": {
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Hearthflame_M2_F2_1158.csv"
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M2_F4_1088": {
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Hearthflame_M2_F4_1088.csv"
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M2_F4_1159": {
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Hearthflame_M2_F4_1159.csv"
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M2_F4_1158": {
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Hearthflame_M2_F4_1158.csv"
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M4_F2_1088": {
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Hearthflame_M4_F2_1088.csv"
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M4_F2_1159": {
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Hearthflame_M4_F2_1159.csv"
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M4_F2_1158": {
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Hearthflame_M4_F2_1158.csv"
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M4_F4_1088": {
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Hearthflame_M4_F4_1088.csv"
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M4_F4_1159": {
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Hearthflame_M4_F4_1159.csv"
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M4_F4_1158": {
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_Hearthflame_M4_F4_1158.csv"
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M1_F2_1088": {
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_ChiYu_M1_F2_1088.csv"
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M1_F2_1159": {
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_ChiYu_M1_F2_1159.csv"
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M1_F2_1158": {
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_ChiYu_M1_F2_1158.csv"
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M1_F4_1088": {
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_ChiYu_M1_F4_1088.csv"
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M1_F4_1159": {
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_ChiYu_M1_F4_1159.csv"
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M1_F4_1158": {
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_ChiYu_M1_F4_1158.csv"
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M2_F2_1088": {
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_ChiYu_M2_F2_1088.csv"
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M2_F2_1159": {
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_ChiYu_M2_F2_1159.csv"
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M2_F2_1158": {
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_ChiYu_M2_F2_1158.csv"
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M2_F4_1088": {
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_ChiYu_M2_F4_1088.csv"
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M2_F4_1159": {
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_ChiYu_M2_F4_1159.csv"
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M2_F4_1158": {
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_ChiYu_M2_F4_1158.csv"
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M4_F2_1088": {
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_ChiYu_M4_F2_1088.csv"
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M4_F2_1159": {
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_ChiYu_M4_F2_1159.csv"
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M4_F2_1158": {
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_ChiYu_M4_F2_1158.csv"
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M4_F4_1088": {
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_ChiYu_M4_F4_1088.csv"
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M4_F4_1159": {
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_ChiYu_M4_F4_1159.csv"
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M4_F4_1158": {
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F1_FireSafeguard_ChiYu_M4_F4_1158.csv"
+  },
+  "HYB_F2_FireDenial_Hearthflame_H2_1088": {
+    "family": "Fire_Denial",
+    "p1": "Hearthflame",
+    "p2": "Crushing Hammer",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_Hearthflame_H2_1088.csv"
+  },
+  "HYB_F2_FireDenial_Hearthflame_H4_1088": {
+    "family": "Fire_Denial",
+    "p1": "Hearthflame",
+    "p2": "Crushing Hammer",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_Hearthflame_H4_1088.csv"
+  },
+  "HYB_F2_FireDenial_Hearthflame_H2_1159": {
+    "family": "Fire_Denial",
+    "p1": "Hearthflame",
+    "p2": "Crushing Hammer",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_Hearthflame_H2_1159.csv"
+  },
+  "HYB_F2_FireDenial_Hearthflame_H4_1159": {
+    "family": "Fire_Denial",
+    "p1": "Hearthflame",
+    "p2": "Crushing Hammer",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_Hearthflame_H4_1159.csv"
+  },
+  "HYB_F2_FireDenial_Hearthflame_H2_1158": {
+    "family": "Fire_Denial",
+    "p1": "Hearthflame",
+    "p2": "Crushing Hammer",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_Hearthflame_H2_1158.csv"
+  },
+  "HYB_F2_FireDenial_Hearthflame_H4_1158": {
+    "family": "Fire_Denial",
+    "p1": "Hearthflame",
+    "p2": "Crushing Hammer",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_Hearthflame_H4_1158.csv"
+  },
+  "HYB_F2_FireDenial_Hearthflame_H2_1155": {
+    "family": "Fire_Denial",
+    "p1": "Hearthflame",
+    "p2": "Crushing Hammer",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_Hearthflame_H2_1155.csv"
+  },
+  "HYB_F2_FireDenial_Hearthflame_H4_1155": {
+    "family": "Fire_Denial",
+    "p1": "Hearthflame",
+    "p2": "Crushing Hammer",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_Hearthflame_H4_1155.csv"
+  },
+  "HYB_F2_FireDenial_Gouging_H2_1088": {
+    "family": "Fire_Denial",
+    "p1": "Gouging",
+    "p2": "Crushing Hammer",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_Gouging_H2_1088.csv"
+  },
+  "HYB_F2_FireDenial_Gouging_H4_1088": {
+    "family": "Fire_Denial",
+    "p1": "Gouging",
+    "p2": "Crushing Hammer",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_Gouging_H4_1088.csv"
+  },
+  "HYB_F2_FireDenial_Gouging_H2_1159": {
+    "family": "Fire_Denial",
+    "p1": "Gouging",
+    "p2": "Crushing Hammer",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_Gouging_H2_1159.csv"
+  },
+  "HYB_F2_FireDenial_Gouging_H4_1159": {
+    "family": "Fire_Denial",
+    "p1": "Gouging",
+    "p2": "Crushing Hammer",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_Gouging_H4_1159.csv"
+  },
+  "HYB_F2_FireDenial_Gouging_H2_1158": {
+    "family": "Fire_Denial",
+    "p1": "Gouging",
+    "p2": "Crushing Hammer",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_Gouging_H2_1158.csv"
+  },
+  "HYB_F2_FireDenial_Gouging_H4_1158": {
+    "family": "Fire_Denial",
+    "p1": "Gouging",
+    "p2": "Crushing Hammer",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_Gouging_H4_1158.csv"
+  },
+  "HYB_F2_FireDenial_Gouging_H2_1155": {
+    "family": "Fire_Denial",
+    "p1": "Gouging",
+    "p2": "Crushing Hammer",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_Gouging_H2_1155.csv"
+  },
+  "HYB_F2_FireDenial_Gouging_H4_1155": {
+    "family": "Fire_Denial",
+    "p1": "Gouging",
+    "p2": "Crushing Hammer",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_Gouging_H4_1155.csv"
+  },
+  "HYB_F2_FireDenial_ChiYu_H2_1088": {
+    "family": "Fire_Denial",
+    "p1": "ChiYu",
+    "p2": "Crushing Hammer",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_ChiYu_H2_1088.csv"
+  },
+  "HYB_F2_FireDenial_ChiYu_H4_1088": {
+    "family": "Fire_Denial",
+    "p1": "ChiYu",
+    "p2": "Crushing Hammer",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_ChiYu_H4_1088.csv"
+  },
+  "HYB_F2_FireDenial_ChiYu_H2_1159": {
+    "family": "Fire_Denial",
+    "p1": "ChiYu",
+    "p2": "Crushing Hammer",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_ChiYu_H2_1159.csv"
+  },
+  "HYB_F2_FireDenial_ChiYu_H4_1159": {
+    "family": "Fire_Denial",
+    "p1": "ChiYu",
+    "p2": "Crushing Hammer",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_ChiYu_H4_1159.csv"
+  },
+  "HYB_F2_FireDenial_ChiYu_H2_1158": {
+    "family": "Fire_Denial",
+    "p1": "ChiYu",
+    "p2": "Crushing Hammer",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_ChiYu_H2_1158.csv"
+  },
+  "HYB_F2_FireDenial_ChiYu_H4_1158": {
+    "family": "Fire_Denial",
+    "p1": "ChiYu",
+    "p2": "Crushing Hammer",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_ChiYu_H4_1158.csv"
+  },
+  "HYB_F2_FireDenial_ChiYu_H2_1155": {
+    "family": "Fire_Denial",
+    "p1": "ChiYu",
+    "p2": "Crushing Hammer",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_ChiYu_H2_1155.csv"
+  },
+  "HYB_F2_FireDenial_ChiYu_H4_1155": {
+    "family": "Fire_Denial",
+    "p1": "ChiYu",
+    "p2": "Crushing Hammer",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F2_FireDenial_ChiYu_H4_1155.csv"
+  },
+  "HYB_F3_FireTank_Snorlax_T2_1159": {
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Snorlax",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F3_FireTank_Snorlax_T2_1159.csv"
+  },
+  "HYB_F3_FireTank_Snorlax_T4_1159": {
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Snorlax",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F3_FireTank_Snorlax_T4_1159.csv"
+  },
+  "HYB_F3_FireTank_Snorlax_T2_1088": {
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Snorlax",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F3_FireTank_Snorlax_T2_1088.csv"
+  },
+  "HYB_F3_FireTank_Snorlax_T4_1088": {
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Snorlax",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F3_FireTank_Snorlax_T4_1088.csv"
+  },
+  "HYB_F3_FireTank_Snorlax_T2_1155": {
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Snorlax",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F3_FireTank_Snorlax_T2_1155.csv"
+  },
+  "HYB_F3_FireTank_Snorlax_T4_1155": {
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Snorlax",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F3_FireTank_Snorlax_T4_1155.csv"
+  },
+  "HYB_F3_FireTank_Audino_T2_1159": {
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Audino",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F3_FireTank_Audino_T2_1159.csv"
+  },
+  "HYB_F3_FireTank_Audino_T4_1159": {
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Audino",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F3_FireTank_Audino_T4_1159.csv"
+  },
+  "HYB_F3_FireTank_Audino_T2_1088": {
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Audino",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F3_FireTank_Audino_T2_1088.csv"
+  },
+  "HYB_F3_FireTank_Audino_T4_1088": {
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Audino",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F3_FireTank_Audino_T4_1088.csv"
+  },
+  "HYB_F3_FireTank_Audino_T2_1155": {
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Audino",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F3_FireTank_Audino_T2_1155.csv"
+  },
+  "HYB_F3_FireTank_Audino_T4_1155": {
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Audino",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F3_FireTank_Audino_T4_1155.csv"
+  },
+  "HYB_F3_FireTank_Archaludon_T2_1159": {
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Archaludon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F3_FireTank_Archaludon_T2_1159.csv"
+  },
+  "HYB_F3_FireTank_Archaludon_T4_1159": {
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Archaludon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F3_FireTank_Archaludon_T4_1159.csv"
+  },
+  "HYB_F3_FireTank_Archaludon_T2_1088": {
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Archaludon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F3_FireTank_Archaludon_T2_1088.csv"
+  },
+  "HYB_F3_FireTank_Archaludon_T4_1088": {
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Archaludon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F3_FireTank_Archaludon_T4_1088.csv"
+  },
+  "HYB_F3_FireTank_Archaludon_T2_1155": {
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Archaludon",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F3_FireTank_Archaludon_T2_1155.csv"
+  },
+  "HYB_F3_FireTank_Archaludon_T4_1155": {
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Archaludon",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F3_FireTank_Archaludon_T4_1155.csv"
+  },
+  "HYB_F4_SafeguardAggro_Koraidon_M2_1088": {
+    "family": "Safeguard_Aggro",
+    "p1": "Koraidon",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F4_SafeguardAggro_Koraidon_M2_1088.csv"
+  },
+  "HYB_F4_SafeguardAggro_Koraidon_M4_1088": {
+    "family": "Safeguard_Aggro",
+    "p1": "Koraidon",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F4_SafeguardAggro_Koraidon_M4_1088.csv"
+  },
+  "HYB_F4_SafeguardAggro_Koraidon_M2_1159": {
+    "family": "Safeguard_Aggro",
+    "p1": "Koraidon",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F4_SafeguardAggro_Koraidon_M2_1159.csv"
+  },
+  "HYB_F4_SafeguardAggro_Koraidon_M4_1159": {
+    "family": "Safeguard_Aggro",
+    "p1": "Koraidon",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F4_SafeguardAggro_Koraidon_M4_1159.csv"
+  },
+  "HYB_F4_SafeguardAggro_Koraidon_M2_1158": {
+    "family": "Safeguard_Aggro",
+    "p1": "Koraidon",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F4_SafeguardAggro_Koraidon_M2_1158.csv"
+  },
+  "HYB_F4_SafeguardAggro_Koraidon_M4_1158": {
+    "family": "Safeguard_Aggro",
+    "p1": "Koraidon",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F4_SafeguardAggro_Koraidon_M4_1158.csv"
+  },
+  "HYB_F4_SafeguardAggro_Miraidon_M2_1088": {
+    "family": "Safeguard_Aggro",
+    "p1": "Miraidon",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F4_SafeguardAggro_Miraidon_M2_1088.csv"
+  },
+  "HYB_F4_SafeguardAggro_Miraidon_M4_1088": {
+    "family": "Safeguard_Aggro",
+    "p1": "Miraidon",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F4_SafeguardAggro_Miraidon_M4_1088.csv"
+  },
+  "HYB_F4_SafeguardAggro_Miraidon_M2_1159": {
+    "family": "Safeguard_Aggro",
+    "p1": "Miraidon",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F4_SafeguardAggro_Miraidon_M2_1159.csv"
+  },
+  "HYB_F4_SafeguardAggro_Miraidon_M4_1159": {
+    "family": "Safeguard_Aggro",
+    "p1": "Miraidon",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F4_SafeguardAggro_Miraidon_M4_1159.csv"
+  },
+  "HYB_F4_SafeguardAggro_Miraidon_M2_1158": {
+    "family": "Safeguard_Aggro",
+    "p1": "Miraidon",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F4_SafeguardAggro_Miraidon_M2_1158.csv"
+  },
+  "HYB_F4_SafeguardAggro_Miraidon_M4_1158": {
+    "family": "Safeguard_Aggro",
+    "p1": "Miraidon",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F4_SafeguardAggro_Miraidon_M4_1158.csv"
+  },
+  "HYB_F4_SafeguardAggro_Zangoose_M2_1088": {
+    "family": "Safeguard_Aggro",
+    "p1": "Zangoose",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F4_SafeguardAggro_Zangoose_M2_1088.csv"
+  },
+  "HYB_F4_SafeguardAggro_Zangoose_M4_1088": {
+    "family": "Safeguard_Aggro",
+    "p1": "Zangoose",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F4_SafeguardAggro_Zangoose_M4_1088.csv"
+  },
+  "HYB_F4_SafeguardAggro_Zangoose_M2_1159": {
+    "family": "Safeguard_Aggro",
+    "p1": "Zangoose",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F4_SafeguardAggro_Zangoose_M2_1159.csv"
+  },
+  "HYB_F4_SafeguardAggro_Zangoose_M4_1159": {
+    "family": "Safeguard_Aggro",
+    "p1": "Zangoose",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F4_SafeguardAggro_Zangoose_M4_1159.csv"
+  },
+  "HYB_F4_SafeguardAggro_Zangoose_M2_1158": {
+    "family": "Safeguard_Aggro",
+    "p1": "Zangoose",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F4_SafeguardAggro_Zangoose_M2_1158.csv"
+  },
+  "HYB_F4_SafeguardAggro_Zangoose_M4_1158": {
+    "family": "Safeguard_Aggro",
+    "p1": "Zangoose",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F4_SafeguardAggro_Zangoose_M4_1158.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_15G_4R_1088": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY0_15G_4R_1088.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_12G_7R_1088": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY0_12G_7R_1088.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_14G_3R_2PRISM_1088": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY0_14G_3R_2PRISM_1088.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_15G_4R_1159": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY0_15G_4R_1159.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_12G_7R_1159": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY0_12G_7R_1159.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_14G_3R_2PRISM_1159": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY0_14G_3R_2PRISM_1159.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_15G_4R_1158": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY0_15G_4R_1158.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_12G_7R_1158": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY0_12G_7R_1158.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_14G_3R_2PRISM_1158": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY0_14G_3R_2PRISM_1158.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_15G_4R_1155": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY0_15G_4R_1155.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_12G_7R_1155": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY0_12G_7R_1155.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_14G_3R_2PRISM_1155": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY0_14G_3R_2PRISM_1155.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_15G_4R_1088": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY2_15G_4R_1088.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_12G_7R_1088": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY2_12G_7R_1088.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_14G_3R_2PRISM_1088": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY2_14G_3R_2PRISM_1088.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_15G_4R_1159": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY2_15G_4R_1159.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_12G_7R_1159": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY2_12G_7R_1159.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_14G_3R_2PRISM_1159": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY2_14G_3R_2PRISM_1159.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_15G_4R_1158": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY2_15G_4R_1158.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_12G_7R_1158": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY2_12G_7R_1158.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_14G_3R_2PRISM_1158": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY2_14G_3R_2PRISM_1158.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_15G_4R_1155": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY2_15G_4R_1155.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_12G_7R_1155": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY2_12G_7R_1155.csv"
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_14G_3R_2PRISM_1155": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H1_CY2_14G_3R_2PRISM_1155.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_15G_4R_1088": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY0_15G_4R_1088.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_12G_7R_1088": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY0_12G_7R_1088.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_14G_3R_2PRISM_1088": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY0_14G_3R_2PRISM_1088.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_15G_4R_1159": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY0_15G_4R_1159.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_12G_7R_1159": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY0_12G_7R_1159.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_14G_3R_2PRISM_1159": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY0_14G_3R_2PRISM_1159.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_15G_4R_1158": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY0_15G_4R_1158.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_12G_7R_1158": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY0_12G_7R_1158.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_14G_3R_2PRISM_1158": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY0_14G_3R_2PRISM_1158.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_15G_4R_1155": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY0_15G_4R_1155.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_12G_7R_1155": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY0_12G_7R_1155.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_14G_3R_2PRISM_1155": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY0_14G_3R_2PRISM_1155.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_15G_4R_1088": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY2_15G_4R_1088.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_12G_7R_1088": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY2_12G_7R_1088.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_14G_3R_2PRISM_1088": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY2_14G_3R_2PRISM_1088.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_15G_4R_1159": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY2_15G_4R_1159.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_12G_7R_1159": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY2_12G_7R_1159.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_14G_3R_2PRISM_1159": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY2_14G_3R_2PRISM_1159.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_15G_4R_1158": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY2_15G_4R_1158.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_12G_7R_1158": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY2_12G_7R_1158.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_14G_3R_2PRISM_1158": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY2_14G_3R_2PRISM_1158.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_15G_4R_1155": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY2_15G_4R_1155.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_12G_7R_1155": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY2_12G_7R_1155.csv"
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_14G_3R_2PRISM_1155": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H2_CY2_14G_3R_2PRISM_1155.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_15G_4R_1088": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY0_15G_4R_1088.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_12G_7R_1088": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY0_12G_7R_1088.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_14G_3R_2PRISM_1088": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY0_14G_3R_2PRISM_1088.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_15G_4R_1159": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY0_15G_4R_1159.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_12G_7R_1159": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY0_12G_7R_1159.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_14G_3R_2PRISM_1159": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY0_14G_3R_2PRISM_1159.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_15G_4R_1158": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY0_15G_4R_1158.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_12G_7R_1158": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY0_12G_7R_1158.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_14G_3R_2PRISM_1158": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY0_14G_3R_2PRISM_1158.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_15G_4R_1155": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY0_15G_4R_1155.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_12G_7R_1155": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY0_12G_7R_1155.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_14G_3R_2PRISM_1155": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY0_14G_3R_2PRISM_1155.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_15G_4R_1088": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY2_15G_4R_1088.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_12G_7R_1088": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY2_12G_7R_1088.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_14G_3R_2PRISM_1088": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY2_14G_3R_2PRISM_1088.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_15G_4R_1159": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY2_15G_4R_1159.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_12G_7R_1159": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY2_12G_7R_1159.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_14G_3R_2PRISM_1159": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY2_14G_3R_2PRISM_1159.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_15G_4R_1158": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY2_15G_4R_1158.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_12G_7R_1158": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY2_12G_7R_1158.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_14G_3R_2PRISM_1158": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY2_14G_3R_2PRISM_1158.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_15G_4R_1155": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY2_15G_4R_1155.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_12G_7R_1155": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY2_12G_7R_1155.csv"
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_14G_3R_2PRISM_1155": {
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F5_DualOgerpon_H3_CY2_14G_3R_2PRISM_1155.csv"
+  },
+  "HYB_F6_OgerponSafeguard_M1_1159": {
+    "family": "Ogerpon_Safeguard",
+    "p1": "Teal Ogerpon",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F6_OgerponSafeguard_M1_1159.csv"
+  },
+  "HYB_F6_OgerponSafeguard_M1_1088": {
+    "family": "Ogerpon_Safeguard",
+    "p1": "Teal Ogerpon",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F6_OgerponSafeguard_M1_1088.csv"
+  },
+  "HYB_F6_OgerponSafeguard_M1_1247": {
+    "family": "Ogerpon_Safeguard",
+    "p1": "Teal Ogerpon",
+    "p2": "Mimikyu",
+    "ace": 1247,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F6_OgerponSafeguard_M1_1247.csv"
+  },
+  "HYB_F6_OgerponSafeguard_M2_1159": {
+    "family": "Ogerpon_Safeguard",
+    "p1": "Teal Ogerpon",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F6_OgerponSafeguard_M2_1159.csv"
+  },
+  "HYB_F6_OgerponSafeguard_M2_1088": {
+    "family": "Ogerpon_Safeguard",
+    "p1": "Teal Ogerpon",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F6_OgerponSafeguard_M2_1088.csv"
+  },
+  "HYB_F6_OgerponSafeguard_M2_1247": {
+    "family": "Ogerpon_Safeguard",
+    "p1": "Teal Ogerpon",
+    "p2": "Mimikyu",
+    "ace": 1247,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F6_OgerponSafeguard_M2_1247.csv"
+  },
+  "HYB_F6_OgerponSafeguard_M4_1159": {
+    "family": "Ogerpon_Safeguard",
+    "p1": "Teal Ogerpon",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F6_OgerponSafeguard_M4_1159.csv"
+  },
+  "HYB_F6_OgerponSafeguard_M4_1088": {
+    "family": "Ogerpon_Safeguard",
+    "p1": "Teal Ogerpon",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F6_OgerponSafeguard_M4_1088.csv"
+  },
+  "HYB_F6_OgerponSafeguard_M4_1247": {
+    "family": "Ogerpon_Safeguard",
+    "p1": "Teal Ogerpon",
+    "p2": "Mimikyu",
+    "ace": 1247,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F6_OgerponSafeguard_M4_1247.csv"
+  },
+  "HYB_F7_Triple_FireSafeguardDenial_Hearthflame_1088": {
+    "family": "Triple_Fire_Safeguard_Denial",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu + Hammer",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F7_Triple_FireSafeguardDenial_Hearthflame_1088.csv"
+  },
+  "HYB_F7_Triple_FireSafeguardDenial_Gouging_1088": {
+    "family": "Triple_Fire_Safeguard_Denial",
+    "p1": "Gouging",
+    "p2": "Mimikyu + Hammer",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F7_Triple_FireSafeguardDenial_Gouging_1088.csv"
+  },
+  "HYB_F7_Triple_FireSafeguardDenial_ChiYu_1088": {
+    "family": "Triple_Fire_Safeguard_Denial",
+    "p1": "ChiYu",
+    "p2": "Mimikyu + Hammer",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F7_Triple_FireSafeguardDenial_ChiYu_1088.csv"
+  },
+  "HYB_F7_Triple_FireSafeguardDenial_Hearthflame_1159": {
+    "family": "Triple_Fire_Safeguard_Denial",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu + Hammer",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F7_Triple_FireSafeguardDenial_Hearthflame_1159.csv"
+  },
+  "HYB_F7_Triple_FireSafeguardDenial_Gouging_1159": {
+    "family": "Triple_Fire_Safeguard_Denial",
+    "p1": "Gouging",
+    "p2": "Mimikyu + Hammer",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F7_Triple_FireSafeguardDenial_Gouging_1159.csv"
+  },
+  "HYB_F7_Triple_FireSafeguardDenial_ChiYu_1159": {
+    "family": "Triple_Fire_Safeguard_Denial",
+    "p1": "ChiYu",
+    "p2": "Mimikyu + Hammer",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F7_Triple_FireSafeguardDenial_ChiYu_1159.csv"
+  },
+  "HYB_F7_Triple_FireSafeguardDenial_Hearthflame_1158": {
+    "family": "Triple_Fire_Safeguard_Denial",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu + Hammer",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F7_Triple_FireSafeguardDenial_Hearthflame_1158.csv"
+  },
+  "HYB_F7_Triple_FireSafeguardDenial_Gouging_1158": {
+    "family": "Triple_Fire_Safeguard_Denial",
+    "p1": "Gouging",
+    "p2": "Mimikyu + Hammer",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F7_Triple_FireSafeguardDenial_Gouging_1158.csv"
+  },
+  "HYB_F7_Triple_FireSafeguardDenial_ChiYu_1158": {
+    "family": "Triple_Fire_Safeguard_Denial",
+    "p1": "ChiYu",
+    "p2": "Mimikyu + Hammer",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F7_Triple_FireSafeguardDenial_ChiYu_1158.csv"
+  },
+  "HYB_F8_Triple_DualOgerponDenialPrize_H2_1088": {
+    "family": "Triple_DualOgerpon_Denial_Prize",
+    "p1": "Dual Ogerpon",
+    "p2": "Chi-Yu + Hammer",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F8_Triple_DualOgerponDenialPrize_H2_1088.csv"
+  },
+  "HYB_F8_Triple_DualOgerponDenialPrize_H4_1088": {
+    "family": "Triple_DualOgerpon_Denial_Prize",
+    "p1": "Dual Ogerpon",
+    "p2": "Chi-Yu + Hammer",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F8_Triple_DualOgerponDenialPrize_H4_1088.csv"
+  },
+  "HYB_F8_Triple_DualOgerponDenialPrize_H2_1159": {
+    "family": "Triple_DualOgerpon_Denial_Prize",
+    "p1": "Dual Ogerpon",
+    "p2": "Chi-Yu + Hammer",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F8_Triple_DualOgerponDenialPrize_H2_1159.csv"
+  },
+  "HYB_F8_Triple_DualOgerponDenialPrize_H4_1159": {
+    "family": "Triple_DualOgerpon_Denial_Prize",
+    "p1": "Dual Ogerpon",
+    "p2": "Chi-Yu + Hammer",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F8_Triple_DualOgerponDenialPrize_H4_1159.csv"
+  },
+  "HYB_F8_Triple_DualOgerponDenialPrize_H2_1158": {
+    "family": "Triple_DualOgerpon_Denial_Prize",
+    "p1": "Dual Ogerpon",
+    "p2": "Chi-Yu + Hammer",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F8_Triple_DualOgerponDenialPrize_H2_1158.csv"
+  },
+  "HYB_F8_Triple_DualOgerponDenialPrize_H4_1158": {
+    "family": "Triple_DualOgerpon_Denial_Prize",
+    "p1": "Dual Ogerpon",
+    "p2": "Chi-Yu + Hammer",
+    "ace": 1158,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F8_Triple_DualOgerponDenialPrize_H4_1158.csv"
+  },
+  "HYB_F8_Triple_DualOgerponDenialPrize_H2_1155": {
+    "family": "Triple_DualOgerpon_Denial_Prize",
+    "p1": "Dual Ogerpon",
+    "p2": "Chi-Yu + Hammer",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F8_Triple_DualOgerponDenialPrize_H2_1155.csv"
+  },
+  "HYB_F8_Triple_DualOgerponDenialPrize_H4_1155": {
+    "family": "Triple_DualOgerpon_Denial_Prize",
+    "p1": "Dual Ogerpon",
+    "p2": "Chi-Yu + Hammer",
+    "ace": 1155,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F8_Triple_DualOgerponDenialPrize_H4_1155.csv"
+  },
+  "HYB_F9_Density_DualOgerpon_2B_1088": {
+    "family": "Density_Variants",
+    "p1": "2 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F9_Density_DualOgerpon_2B_1088.csv"
+  },
+  "HYB_F9_Density_DualOgerpon_2B_1159": {
+    "family": "Density_Variants",
+    "p1": "2 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F9_Density_DualOgerpon_2B_1159.csv"
+  },
+  "HYB_F9_Density_DualOgerpon_3B_1088": {
+    "family": "Density_Variants",
+    "p1": "3 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F9_Density_DualOgerpon_3B_1088.csv"
+  },
+  "HYB_F9_Density_DualOgerpon_3B_1159": {
+    "family": "Density_Variants",
+    "p1": "3 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F9_Density_DualOgerpon_3B_1159.csv"
+  },
+  "HYB_F9_Density_DualOgerpon_4B_1088": {
+    "family": "Density_Variants",
+    "p1": "4 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F9_Density_DualOgerpon_4B_1088.csv"
+  },
+  "HYB_F9_Density_DualOgerpon_4B_1159": {
+    "family": "Density_Variants",
+    "p1": "4 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F9_Density_DualOgerpon_4B_1159.csv"
+  },
+  "HYB_F9_Density_DualOgerpon_6B_1088": {
+    "family": "Density_Variants",
+    "p1": "6 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F9_Density_DualOgerpon_6B_1088.csv"
+  },
+  "HYB_F9_Density_DualOgerpon_6B_1159": {
+    "family": "Density_Variants",
+    "p1": "6 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F9_Density_DualOgerpon_6B_1159.csv"
+  },
+  "HYB_F9_Density_DualOgerpon_8B_1088": {
+    "family": "Density_Variants",
+    "p1": "8 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F9_Density_DualOgerpon_8B_1088.csv"
+  },
+  "HYB_F9_Density_DualOgerpon_8B_1159": {
+    "family": "Density_Variants",
+    "p1": "8 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F9_Density_DualOgerpon_8B_1159.csv"
+  },
+  "HYB_F9_Density_DualOgerpon_10B_1088": {
+    "family": "Density_Variants",
+    "p1": "10 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1088,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F9_Density_DualOgerpon_10B_1088.csv"
+  },
+  "HYB_F9_Density_DualOgerpon_10B_1159": {
+    "family": "Density_Variants",
+    "p1": "10 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1159,
+    "path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v4_research\\candidates\\HYB_F9_Density_DualOgerpon_10B_1159.csv"
+  }
+}

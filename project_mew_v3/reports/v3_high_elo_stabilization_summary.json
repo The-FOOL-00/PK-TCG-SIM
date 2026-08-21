@@ -1,0 +1,55 @@
+{
+  "v1_matches_ingested": 120,
+  "high_elo_losses": 36,
+  "avoidable_high_elo": 13,
+  "p1_tank_losses": 8,
+  "p2_energy_losses": 5,
+  "override_rate_pct": 2.23,
+  "normal_state_preservation": 1.0,
+  "paired_benchmark_300": {
+    "V1": {
+      "wins": 223,
+      "losses": 77,
+      "wr": 0.7433,
+      "ci": [
+        0.691,
+        0.789
+      ]
+    },
+    "V2.1": {
+      "wins": 238,
+      "losses": 62,
+      "wr": 0.7933,
+      "ci": [
+        0.744,
+        0.835
+      ]
+    },
+    "V3": {
+      "wins": 249,
+      "losses": 51,
+      "wr": 0.83,
+      "ci": [
+        0.783,
+        0.868
+      ]
+    }
+  },
+  "mcnemar_v3_vs_v1": {
+    "chi2": 20.833333333333332,
+    "p_value": 8.67992639541626e-07
+  },
+  "mcnemar_v3_vs_v21": {
+    "chi2": 6.666666666666667,
+    "p_value": 0.00738525390625
+  },
+  "runtime_profile_us": {
+    "avg": 2.0110800833208486,
+    "p50": 1.900014467537403,
+    "p95": 2.400018274784088,
+    "p99": 3.2999960239976645,
+    "max": 40.90002039447427
+  },
+  "archive_sha256": "3f46daf3b15d59e271c4b418a488817fd3808f4c085df24ff105750e2e255ab9",
+  "deck_sha256": "17f815f0d275af0534d26b4f3f5f66f16be47fe664854dd6f9736e6ab37f736e"
+}

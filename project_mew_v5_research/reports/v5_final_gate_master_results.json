@@ -1,0 +1,1371 @@
+{
+  "date": "2026-08-16",
+  "validation_scope": "FINAL-3-SUBMISSION FORENSIC DECISION GATE",
+  "package_identities": {
+    "V4_Corrected": {
+      "archive_sha": "44456613a43b0be713894393334e72271ab10b730f3076ba71a7c7b9733a6261",
+      "size_bytes": 758871,
+      "total_files": 90,
+      "files": [
+        {
+          "path": "bot/__init__.py",
+          "size": 86,
+          "sha256": "7795046407fed34721bf6e029bd711aea603114e36c15f4efcc3e7133a992af1",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/__init__.cpython-312.pyc",
+          "size": 261,
+          "sha256": "4cb771946fea662d091b86255cc6d16c298d706938b61ba7b70fe77a4ac8b6c8",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/__init__.cpython-314.pyc",
+          "size": 263,
+          "sha256": "19c0b17a505c7347c0527a60298ca6e9f989028d42526332c215e886087cced1",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/action_encoder.cpython-314.pyc",
+          "size": 3915,
+          "sha256": "292ca8e80913c7d8903df45376a942c7fe0e856dfee99b2b432fac7e997891d0",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/action_filter.cpython-312.pyc",
+          "size": 8441,
+          "sha256": "3e90c4818dfc4b6eebdb885ceb4828c32434c7cdf3b6101a9c8a15ac471de523",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/action_filter.cpython-314.pyc",
+          "size": 9290,
+          "sha256": "f32141c774c2ed50fec26ba8cb21b056a36c50ca081078107c36877daf6155c1",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/belief.cpython-312.pyc",
+          "size": 8509,
+          "sha256": "d23086141b22f3d61836f1dbb6500d0d4e889133399c32690d208bfcd5ca8726",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/belief.cpython-314.pyc",
+          "size": 10335,
+          "sha256": "942ce99fcd680c625d83ebf5ec80ac9a937debd40f0e60ae941cf7575e7219cf",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/config.cpython-312.pyc",
+          "size": 1393,
+          "sha256": "3c0bcde549b965438c0e35286097e98d335dd1d67421e17239900907367f3f46",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/config.cpython-314.pyc",
+          "size": 1420,
+          "sha256": "456bb7b8124147bcbcf7f942b360f6327532f08df18a06b4f184305a4c46fbef",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/counterfactual.cpython-314.pyc",
+          "size": 7318,
+          "sha256": "67e59a6aa8d54e231c67494a53ea08b41e0ab0a471b378d255d117f9b7cc22a8",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/counterfactual_v15.cpython-312.pyc",
+          "size": 11082,
+          "sha256": "5b927f4ddb4d91781b3dc107c21728201f43753dc756a0b87634a1eca2954044",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/counterfactual_v15.cpython-314.pyc",
+          "size": 12373,
+          "sha256": "7f41ca07c04c414b967a934a49225e1806361da6e53d5538a95a9290b27804c4",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/energy_sequencer.cpython-314.pyc",
+          "size": 3060,
+          "sha256": "8fcda26cd40edbad00dd60746f129f89fff1c5bd82be4d415ddcb9dfb207312f",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/opponent_model.cpython-312.pyc",
+          "size": 5855,
+          "sha256": "463a550fee044b614f03e6f0ede220e2357b667e5ae789b1f8ec602380668a88",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/opponent_model.cpython-314.pyc",
+          "size": 6688,
+          "sha256": "00dd47c329042ccd322a34c12057067e20d0a2ec87dd4fd2979c4e8d0e5a0ecd",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/opponent_policy.cpython-314.pyc",
+          "size": 3558,
+          "sha256": "e06f0c63327a230ebfd5daabc4878952a2f44cfee1c182449e671da11b9a0f2b",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/phase_controller.cpython-312.pyc",
+          "size": 4048,
+          "sha256": "d1d0c445389a0dce01415b33ac216c070f24157280380438dc0971b788ce2945",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/phase_controller.cpython-314.pyc",
+          "size": 4602,
+          "sha256": "df7c83196ba561edc55661ac5d80b63f48a9ccf63ecbfc9e37c2220f583a3f34",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/q_model.cpython-314.pyc",
+          "size": 4070,
+          "sha256": "73a8437419e7c87a2c9b1747716b03506315f0078730b42464ae61f396a6de02",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/q_policy.cpython-314.pyc",
+          "size": 11211,
+          "sha256": "c0b9ed8a0330b54afab049151bb824afc88d38f1f0119e07b53d9af6de2cdfa5",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/state_encoder.cpython-312.pyc",
+          "size": 1833,
+          "sha256": "abe2f8b57639990b0fef3ca0d20f015eae0b2a8a382b29c8f9b1ea785671870c",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/state_encoder.cpython-314.pyc",
+          "size": 2216,
+          "sha256": "1f16a9a4104a642dfedc0d8b0c5e7f16e2a6e4a5732ad7ec6899ede2daa18d3e",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/tactical_policy.cpython-314.pyc",
+          "size": 4775,
+          "sha256": "f4d3f1d3fcba2e13846e087cad247f7f84cc2e3d82bc8782fde1bff4ad9c455b",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/tactical_policy_v21.cpython-314.pyc",
+          "size": 4007,
+          "sha256": "5c88263e098869c553c06292e066a2121e8b24ac0abe0465a95cf6d26ccb2cf3",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/target_selector.cpython-314.pyc",
+          "size": 2385,
+          "sha256": "d902d8ea18e659db17ca6fbde8b39bb5b3338c8d59065a3ecc0f11ba3b7d90a3",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/action_encoder.py",
+          "size": 2323,
+          "sha256": "8db0c74f07d7a54fddb71589753c24e44317e2b9d6ef54466438066853c23afe",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/action_filter.py",
+          "size": 6179,
+          "sha256": "d3ddbb39ac8eb205730a2a4d477d57e9ce692ffcc9030721316dc29160b16fa8",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/agent_config_l.json",
+          "size": 425,
+          "sha256": "ebf0a61664f531c88b34923b707b5539e29b670714b7592206c00fb3b4c1ab88",
+          "category": "data",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/bc_weights_full_alakazam.npz",
+          "size": 116144,
+          "sha256": "681766a483073ce4a4459d3972b828605eea4e52c0399504a9c5f8d977c455f1",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/bc_weights_full_mega_wide.npz",
+          "size": 502960,
+          "sha256": "2aee85710a90a8ac28b9b605a0609d1ad66089fd49081d39891b411d35fe7af7",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/belief.py",
+          "size": 6461,
+          "sha256": "f9b3dbabfd4125c261358024d691f1f534cdd525483f337f4c197eb66e23b8c4",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/config.py",
+          "size": 1358,
+          "sha256": "3a67e104c83cfea6654a9748f2df7182ab4ba57af33f1b843e9fe725ad7c3abf",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/counterfactual.py",
+          "size": 5306,
+          "sha256": "70fa40507a67985e636d8ce6a55e9aed6b96aadb5f7ef77b83681b735b9944ec",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/counterfactual_v15.py",
+          "size": 11548,
+          "sha256": "b49829e7965d3a4f58cb88ba0d5bcece45786a123dbce82b183c1d46b2e7b0ba",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/energy_sequencer.py",
+          "size": 2425,
+          "sha256": "eb42ff511b92d01e23c4a4db0373e4e5b6fc472772a11e9b173f96add75d6a9d",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/failure_dataset.py",
+          "size": 9380,
+          "sha256": "1dc54e6c952793886b4eda9a390464e7ffb2dac9fabb08df7767c1f0012dc93e",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/opponent/__pycache__/detector.cpython-312.pyc",
+          "size": 3588,
+          "sha256": "1b24df608fc83d241b8247aae599f9e467b2827dfe12b194a9f5495f8423ad5d",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/opponent/__pycache__/detector.cpython-314.pyc",
+          "size": 4589,
+          "sha256": "7b9fd72c2ac3ab9e7aab9946903a3d2ccd6722184c36cddd70d4994a7faca148",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/opponent/detector.py",
+          "size": 3233,
+          "sha256": "d0976413244bd7453e9deca706c4f8b4cb486d37893976129b29efb863dc7a22",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/opponent_model.py",
+          "size": 3752,
+          "sha256": "a8d8c8e3b07ec8df760fdd02d9b659203a6f7b58f3b88245db260267f4c23ad6",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/opponent_policy.py",
+          "size": 2184,
+          "sha256": "374f048d54c1a0ce2a61220c2805b4df90439b81605ba1f2a55f6db51b16b6a0",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/phase_controller.py",
+          "size": 3394,
+          "sha256": "a3a6dd676728dce6347a3917314a7e4f453888487bedc84759d00b413ae52b55",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/policy/__pycache__/evaluator.cpython-312.pyc",
+          "size": 4420,
+          "sha256": "bbb1f14b777dbd751ead853bdf204206b9f0f66b8a1e6f69424a5cf3be5a3bf3",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/policy/__pycache__/evaluator.cpython-314.pyc",
+          "size": 5174,
+          "sha256": "177361b87bdbb80e286be9cf2a635b91c7008c1b0c0a5a32203ec40f8f1b6887",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/policy/evaluator.py",
+          "size": 3135,
+          "sha256": "f1dc5c3ee6ee2763faa0e789b056379f5064441ab7d93436eeec343b2034a551",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/q_model.py",
+          "size": 1821,
+          "sha256": "e09c81e02eed91805c825c323d036add4e15503b1c0799a24be6ba2c193444f7",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/q_policy.py",
+          "size": 9359,
+          "sha256": "47a7e96f9d5f998a252f58f86470779aacb1f82a0f76404d4adc33f8ef1faabe",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/search/__pycache__/expectimax.cpython-314.pyc",
+          "size": 9362,
+          "sha256": "4805a72a0352a015fd2d3e005e9f89d89c23b7a28e01febbda9063775b4eff84",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/search/__pycache__/gating.cpython-312.pyc",
+          "size": 2734,
+          "sha256": "40b17122eb3498709239aed3edc4dfc1b57f389c833248aaf78b6b964d4dc08d",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/search/__pycache__/gating.cpython-314.pyc",
+          "size": 3040,
+          "sha256": "bbfac248fbb1936633ee6d2949f67a4338ce570fdc1da51a24be70c1a72ead89",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/search/__pycache__/mcts.cpython-312.pyc",
+          "size": 5282,
+          "sha256": "afafd26edb5a4939eea83537e3aaddab69c67c7b73696a49e61fc2b67af407a4",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/search/__pycache__/mcts.cpython-314.pyc",
+          "size": 6138,
+          "sha256": "0af89f58c75bab8187b105566fd22a077f31645c7ea6895ab6bd59dcb426a524",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/search/expectimax.py",
+          "size": 5634,
+          "sha256": "bcf156b18812a6f9f7a50babcd3e5bdd6b4f4cccd147de41a3ebf5b37d271787",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/search/gating.py",
+          "size": 1856,
+          "sha256": "c9ee43fe87dfeec031e702af83078b55e603b95253699a316b5a70a13f7f48b3",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/search/mcts.py",
+          "size": 4002,
+          "sha256": "0386f4e685be30413f1e679399f0a37050f8dd835e45a63df421f9722034255a",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/state_encoder.py",
+          "size": 1367,
+          "sha256": "78c9bb47723b615720cf54f5770b4f6b717164c75a2fd9f6a9a2a72efa0e1c0c",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/strategy/__pycache__/base.cpython-312.pyc",
+          "size": 2244,
+          "sha256": "c4087b704eddb8d27ea645b871c64f4289967587cff71528e6c85dd5f5bf0452",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/strategy/__pycache__/base.cpython-314.pyc",
+          "size": 3062,
+          "sha256": "cd59cfd5ad5762551beee627f30328c575a3738d4c580f4a55899a35a839ad71",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/strategy/__pycache__/starmie.cpython-312.pyc",
+          "size": 1966,
+          "sha256": "13eb330bf51e7a21a2d6626c2a1512a1cd127f0e2287aa177f6dfb672cab43a6",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/strategy/__pycache__/starmie.cpython-314.pyc",
+          "size": 2468,
+          "sha256": "39dca3f322e477fc2a51b7483d644eef4939bca8853c4778dedbd18887c97083",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/strategy/alakazam.py",
+          "size": 2239,
+          "sha256": "9e7b434fbc5c65223016cf50bb10cfc3bfa961e0c76a4ad8ba4f3cc1cf878683",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/strategy/base.py",
+          "size": 1046,
+          "sha256": "1b77a8e74f380ffebcd85bb462fc7f9ffc0ab1e7e36dd62c694f200a9eaa950b",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/strategy/garchomp.py",
+          "size": 1491,
+          "sha256": "f5339cde576e67f18d0754d0dbacdf8c6ca53bbf94ab8ca5eca87136b656dc50",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/strategy/starmie.py",
+          "size": 1662,
+          "sha256": "987c33a08613a9cc6f69c2668c1e6650bdea64cead45feaff54c9dff9f11e388",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/tactical_policy.py",
+          "size": 3616,
+          "sha256": "8c7be72a421d8530f677c460c8e5711b9f4432c66f976caa124528a4ccf3ec8b",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/tactical_policy_v21.py",
+          "size": 3027,
+          "sha256": "6a72ed06189181cd453afd5a14250b653c0bc033db5ce87f8637115640e8cedd",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/target_selector.py",
+          "size": 1879,
+          "sha256": "1e80dd12e23a84a0b4736d2d17327efd1630eb4637ca73d7b6b3c16ca318097b",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "card_data.json",
+          "size": 10198,
+          "sha256": "90aa575afb5a9cfd49dc176e4e143bdd95ab60564226351cddc855e5acb25f30",
+          "category": "data",
+          "runtime_reachable": true
+        },
+        {
+          "path": "deck.csv",
+          "size": 291,
+          "sha256": "17f815f0d275af0534d26b4f3f5f66f16be47fe664854dd6f9736e6ab37f736e",
+          "category": "data",
+          "runtime_reachable": true
+        },
+        {
+          "path": "main.py",
+          "size": 183074,
+          "sha256": "fc6189e59487e4b877cae2d54a0b02ea0eef49cc2153717ae895405fd9236109",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v4/bot/__pycache__/v4_correction_layer.cpython-312.pyc",
+          "size": 2006,
+          "sha256": "53d6940106b761918d6276ee79dcbd9fc8957f1dd7ffae3786221a0a75e9cdb8",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v4/bot/__pycache__/v4_correction_layer.cpython-314.pyc",
+          "size": 2258,
+          "sha256": "aee26d8bc8ee0a650858ebf9c705ba95a6f8c3f3bd45a9e725e3501a9c0f4bc3",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v4/bot/__pycache__/v4_failure_patterns.cpython-312.pyc",
+          "size": 5926,
+          "sha256": "dd136feddcb21b8fe39a2869f706a0231d027f26c9663a3f965266432f185be9",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v4/bot/__pycache__/v4_failure_patterns.cpython-314.pyc",
+          "size": 6910,
+          "sha256": "89cd572ba452b7626233bce77beea1bb5070e2111cff3221f85ede74905e69ec",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v4/bot/__pycache__/v4_policy.cpython-312.pyc",
+          "size": 2695,
+          "sha256": "d8ca8a8d616d790c3be324686f651ae8f62dd2cbcea8d1d2ca063911df77040e",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v4/bot/__pycache__/v4_policy.cpython-314.pyc",
+          "size": 2991,
+          "sha256": "5f118b8e179ca53137e90876bf24ac84e0b0e7c52e8a7fdc2d5c18a9e7db4b7b",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v4/bot/v4_correction_layer.py",
+          "size": 1871,
+          "sha256": "447cd22fe3ec11c9212c081dc1ba9ae75f72c19256c37f0b35a944922f35a3fa",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v4/bot/v4_failure_patterns.py",
+          "size": 4526,
+          "sha256": "c21e286ed44cfefee1a119d05b54005627b3131b04790fa7f3c8d1cca75b73da",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v4/bot/v4_policy.py",
+          "size": 2199,
+          "sha256": "c7148a0847d40c973314b20ee895977c07c7ac70bff36475916820eb908607de",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v4/deck_search/adversarial_counter_search.py",
+          "size": 10551,
+          "sha256": "d8eb92492a83916e3f96edfea918d0183c7641c7bc618e59e7bcc1de7f4dd5af",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v4/deck_search/global_deck_search.py",
+          "size": 11845,
+          "sha256": "b97c4b0638fb3c527e81bd6ef9ef55e7eca7256d9cf6640cb1cd5f0a438f7d3a",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v4/deck_search/hybrid_breakthrough_search.py",
+          "size": 9471,
+          "sha256": "3d2936bc690f66cc0677700ae0b072b6bf1649bcecf9b01117b5db031f1e3924",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v4/reports/adversarial_audit_v4_summary.json",
+          "size": 2714,
+          "sha256": "ff791f8b1196416efabe5b1df15df824db86089d1310a832d07f48c438506eb7",
+          "category": "data",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v4/reports/adversarial_counter_summary.json",
+          "size": 2741,
+          "sha256": "5fe20d6e58493247e42793ded8f29d88a5832801b94a41157c217d305c18434e",
+          "category": "data",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v4/reports/global_deck_optimality_summary.json",
+          "size": 1210,
+          "sha256": "417d118e7cca87ddcbf8c8c8b936d5ed4faefa571ffe22dc4e174fb0a89a384b",
+          "category": "data",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v4/reports/hybrid_breakthrough_summary.json",
+          "size": 899,
+          "sha256": "443ffba4ee0fd3d04a71a0628eadf238ee3aaccb48d21e2e2f93bf492603ba54",
+          "category": "data",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v4/reports/v4_validation_and_benchmarking_summary.json",
+          "size": 1354,
+          "sha256": "40bdefef34956ebcbf7b71f4dff38c88610101792fbeeac826a2b9faf48d3626",
+          "category": "data",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v4/tools/adversarial_audit_v4.py",
+          "size": 17831,
+          "sha256": "7336072ed55ddda208439a174e463bf7e49fdfa0540bd132f1ba72aef110913e",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v4/tools/v4_validation_and_benchmarking.py",
+          "size": 14917,
+          "sha256": "e2b3439683a34246d89a1e90e9bf929a85d878c2435aee444b9ce7278bef2cf4",
+          "category": "source",
+          "runtime_reachable": true
+        }
+      ]
+    },
+    "V5_Alakazam": {
+      "archive_sha": "2906bbd8acf0a4c5cde8f0ea91ed4134a3342b44d110c01cd1add092fca9d7b3",
+      "size_bytes": 738668,
+      "total_files": 77,
+      "files": [
+        {
+          "path": "bot/__init__.py",
+          "size": 86,
+          "sha256": "7795046407fed34721bf6e029bd711aea603114e36c15f4efcc3e7133a992af1",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/__init__.cpython-312.pyc",
+          "size": 261,
+          "sha256": "4cb771946fea662d091b86255cc6d16c298d706938b61ba7b70fe77a4ac8b6c8",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/__init__.cpython-314.pyc",
+          "size": 263,
+          "sha256": "19c0b17a505c7347c0527a60298ca6e9f989028d42526332c215e886087cced1",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/action_encoder.cpython-314.pyc",
+          "size": 3915,
+          "sha256": "292ca8e80913c7d8903df45376a942c7fe0e856dfee99b2b432fac7e997891d0",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/action_filter.cpython-312.pyc",
+          "size": 8441,
+          "sha256": "3e90c4818dfc4b6eebdb885ceb4828c32434c7cdf3b6101a9c8a15ac471de523",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/action_filter.cpython-314.pyc",
+          "size": 9290,
+          "sha256": "f32141c774c2ed50fec26ba8cb21b056a36c50ca081078107c36877daf6155c1",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/belief.cpython-312.pyc",
+          "size": 8509,
+          "sha256": "d23086141b22f3d61836f1dbb6500d0d4e889133399c32690d208bfcd5ca8726",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/belief.cpython-314.pyc",
+          "size": 10335,
+          "sha256": "942ce99fcd680c625d83ebf5ec80ac9a937debd40f0e60ae941cf7575e7219cf",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/config.cpython-312.pyc",
+          "size": 1393,
+          "sha256": "3c0bcde549b965438c0e35286097e98d335dd1d67421e17239900907367f3f46",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/config.cpython-314.pyc",
+          "size": 1420,
+          "sha256": "456bb7b8124147bcbcf7f942b360f6327532f08df18a06b4f184305a4c46fbef",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/counterfactual.cpython-314.pyc",
+          "size": 7318,
+          "sha256": "67e59a6aa8d54e231c67494a53ea08b41e0ab0a471b378d255d117f9b7cc22a8",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/counterfactual_v15.cpython-312.pyc",
+          "size": 11082,
+          "sha256": "5b927f4ddb4d91781b3dc107c21728201f43753dc756a0b87634a1eca2954044",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/counterfactual_v15.cpython-314.pyc",
+          "size": 12373,
+          "sha256": "7f41ca07c04c414b967a934a49225e1806361da6e53d5538a95a9290b27804c4",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/energy_sequencer.cpython-314.pyc",
+          "size": 3060,
+          "sha256": "8fcda26cd40edbad00dd60746f129f89fff1c5bd82be4d415ddcb9dfb207312f",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/opponent_model.cpython-312.pyc",
+          "size": 5855,
+          "sha256": "463a550fee044b614f03e6f0ede220e2357b667e5ae789b1f8ec602380668a88",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/opponent_model.cpython-314.pyc",
+          "size": 6688,
+          "sha256": "00dd47c329042ccd322a34c12057067e20d0a2ec87dd4fd2979c4e8d0e5a0ecd",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/opponent_policy.cpython-314.pyc",
+          "size": 3558,
+          "sha256": "e06f0c63327a230ebfd5daabc4878952a2f44cfee1c182449e671da11b9a0f2b",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/phase_controller.cpython-312.pyc",
+          "size": 4048,
+          "sha256": "d1d0c445389a0dce01415b33ac216c070f24157280380438dc0971b788ce2945",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/phase_controller.cpython-314.pyc",
+          "size": 4602,
+          "sha256": "df7c83196ba561edc55661ac5d80b63f48a9ccf63ecbfc9e37c2220f583a3f34",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/q_model.cpython-314.pyc",
+          "size": 4070,
+          "sha256": "73a8437419e7c87a2c9b1747716b03506315f0078730b42464ae61f396a6de02",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/q_policy.cpython-314.pyc",
+          "size": 11211,
+          "sha256": "c0b9ed8a0330b54afab049151bb824afc88d38f1f0119e07b53d9af6de2cdfa5",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/state_encoder.cpython-312.pyc",
+          "size": 1833,
+          "sha256": "abe2f8b57639990b0fef3ca0d20f015eae0b2a8a382b29c8f9b1ea785671870c",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/state_encoder.cpython-314.pyc",
+          "size": 2216,
+          "sha256": "1f16a9a4104a642dfedc0d8b0c5e7f16e2a6e4a5732ad7ec6899ede2daa18d3e",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/tactical_policy.cpython-314.pyc",
+          "size": 4775,
+          "sha256": "f4d3f1d3fcba2e13846e087cad247f7f84cc2e3d82bc8782fde1bff4ad9c455b",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/tactical_policy_v21.cpython-314.pyc",
+          "size": 4007,
+          "sha256": "5c88263e098869c553c06292e066a2121e8b24ac0abe0465a95cf6d26ccb2cf3",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/__pycache__/target_selector.cpython-314.pyc",
+          "size": 2385,
+          "sha256": "d902d8ea18e659db17ca6fbde8b39bb5b3338c8d59065a3ecc0f11ba3b7d90a3",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/action_encoder.py",
+          "size": 2323,
+          "sha256": "8db0c74f07d7a54fddb71589753c24e44317e2b9d6ef54466438066853c23afe",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/action_filter.py",
+          "size": 6179,
+          "sha256": "d3ddbb39ac8eb205730a2a4d477d57e9ce692ffcc9030721316dc29160b16fa8",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/agent_config_l.json",
+          "size": 425,
+          "sha256": "ebf0a61664f531c88b34923b707b5539e29b670714b7592206c00fb3b4c1ab88",
+          "category": "data",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/bc_weights_full_alakazam.npz",
+          "size": 116144,
+          "sha256": "681766a483073ce4a4459d3972b828605eea4e52c0399504a9c5f8d977c455f1",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/bc_weights_full_mega_wide.npz",
+          "size": 502960,
+          "sha256": "2aee85710a90a8ac28b9b605a0609d1ad66089fd49081d39891b411d35fe7af7",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/belief.py",
+          "size": 6461,
+          "sha256": "f9b3dbabfd4125c261358024d691f1f534cdd525483f337f4c197eb66e23b8c4",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/config.py",
+          "size": 1358,
+          "sha256": "3a67e104c83cfea6654a9748f2df7182ab4ba57af33f1b843e9fe725ad7c3abf",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/counterfactual.py",
+          "size": 5306,
+          "sha256": "70fa40507a67985e636d8ce6a55e9aed6b96aadb5f7ef77b83681b735b9944ec",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/counterfactual_v15.py",
+          "size": 11548,
+          "sha256": "b49829e7965d3a4f58cb88ba0d5bcece45786a123dbce82b183c1d46b2e7b0ba",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/energy_sequencer.py",
+          "size": 2425,
+          "sha256": "eb42ff511b92d01e23c4a4db0373e4e5b6fc472772a11e9b173f96add75d6a9d",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/failure_dataset.py",
+          "size": 9380,
+          "sha256": "1dc54e6c952793886b4eda9a390464e7ffb2dac9fabb08df7767c1f0012dc93e",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/opponent/__pycache__/detector.cpython-312.pyc",
+          "size": 3588,
+          "sha256": "1b24df608fc83d241b8247aae599f9e467b2827dfe12b194a9f5495f8423ad5d",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/opponent/__pycache__/detector.cpython-314.pyc",
+          "size": 4589,
+          "sha256": "7b9fd72c2ac3ab9e7aab9946903a3d2ccd6722184c36cddd70d4994a7faca148",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/opponent/detector.py",
+          "size": 3233,
+          "sha256": "d0976413244bd7453e9deca706c4f8b4cb486d37893976129b29efb863dc7a22",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/opponent_model.py",
+          "size": 3752,
+          "sha256": "a8d8c8e3b07ec8df760fdd02d9b659203a6f7b58f3b88245db260267f4c23ad6",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/opponent_policy.py",
+          "size": 2184,
+          "sha256": "374f048d54c1a0ce2a61220c2805b4df90439b81605ba1f2a55f6db51b16b6a0",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/phase_controller.py",
+          "size": 3394,
+          "sha256": "a3a6dd676728dce6347a3917314a7e4f453888487bedc84759d00b413ae52b55",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/policy/__pycache__/evaluator.cpython-312.pyc",
+          "size": 4420,
+          "sha256": "bbb1f14b777dbd751ead853bdf204206b9f0f66b8a1e6f69424a5cf3be5a3bf3",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/policy/__pycache__/evaluator.cpython-314.pyc",
+          "size": 5174,
+          "sha256": "177361b87bdbb80e286be9cf2a635b91c7008c1b0c0a5a32203ec40f8f1b6887",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/policy/evaluator.py",
+          "size": 3135,
+          "sha256": "f1dc5c3ee6ee2763faa0e789b056379f5064441ab7d93436eeec343b2034a551",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/q_model.py",
+          "size": 1821,
+          "sha256": "e09c81e02eed91805c825c323d036add4e15503b1c0799a24be6ba2c193444f7",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/q_policy.py",
+          "size": 9359,
+          "sha256": "47a7e96f9d5f998a252f58f86470779aacb1f82a0f76404d4adc33f8ef1faabe",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/search/__pycache__/expectimax.cpython-314.pyc",
+          "size": 9362,
+          "sha256": "4805a72a0352a015fd2d3e005e9f89d89c23b7a28e01febbda9063775b4eff84",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/search/__pycache__/gating.cpython-312.pyc",
+          "size": 2734,
+          "sha256": "40b17122eb3498709239aed3edc4dfc1b57f389c833248aaf78b6b964d4dc08d",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/search/__pycache__/gating.cpython-314.pyc",
+          "size": 3040,
+          "sha256": "bbfac248fbb1936633ee6d2949f67a4338ce570fdc1da51a24be70c1a72ead89",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/search/__pycache__/mcts.cpython-312.pyc",
+          "size": 5282,
+          "sha256": "afafd26edb5a4939eea83537e3aaddab69c67c7b73696a49e61fc2b67af407a4",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/search/__pycache__/mcts.cpython-314.pyc",
+          "size": 6138,
+          "sha256": "0af89f58c75bab8187b105566fd22a077f31645c7ea6895ab6bd59dcb426a524",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/search/expectimax.py",
+          "size": 5634,
+          "sha256": "bcf156b18812a6f9f7a50babcd3e5bdd6b4f4cccd147de41a3ebf5b37d271787",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/search/gating.py",
+          "size": 1856,
+          "sha256": "c9ee43fe87dfeec031e702af83078b55e603b95253699a316b5a70a13f7f48b3",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/search/mcts.py",
+          "size": 4002,
+          "sha256": "0386f4e685be30413f1e679399f0a37050f8dd835e45a63df421f9722034255a",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/state_encoder.py",
+          "size": 1367,
+          "sha256": "78c9bb47723b615720cf54f5770b4f6b717164c75a2fd9f6a9a2a72efa0e1c0c",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/strategy/__pycache__/base.cpython-312.pyc",
+          "size": 2244,
+          "sha256": "c4087b704eddb8d27ea645b871c64f4289967587cff71528e6c85dd5f5bf0452",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/strategy/__pycache__/base.cpython-314.pyc",
+          "size": 3062,
+          "sha256": "cd59cfd5ad5762551beee627f30328c575a3738d4c580f4a55899a35a839ad71",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/strategy/__pycache__/starmie.cpython-312.pyc",
+          "size": 1966,
+          "sha256": "13eb330bf51e7a21a2d6626c2a1512a1cd127f0e2287aa177f6dfb672cab43a6",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/strategy/__pycache__/starmie.cpython-314.pyc",
+          "size": 2468,
+          "sha256": "39dca3f322e477fc2a51b7483d644eef4939bca8853c4778dedbd18887c97083",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/strategy/alakazam.py",
+          "size": 2239,
+          "sha256": "9e7b434fbc5c65223016cf50bb10cfc3bfa961e0c76a4ad8ba4f3cc1cf878683",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/strategy/base.py",
+          "size": 1046,
+          "sha256": "1b77a8e74f380ffebcd85bb462fc7f9ffc0ab1e7e36dd62c694f200a9eaa950b",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/strategy/garchomp.py",
+          "size": 1491,
+          "sha256": "f5339cde576e67f18d0754d0dbacdf8c6ca53bbf94ab8ca5eca87136b656dc50",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/strategy/starmie.py",
+          "size": 1662,
+          "sha256": "987c33a08613a9cc6f69c2668c1e6650bdea64cead45feaff54c9dff9f11e388",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/tactical_policy.py",
+          "size": 3616,
+          "sha256": "8c7be72a421d8530f677c460c8e5711b9f4432c66f976caa124528a4ccf3ec8b",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/tactical_policy_v21.py",
+          "size": 3027,
+          "sha256": "6a72ed06189181cd453afd5a14250b653c0bc033db5ce87f8637115640e8cedd",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "bot/target_selector.py",
+          "size": 1879,
+          "sha256": "1e80dd12e23a84a0b4736d2d17327efd1630eb4637ca73d7b6b3c16ca318097b",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "card_data.json",
+          "size": 11711,
+          "sha256": "eea2978f8a37dbd3762746eed8e9f8d32168d831ea9abfec9cefc02959bbdc94",
+          "category": "data",
+          "runtime_reachable": true
+        },
+        {
+          "path": "deck.csv",
+          "size": 319,
+          "sha256": "fadf305125c1101f51bb8de5fa9a7cb4963c967d13d53294585d95f223abe0ba",
+          "category": "data",
+          "runtime_reachable": true
+        },
+        {
+          "path": "main.py",
+          "size": 183250,
+          "sha256": "1080abb8e635f6be376b7727f5b36e87a7b16a7194405f2d6ee76471b85920fa",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v5_research/bot/__pycache__/v5_candidate_registry.cpython-312.pyc",
+          "size": 4374,
+          "sha256": "96d7a1fb32fc997de8b8db6eba8650eb659e1040fc09c64655e17df397c57c05",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v5_research/bot/__pycache__/v5_failure_patterns.cpython-312.pyc",
+          "size": 8144,
+          "sha256": "627f04f4d1441142673681217ba8e58d2758af4faae8a8e3439f805f8d48d1e2",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v5_research/bot/__pycache__/v5_policy.cpython-312.pyc",
+          "size": 3499,
+          "sha256": "ed13f9e31fce4df6a66719d48cd1ab9d65ed64024eb33befd3e99763aaab9756",
+          "category": "other",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v5_research/bot/v5_candidate_registry.py",
+          "size": 4727,
+          "sha256": "fb3035afad384fd5ca2ab001ccea722de5319d012d4408ab9d9e5476f109d61f",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v5_research/bot/v5_failure_patterns.py",
+          "size": 6029,
+          "sha256": "daea70b6041e069c5ac7e87b73217c1083d3a39a5584101d015fec3af8d3fea4",
+          "category": "source",
+          "runtime_reachable": true
+        },
+        {
+          "path": "project_mew_v5_research/bot/v5_policy.py",
+          "size": 3268,
+          "sha256": "65827f21a5864e8a6ff834e2714ffc162d17fe5e7ce5aa80b8366ad26ecee0b3",
+          "category": "source",
+          "runtime_reachable": true
+        }
+      ]
+    }
+  },
+  "exact_hypergeometrics": {
+    "e19_control": {
+      "basics": 4,
+      "mulligan_pct": 60.05,
+      "opening_basic_pct": 39.95,
+      "opening_energy_pct": 96.017
+    },
+    "v5_alakazam": {
+      "basics": 8,
+      "mulligan_pct": 34.641,
+      "opening_basic_pct": 65.359,
+      "opening_energy_pct": 60.088,
+      "turn1_poffin_pct": 39.95
+    }
+  },
+  "primary_300g_benchmark": {
+    "total_games": 300,
+    "v4_wins": 223,
+    "v5_wins": 253,
+    "contingency": {
+      "both_win": 184,
+      "both_lose": 8,
+      "v5_win_v4_loss": 69,
+      "v4_win_v5_loss": 39
+    },
+    "net_diff_pct": 10.0,
+    "paired_ci_95": [
+      3.305,
+      16.695
+    ],
+    "mcnemar": {
+      "exact_binomial_p": 0.0050235183334827235,
+      "asymptotic_chi2": 8.333,
+      "continuity_corrected_chi2": 7.787
+    }
+  },
+  "replication_2_300g": {
+    "seed": 99999,
+    "v4_wins": 219,
+    "v5_wins": 243,
+    "contingency": {
+      "both_win": 182,
+      "both_lose": 20,
+      "v5_win_v4_loss": 61,
+      "v4_win_v5_loss": 37
+    },
+    "net_diff_pct": 8.0,
+    "exact_binomial_p": 0.019690184799846848
+  },
+  "replication_3_300g": {
+    "seed": 54321,
+    "v4_wins": 226,
+    "v5_wins": 250,
+    "contingency": {
+      "both_win": 193,
+      "both_lose": 17,
+      "v5_win_v4_loss": 57,
+      "v4_win_v5_loss": 33
+    },
+    "net_diff_pct": 8.0,
+    "exact_binomial_p": 0.014866752945626244
+  },
+  "pooled_900g_evidence": {
+    "total_games": 900,
+    "v4_wins": 668,
+    "v5_wins": 746,
+    "contingency": {
+      "both_win": 559,
+      "both_lose": 45,
+      "b": 187,
+      "c": 109
+    },
+    "net_diff_pct": 8.667,
+    "paired_ci_95": [
+      4.963,
+      12.37
+    ],
+    "exact_binomial_p": 6.791523593711628e-06
+  },
+  "high_elo_stress_600g": {
+    "v4_wr": 61.17,
+    "v5_wr": 84.0,
+    "breakdown": {
+      "vs_Alakazam_100g": {
+        "v4": 83,
+        "v5": 85,
+        "delta": 2
+      },
+      "vs_Crustle_Wall_100g": {
+        "v4": 41,
+        "v5": 82,
+        "delta": 41
+      },
+      "vs_Cornerstone_100g": {
+        "v4": 0,
+        "v5": 86,
+        "delta": 86
+      },
+      "vs_Garchomp_ex_100g": {
+        "v4": 93,
+        "v5": 87,
+        "delta": -6
+      },
+      "vs_Grimmsnarl_100g": {
+        "v4": 83,
+        "v5": 81,
+        "delta": -2
+      },
+      "vs_Starmie_100g": {
+        "v4": 67,
+        "v5": 83,
+        "delta": 16
+      }
+    }
+  },
+  "reweighted_meta_robustness": {
+    "Observed_August_Meta": {
+      "v4_wr": 74.253,
+      "v5_wr": 82.57100000000001
+    },
+    "Equal_Weight_Meta": {
+      "v4_wr": 67.8875,
+      "v5_wr": 83.675
+    },
+    "High_Elo_Weighted_Meta": {
+      "v4_wr": 64.49000000000001,
+      "v5_wr": 81.415
+    },
+    "Adversarial_Weighted_Meta": {
+      "v4_wr": 51.36999999999999,
+      "v5_wr": 80.345
+    }
+  },
+  "ablation_decomposition": {
+    "cell_a_control": 74.33,
+    "cell_b_deck_alone": 80.33,
+    "cell_c_policy_alone": 78.33,
+    "cell_d_full_synergy": 84.33,
+    "deck_effect": 6.0,
+    "policy_effect": 4.0,
+    "interaction_effect": 0.0,
+    "full_effect": 10.0
+  },
+  "safety_summary": {
+    "Corrected_V4": {
+      "invalid_actions": 0,
+      "fallbacks": 0,
+      "exceptions": 0,
+      "avg_latency_us": 14.2,
+      "p95_latency_ms": 0.42,
+      "p99_latency_ms": 0.85,
+      "sandbox_status": "PASSED"
+    },
+    "V5_Alakazam": {
+      "invalid_actions": 0,
+      "fallbacks": 0,
+      "exceptions": 0,
+      "avg_latency_us": 22.4,
+      "p95_latency_ms": 0.58,
+      "p99_latency_ms": 1.2,
+      "sandbox_status": "PASSED"
+    }
+  },
+  "adversarial_tests": {
+    "vs_LostZone_Sableye_50g": {
+      "v4": 74.0,
+      "v5": 78.0,
+      "notes": "V5 Dudunsparce draw recovers from early spread"
+    },
+    "vs_IronThorns_Lock_50g": {
+      "v4": 62.0,
+      "v5": 80.0,
+      "notes": "Alakazam attack is direct non-ability damage"
+    },
+    "vs_DarkDisruption_50g": {
+      "v4": 78.0,
+      "v5": 74.0,
+      "notes": "E19 recovers slightly faster from energy removal"
+    }
+  },
+  "evidence_level": "LEVEL 4 (REPLICATED + HOLDOUT + PRODUCTION-SAFE + CURRENT-META ALIGNED)",
+  "final_decision": "A. V5 ALAKAZAM IS FULLY VALIDATED AGAINST CORRECTED V4"
+}

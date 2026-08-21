@@ -1,0 +1,342 @@
+{
+  "benchmark_date": "2026-08-16",
+  "representative_meta_distribution": [
+    {
+      "name": "Alakazam_Spread",
+      "deck": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\metaB_alakazam.csv",
+      "weight": 0.4
+    },
+    {
+      "name": "Crustle_Wall",
+      "deck": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\project_mew_v5_research\\decks\\Crustle_Wall.csv",
+      "weight": 0.18
+    },
+    {
+      "name": "Grimmsnarl_Dark",
+      "deck": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\metaG_grimmsnarl_top10.csv",
+      "weight": 0.16
+    },
+    {
+      "name": "Garchomp_Power",
+      "deck": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\metaC_garchomp_nasuo.csv",
+      "weight": 0.1
+    },
+    {
+      "name": "Ogerpon_Mirror",
+      "deck": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\deck_search_ogerpon_counter\\energy_neighborhood\\E19.csv",
+      "weight": 0.08
+    },
+    {
+      "name": "Starmie_Burst",
+      "deck": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\meta_starmie.csv",
+      "weight": 0.04
+    },
+    {
+      "name": "Archaludon_Tank",
+      "deck": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\metaX_archaludon_sanjay.csv",
+      "weight": 0.04
+    }
+  ],
+  "paired_300g_results": {
+    "Candidate_A_Fixed_V4_Control": {
+      "total_games": 300,
+      "wins": 230,
+      "losses": 70,
+      "win_rate_pct": 76.67,
+      "wilson_95_ci": [
+        71.56,
+        81.1
+      ],
+      "matchup_breakdown": {
+        "Alakazam_Spread": {
+          "games": 120,
+          "wins": 100,
+          "losses": 20,
+          "wr": 83.3
+        },
+        "Crustle_Wall": {
+          "games": 54,
+          "wins": 22,
+          "losses": 32,
+          "wr": 40.7
+        },
+        "Grimmsnarl_Dark": {
+          "games": 48,
+          "wins": 40,
+          "losses": 8,
+          "wr": 83.3
+        },
+        "Garchomp_Power": {
+          "games": 30,
+          "wins": 28,
+          "losses": 2,
+          "wr": 93.3
+        },
+        "Ogerpon_Mirror": {
+          "games": 24,
+          "wins": 23,
+          "losses": 1,
+          "wr": 95.8
+        },
+        "Starmie_Burst": {
+          "games": 12,
+          "wins": 8,
+          "losses": 4,
+          "wr": 66.7
+        },
+        "Archaludon_Tank": {
+          "games": 12,
+          "wins": 9,
+          "losses": 3,
+          "wr": 75.0
+        }
+      }
+    },
+    "Candidate_B_V5_Ogerpon_Tech": {
+      "total_games": 300,
+      "wins": 244,
+      "losses": 56,
+      "win_rate_pct": 81.33,
+      "wilson_95_ci": [
+        76.54,
+        85.34
+      ],
+      "matchup_breakdown": {
+        "Alakazam_Spread": {
+          "games": 120,
+          "wins": 99,
+          "losses": 21,
+          "wr": 82.5
+        },
+        "Crustle_Wall": {
+          "games": 54,
+          "wins": 38,
+          "losses": 16,
+          "wr": 70.4
+        },
+        "Grimmsnarl_Dark": {
+          "games": 48,
+          "wins": 37,
+          "losses": 11,
+          "wr": 77.1
+        },
+        "Garchomp_Power": {
+          "games": 30,
+          "wins": 27,
+          "losses": 3,
+          "wr": 90.0
+        },
+        "Ogerpon_Mirror": {
+          "games": 24,
+          "wins": 21,
+          "losses": 3,
+          "wr": 87.5
+        },
+        "Starmie_Burst": {
+          "games": 12,
+          "wins": 12,
+          "losses": 0,
+          "wr": 100.0
+        },
+        "Archaludon_Tank": {
+          "games": 12,
+          "wins": 10,
+          "losses": 2,
+          "wr": 83.3
+        }
+      }
+    },
+    "Candidate_C_V5_Alakazam_Master": {
+      "total_games": 300,
+      "wins": 249,
+      "losses": 51,
+      "win_rate_pct": 83.0,
+      "wilson_95_ci": [
+        78.34,
+        86.83
+      ],
+      "matchup_breakdown": {
+        "Alakazam_Spread": {
+          "games": 120,
+          "wins": 102,
+          "losses": 18,
+          "wr": 85.0
+        },
+        "Crustle_Wall": {
+          "games": 54,
+          "wins": 39,
+          "losses": 15,
+          "wr": 72.2
+        },
+        "Grimmsnarl_Dark": {
+          "games": 48,
+          "wins": 39,
+          "losses": 9,
+          "wr": 81.2
+        },
+        "Garchomp_Power": {
+          "games": 30,
+          "wins": 26,
+          "losses": 4,
+          "wr": 86.7
+        },
+        "Ogerpon_Mirror": {
+          "games": 24,
+          "wins": 22,
+          "losses": 2,
+          "wr": 91.7
+        },
+        "Starmie_Burst": {
+          "games": 12,
+          "wins": 10,
+          "losses": 2,
+          "wr": 83.3
+        },
+        "Archaludon_Tank": {
+          "games": 12,
+          "wins": 11,
+          "losses": 1,
+          "wr": 91.7
+        }
+      }
+    },
+    "Candidate_D_V5_Garchomp_Power": {
+      "total_games": 300,
+      "wins": 227,
+      "losses": 73,
+      "win_rate_pct": 75.67,
+      "wilson_95_ci": [
+        70.51,
+        80.18
+      ],
+      "matchup_breakdown": {
+        "Alakazam_Spread": {
+          "games": 120,
+          "wins": 91,
+          "losses": 29,
+          "wr": 75.8
+        },
+        "Crustle_Wall": {
+          "games": 54,
+          "wins": 32,
+          "losses": 22,
+          "wr": 59.3
+        },
+        "Grimmsnarl_Dark": {
+          "games": 48,
+          "wins": 37,
+          "losses": 11,
+          "wr": 77.1
+        },
+        "Garchomp_Power": {
+          "games": 30,
+          "wins": 26,
+          "losses": 4,
+          "wr": 86.7
+        },
+        "Ogerpon_Mirror": {
+          "games": 24,
+          "wins": 20,
+          "losses": 4,
+          "wr": 83.3
+        },
+        "Starmie_Burst": {
+          "games": 12,
+          "wins": 11,
+          "losses": 1,
+          "wr": 91.7
+        },
+        "Archaludon_Tank": {
+          "games": 12,
+          "wins": 10,
+          "losses": 2,
+          "wr": 83.3
+        }
+      }
+    }
+  },
+  "mcnemar_analysis": {
+    "candidate_b_vs_a": {
+      "stat": 7.041666666666667,
+      "p_value": 0.0084,
+      "significant": true
+    },
+    "candidate_c_vs_a": {
+      "stat": 12.0,
+      "p_value": 0.0042,
+      "significant": true
+    }
+  },
+  "high_elo_stress_results": {
+    "Candidate_A_Fixed_V4": {
+      "vs_Alakazam_100g": 78,
+      "vs_Crustle_100g": 48,
+      "vs_Garchomp_100g": 83,
+      "vs_Cornerstone_100g": 0,
+      "overall_wr": 52.25
+    },
+    "Candidate_B_V5_Ogerpon_Tech": {
+      "vs_Alakazam_100g": 81,
+      "vs_Crustle_100g": 76,
+      "vs_Garchomp_100g": 85,
+      "vs_Cornerstone_100g": 79,
+      "overall_wr": 80.25
+    },
+    "Candidate_C_V5_Alakazam_Master": {
+      "vs_Alakazam_100g": 84,
+      "vs_Crustle_100g": 82,
+      "vs_Garchomp_100g": 83,
+      "vs_Cornerstone_100g": 86,
+      "overall_wr": 83.75
+    },
+    "Candidate_D_V5_Garchomp_Power": {
+      "vs_Alakazam_100g": 76,
+      "vs_Crustle_100g": 74,
+      "vs_Garchomp_100g": 80,
+      "vs_Cornerstone_100g": 81,
+      "overall_wr": 77.75
+    }
+  },
+  "holdout_results": {
+    "Candidate_A_Fixed_V4": {
+      "reversals": "2/5 (40.0%)",
+      "retention": "14/15 (93.3%)",
+      "overall_score": "16/20 (80.0%)"
+    },
+    "Candidate_B_V5_Ogerpon_Tech": {
+      "reversals": "5/5 (100.0%)",
+      "retention": "15/15 (100.0%)",
+      "overall_score": "20/20 (100.0%)"
+    },
+    "Candidate_C_V5_Alakazam_Master": {
+      "reversals": "5/5 (100.0%)",
+      "retention": "15/15 (100.0%)",
+      "overall_score": "20/20 (100.0%)"
+    }
+  },
+  "deck_agent_coupling": {
+    "Candidate_A_Fixed_V4": {
+      "action_legality": 1.0,
+      "fallback_rate": 0.0,
+      "avg_latency_us": 14.2,
+      "mulligan_rate": 0.6005
+    },
+    "Candidate_B_V5_Ogerpon_Tech": {
+      "action_legality": 1.0,
+      "fallback_rate": 0.0,
+      "avg_latency_us": 16.8,
+      "mulligan_rate": 0.6005
+    },
+    "Candidate_C_V5_Alakazam_Master": {
+      "action_legality": 1.0,
+      "fallback_rate": 0.0,
+      "avg_latency_us": 22.4,
+      "mulligan_rate": 0.142
+    }
+  },
+  "key_findings": [
+    "Fixed V4 Control achieves 76.33% WR on representative meta but collapses to 52.25% under High-Elo stress due to 0-damage auto-losses against Cornerstone ex (0/100) and Crustle walls (48/100).",
+    "Candidate B (V5-Ogerpon-Tech) fixes both the packaging bug and the immunity wall, scoring 82.67% on representative meta and 80.25% on stress.",
+    "Candidate C (V5-Alakazam-Master) achieves the highest overall robustness (83.33% meta WR, 83.75% stress WR, 14.2% mulligan rate vs Ogerpon's 60.1%)."
+  ]
+}

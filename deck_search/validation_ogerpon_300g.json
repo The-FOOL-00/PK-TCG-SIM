@@ -1,0 +1,33 @@
+{
+  "challenger": "metaZ_teal_ogerpon_top10.csv+BS_CEI=1+BS_CEI_2PLY=1+BS_CEI_DETS=2+DYN_DECK_TABLES=1",
+  "incumbent": "meta_starmie.csv",
+  "games": 300,
+  "wins": 212,
+  "losses": 87,
+  "draws": 1,
+  "wins_by_seat": [
+    111,
+    101
+  ],
+  "win_rate": 0.7090301003344481,
+  "wilson95": [
+    0.6551539177245007,
+    0.7576033067544956
+  ],
+  "verdict": "PASS",
+  "crashes": {
+    "chal": 0,
+    "inc": 0
+  },
+  "reasons_won": {
+    "1": 188,
+    "3": 24
+  },
+  "reasons_lost": {
+    "3": 46,
+    "1": 38,
+    "2": 3
+  },
+  "calibration": null,
+  "teacher_stats": null
+}

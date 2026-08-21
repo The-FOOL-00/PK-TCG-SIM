@@ -804,3 +804,13 @@ G6b-full landed: BC-full vs search+Garchomp (the 39.3% failure config):
 **69.7% [64.2, 74.6] PASS**, 0 crashes (W 178 prizes / 21 no-active /
 10 deckout). Full matrix: G6a-full 60.7 PASS, G6b-full 69.7 PASS, G6c-full
 77.0 PASS — Option A complete, all gates green.
+
+## 2026-08-11 — Project Mew: Candidate Deck Sweeps & Selective MCTS Gating
+
+- **Deck Validation (`tools/validate_deck.py`)**: All candidate decks (`meta_starmie.csv`, `metaB_alakazam.csv`, `metaC_garchomp_nasuo.csv`, `metaG_grimmsnarl_top10.csv`, `deck.csv`) validated 100% compliant with 60-card, 4-copy, ACE SPEC, and Basic Pokemon rules.
+- **Candidate A — Mega Starmie ex (`meta_starmie.csv`) vs Baseline Abomasnow (`deck.csv`)**: **72.0% [58.3%, 82.5%] PASS** over 50 games (seats alternated, 0 crashes, 0 fallbacks). Lower bound Wilson CI > 50%.
+- **Candidate A — Mega Starmie ex vs Candidate B Alakazam (`metaB_alakazam.csv`)**: **62.0% [48.2%, 74.1%]** win rate over 50 games.
+- **Learned Value Model evaluation (`meta_starmie.csv+PTCG_LEARNED_VALUE=1` vs `meta_starmie.csv`)**: **54.0% [40.4%, 67.0%] FAIL** (CI lower bound <= 50%). Value model disabled per plan rule 21 (does not satisfy CI lower bound > 50% vs specialized Starmie hybrid policy).
+- **Selective Search & Gating (`bot/search/gating.py`)**: Integrated `is_critical_decision()` gating (endgame prizes <= 2, multiple attacks, branching >= 6, evolution choices). Routine decisions executed via fast heuristic (<0.05 ms); critical decisions use time-governed PIMC-1 determinized search with guaranteed legal fallback.
+- **Artifact Build (`submission_mew_starmie.tar.gz`)**: Created and verified (0.061 MiB). 3W/0L/0D smoke eval, 0 crashes, 0 fallbacks.
+

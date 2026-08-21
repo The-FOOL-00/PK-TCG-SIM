@@ -1,0 +1,119 @@
+{
+  "Ogerpon_S0_Control": {
+    "id": "Ogerpon_S0_Control",
+    "name": "Teal Mask Ogerpon ex",
+    "family": "Grass Acceleration (FROZEN CHAMPION)",
+    "win_con": "Teal Dance self-acceleration + heavy basic damage",
+    "path": "metaZ_teal_ogerpon_top10.csv",
+    "cards_count": 60,
+    "unique_cards": 19
+  },
+  "Starmie_S0_Aggro": {
+    "id": "Starmie_S0_Aggro",
+    "name": "Mega Starmie ex",
+    "family": "Water Aggro",
+    "win_con": "Turn 2 Stage-1 burst attack (130 dmg)",
+    "path": "meta_starmie.csv",
+    "cards_count": 60,
+    "unique_cards": 15
+  },
+  "Alakazam_Psychic": {
+    "id": "Alakazam_Psychic",
+    "name": "Alakazam ex / Dudunsparce",
+    "family": "Psychic Control",
+    "win_con": "Hand attachment scaling + Dudunsparce draw engine",
+    "path": "metaB_alakazam.csv",
+    "cards_count": 60,
+    "unique_cards": 19
+  },
+  "Grimmsnarl_Dark": {
+    "id": "Grimmsnarl_Dark",
+    "name": "Grimmsnarl Disruption",
+    "family": "Dark Disruption / Single-Prize",
+    "win_con": "Energy discard & 1-prize trading economics",
+    "path": "metaG_grimmsnarl_top10.csv",
+    "cards_count": 60,
+    "unique_cards": 19
+  },
+  "Mewtwo_Stall": {
+    "id": "Mewtwo_Stall",
+    "name": "Mewtwo ex Stall",
+    "family": "Energy Denial / Stall",
+    "win_con": "Energy denial, walling, and deckout pressure",
+    "path": "meta_mewtwo_stall.csv",
+    "cards_count": 60,
+    "unique_cards": 20
+  },
+  "Dragapult_Spread": {
+    "id": "Dragapult_Spread",
+    "name": "Dragapult ex",
+    "family": "Dragon / Spread Damage",
+    "win_con": "Phantom Dive 200 active + 60 bench spread",
+    "path": "metaZ_dragapult_top10.csv",
+    "cards_count": 60,
+    "unique_cards": 22
+  },
+  "Archaludon_Metal": {
+    "id": "Archaludon_Metal",
+    "name": "Archaludon ex",
+    "family": "Metal High-HP Tank",
+    "win_con": "300 HP Metal Bridge tanking & energy recovery",
+    "path": "metaX_archaludon_sanjay.csv",
+    "cards_count": 60,
+    "unique_cards": 15
+  },
+  "Fezandipiti_Revenge": {
+    "id": "Fezandipiti_Revenge",
+    "name": "Fezandipiti ex",
+    "family": "Psychic Revenge Draw",
+    "win_con": "Flip the Script 3-card draw upon knockout",
+    "path": "metaX_fezandipiti_top10.csv",
+    "cards_count": 60,
+    "unique_cards": 22
+  },
+  "Garchomp_Fighting": {
+    "id": "Garchomp_Fighting",
+    "name": "Cynthia's Garchomp ex",
+    "family": "Fighting / Power Setup",
+    "win_con": "Dragon/Fighting heavy single-hit KOs",
+    "path": "metaC_garchomp_nasuo.csv",
+    "cards_count": 60,
+    "unique_cards": 20
+  },
+  "Kangaskhan_Tank": {
+    "id": "Kangaskhan_Tank",
+    "name": "Mega Kangaskhan ex",
+    "family": "Colorless Tank",
+    "win_con": "High HP single-energy early setup",
+    "path": "metaX_kangaskhan_top10.csv",
+    "cards_count": 60,
+    "unique_cards": 24
+  },
+  "Bellibolt_Lightning": {
+    "id": "Bellibolt_Lightning",
+    "name": "Iono's Bellibolt ex",
+    "family": "Lightning Tempo",
+    "win_con": "Iono's synergy & lightning tempo attacks",
+    "path": "deck_search/candidates/Bellibolt_Lightning.csv",
+    "cards_count": 60,
+    "unique_cards": 15
+  },
+  "Junlee_Garchomp_Turbo": {
+    "id": "Junlee_Garchomp_Turbo",
+    "name": "Junlee Garchomp Turbo",
+    "family": "Fighting Turbo Setup",
+    "win_con": "Fast Fighting acceleration & burst",
+    "path": "junlee789_garchomp.csv",
+    "cards_count": 60,
+    "unique_cards": 20
+  },
+  "Dark_Gengar_Hybrid": {
+    "id": "Dark_Gengar_Hybrid",
+    "name": "Dark Gengar Hybrid",
+    "family": "Dark / Psychic Hybrid",
+    "win_con": "Shadow attack disruption & damage placement",
+    "path": "deck_v2.csv",
+    "cards_count": 60,
+    "unique_cards": 14
+  }
+}

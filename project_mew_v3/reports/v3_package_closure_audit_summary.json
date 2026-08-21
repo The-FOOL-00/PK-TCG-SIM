@@ -1,0 +1,34 @@
+{
+  "v3_archive_sha256": "3f46daf3b15d59e271c4b418a488817fd3808f4c085df24ff105750e2e255ab9",
+  "v3_archive_size_bytes": 728767,
+  "v3_total_members": 87,
+  "v21_total_members": 76,
+  "removed_members": [
+    "policy_weights.npz",
+    "value_weights.npz"
+  ],
+  "added_members": [
+    "bot/__pycache__/tactical_policy_v21.cpython-314.pyc",
+    "project_mew_v3",
+    "project_mew_v3/bot",
+    "project_mew_v3/bot/__pycache__",
+    "project_mew_v3/bot/__pycache__/v3_correction_layer.cpython-314.pyc",
+    "project_mew_v3/bot/__pycache__/v3_failure_patterns.cpython-314.pyc",
+    "project_mew_v3/bot/__pycache__/v3_policy.cpython-314.pyc",
+    "project_mew_v3/bot/v3_correction_layer.py",
+    "project_mew_v3/bot/v3_failure_patterns.py",
+    "project_mew_v3/bot/v3_policy.py",
+    "project_mew_v3/reports",
+    "project_mew_v3/tools",
+    "project_mew_v3/tools/v3_forensics_and_validation.py"
+  ],
+  "exact_byte_arithmetic": {
+    "v21_uncompressed": 1306319,
+    "removed_bytes": 251474,
+    "added_bytes": 35770,
+    "v3_uncompressed": 1090615
+  },
+  "clean_directory_passed": true,
+  "deck_sha256": "17f815f0d275af0534d26b4f3f5f66f16be47fe664854dd6f9736e6ab37f736e",
+  "verdict": "PACKAGE COMPLETE \u2014 SIZE REDUCTION IS SAFE"
+}

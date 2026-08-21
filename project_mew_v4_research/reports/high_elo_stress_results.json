@@ -1,0 +1,262 @@
+{
+  "HYB_F6_OgerponSafeguard_M2_1159": {
+    "name": "HYB_F6_OgerponSafeguard_M2_1159",
+    "total_games": 500,
+    "overall_wins": 371,
+    "overall_losses": 129,
+    "overall_draws": 0,
+    "overall_win_rate": 0.742,
+    "overall_wilson_ci": [
+      0.7019060194394218,
+      0.7784037997771869
+    ],
+    "matchups": {
+      "Mega Starmie ex (Minimax v1.5c)": {
+        "wins": 67,
+        "losses": 33,
+        "draws": 0,
+        "win_rate": 0.67,
+        "wilson_ci": [
+          0.5730534379509052,
+          0.7543687726587197
+        ]
+      },
+      "Archaludon ex (PIMC)": {
+        "wins": 70,
+        "losses": 30,
+        "draws": 0,
+        "win_rate": 0.7,
+        "wilson_ci": [
+          0.6041514536665332,
+          0.7810511470506724
+        ]
+      },
+      "Dragapult ex (PIMC)": {
+        "wins": 92,
+        "losses": 8,
+        "draws": 0,
+        "win_rate": 0.92,
+        "wilson_ci": [
+          0.8500189229905127,
+          0.9589065385156194
+        ]
+      },
+      "E19 Ogerpon Mirror (V4)": {
+        "wins": 51,
+        "losses": 49,
+        "draws": 0,
+        "win_rate": 0.51,
+        "wilson_ci": [
+          0.4134801193402717,
+          0.6057800106955886
+        ]
+      },
+      "Cynthia Garchomp (Minimax v1.5c)": {
+        "wins": 91,
+        "losses": 9,
+        "draws": 0,
+        "win_rate": 0.91,
+        "wilson_ci": [
+          0.837737871472837,
+          0.9519274599974348
+        ]
+      }
+    },
+    "eval_time_sec": 217.2
+  },
+  "LOC_E19_Safeguard_M2_26G_1P_2Grow_Cape": {
+    "name": "LOC_E19_Safeguard_M2_26G_1P_2Grow_Cape",
+    "total_games": 500,
+    "overall_wins": 369,
+    "overall_losses": 131,
+    "overall_draws": 0,
+    "overall_win_rate": 0.738,
+    "overall_wilson_ci": [
+      0.6977470833575388,
+      0.7746237305827623
+    ],
+    "matchups": {
+      "Mega Starmie ex (Minimax v1.5c)": {
+        "wins": 71,
+        "losses": 29,
+        "draws": 0,
+        "win_rate": 0.71,
+        "wilson_ci": [
+          0.6146110882442888,
+          0.7898516425087772
+        ]
+      },
+      "Archaludon ex (PIMC)": {
+        "wins": 66,
+        "losses": 34,
+        "draws": 0,
+        "win_rate": 0.66,
+        "wilson_ci": [
+          0.5627772885472462,
+          0.7453847920265184
+        ]
+      },
+      "Dragapult ex (PIMC)": {
+        "wins": 84,
+        "losses": 16,
+        "draws": 0,
+        "win_rate": 0.84,
+        "wilson_ci": [
+          0.7557973061072976,
+          0.8990471151119521
+        ]
+      },
+      "E19 Ogerpon Mirror (V4)": {
+        "wins": 57,
+        "losses": 43,
+        "draws": 0,
+        "win_rate": 0.57,
+        "wilson_ci": [
+          0.47215389549212305,
+          0.6626670147588988
+        ]
+      },
+      "Cynthia Garchomp (Minimax v1.5c)": {
+        "wins": 91,
+        "losses": 9,
+        "draws": 0,
+        "win_rate": 0.91,
+        "wilson_ci": [
+          0.837737871472837,
+          0.9519274599974348
+        ]
+      }
+    },
+    "eval_time_sec": 212.2
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_14G_3R_2PRISM_1158": {
+    "name": "HYB_F5_DualOgerpon_H1_CY0_14G_3R_2PRISM_1158",
+    "total_games": 500,
+    "overall_wins": 338,
+    "overall_losses": 162,
+    "overall_draws": 0,
+    "overall_win_rate": 0.676,
+    "overall_wilson_ci": [
+      0.6337715143893493,
+      0.7155447177681845
+    ],
+    "matchups": {
+      "Mega Starmie ex (Minimax v1.5c)": {
+        "wins": 71,
+        "losses": 29,
+        "draws": 0,
+        "win_rate": 0.71,
+        "wilson_ci": [
+          0.6146110882442888,
+          0.7898516425087772
+        ]
+      },
+      "Archaludon ex (PIMC)": {
+        "wins": 66,
+        "losses": 34,
+        "draws": 0,
+        "win_rate": 0.66,
+        "wilson_ci": [
+          0.5627772885472462,
+          0.7453847920265184
+        ]
+      },
+      "Dragapult ex (PIMC)": {
+        "wins": 82,
+        "losses": 18,
+        "draws": 0,
+        "win_rate": 0.82,
+        "wilson_ci": [
+          0.7333264161369926,
+          0.8829977450105364
+        ]
+      },
+      "E19 Ogerpon Mirror (V4)": {
+        "wins": 24,
+        "losses": 76,
+        "draws": 0,
+        "win_rate": 0.24,
+        "wilson_ci": [
+          0.16691325556948772,
+          0.33232336349814473
+        ]
+      },
+      "Cynthia Garchomp (Minimax v1.5c)": {
+        "wins": 95,
+        "losses": 5,
+        "draws": 0,
+        "win_rate": 0.95,
+        "wilson_ci": [
+          0.8882495307680808,
+          0.9784563208456319
+        ]
+      }
+    },
+    "eval_time_sec": 219.8
+  },
+  "CONTROL_E19_OGERPON": {
+    "name": "CONTROL_E19_OGERPON",
+    "total_games": 500,
+    "overall_wins": 411,
+    "overall_losses": 89,
+    "overall_draws": 0,
+    "overall_win_rate": 0.822,
+    "overall_wilson_ci": [
+      0.7860548114500956,
+      0.8530351132926648
+    ],
+    "matchups": {
+      "Mega Starmie ex (Minimax v1.5c)": {
+        "wins": 87,
+        "losses": 13,
+        "draws": 0,
+        "win_rate": 0.87,
+        "wilson_ci": [
+          0.7901964855992357,
+          0.9224283257275948
+        ]
+      },
+      "Archaludon ex (PIMC)": {
+        "wins": 75,
+        "losses": 25,
+        "draws": 0,
+        "win_rate": 0.75,
+        "wilson_ci": [
+          0.656955364519384,
+          0.8245478863771232
+        ]
+      },
+      "Dragapult ex (PIMC)": {
+        "wins": 95,
+        "losses": 5,
+        "draws": 0,
+        "win_rate": 0.95,
+        "wilson_ci": [
+          0.8882495307680808,
+          0.9784563208456319
+        ]
+      },
+      "E19 Ogerpon Mirror (V4)": {
+        "wins": 55,
+        "losses": 45,
+        "draws": 0,
+        "win_rate": 0.55,
+        "wilson_ci": [
+          0.45244602997442135,
+          0.6438546202048803
+        ]
+      },
+      "Cynthia Garchomp (Minimax v1.5c)": {
+        "wins": 99,
+        "losses": 1,
+        "draws": 0,
+        "win_rate": 0.99,
+        "wilson_ci": [
+          0.9455138038212946,
+          0.9982325679358593
+        ]
+      }
+    },
+    "eval_time_sec": 217.1
+  }
+}

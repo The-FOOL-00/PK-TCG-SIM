@@ -1,0 +1,37 @@
+{
+  "corpus": {
+    "total_files": 925,
+    "manifest_entries": 300,
+    "unique_games": 300,
+    "duplicates": 0
+  },
+  "splits": {
+    "train": 210,
+    "val": 45,
+    "test": 45,
+    "temporal": 45,
+    "disjoint": true
+  },
+  "player_leakage": {
+    "test_players": 34,
+    "seen": 29,
+    "unseen": 5
+  },
+  "action_accuracy": {
+    "coarse_top1": 1.0,
+    "exact_top1": 0.968,
+    "same_class_alt_bench": 0.022,
+    "same_class_alt_gust": 0.01,
+    "wrong_class": 0.0
+  },
+  "counterfactual_divergence": {
+    "proxy_games": 200,
+    "agreement_rate": 0.99,
+    "srp_wr": 0.8,
+    "v21_wr": 0.795,
+    "p_value": 0.564,
+    "statistically_significant": false
+  },
+  "archive_sha256": "ba6ddfe083b6b2253e219907d3c461cfe8a205cafe153062e729743493278e87",
+  "v21_sha256": "5511c1a0d337232cca9c47d008c1a4fe4f61650c832365d2c5069010f231e33f"
+}

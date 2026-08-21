@@ -1,0 +1,60 @@
+{
+  "total_cards_explored": 1267,
+  "total_pokemon_explored": 1056,
+  "total_candidates_screened": 12,
+  "finalists_paired": {
+    "E19_Ogerpon_Control (Current)": {
+      "wins": 260,
+      "wr": 86.67,
+      "net_vs_e19": 0,
+      "p_val": 1.0,
+      "ci_gain": [
+        0.0,
+        0.0
+      ]
+    },
+    "E18_Ogerpon_Plus1Boss": {
+      "wins": 255,
+      "wr": 85.0,
+      "net_vs_e19": -5,
+      "p_val": 0.2266,
+      "ci_gain": [
+        -0.0384,
+        0.0051
+      ]
+    },
+    "E20_Ogerpon_HighEnergy": {
+      "wins": 253,
+      "wr": 84.33,
+      "net_vs_e19": -7,
+      "p_val": 0.0963,
+      "ci_gain": [
+        -0.0455,
+        -0.0012
+      ]
+    },
+    "Miraidon_Lightning_Turbo": {
+      "wins": 223,
+      "wr": 74.33,
+      "net_vs_e19": -37,
+      "p_val": 1e-06,
+      "ci_gain": [
+        -0.158,
+        -0.088
+      ]
+    },
+    "Mega_Starmie_Water_Aggro": {
+      "wins": 216,
+      "wr": 72.0,
+      "net_vs_e19": -44,
+      "p_val": 1e-06,
+      "ci_gain": [
+        -0.182,
+        -0.111
+      ]
+    }
+  },
+  "e19_rank": 1,
+  "e19_win_rate": 86.67,
+  "verdict": "E19 IS GLOBAL CHAMPION \u2014 NO BETTER DECK FOUND"
+}

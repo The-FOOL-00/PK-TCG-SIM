@@ -1,0 +1,37 @@
+{
+  "mechanisms_evaluated": 7,
+  "hybrids_screened": 9,
+  "finalists": {
+    "E19_Ogerpon_Control": {
+      "vs_e19_wr": 50.0,
+      "meta_wr": 86.67,
+      "vs_starmie": 74.0,
+      "vs_archaludon": 72.0,
+      "vs_miraidon": 74.3
+    },
+    "H8_Lightning_Toolbox": {
+      "vs_e19_wr": 48.0,
+      "meta_wr": 78.0,
+      "vs_starmie": 82.0,
+      "vs_archaludon": 64.0,
+      "vs_miraidon": 50.0
+    },
+    "H7_Grass_FireDual (Chi-Yu)": {
+      "vs_e19_wr": 54.0,
+      "meta_wr": 76.0,
+      "vs_starmie": 62.0,
+      "vs_archaludon": 74.0,
+      "vs_miraidon": 68.0
+    },
+    "H3_Miraidon_Safeguard": {
+      "vs_e19_wr": 52.0,
+      "meta_wr": 68.0,
+      "vs_starmie": 70.0,
+      "vs_archaludon": 58.0,
+      "vs_miraidon": 48.0
+    }
+  },
+  "pareto_champion": "E19 Ogerpon Control",
+  "pareto_meta_wr": 86.67,
+  "verdict": "E19 REMAINS GLOBAL CHAMPION"
+}

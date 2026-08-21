@@ -1,0 +1,13 @@
+{
+  "total_v3_live_games": 65,
+  "peak_rating": 939.4744608133828,
+  "collapse_rating": 794.9811368117677,
+  "high_elo_losses": 23,
+  "avoidable_high_elo_losses": 13,
+  "unavoidable_high_elo_losses": 6,
+  "new_cluster": "UNNECESSARY_BENCH_EXPANSION_IN_2PRIZE_ENDGAME",
+  "pareto_concentration_pct": 100.0,
+  "primary_bottleneck": "UNNECESSARY_BENCH_EXPANSION_IN_2PRIZE_ENDGAME",
+  "projected_v4_override_pct": 3.35,
+  "verdict": "IDENTIFIED ONE CLEAR BOTTLENECK \u2014 BUILD V4"
+}

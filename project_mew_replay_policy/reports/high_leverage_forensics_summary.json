@@ -1,0 +1,57 @@
+{
+  "total_failures_analyzed": 107,
+  "unavoidable_losses": 55,
+  "avoidable_losses": 52,
+  "pareto_concentration": [
+    {
+      "pct_decisions": 0.1,
+      "pct_avoidable_losses_explained": 42.8
+    },
+    {
+      "pct_decisions": 0.2,
+      "pct_avoidable_losses_explained": 71.4
+    },
+    {
+      "pct_decisions": 0.35,
+      "pct_avoidable_losses_explained": 100.0
+    },
+    {
+      "pct_decisions": 1.0,
+      "pct_avoidable_losses_explained": 100.0
+    },
+    {
+      "pct_decisions": 5.0,
+      "pct_avoidable_losses_explained": 100.0
+    }
+  ],
+  "clusters": {
+    "HIDDEN_GUST_UNCERTAINTY": {
+      "count": 14,
+      "pct": 40.0,
+      "desc": "Opponent hand holds unrevealed Boss/Prime Catcher; bot leaves low-HP basic on bench."
+    },
+    "PRIZE_RACE_TIPPING_POINT": {
+      "count": 12,
+      "pct": 34.3,
+      "desc": "Benching unnecessary 2nd/3rd basic provides opponent an easier 2-prize gust target."
+    },
+    "ENDGAME_RESOURCE_FORK": {
+      "count": 9,
+      "pct": 25.7,
+      "desc": "Energy allocation in turns 6-8 commits last energy to non-essential Pok\u00e9mon."
+    }
+  },
+  "belief_calibration": {
+    "brier": 0.084,
+    "ece": 0.042,
+    "log_loss": 0.281
+  },
+  "diagnostic_search_reversal_rate": 0.8857142857142857,
+  "critical_elo_boundaries": {
+    "V1": 790.0,
+    "V2": 835.0,
+    "V2.1": 885.0,
+    "Selective_Lookahead_Projected": 985.0
+  },
+  "primary_bottleneck": "SELECTIVE_HIGH_LEVERAGE_SEARCH"
+}

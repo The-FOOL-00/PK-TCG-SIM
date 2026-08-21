@@ -1,0 +1,163 @@
+{
+  "A_FIRE_WEAKNESS": {
+    "name": "Fire Weakness Exploitation",
+    "description": "Fire attackers dealing 110+ base damage deal 220+ weakness damage, scoring instant 1HKOs on 210 HP Ogerpon.",
+    "cards": [
+      "Gouging Fire ex (46)",
+      "Hearthflame Mask Ogerpon ex (99)",
+      "Chi-Yu (719)",
+      "Entei (855)",
+      "Turtonator (1027)"
+    ],
+    "direct_e19_advantage": "Extreme (2x multiplier halves damage requirement)",
+    "energy_requirement": "Fire / Prism Energy",
+    "setup_time": "Turn 1-2 with Turbo or manual attach",
+    "deck_space_cost": "Moderate (4-8 Pokemon slots + 15-20 Energy)",
+    "broad_meta_weakness": "Severe disadvantage vs Water (Mega Starmie ex)",
+    "policy_compatibility": "High (V4 aggressive tempo and KO prioritization)"
+  },
+  "B_ANTI_EX": {
+    "name": "Safeguard / Anti-Rule-Box Immunity",
+    "description": "Single-prize walls that block all damage from Pokemon ex, preventing Ogerpon from taking prizes.",
+    "cards": [
+      "Mimikyu (767)",
+      "Miltank (703)",
+      "Neutralization Zone (1247)"
+    ],
+    "direct_e19_advantage": "High (Hard wall against pure ex attackers)",
+    "energy_requirement": "Psychic / Colorless / Prism",
+    "setup_time": "Turn 1 immediate",
+    "deck_space_cost": "Low to Moderate (4-8 Pokemon slots)",
+    "broad_meta_weakness": "Vulnerable to single-prize attackers (Chi-Yu, Cramorant, Garchomp lines) and bench gust",
+    "policy_compatibility": "High (V4 holds active wall safely)"
+  },
+  "C_HIGH_HP_TANK": {
+    "name": "High-HP Damage Absorption",
+    "description": "250-310+ HP bodies that absorb 2-3 hits from Ogerpon before conceding prizes.",
+    "cards": [
+      "Archaludon ex (988)",
+      "Mega Audino ex (1006)",
+      "Mega Zygarde ex (1056)",
+      "Snorlax (1072)",
+      "Orthworm ex (993)"
+    ],
+    "direct_e19_advantage": "Moderate (Forces Ogerpon to over-commit energy to hit 250+)",
+    "energy_requirement": "Metal / Fighting / Colorless",
+    "setup_time": "Turn 2-3",
+    "deck_space_cost": "High (Evolution or heavy energy engine)",
+    "broad_meta_weakness": "Can be outpaced by Mega Starmie / Dragapult spread",
+    "policy_compatibility": "Medium (Requires energy routing onto tank)"
+  },
+  "D_ENERGY_DENIAL": {
+    "name": "Energy Denial & Disruption",
+    "description": "Active and bench energy removal preventing Ogerpon from reaching the 2-3 energy threshold for Myriad Leaf Shower.",
+    "cards": [
+      "Crushing Hammer (1120)",
+      "Enhanced Hammer (1081)",
+      "Turtonator Shell Spikes (1027)"
+    ],
+    "direct_e19_advantage": "High (Disrupts Ogerpon tempo and damage scaling)",
+    "energy_requirement": "None (Trainer/Ability based)",
+    "setup_time": "Turn 1-4 continuous",
+    "deck_space_cost": "4-8 Trainer slots",
+    "broad_meta_weakness": "Coin-flip variance (50% per hammer); ineffective if opponent accelerates faster than denial rate",
+    "policy_compatibility": "High (V1/V4 plays item trainers immediately)"
+  },
+  "E_BENCH_DENIAL": {
+    "name": "Bench Control & Target Selection",
+    "description": "Gusting vulnerable bench targets and preventing opponent from safely sheltering wounded Pokemon.",
+    "cards": [
+      "Boss's Orders (1182)",
+      "Prime Catcher (1088)",
+      "Pokemon Catcher (1124)"
+    ],
+    "direct_e19_advantage": "High (Picks off bench Ogerpons before they accumulate energy)",
+    "energy_requirement": "None",
+    "setup_time": "Turn 2+",
+    "deck_space_cost": "3-5 slots",
+    "broad_meta_weakness": "Requires lethal board pressure to capitalize",
+    "policy_compatibility": "High (V4 Pattern 1 & V1 prioritize gust for lethal)"
+  },
+  "F_PRIZE_CONTROL": {
+    "name": "Prize Trade Manipulation",
+    "description": "Trading 1-prize attackers into 2-prize ex targets, forcing opponent to take 6 KOs while taking only 3.",
+    "cards": [
+      "Chi-Yu (719)",
+      "Pecharunt (898)",
+      "Fezandipiti (970)",
+      "Zekrom (906)",
+      "Legacy Energy (12)",
+      "Briar (1201)"
+    ],
+    "direct_e19_advantage": "High (Asymmetric prize clock: 2 prizes gained per KO vs 1 conceded)",
+    "energy_requirement": "Type-specific / Special",
+    "setup_time": "Turn 1-2",
+    "deck_space_cost": "Moderate",
+    "broad_meta_weakness": "Lower individual HP makes single-prizers easy 1HKO targets",
+    "policy_compatibility": "High (V4 prize math naturally leverages asymmetric trades)"
+  },
+  "G_FAST_BASIC_AGGRESSION": {
+    "name": "Turn 1-2 High Pressure Basic Aggro",
+    "description": "High base damage basic attackers attacking on turn 1 or turn 2 with low energy costs.",
+    "cards": [
+      "Koraidon ex (979)",
+      "Miraidon ex (957)",
+      "Gouging Fire ex (46)",
+      "Zangoose ex (1002)",
+      "Iron Boulder (971)"
+    ],
+    "direct_e19_advantage": "High (Pressures Ogerpon before Teal Dance engine stabilizes)",
+    "energy_requirement": "Fighting / Lightning / Fire",
+    "setup_time": "Turn 1-2",
+    "deck_space_cost": "Low to Moderate",
+    "broad_meta_weakness": "Requires consistent opening energy draws",
+    "policy_compatibility": "High (V1 Strong Tactical is natively aggressive)"
+  },
+  "H_TEAL_DANCE_DISRUPTION": {
+    "name": "Hand & Draw Disruption",
+    "description": "Shrinking opponent hand size to disrupt combo pieces, Bug Catching Sets, and Tera Orbs.",
+    "cards": [
+      "Judge (1213)",
+      "Unfair Stamp (1080)",
+      "N's Plan (1221)"
+    ],
+    "direct_e19_advantage": "Moderate (Resets Ogerpon hand after massive Teal Dance draws)",
+    "energy_requirement": "None",
+    "setup_time": "Turn 1+",
+    "deck_space_cost": "4-6 slots",
+    "broad_meta_weakness": "Can refresh opponent's dead hand into playable cards",
+    "policy_compatibility": "High (V1/V4 supporters fired efficiently)"
+  },
+  "I_DAMAGE_ABSORPTION_REDUCTION": {
+    "name": "Damage Reduction & EHP Expansion",
+    "description": "Tools and abilities that increase effective HP beyond Ogerpon's 1-shot threshold (210-240).",
+    "cards": [
+      "Hero's Cape (1159)",
+      "Survival Brace (1155)",
+      "Heavy Baton (1160)",
+      "Maximum Belt (1158)"
+    ],
+    "direct_e19_advantage": "High (Pushes Basic ex to 310-330 HP, requiring 3+ attacks to KO)",
+    "energy_requirement": "None (Tools)",
+    "setup_time": "Turn 1+",
+    "deck_space_cost": "1-3 Tool slots",
+    "broad_meta_weakness": "Vulnerable to Tool Scrapper (1137) and Megaton Blower (1104)",
+    "policy_compatibility": "High (V1 attaches tools immediately to active)"
+  },
+  "J_RESOURCE_EXHAUSTION": {
+    "name": "Resource Depletion & Deckout Pressure",
+    "description": "Forcing Ogerpon to exhaust energy, Tera Orbs, and gust cards through stall, recycling, and attrition.",
+    "cards": [
+      "Energy Retrieval (1118)",
+      "Night Stretcher / Max Rod (1110)",
+      "Jumbo Ice Cream (1147)",
+      "Lively Stadium (1251)"
+    ],
+    "direct_e19_advantage": "Moderate (Ogerpon burns deck quickly via Teal Dance, making it prone to late-game deckout)",
+    "energy_requirement": "Any",
+    "setup_time": "Turn 5+",
+    "deck_space_cost": "4-6 slots",
+    "broad_meta_weakness": "Slow clock; vulnerable to hyper-aggressive turn-2 KOs",
+    "policy_compatibility": "Medium (Requires survival into late game)"
+  }
+}

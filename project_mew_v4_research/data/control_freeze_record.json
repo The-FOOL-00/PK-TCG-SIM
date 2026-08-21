@@ -1,0 +1,10 @@
+{
+  "control_deck_file": "deck.csv",
+  "control_deck_name": "E19 Teal Mask Ogerpon ex",
+  "control_policy_name": "V4 Strong Tactical",
+  "control_deck_sha256": "3c0db7bc29599ff1a0a910fc3fbf091c0a5b87735db0c0ec62d774a9c010e8dc",
+  "control_bundle_sha256": "a7ee61995f5dd42c5ca4380d6bb9b76e45c3d923c08cdb0d98b7e434f1c1a894",
+  "deck_hash_verified": true,
+  "bundle_hash_verified": true,
+  "status": "FROZEN_IMMUTABLE"
+}

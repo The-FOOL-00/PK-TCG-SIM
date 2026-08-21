@@ -1,0 +1,4258 @@
+{
+  "HYB_F9_Density_DualOgerpon_2B_1088": {
+    "name": "HYB_F9_Density_DualOgerpon_2B_1088",
+    "family": "Density_Variants",
+    "p1": "2 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1088,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 29,
+    "prize_losses": 0,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_15G_4R_1088": {
+    "name": "HYB_F5_DualOgerpon_H1_CY0_15G_4R_1088",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "wins": 6,
+    "losses": 24,
+    "draws": 0,
+    "win_rate": 0.2,
+    "wilson_ci": [
+      0.0950510717728987,
+      0.3730569641314825
+    ],
+    "bench_outs": 10,
+    "prize_losses": 12,
+    "deckouts": 2,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_Hearthflame_H2_1088": {
+    "name": "HYB_F2_FireDenial_Hearthflame_H2_1088",
+    "family": "Fire_Denial",
+    "p1": "Hearthflame",
+    "p2": "Crushing Hammer",
+    "ace": 1088,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 9,
+    "prize_losses": 20,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Gouging_M1_F2_1088": {
+    "name": "HYB_F1_FireSafeguard_Gouging_M1_F2_1088",
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 21,
+    "prize_losses": 9,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F3_FireTank_Snorlax_T2_1159": {
+    "name": "HYB_F3_FireTank_Snorlax_T2_1159",
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Snorlax",
+    "ace": 1159,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 6,
+    "prize_losses": 24,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F6_OgerponSafeguard_M1_1159": {
+    "name": "HYB_F6_OgerponSafeguard_M1_1159",
+    "family": "Ogerpon_Safeguard",
+    "p1": "Teal Ogerpon",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 18,
+    "losses": 12,
+    "draws": 0,
+    "win_rate": 0.6,
+    "wilson_ci": [
+      0.42320360253322475,
+      0.7540937188319815
+    ],
+    "bench_outs": 2,
+    "prize_losses": 10,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F4_SafeguardAggro_Koraidon_M2_1088": {
+    "name": "HYB_F4_SafeguardAggro_Koraidon_M2_1088",
+    "family": "Safeguard_Aggro",
+    "p1": "Koraidon",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 3,
+    "losses": 27,
+    "draws": 0,
+    "win_rate": 0.1,
+    "wilson_ci": [
+      0.03459988874733419,
+      0.25621082579184085
+    ],
+    "bench_outs": 2,
+    "prize_losses": 25,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F8_Triple_DualOgerponDenialPrize_H2_1088": {
+    "name": "HYB_F8_Triple_DualOgerponDenialPrize_H2_1088",
+    "family": "Triple_DualOgerpon_Denial_Prize",
+    "p1": "Dual Ogerpon",
+    "p2": "Chi-Yu + Hammer",
+    "ace": 1088,
+    "wins": 8,
+    "losses": 22,
+    "draws": 0,
+    "win_rate": 0.26666666666666666,
+    "wilson_ci": [
+      0.14182663319596317,
+      0.4444796169518888
+    ],
+    "bench_outs": 4,
+    "prize_losses": 18,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F7_Triple_FireSafeguardDenial_Hearthflame_1088": {
+    "name": "HYB_F7_Triple_FireSafeguardDenial_Hearthflame_1088",
+    "family": "Triple_Fire_Safeguard_Denial",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu + Hammer",
+    "ace": 1088,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 6,
+    "prize_losses": 22,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F9_Density_DualOgerpon_2B_1159": {
+    "name": "HYB_F9_Density_DualOgerpon_2B_1159",
+    "family": "Density_Variants",
+    "p1": "2 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1159,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 29,
+    "prize_losses": 0,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_12G_7R_1088": {
+    "name": "HYB_F5_DualOgerpon_H1_CY0_12G_7R_1088",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "wins": 11,
+    "losses": 19,
+    "draws": 0,
+    "win_rate": 0.36666666666666664,
+    "wilson_ci": [
+      0.21873920806100708,
+      0.5448643634520511
+    ],
+    "bench_outs": 4,
+    "prize_losses": 14,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_Hearthflame_H4_1088": {
+    "name": "HYB_F2_FireDenial_Hearthflame_H4_1088",
+    "family": "Fire_Denial",
+    "p1": "Hearthflame",
+    "p2": "Crushing Hammer",
+    "ace": 1088,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 6,
+    "prize_losses": 24,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Gouging_M1_F2_1159": {
+    "name": "HYB_F1_FireSafeguard_Gouging_M1_F2_1159",
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 22,
+    "prize_losses": 7,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F3_FireTank_Snorlax_T4_1159": {
+    "name": "HYB_F3_FireTank_Snorlax_T4_1159",
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Snorlax",
+    "ace": 1159,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 6,
+    "prize_losses": 23,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F6_OgerponSafeguard_M1_1088": {
+    "name": "HYB_F6_OgerponSafeguard_M1_1088",
+    "family": "Ogerpon_Safeguard",
+    "p1": "Teal Ogerpon",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 14,
+    "losses": 16,
+    "draws": 0,
+    "win_rate": 0.4666666666666667,
+    "wilson_ci": [
+      0.30232388907699753,
+      0.638577003801267
+    ],
+    "bench_outs": 5,
+    "prize_losses": 11,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F4_SafeguardAggro_Koraidon_M4_1088": {
+    "name": "HYB_F4_SafeguardAggro_Koraidon_M4_1088",
+    "family": "Safeguard_Aggro",
+    "p1": "Koraidon",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 0,
+    "prize_losses": 30,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F8_Triple_DualOgerponDenialPrize_H4_1088": {
+    "name": "HYB_F8_Triple_DualOgerponDenialPrize_H4_1088",
+    "family": "Triple_DualOgerpon_Denial_Prize",
+    "p1": "Dual Ogerpon",
+    "p2": "Chi-Yu + Hammer",
+    "ace": 1088,
+    "wins": 5,
+    "losses": 25,
+    "draws": 0,
+    "win_rate": 0.16666666666666666,
+    "wilson_ci": [
+      0.0733654237184855,
+      0.3356435050641603
+    ],
+    "bench_outs": 2,
+    "prize_losses": 23,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F7_Triple_FireSafeguardDenial_Gouging_1088": {
+    "name": "HYB_F7_Triple_FireSafeguardDenial_Gouging_1088",
+    "family": "Triple_Fire_Safeguard_Denial",
+    "p1": "Gouging",
+    "p2": "Mimikyu + Hammer",
+    "ace": 1088,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 11,
+    "prize_losses": 19,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F9_Density_DualOgerpon_3B_1088": {
+    "name": "HYB_F9_Density_DualOgerpon_3B_1088",
+    "family": "Density_Variants",
+    "p1": "3 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1088,
+    "wins": 4,
+    "losses": 26,
+    "draws": 0,
+    "win_rate": 0.13333333333333333,
+    "wilson_ci": [
+      0.053096554840547455,
+      0.296813266820363
+    ],
+    "bench_outs": 19,
+    "prize_losses": 7,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_14G_3R_2PRISM_1088": {
+    "name": "HYB_F5_DualOgerpon_H1_CY0_14G_3R_2PRISM_1088",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "wins": 11,
+    "losses": 19,
+    "draws": 0,
+    "win_rate": 0.36666666666666664,
+    "wilson_ci": [
+      0.21873920806100708,
+      0.5448643634520511
+    ],
+    "bench_outs": 4,
+    "prize_losses": 15,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_Hearthflame_H2_1159": {
+    "name": "HYB_F2_FireDenial_Hearthflame_H2_1159",
+    "family": "Fire_Denial",
+    "p1": "Hearthflame",
+    "p2": "Crushing Hammer",
+    "ace": 1159,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 6,
+    "prize_losses": 24,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Gouging_M1_F2_1158": {
+    "name": "HYB_F1_FireSafeguard_Gouging_M1_F2_1158",
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 21,
+    "prize_losses": 9,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F3_FireTank_Snorlax_T2_1088": {
+    "name": "HYB_F3_FireTank_Snorlax_T2_1088",
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Snorlax",
+    "ace": 1088,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 8,
+    "prize_losses": 22,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F6_OgerponSafeguard_M1_1247": {
+    "name": "HYB_F6_OgerponSafeguard_M1_1247",
+    "family": "Ogerpon_Safeguard",
+    "p1": "Teal Ogerpon",
+    "p2": "Mimikyu",
+    "ace": 1247,
+    "wins": 16,
+    "losses": 14,
+    "draws": 0,
+    "win_rate": 0.5333333333333333,
+    "wilson_ci": [
+      0.36142299619873297,
+      0.6976761109230025
+    ],
+    "bench_outs": 3,
+    "prize_losses": 11,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F4_SafeguardAggro_Koraidon_M2_1159": {
+    "name": "HYB_F4_SafeguardAggro_Koraidon_M2_1159",
+    "family": "Safeguard_Aggro",
+    "p1": "Koraidon",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 2,
+    "prize_losses": 26,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F8_Triple_DualOgerponDenialPrize_H2_1159": {
+    "name": "HYB_F8_Triple_DualOgerponDenialPrize_H2_1159",
+    "family": "Triple_DualOgerpon_Denial_Prize",
+    "p1": "Dual Ogerpon",
+    "p2": "Chi-Yu + Hammer",
+    "ace": 1159,
+    "wins": 13,
+    "losses": 17,
+    "draws": 0,
+    "win_rate": 0.43333333333333335,
+    "wilson_ci": [
+      0.2737748557646652,
+      0.6080269299918639
+    ],
+    "bench_outs": 3,
+    "prize_losses": 14,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F7_Triple_FireSafeguardDenial_ChiYu_1088": {
+    "name": "HYB_F7_Triple_FireSafeguardDenial_ChiYu_1088",
+    "family": "Triple_Fire_Safeguard_Denial",
+    "p1": "ChiYu",
+    "p2": "Mimikyu + Hammer",
+    "ace": 1088,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 7,
+    "prize_losses": 21,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F9_Density_DualOgerpon_3B_1159": {
+    "name": "HYB_F9_Density_DualOgerpon_3B_1159",
+    "family": "Density_Variants",
+    "p1": "3 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1159,
+    "wins": 3,
+    "losses": 27,
+    "draws": 0,
+    "win_rate": 0.1,
+    "wilson_ci": [
+      0.03459988874733419,
+      0.25621082579184085
+    ],
+    "bench_outs": 19,
+    "prize_losses": 8,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_15G_4R_1159": {
+    "name": "HYB_F5_DualOgerpon_H1_CY0_15G_4R_1159",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "wins": 9,
+    "losses": 21,
+    "draws": 0,
+    "win_rate": 0.3,
+    "wilson_ci": [
+      0.16664748268243793,
+      0.47875787458714947
+    ],
+    "bench_outs": 7,
+    "prize_losses": 14,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_Hearthflame_H4_1159": {
+    "name": "HYB_F2_FireDenial_Hearthflame_H4_1159",
+    "family": "Fire_Denial",
+    "p1": "Hearthflame",
+    "p2": "Crushing Hammer",
+    "ace": 1159,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 5,
+    "prize_losses": 25,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Gouging_M1_F4_1088": {
+    "name": "HYB_F1_FireSafeguard_Gouging_M1_F4_1088",
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 8,
+    "prize_losses": 20,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F3_FireTank_Snorlax_T4_1088": {
+    "name": "HYB_F3_FireTank_Snorlax_T4_1088",
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Snorlax",
+    "ace": 1088,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 9,
+    "prize_losses": 19,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F6_OgerponSafeguard_M2_1159": {
+    "name": "HYB_F6_OgerponSafeguard_M2_1159",
+    "family": "Ogerpon_Safeguard",
+    "p1": "Teal Ogerpon",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 16,
+    "losses": 14,
+    "draws": 0,
+    "win_rate": 0.5333333333333333,
+    "wilson_ci": [
+      0.36142299619873297,
+      0.6976761109230025
+    ],
+    "bench_outs": 4,
+    "prize_losses": 10,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F4_SafeguardAggro_Koraidon_M4_1159": {
+    "name": "HYB_F4_SafeguardAggro_Koraidon_M4_1159",
+    "family": "Safeguard_Aggro",
+    "p1": "Koraidon",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 0,
+    "prize_losses": 28,
+    "deckouts": 2,
+    "crashes": 0
+  },
+  "HYB_F8_Triple_DualOgerponDenialPrize_H4_1159": {
+    "name": "HYB_F8_Triple_DualOgerponDenialPrize_H4_1159",
+    "family": "Triple_DualOgerpon_Denial_Prize",
+    "p1": "Dual Ogerpon",
+    "p2": "Chi-Yu + Hammer",
+    "ace": 1159,
+    "wins": 11,
+    "losses": 19,
+    "draws": 0,
+    "win_rate": 0.36666666666666664,
+    "wilson_ci": [
+      0.21873920806100708,
+      0.5448643634520511
+    ],
+    "bench_outs": 2,
+    "prize_losses": 17,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F7_Triple_FireSafeguardDenial_Hearthflame_1159": {
+    "name": "HYB_F7_Triple_FireSafeguardDenial_Hearthflame_1159",
+    "family": "Triple_Fire_Safeguard_Denial",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu + Hammer",
+    "ace": 1159,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 7,
+    "prize_losses": 22,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F9_Density_DualOgerpon_4B_1088": {
+    "name": "HYB_F9_Density_DualOgerpon_4B_1088",
+    "family": "Density_Variants",
+    "p1": "4 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1088,
+    "wins": 15,
+    "losses": 15,
+    "draws": 0,
+    "win_rate": 0.5,
+    "wilson_ci": [
+      0.33154125640533766,
+      0.6684587435946623
+    ],
+    "bench_outs": 6,
+    "prize_losses": 9,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_12G_7R_1159": {
+    "name": "HYB_F5_DualOgerpon_H1_CY0_12G_7R_1159",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "wins": 9,
+    "losses": 21,
+    "draws": 0,
+    "win_rate": 0.3,
+    "wilson_ci": [
+      0.16664748268243793,
+      0.47875787458714947
+    ],
+    "bench_outs": 6,
+    "prize_losses": 15,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_Hearthflame_H2_1158": {
+    "name": "HYB_F2_FireDenial_Hearthflame_H2_1158",
+    "family": "Fire_Denial",
+    "p1": "Hearthflame",
+    "p2": "Crushing Hammer",
+    "ace": 1158,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 9,
+    "prize_losses": 21,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Gouging_M1_F4_1159": {
+    "name": "HYB_F1_FireSafeguard_Gouging_M1_F4_1159",
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 8,
+    "prize_losses": 22,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F3_FireTank_Snorlax_T2_1155": {
+    "name": "HYB_F3_FireTank_Snorlax_T2_1155",
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Snorlax",
+    "ace": 1155,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 6,
+    "prize_losses": 22,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F6_OgerponSafeguard_M2_1088": {
+    "name": "HYB_F6_OgerponSafeguard_M2_1088",
+    "family": "Ogerpon_Safeguard",
+    "p1": "Teal Ogerpon",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 14,
+    "losses": 16,
+    "draws": 0,
+    "win_rate": 0.4666666666666667,
+    "wilson_ci": [
+      0.30232388907699753,
+      0.638577003801267
+    ],
+    "bench_outs": 1,
+    "prize_losses": 15,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F4_SafeguardAggro_Koraidon_M2_1158": {
+    "name": "HYB_F4_SafeguardAggro_Koraidon_M2_1158",
+    "family": "Safeguard_Aggro",
+    "p1": "Koraidon",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 1,
+    "prize_losses": 29,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F8_Triple_DualOgerponDenialPrize_H2_1158": {
+    "name": "HYB_F8_Triple_DualOgerponDenialPrize_H2_1158",
+    "family": "Triple_DualOgerpon_Denial_Prize",
+    "p1": "Dual Ogerpon",
+    "p2": "Chi-Yu + Hammer",
+    "ace": 1158,
+    "wins": 7,
+    "losses": 23,
+    "draws": 0,
+    "win_rate": 0.23333333333333334,
+    "wilson_ci": [
+      0.11792388144489496,
+      0.40928326158122164
+    ],
+    "bench_outs": 2,
+    "prize_losses": 20,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F7_Triple_FireSafeguardDenial_Gouging_1159": {
+    "name": "HYB_F7_Triple_FireSafeguardDenial_Gouging_1159",
+    "family": "Triple_Fire_Safeguard_Denial",
+    "p1": "Gouging",
+    "p2": "Mimikyu + Hammer",
+    "ace": 1159,
+    "wins": 3,
+    "losses": 27,
+    "draws": 0,
+    "win_rate": 0.1,
+    "wilson_ci": [
+      0.03459988874733419,
+      0.25621082579184085
+    ],
+    "bench_outs": 10,
+    "prize_losses": 17,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F9_Density_DualOgerpon_4B_1159": {
+    "name": "HYB_F9_Density_DualOgerpon_4B_1159",
+    "family": "Density_Variants",
+    "p1": "4 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1159,
+    "wins": 11,
+    "losses": 19,
+    "draws": 0,
+    "win_rate": 0.36666666666666664,
+    "wilson_ci": [
+      0.21873920806100708,
+      0.5448643634520511
+    ],
+    "bench_outs": 6,
+    "prize_losses": 13,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_14G_3R_2PRISM_1159": {
+    "name": "HYB_F5_DualOgerpon_H1_CY0_14G_3R_2PRISM_1159",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "wins": 11,
+    "losses": 19,
+    "draws": 0,
+    "win_rate": 0.36666666666666664,
+    "wilson_ci": [
+      0.21873920806100708,
+      0.5448643634520511
+    ],
+    "bench_outs": 8,
+    "prize_losses": 11,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_Hearthflame_H4_1158": {
+    "name": "HYB_F2_FireDenial_Hearthflame_H4_1158",
+    "family": "Fire_Denial",
+    "p1": "Hearthflame",
+    "p2": "Crushing Hammer",
+    "ace": 1158,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 8,
+    "prize_losses": 20,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Gouging_M1_F4_1158": {
+    "name": "HYB_F1_FireSafeguard_Gouging_M1_F4_1158",
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 5,
+    "prize_losses": 23,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F3_FireTank_Snorlax_T4_1155": {
+    "name": "HYB_F3_FireTank_Snorlax_T4_1155",
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Snorlax",
+    "ace": 1155,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 4,
+    "prize_losses": 23,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F6_OgerponSafeguard_M2_1247": {
+    "name": "HYB_F6_OgerponSafeguard_M2_1247",
+    "family": "Ogerpon_Safeguard",
+    "p1": "Teal Ogerpon",
+    "p2": "Mimikyu",
+    "ace": 1247,
+    "wins": 12,
+    "losses": 18,
+    "draws": 0,
+    "win_rate": 0.4,
+    "wilson_ci": [
+      0.24590628116801852,
+      0.5767963974667752
+    ],
+    "bench_outs": 5,
+    "prize_losses": 13,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F4_SafeguardAggro_Koraidon_M4_1158": {
+    "name": "HYB_F4_SafeguardAggro_Koraidon_M4_1158",
+    "family": "Safeguard_Aggro",
+    "p1": "Koraidon",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 3,
+    "prize_losses": 26,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F8_Triple_DualOgerponDenialPrize_H4_1158": {
+    "name": "HYB_F8_Triple_DualOgerponDenialPrize_H4_1158",
+    "family": "Triple_DualOgerpon_Denial_Prize",
+    "p1": "Dual Ogerpon",
+    "p2": "Chi-Yu + Hammer",
+    "ace": 1158,
+    "wins": 8,
+    "losses": 22,
+    "draws": 0,
+    "win_rate": 0.26666666666666666,
+    "wilson_ci": [
+      0.14182663319596317,
+      0.4444796169518888
+    ],
+    "bench_outs": 1,
+    "prize_losses": 21,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F7_Triple_FireSafeguardDenial_ChiYu_1159": {
+    "name": "HYB_F7_Triple_FireSafeguardDenial_ChiYu_1159",
+    "family": "Triple_Fire_Safeguard_Denial",
+    "p1": "ChiYu",
+    "p2": "Mimikyu + Hammer",
+    "ace": 1159,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 9,
+    "prize_losses": 21,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F9_Density_DualOgerpon_6B_1088": {
+    "name": "HYB_F9_Density_DualOgerpon_6B_1088",
+    "family": "Density_Variants",
+    "p1": "6 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1088,
+    "wins": 10,
+    "losses": 20,
+    "draws": 0,
+    "win_rate": 0.3333333333333333,
+    "wilson_ci": [
+      0.19230498083676134,
+      0.5121994835545616
+    ],
+    "bench_outs": 3,
+    "prize_losses": 17,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_15G_4R_1158": {
+    "name": "HYB_F5_DualOgerpon_H1_CY0_15G_4R_1158",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "wins": 8,
+    "losses": 22,
+    "draws": 0,
+    "win_rate": 0.26666666666666666,
+    "wilson_ci": [
+      0.14182663319596317,
+      0.4444796169518888
+    ],
+    "bench_outs": 10,
+    "prize_losses": 12,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_Hearthflame_H2_1155": {
+    "name": "HYB_F2_FireDenial_Hearthflame_H2_1155",
+    "family": "Fire_Denial",
+    "p1": "Hearthflame",
+    "p2": "Crushing Hammer",
+    "ace": 1155,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 5,
+    "prize_losses": 25,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Gouging_M2_F2_1088": {
+    "name": "HYB_F1_FireSafeguard_Gouging_M2_F2_1088",
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 9,
+    "prize_losses": 20,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F3_FireTank_Audino_T2_1159": {
+    "name": "HYB_F3_FireTank_Audino_T2_1159",
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Audino",
+    "ace": 1159,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 6,
+    "prize_losses": 22,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F6_OgerponSafeguard_M4_1159": {
+    "name": "HYB_F6_OgerponSafeguard_M4_1159",
+    "family": "Ogerpon_Safeguard",
+    "p1": "Teal Ogerpon",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 17,
+    "losses": 13,
+    "draws": 0,
+    "win_rate": 0.5666666666666667,
+    "wilson_ci": [
+      0.3919730700081361,
+      0.7262251442353347
+    ],
+    "bench_outs": 2,
+    "prize_losses": 11,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F4_SafeguardAggro_Miraidon_M2_1088": {
+    "name": "HYB_F4_SafeguardAggro_Miraidon_M2_1088",
+    "family": "Safeguard_Aggro",
+    "p1": "Miraidon",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 1,
+    "prize_losses": 29,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F8_Triple_DualOgerponDenialPrize_H2_1155": {
+    "name": "HYB_F8_Triple_DualOgerponDenialPrize_H2_1155",
+    "family": "Triple_DualOgerpon_Denial_Prize",
+    "p1": "Dual Ogerpon",
+    "p2": "Chi-Yu + Hammer",
+    "ace": 1155,
+    "wins": 6,
+    "losses": 24,
+    "draws": 0,
+    "win_rate": 0.2,
+    "wilson_ci": [
+      0.0950510717728987,
+      0.3730569641314825
+    ],
+    "bench_outs": 4,
+    "prize_losses": 20,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F7_Triple_FireSafeguardDenial_Hearthflame_1158": {
+    "name": "HYB_F7_Triple_FireSafeguardDenial_Hearthflame_1158",
+    "family": "Triple_Fire_Safeguard_Denial",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu + Hammer",
+    "ace": 1158,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 8,
+    "prize_losses": 21,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F9_Density_DualOgerpon_6B_1159": {
+    "name": "HYB_F9_Density_DualOgerpon_6B_1159",
+    "family": "Density_Variants",
+    "p1": "6 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1159,
+    "wins": 10,
+    "losses": 20,
+    "draws": 0,
+    "win_rate": 0.3333333333333333,
+    "wilson_ci": [
+      0.19230498083676134,
+      0.5121994835545616
+    ],
+    "bench_outs": 2,
+    "prize_losses": 18,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_12G_7R_1158": {
+    "name": "HYB_F5_DualOgerpon_H1_CY0_12G_7R_1158",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "wins": 4,
+    "losses": 26,
+    "draws": 0,
+    "win_rate": 0.13333333333333333,
+    "wilson_ci": [
+      0.053096554840547455,
+      0.296813266820363
+    ],
+    "bench_outs": 7,
+    "prize_losses": 19,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_Hearthflame_H4_1155": {
+    "name": "HYB_F2_FireDenial_Hearthflame_H4_1155",
+    "family": "Fire_Denial",
+    "p1": "Hearthflame",
+    "p2": "Crushing Hammer",
+    "ace": 1155,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 6,
+    "prize_losses": 24,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Gouging_M2_F2_1159": {
+    "name": "HYB_F1_FireSafeguard_Gouging_M2_F2_1159",
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 15,
+    "prize_losses": 14,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F3_FireTank_Audino_T4_1159": {
+    "name": "HYB_F3_FireTank_Audino_T4_1159",
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Audino",
+    "ace": 1159,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 2,
+    "prize_losses": 26,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F6_OgerponSafeguard_M4_1088": {
+    "name": "HYB_F6_OgerponSafeguard_M4_1088",
+    "family": "Ogerpon_Safeguard",
+    "p1": "Teal Ogerpon",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 11,
+    "losses": 19,
+    "draws": 0,
+    "win_rate": 0.36666666666666664,
+    "wilson_ci": [
+      0.21873920806100708,
+      0.5448643634520511
+    ],
+    "bench_outs": 4,
+    "prize_losses": 15,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F4_SafeguardAggro_Miraidon_M4_1088": {
+    "name": "HYB_F4_SafeguardAggro_Miraidon_M4_1088",
+    "family": "Safeguard_Aggro",
+    "p1": "Miraidon",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 3,
+    "losses": 27,
+    "draws": 0,
+    "win_rate": 0.1,
+    "wilson_ci": [
+      0.03459988874733419,
+      0.25621082579184085
+    ],
+    "bench_outs": 1,
+    "prize_losses": 26,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F8_Triple_DualOgerponDenialPrize_H4_1155": {
+    "name": "HYB_F8_Triple_DualOgerponDenialPrize_H4_1155",
+    "family": "Triple_DualOgerpon_Denial_Prize",
+    "p1": "Dual Ogerpon",
+    "p2": "Chi-Yu + Hammer",
+    "ace": 1155,
+    "wins": 13,
+    "losses": 17,
+    "draws": 0,
+    "win_rate": 0.43333333333333335,
+    "wilson_ci": [
+      0.2737748557646652,
+      0.6080269299918639
+    ],
+    "bench_outs": 0,
+    "prize_losses": 17,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F7_Triple_FireSafeguardDenial_Gouging_1158": {
+    "name": "HYB_F7_Triple_FireSafeguardDenial_Gouging_1158",
+    "family": "Triple_Fire_Safeguard_Denial",
+    "p1": "Gouging",
+    "p2": "Mimikyu + Hammer",
+    "ace": 1158,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 9,
+    "prize_losses": 20,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F9_Density_DualOgerpon_8B_1088": {
+    "name": "HYB_F9_Density_DualOgerpon_8B_1088",
+    "family": "Density_Variants",
+    "p1": "8 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1088,
+    "wins": 4,
+    "losses": 26,
+    "draws": 0,
+    "win_rate": 0.13333333333333333,
+    "wilson_ci": [
+      0.053096554840547455,
+      0.296813266820363
+    ],
+    "bench_outs": 0,
+    "prize_losses": 23,
+    "deckouts": 3,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_14G_3R_2PRISM_1158": {
+    "name": "HYB_F5_DualOgerpon_H1_CY0_14G_3R_2PRISM_1158",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "wins": 14,
+    "losses": 16,
+    "draws": 0,
+    "win_rate": 0.4666666666666667,
+    "wilson_ci": [
+      0.30232388907699753,
+      0.638577003801267
+    ],
+    "bench_outs": 5,
+    "prize_losses": 11,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_Gouging_H2_1088": {
+    "name": "HYB_F2_FireDenial_Gouging_H2_1088",
+    "family": "Fire_Denial",
+    "p1": "Gouging",
+    "p2": "Crushing Hammer",
+    "ace": 1088,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 6,
+    "prize_losses": 23,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Gouging_M2_F2_1158": {
+    "name": "HYB_F1_FireSafeguard_Gouging_M2_F2_1158",
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 8,
+    "prize_losses": 21,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F3_FireTank_Audino_T2_1088": {
+    "name": "HYB_F3_FireTank_Audino_T2_1088",
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Audino",
+    "ace": 1088,
+    "wins": 3,
+    "losses": 27,
+    "draws": 0,
+    "win_rate": 0.1,
+    "wilson_ci": [
+      0.03459988874733419,
+      0.25621082579184085
+    ],
+    "bench_outs": 7,
+    "prize_losses": 20,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F6_OgerponSafeguard_M4_1247": {
+    "name": "HYB_F6_OgerponSafeguard_M4_1247",
+    "family": "Ogerpon_Safeguard",
+    "p1": "Teal Ogerpon",
+    "p2": "Mimikyu",
+    "ace": 1247,
+    "wins": 15,
+    "losses": 15,
+    "draws": 0,
+    "win_rate": 0.5,
+    "wilson_ci": [
+      0.33154125640533766,
+      0.6684587435946623
+    ],
+    "bench_outs": 2,
+    "prize_losses": 13,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F4_SafeguardAggro_Miraidon_M2_1159": {
+    "name": "HYB_F4_SafeguardAggro_Miraidon_M2_1159",
+    "family": "Safeguard_Aggro",
+    "p1": "Miraidon",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 0,
+    "prize_losses": 28,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F7_Triple_FireSafeguardDenial_ChiYu_1158": {
+    "name": "HYB_F7_Triple_FireSafeguardDenial_ChiYu_1158",
+    "family": "Triple_Fire_Safeguard_Denial",
+    "p1": "ChiYu",
+    "p2": "Mimikyu + Hammer",
+    "ace": 1158,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 9,
+    "prize_losses": 20,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F9_Density_DualOgerpon_8B_1159": {
+    "name": "HYB_F9_Density_DualOgerpon_8B_1159",
+    "family": "Density_Variants",
+    "p1": "8 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1159,
+    "wins": 10,
+    "losses": 20,
+    "draws": 0,
+    "win_rate": 0.3333333333333333,
+    "wilson_ci": [
+      0.19230498083676134,
+      0.5121994835545616
+    ],
+    "bench_outs": 3,
+    "prize_losses": 17,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_15G_4R_1155": {
+    "name": "HYB_F5_DualOgerpon_H1_CY0_15G_4R_1155",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "wins": 11,
+    "losses": 19,
+    "draws": 0,
+    "win_rate": 0.36666666666666664,
+    "wilson_ci": [
+      0.21873920806100708,
+      0.5448643634520511
+    ],
+    "bench_outs": 5,
+    "prize_losses": 14,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_Gouging_H4_1088": {
+    "name": "HYB_F2_FireDenial_Gouging_H4_1088",
+    "family": "Fire_Denial",
+    "p1": "Gouging",
+    "p2": "Crushing Hammer",
+    "ace": 1088,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 3,
+    "prize_losses": 25,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Gouging_M2_F4_1088": {
+    "name": "HYB_F1_FireSafeguard_Gouging_M2_F4_1088",
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 2,
+    "prize_losses": 28,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F3_FireTank_Audino_T4_1088": {
+    "name": "HYB_F3_FireTank_Audino_T4_1088",
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Audino",
+    "ace": 1088,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 5,
+    "prize_losses": 24,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F4_SafeguardAggro_Miraidon_M4_1159": {
+    "name": "HYB_F4_SafeguardAggro_Miraidon_M4_1159",
+    "family": "Safeguard_Aggro",
+    "p1": "Miraidon",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 1,
+    "prize_losses": 29,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F9_Density_DualOgerpon_10B_1088": {
+    "name": "HYB_F9_Density_DualOgerpon_10B_1088",
+    "family": "Density_Variants",
+    "p1": "10 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1088,
+    "wins": 7,
+    "losses": 23,
+    "draws": 0,
+    "win_rate": 0.23333333333333334,
+    "wilson_ci": [
+      0.11792388144489496,
+      0.40928326158122164
+    ],
+    "bench_outs": 3,
+    "prize_losses": 18,
+    "deckouts": 2,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_12G_7R_1155": {
+    "name": "HYB_F5_DualOgerpon_H1_CY0_12G_7R_1155",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "wins": 11,
+    "losses": 19,
+    "draws": 0,
+    "win_rate": 0.36666666666666664,
+    "wilson_ci": [
+      0.21873920806100708,
+      0.5448643634520511
+    ],
+    "bench_outs": 5,
+    "prize_losses": 14,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_Gouging_H2_1159": {
+    "name": "HYB_F2_FireDenial_Gouging_H2_1159",
+    "family": "Fire_Denial",
+    "p1": "Gouging",
+    "p2": "Crushing Hammer",
+    "ace": 1159,
+    "wins": 3,
+    "losses": 27,
+    "draws": 0,
+    "win_rate": 0.1,
+    "wilson_ci": [
+      0.03459988874733419,
+      0.25621082579184085
+    ],
+    "bench_outs": 5,
+    "prize_losses": 22,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Gouging_M2_F4_1159": {
+    "name": "HYB_F1_FireSafeguard_Gouging_M2_F4_1159",
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 4,
+    "prize_losses": 26,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F3_FireTank_Audino_T2_1155": {
+    "name": "HYB_F3_FireTank_Audino_T2_1155",
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Audino",
+    "ace": 1155,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 6,
+    "prize_losses": 21,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F4_SafeguardAggro_Miraidon_M2_1158": {
+    "name": "HYB_F4_SafeguardAggro_Miraidon_M2_1158",
+    "family": "Safeguard_Aggro",
+    "p1": "Miraidon",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 3,
+    "prize_losses": 27,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F9_Density_DualOgerpon_10B_1159": {
+    "name": "HYB_F9_Density_DualOgerpon_10B_1159",
+    "family": "Density_Variants",
+    "p1": "10 Basics",
+    "p2": "Dual Ogerpon",
+    "ace": 1159,
+    "wins": 7,
+    "losses": 23,
+    "draws": 0,
+    "win_rate": 0.23333333333333334,
+    "wilson_ci": [
+      0.11792388144489496,
+      0.40928326158122164
+    ],
+    "bench_outs": 3,
+    "prize_losses": 19,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_14G_3R_2PRISM_1155": {
+    "name": "HYB_F5_DualOgerpon_H1_CY0_14G_3R_2PRISM_1155",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "wins": 15,
+    "losses": 15,
+    "draws": 0,
+    "win_rate": 0.5,
+    "wilson_ci": [
+      0.33154125640533766,
+      0.6684587435946623
+    ],
+    "bench_outs": 2,
+    "prize_losses": 13,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_Gouging_H4_1159": {
+    "name": "HYB_F2_FireDenial_Gouging_H4_1159",
+    "family": "Fire_Denial",
+    "p1": "Gouging",
+    "p2": "Crushing Hammer",
+    "ace": 1159,
+    "wins": 4,
+    "losses": 26,
+    "draws": 0,
+    "win_rate": 0.13333333333333333,
+    "wilson_ci": [
+      0.053096554840547455,
+      0.296813266820363
+    ],
+    "bench_outs": 4,
+    "prize_losses": 22,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Gouging_M2_F4_1158": {
+    "name": "HYB_F1_FireSafeguard_Gouging_M2_F4_1158",
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 10,
+    "prize_losses": 20,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F3_FireTank_Audino_T4_1155": {
+    "name": "HYB_F3_FireTank_Audino_T4_1155",
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Audino",
+    "ace": 1155,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 4,
+    "prize_losses": 26,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F4_SafeguardAggro_Miraidon_M4_1158": {
+    "name": "HYB_F4_SafeguardAggro_Miraidon_M4_1158",
+    "family": "Safeguard_Aggro",
+    "p1": "Miraidon",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 1,
+    "prize_losses": 27,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_15G_4R_1088": {
+    "name": "HYB_F5_DualOgerpon_H1_CY2_15G_4R_1088",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "wins": 6,
+    "losses": 24,
+    "draws": 0,
+    "win_rate": 0.2,
+    "wilson_ci": [
+      0.0950510717728987,
+      0.3730569641314825
+    ],
+    "bench_outs": 7,
+    "prize_losses": 16,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_Gouging_H2_1158": {
+    "name": "HYB_F2_FireDenial_Gouging_H2_1158",
+    "family": "Fire_Denial",
+    "p1": "Gouging",
+    "p2": "Crushing Hammer",
+    "ace": 1158,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 5,
+    "prize_losses": 25,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Gouging_M4_F2_1088": {
+    "name": "HYB_F1_FireSafeguard_Gouging_M4_F2_1088",
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 7,
+    "prize_losses": 23,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F3_FireTank_Archaludon_T2_1159": {
+    "name": "HYB_F3_FireTank_Archaludon_T2_1159",
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Archaludon",
+    "ace": 1159,
+    "wins": 3,
+    "losses": 27,
+    "draws": 0,
+    "win_rate": 0.1,
+    "wilson_ci": [
+      0.03459988874733419,
+      0.25621082579184085
+    ],
+    "bench_outs": 4,
+    "prize_losses": 23,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F4_SafeguardAggro_Zangoose_M2_1088": {
+    "name": "HYB_F4_SafeguardAggro_Zangoose_M2_1088",
+    "family": "Safeguard_Aggro",
+    "p1": "Zangoose",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 4,
+    "prize_losses": 25,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_12G_7R_1088": {
+    "name": "HYB_F5_DualOgerpon_H1_CY2_12G_7R_1088",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "wins": 10,
+    "losses": 20,
+    "draws": 0,
+    "win_rate": 0.3333333333333333,
+    "wilson_ci": [
+      0.19230498083676134,
+      0.5121994835545616
+    ],
+    "bench_outs": 4,
+    "prize_losses": 16,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_Gouging_H4_1158": {
+    "name": "HYB_F2_FireDenial_Gouging_H4_1158",
+    "family": "Fire_Denial",
+    "p1": "Gouging",
+    "p2": "Crushing Hammer",
+    "ace": 1158,
+    "wins": 3,
+    "losses": 27,
+    "draws": 0,
+    "win_rate": 0.1,
+    "wilson_ci": [
+      0.03459988874733419,
+      0.25621082579184085
+    ],
+    "bench_outs": 6,
+    "prize_losses": 21,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Gouging_M4_F2_1159": {
+    "name": "HYB_F1_FireSafeguard_Gouging_M4_F2_1159",
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 3,
+    "prize_losses": 26,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F3_FireTank_Archaludon_T4_1159": {
+    "name": "HYB_F3_FireTank_Archaludon_T4_1159",
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Archaludon",
+    "ace": 1159,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 3,
+    "prize_losses": 27,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F4_SafeguardAggro_Zangoose_M4_1088": {
+    "name": "HYB_F4_SafeguardAggro_Zangoose_M4_1088",
+    "family": "Safeguard_Aggro",
+    "p1": "Zangoose",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 0,
+    "prize_losses": 30,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_14G_3R_2PRISM_1088": {
+    "name": "HYB_F5_DualOgerpon_H1_CY2_14G_3R_2PRISM_1088",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "wins": 8,
+    "losses": 22,
+    "draws": 0,
+    "win_rate": 0.26666666666666666,
+    "wilson_ci": [
+      0.14182663319596317,
+      0.4444796169518888
+    ],
+    "bench_outs": 4,
+    "prize_losses": 17,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_Gouging_H2_1155": {
+    "name": "HYB_F2_FireDenial_Gouging_H2_1155",
+    "family": "Fire_Denial",
+    "p1": "Gouging",
+    "p2": "Crushing Hammer",
+    "ace": 1155,
+    "wins": 3,
+    "losses": 27,
+    "draws": 0,
+    "win_rate": 0.1,
+    "wilson_ci": [
+      0.03459988874733419,
+      0.25621082579184085
+    ],
+    "bench_outs": 7,
+    "prize_losses": 20,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Gouging_M4_F2_1158": {
+    "name": "HYB_F1_FireSafeguard_Gouging_M4_F2_1158",
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 4,
+    "prize_losses": 25,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F3_FireTank_Archaludon_T2_1088": {
+    "name": "HYB_F3_FireTank_Archaludon_T2_1088",
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Archaludon",
+    "ace": 1088,
+    "wins": 5,
+    "losses": 25,
+    "draws": 0,
+    "win_rate": 0.16666666666666666,
+    "wilson_ci": [
+      0.0733654237184855,
+      0.3356435050641603
+    ],
+    "bench_outs": 8,
+    "prize_losses": 17,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F4_SafeguardAggro_Zangoose_M2_1159": {
+    "name": "HYB_F4_SafeguardAggro_Zangoose_M2_1159",
+    "family": "Safeguard_Aggro",
+    "p1": "Zangoose",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 2,
+    "prize_losses": 28,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_15G_4R_1159": {
+    "name": "HYB_F5_DualOgerpon_H1_CY2_15G_4R_1159",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "wins": 14,
+    "losses": 16,
+    "draws": 0,
+    "win_rate": 0.4666666666666667,
+    "wilson_ci": [
+      0.30232388907699753,
+      0.638577003801267
+    ],
+    "bench_outs": 2,
+    "prize_losses": 14,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_Gouging_H4_1155": {
+    "name": "HYB_F2_FireDenial_Gouging_H4_1155",
+    "family": "Fire_Denial",
+    "p1": "Gouging",
+    "p2": "Crushing Hammer",
+    "ace": 1155,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 4,
+    "prize_losses": 24,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Gouging_M4_F4_1088": {
+    "name": "HYB_F1_FireSafeguard_Gouging_M4_F4_1088",
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 3,
+    "losses": 27,
+    "draws": 0,
+    "win_rate": 0.1,
+    "wilson_ci": [
+      0.03459988874733419,
+      0.25621082579184085
+    ],
+    "bench_outs": 2,
+    "prize_losses": 25,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F3_FireTank_Archaludon_T4_1088": {
+    "name": "HYB_F3_FireTank_Archaludon_T4_1088",
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Archaludon",
+    "ace": 1088,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 4,
+    "prize_losses": 26,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F4_SafeguardAggro_Zangoose_M4_1159": {
+    "name": "HYB_F4_SafeguardAggro_Zangoose_M4_1159",
+    "family": "Safeguard_Aggro",
+    "p1": "Zangoose",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 0,
+    "prize_losses": 30,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_12G_7R_1159": {
+    "name": "HYB_F5_DualOgerpon_H1_CY2_12G_7R_1159",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "wins": 8,
+    "losses": 22,
+    "draws": 0,
+    "win_rate": 0.26666666666666666,
+    "wilson_ci": [
+      0.14182663319596317,
+      0.4444796169518888
+    ],
+    "bench_outs": 5,
+    "prize_losses": 16,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_ChiYu_H2_1088": {
+    "name": "HYB_F2_FireDenial_ChiYu_H2_1088",
+    "family": "Fire_Denial",
+    "p1": "ChiYu",
+    "p2": "Crushing Hammer",
+    "ace": 1088,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 16,
+    "prize_losses": 13,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Gouging_M4_F4_1159": {
+    "name": "HYB_F1_FireSafeguard_Gouging_M4_F4_1159",
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 4,
+    "prize_losses": 26,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F3_FireTank_Archaludon_T2_1155": {
+    "name": "HYB_F3_FireTank_Archaludon_T2_1155",
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Archaludon",
+    "ace": 1155,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 6,
+    "prize_losses": 22,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F4_SafeguardAggro_Zangoose_M2_1158": {
+    "name": "HYB_F4_SafeguardAggro_Zangoose_M2_1158",
+    "family": "Safeguard_Aggro",
+    "p1": "Zangoose",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 3,
+    "losses": 27,
+    "draws": 0,
+    "win_rate": 0.1,
+    "wilson_ci": [
+      0.03459988874733419,
+      0.25621082579184085
+    ],
+    "bench_outs": 1,
+    "prize_losses": 25,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_14G_3R_2PRISM_1159": {
+    "name": "HYB_F5_DualOgerpon_H1_CY2_14G_3R_2PRISM_1159",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "wins": 11,
+    "losses": 19,
+    "draws": 0,
+    "win_rate": 0.36666666666666664,
+    "wilson_ci": [
+      0.21873920806100708,
+      0.5448643634520511
+    ],
+    "bench_outs": 2,
+    "prize_losses": 17,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_ChiYu_H4_1088": {
+    "name": "HYB_F2_FireDenial_ChiYu_H4_1088",
+    "family": "Fire_Denial",
+    "p1": "ChiYu",
+    "p2": "Crushing Hammer",
+    "ace": 1088,
+    "wins": 4,
+    "losses": 26,
+    "draws": 0,
+    "win_rate": 0.13333333333333333,
+    "wilson_ci": [
+      0.053096554840547455,
+      0.296813266820363
+    ],
+    "bench_outs": 11,
+    "prize_losses": 15,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Gouging_M4_F4_1158": {
+    "name": "HYB_F1_FireSafeguard_Gouging_M4_F4_1158",
+    "family": "Fire_Safeguard",
+    "p1": "Gouging",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 7,
+    "prize_losses": 21,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F3_FireTank_Archaludon_T4_1155": {
+    "name": "HYB_F3_FireTank_Archaludon_T4_1155",
+    "family": "Fire_Tank",
+    "p1": "Gouging Fire",
+    "p2": "Archaludon",
+    "ace": 1155,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 1,
+    "prize_losses": 27,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F4_SafeguardAggro_Zangoose_M4_1158": {
+    "name": "HYB_F4_SafeguardAggro_Zangoose_M4_1158",
+    "family": "Safeguard_Aggro",
+    "p1": "Zangoose",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 0,
+    "prize_losses": 29,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_15G_4R_1158": {
+    "name": "HYB_F5_DualOgerpon_H1_CY2_15G_4R_1158",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "wins": 13,
+    "losses": 17,
+    "draws": 0,
+    "win_rate": 0.43333333333333335,
+    "wilson_ci": [
+      0.2737748557646652,
+      0.6080269299918639
+    ],
+    "bench_outs": 5,
+    "prize_losses": 11,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_ChiYu_H2_1159": {
+    "name": "HYB_F2_FireDenial_ChiYu_H2_1159",
+    "family": "Fire_Denial",
+    "p1": "ChiYu",
+    "p2": "Crushing Hammer",
+    "ace": 1159,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 16,
+    "prize_losses": 13,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M1_F2_1088": {
+    "name": "HYB_F1_FireSafeguard_Hearthflame_M1_F2_1088",
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 23,
+    "prize_losses": 6,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_12G_7R_1158": {
+    "name": "HYB_F5_DualOgerpon_H1_CY2_12G_7R_1158",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 4,
+    "prize_losses": 24,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_ChiYu_H4_1159": {
+    "name": "HYB_F2_FireDenial_ChiYu_H4_1159",
+    "family": "Fire_Denial",
+    "p1": "ChiYu",
+    "p2": "Crushing Hammer",
+    "ace": 1159,
+    "wins": 3,
+    "losses": 27,
+    "draws": 0,
+    "win_rate": 0.1,
+    "wilson_ci": [
+      0.03459988874733419,
+      0.25621082579184085
+    ],
+    "bench_outs": 12,
+    "prize_losses": 15,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M1_F2_1159": {
+    "name": "HYB_F1_FireSafeguard_Hearthflame_M1_F2_1159",
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 20,
+    "prize_losses": 8,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_14G_3R_2PRISM_1158": {
+    "name": "HYB_F5_DualOgerpon_H1_CY2_14G_3R_2PRISM_1158",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "wins": 9,
+    "losses": 21,
+    "draws": 0,
+    "win_rate": 0.3,
+    "wilson_ci": [
+      0.16664748268243793,
+      0.47875787458714947
+    ],
+    "bench_outs": 2,
+    "prize_losses": 19,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_ChiYu_H2_1158": {
+    "name": "HYB_F2_FireDenial_ChiYu_H2_1158",
+    "family": "Fire_Denial",
+    "p1": "ChiYu",
+    "p2": "Crushing Hammer",
+    "ace": 1158,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 20,
+    "prize_losses": 10,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M1_F2_1158": {
+    "name": "HYB_F1_FireSafeguard_Hearthflame_M1_F2_1158",
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 17,
+    "prize_losses": 12,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_15G_4R_1155": {
+    "name": "HYB_F5_DualOgerpon_H1_CY2_15G_4R_1155",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "wins": 13,
+    "losses": 17,
+    "draws": 0,
+    "win_rate": 0.43333333333333335,
+    "wilson_ci": [
+      0.2737748557646652,
+      0.6080269299918639
+    ],
+    "bench_outs": 5,
+    "prize_losses": 12,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_ChiYu_H4_1158": {
+    "name": "HYB_F2_FireDenial_ChiYu_H4_1158",
+    "family": "Fire_Denial",
+    "p1": "ChiYu",
+    "p2": "Crushing Hammer",
+    "ace": 1158,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 9,
+    "prize_losses": 19,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M1_F4_1088": {
+    "name": "HYB_F1_FireSafeguard_Hearthflame_M1_F4_1088",
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 5,
+    "prize_losses": 25,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_12G_7R_1155": {
+    "name": "HYB_F5_DualOgerpon_H1_CY2_12G_7R_1155",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "wins": 5,
+    "losses": 25,
+    "draws": 0,
+    "win_rate": 0.16666666666666666,
+    "wilson_ci": [
+      0.0733654237184855,
+      0.3356435050641603
+    ],
+    "bench_outs": 5,
+    "prize_losses": 19,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_ChiYu_H2_1155": {
+    "name": "HYB_F2_FireDenial_ChiYu_H2_1155",
+    "family": "Fire_Denial",
+    "p1": "ChiYu",
+    "p2": "Crushing Hammer",
+    "ace": 1155,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 18,
+    "prize_losses": 12,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M1_F4_1159": {
+    "name": "HYB_F1_FireSafeguard_Hearthflame_M1_F4_1159",
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 6,
+    "prize_losses": 23,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H1_CY2_14G_3R_2PRISM_1155": {
+    "name": "HYB_F5_DualOgerpon_H1_CY2_14G_3R_2PRISM_1155",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "wins": 10,
+    "losses": 20,
+    "draws": 0,
+    "win_rate": 0.3333333333333333,
+    "wilson_ci": [
+      0.19230498083676134,
+      0.5121994835545616
+    ],
+    "bench_outs": 6,
+    "prize_losses": 12,
+    "deckouts": 2,
+    "crashes": 0
+  },
+  "HYB_F2_FireDenial_ChiYu_H4_1155": {
+    "name": "HYB_F2_FireDenial_ChiYu_H4_1155",
+    "family": "Fire_Denial",
+    "p1": "ChiYu",
+    "p2": "Crushing Hammer",
+    "ace": 1155,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 13,
+    "prize_losses": 15,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M1_F4_1158": {
+    "name": "HYB_F1_FireSafeguard_Hearthflame_M1_F4_1158",
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 7,
+    "prize_losses": 22,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_15G_4R_1088": {
+    "name": "HYB_F5_DualOgerpon_H2_CY0_15G_4R_1088",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "wins": 11,
+    "losses": 19,
+    "draws": 0,
+    "win_rate": 0.36666666666666664,
+    "wilson_ci": [
+      0.21873920806100708,
+      0.5448643634520511
+    ],
+    "bench_outs": 2,
+    "prize_losses": 17,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M2_F2_1088": {
+    "name": "HYB_F1_FireSafeguard_Hearthflame_M2_F2_1088",
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 12,
+    "prize_losses": 17,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_12G_7R_1088": {
+    "name": "HYB_F5_DualOgerpon_H2_CY0_12G_7R_1088",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "wins": 6,
+    "losses": 24,
+    "draws": 0,
+    "win_rate": 0.2,
+    "wilson_ci": [
+      0.0950510717728987,
+      0.3730569641314825
+    ],
+    "bench_outs": 4,
+    "prize_losses": 20,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M2_F2_1159": {
+    "name": "HYB_F1_FireSafeguard_Hearthflame_M2_F2_1159",
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 15,
+    "prize_losses": 15,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_14G_3R_2PRISM_1088": {
+    "name": "HYB_F5_DualOgerpon_H2_CY0_14G_3R_2PRISM_1088",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "wins": 8,
+    "losses": 22,
+    "draws": 0,
+    "win_rate": 0.26666666666666666,
+    "wilson_ci": [
+      0.14182663319596317,
+      0.4444796169518888
+    ],
+    "bench_outs": 5,
+    "prize_losses": 17,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M2_F2_1158": {
+    "name": "HYB_F1_FireSafeguard_Hearthflame_M2_F2_1158",
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 14,
+    "prize_losses": 15,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_15G_4R_1159": {
+    "name": "HYB_F5_DualOgerpon_H2_CY0_15G_4R_1159",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "wins": 11,
+    "losses": 19,
+    "draws": 0,
+    "win_rate": 0.36666666666666664,
+    "wilson_ci": [
+      0.21873920806100708,
+      0.5448643634520511
+    ],
+    "bench_outs": 2,
+    "prize_losses": 17,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M2_F4_1088": {
+    "name": "HYB_F1_FireSafeguard_Hearthflame_M2_F4_1088",
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 7,
+    "prize_losses": 22,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_12G_7R_1159": {
+    "name": "HYB_F5_DualOgerpon_H2_CY0_12G_7R_1159",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "wins": 9,
+    "losses": 21,
+    "draws": 0,
+    "win_rate": 0.3,
+    "wilson_ci": [
+      0.16664748268243793,
+      0.47875787458714947
+    ],
+    "bench_outs": 2,
+    "prize_losses": 19,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M2_F4_1159": {
+    "name": "HYB_F1_FireSafeguard_Hearthflame_M2_F4_1159",
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 2,
+    "prize_losses": 27,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_14G_3R_2PRISM_1159": {
+    "name": "HYB_F5_DualOgerpon_H2_CY0_14G_3R_2PRISM_1159",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "wins": 11,
+    "losses": 19,
+    "draws": 0,
+    "win_rate": 0.36666666666666664,
+    "wilson_ci": [
+      0.21873920806100708,
+      0.5448643634520511
+    ],
+    "bench_outs": 3,
+    "prize_losses": 16,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M2_F4_1158": {
+    "name": "HYB_F1_FireSafeguard_Hearthflame_M2_F4_1158",
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 10,
+    "prize_losses": 18,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_15G_4R_1158": {
+    "name": "HYB_F5_DualOgerpon_H2_CY0_15G_4R_1158",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "wins": 15,
+    "losses": 15,
+    "draws": 0,
+    "win_rate": 0.5,
+    "wilson_ci": [
+      0.33154125640533766,
+      0.6684587435946623
+    ],
+    "bench_outs": 1,
+    "prize_losses": 14,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M4_F2_1088": {
+    "name": "HYB_F1_FireSafeguard_Hearthflame_M4_F2_1088",
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 5,
+    "prize_losses": 25,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_12G_7R_1158": {
+    "name": "HYB_F5_DualOgerpon_H2_CY0_12G_7R_1158",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "wins": 7,
+    "losses": 23,
+    "draws": 0,
+    "win_rate": 0.23333333333333334,
+    "wilson_ci": [
+      0.11792388144489496,
+      0.40928326158122164
+    ],
+    "bench_outs": 5,
+    "prize_losses": 18,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M4_F2_1159": {
+    "name": "HYB_F1_FireSafeguard_Hearthflame_M4_F2_1159",
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 6,
+    "prize_losses": 22,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_14G_3R_2PRISM_1158": {
+    "name": "HYB_F5_DualOgerpon_H2_CY0_14G_3R_2PRISM_1158",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "wins": 9,
+    "losses": 21,
+    "draws": 0,
+    "win_rate": 0.3,
+    "wilson_ci": [
+      0.16664748268243793,
+      0.47875787458714947
+    ],
+    "bench_outs": 4,
+    "prize_losses": 16,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M4_F2_1158": {
+    "name": "HYB_F1_FireSafeguard_Hearthflame_M4_F2_1158",
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 6,
+    "prize_losses": 23,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_15G_4R_1155": {
+    "name": "HYB_F5_DualOgerpon_H2_CY0_15G_4R_1155",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 1,
+    "prize_losses": 24,
+    "deckouts": 3,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M4_F4_1088": {
+    "name": "HYB_F1_FireSafeguard_Hearthflame_M4_F4_1088",
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 4,
+    "prize_losses": 26,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_12G_7R_1155": {
+    "name": "HYB_F5_DualOgerpon_H2_CY0_12G_7R_1155",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "wins": 6,
+    "losses": 24,
+    "draws": 0,
+    "win_rate": 0.2,
+    "wilson_ci": [
+      0.0950510717728987,
+      0.3730569641314825
+    ],
+    "bench_outs": 4,
+    "prize_losses": 20,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M4_F4_1159": {
+    "name": "HYB_F1_FireSafeguard_Hearthflame_M4_F4_1159",
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 1,
+    "prize_losses": 28,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY0_14G_3R_2PRISM_1155": {
+    "name": "HYB_F5_DualOgerpon_H2_CY0_14G_3R_2PRISM_1155",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "wins": 12,
+    "losses": 18,
+    "draws": 0,
+    "win_rate": 0.4,
+    "wilson_ci": [
+      0.24590628116801852,
+      0.5767963974667752
+    ],
+    "bench_outs": 3,
+    "prize_losses": 15,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_Hearthflame_M4_F4_1158": {
+    "name": "HYB_F1_FireSafeguard_Hearthflame_M4_F4_1158",
+    "family": "Fire_Safeguard",
+    "p1": "Hearthflame",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 2,
+    "prize_losses": 27,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_15G_4R_1088": {
+    "name": "HYB_F5_DualOgerpon_H2_CY2_15G_4R_1088",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "wins": 6,
+    "losses": 24,
+    "draws": 0,
+    "win_rate": 0.2,
+    "wilson_ci": [
+      0.0950510717728987,
+      0.3730569641314825
+    ],
+    "bench_outs": 4,
+    "prize_losses": 20,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M1_F2_1088": {
+    "name": "HYB_F1_FireSafeguard_ChiYu_M1_F2_1088",
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 30,
+    "prize_losses": 0,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_12G_7R_1088": {
+    "name": "HYB_F5_DualOgerpon_H2_CY2_12G_7R_1088",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "wins": 5,
+    "losses": 25,
+    "draws": 0,
+    "win_rate": 0.16666666666666666,
+    "wilson_ci": [
+      0.0733654237184855,
+      0.3356435050641603
+    ],
+    "bench_outs": 4,
+    "prize_losses": 18,
+    "deckouts": 3,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M1_F2_1159": {
+    "name": "HYB_F1_FireSafeguard_ChiYu_M1_F2_1159",
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 30,
+    "prize_losses": 0,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_14G_3R_2PRISM_1088": {
+    "name": "HYB_F5_DualOgerpon_H2_CY2_14G_3R_2PRISM_1088",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "wins": 8,
+    "losses": 22,
+    "draws": 0,
+    "win_rate": 0.26666666666666666,
+    "wilson_ci": [
+      0.14182663319596317,
+      0.4444796169518888
+    ],
+    "bench_outs": 5,
+    "prize_losses": 16,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M1_F2_1158": {
+    "name": "HYB_F1_FireSafeguard_ChiYu_M1_F2_1158",
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 29,
+    "prize_losses": 0,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_15G_4R_1159": {
+    "name": "HYB_F5_DualOgerpon_H2_CY2_15G_4R_1159",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "wins": 11,
+    "losses": 19,
+    "draws": 0,
+    "win_rate": 0.36666666666666664,
+    "wilson_ci": [
+      0.21873920806100708,
+      0.5448643634520511
+    ],
+    "bench_outs": 4,
+    "prize_losses": 15,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M1_F4_1088": {
+    "name": "HYB_F1_FireSafeguard_ChiYu_M1_F4_1088",
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 30,
+    "prize_losses": 0,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_12G_7R_1159": {
+    "name": "HYB_F5_DualOgerpon_H2_CY2_12G_7R_1159",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "wins": 11,
+    "losses": 19,
+    "draws": 0,
+    "win_rate": 0.36666666666666664,
+    "wilson_ci": [
+      0.21873920806100708,
+      0.5448643634520511
+    ],
+    "bench_outs": 3,
+    "prize_losses": 15,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M1_F4_1159": {
+    "name": "HYB_F1_FireSafeguard_ChiYu_M1_F4_1159",
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 30,
+    "prize_losses": 0,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_14G_3R_2PRISM_1159": {
+    "name": "HYB_F5_DualOgerpon_H2_CY2_14G_3R_2PRISM_1159",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "wins": 12,
+    "losses": 18,
+    "draws": 0,
+    "win_rate": 0.4,
+    "wilson_ci": [
+      0.24590628116801852,
+      0.5767963974667752
+    ],
+    "bench_outs": 2,
+    "prize_losses": 16,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M1_F4_1158": {
+    "name": "HYB_F1_FireSafeguard_ChiYu_M1_F4_1158",
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 30,
+    "prize_losses": 0,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_15G_4R_1158": {
+    "name": "HYB_F5_DualOgerpon_H2_CY2_15G_4R_1158",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "wins": 11,
+    "losses": 19,
+    "draws": 0,
+    "win_rate": 0.36666666666666664,
+    "wilson_ci": [
+      0.21873920806100708,
+      0.5448643634520511
+    ],
+    "bench_outs": 2,
+    "prize_losses": 16,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M2_F2_1088": {
+    "name": "HYB_F1_FireSafeguard_ChiYu_M2_F2_1088",
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 30,
+    "prize_losses": 0,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_12G_7R_1158": {
+    "name": "HYB_F5_DualOgerpon_H2_CY2_12G_7R_1158",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "wins": 3,
+    "losses": 27,
+    "draws": 0,
+    "win_rate": 0.1,
+    "wilson_ci": [
+      0.03459988874733419,
+      0.25621082579184085
+    ],
+    "bench_outs": 1,
+    "prize_losses": 25,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M2_F2_1159": {
+    "name": "HYB_F1_FireSafeguard_ChiYu_M2_F2_1159",
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 30,
+    "prize_losses": 0,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_14G_3R_2PRISM_1158": {
+    "name": "HYB_F5_DualOgerpon_H2_CY2_14G_3R_2PRISM_1158",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "wins": 9,
+    "losses": 21,
+    "draws": 0,
+    "win_rate": 0.3,
+    "wilson_ci": [
+      0.16664748268243793,
+      0.47875787458714947
+    ],
+    "bench_outs": 3,
+    "prize_losses": 18,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M2_F2_1158": {
+    "name": "HYB_F1_FireSafeguard_ChiYu_M2_F2_1158",
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 30,
+    "prize_losses": 0,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_15G_4R_1155": {
+    "name": "HYB_F5_DualOgerpon_H2_CY2_15G_4R_1155",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "wins": 5,
+    "losses": 25,
+    "draws": 0,
+    "win_rate": 0.16666666666666666,
+    "wilson_ci": [
+      0.0733654237184855,
+      0.3356435050641603
+    ],
+    "bench_outs": 2,
+    "prize_losses": 20,
+    "deckouts": 3,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M2_F4_1088": {
+    "name": "HYB_F1_FireSafeguard_ChiYu_M2_F4_1088",
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 26,
+    "prize_losses": 4,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_12G_7R_1155": {
+    "name": "HYB_F5_DualOgerpon_H2_CY2_12G_7R_1155",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "wins": 5,
+    "losses": 25,
+    "draws": 0,
+    "win_rate": 0.16666666666666666,
+    "wilson_ci": [
+      0.0733654237184855,
+      0.3356435050641603
+    ],
+    "bench_outs": 5,
+    "prize_losses": 20,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M2_F4_1159": {
+    "name": "HYB_F1_FireSafeguard_ChiYu_M2_F4_1159",
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 24,
+    "prize_losses": 5,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H2_CY2_14G_3R_2PRISM_1155": {
+    "name": "HYB_F5_DualOgerpon_H2_CY2_14G_3R_2PRISM_1155",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "wins": 12,
+    "losses": 18,
+    "draws": 0,
+    "win_rate": 0.4,
+    "wilson_ci": [
+      0.24590628116801852,
+      0.5767963974667752
+    ],
+    "bench_outs": 4,
+    "prize_losses": 14,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M2_F4_1158": {
+    "name": "HYB_F1_FireSafeguard_ChiYu_M2_F4_1158",
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 2,
+    "losses": 28,
+    "draws": 0,
+    "win_rate": 0.06666666666666667,
+    "wilson_ci": [
+      0.018477023791270378,
+      0.2132345836261692
+    ],
+    "bench_outs": 24,
+    "prize_losses": 4,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_15G_4R_1088": {
+    "name": "HYB_F5_DualOgerpon_H3_CY0_15G_4R_1088",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "wins": 9,
+    "losses": 21,
+    "draws": 0,
+    "win_rate": 0.3,
+    "wilson_ci": [
+      0.16664748268243793,
+      0.47875787458714947
+    ],
+    "bench_outs": 1,
+    "prize_losses": 19,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M4_F2_1088": {
+    "name": "HYB_F1_FireSafeguard_ChiYu_M4_F2_1088",
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 26,
+    "prize_losses": 4,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_12G_7R_1088": {
+    "name": "HYB_F5_DualOgerpon_H3_CY0_12G_7R_1088",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "wins": 4,
+    "losses": 26,
+    "draws": 0,
+    "win_rate": 0.13333333333333333,
+    "wilson_ci": [
+      0.053096554840547455,
+      0.296813266820363
+    ],
+    "bench_outs": 4,
+    "prize_losses": 22,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M4_F2_1159": {
+    "name": "HYB_F1_FireSafeguard_ChiYu_M4_F2_1159",
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 1,
+    "losses": 29,
+    "draws": 0,
+    "win_rate": 0.03333333333333333,
+    "wilson_ci": [
+      0.005908590381612455,
+      0.16670390991409173
+    ],
+    "bench_outs": 20,
+    "prize_losses": 9,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_14G_3R_2PRISM_1088": {
+    "name": "HYB_F5_DualOgerpon_H3_CY0_14G_3R_2PRISM_1088",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "wins": 7,
+    "losses": 23,
+    "draws": 0,
+    "win_rate": 0.23333333333333334,
+    "wilson_ci": [
+      0.11792388144489496,
+      0.40928326158122164
+    ],
+    "bench_outs": 3,
+    "prize_losses": 20,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M4_F2_1158": {
+    "name": "HYB_F1_FireSafeguard_ChiYu_M4_F2_1158",
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 20,
+    "prize_losses": 10,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_15G_4R_1159": {
+    "name": "HYB_F5_DualOgerpon_H3_CY0_15G_4R_1159",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "wins": 11,
+    "losses": 19,
+    "draws": 0,
+    "win_rate": 0.36666666666666664,
+    "wilson_ci": [
+      0.21873920806100708,
+      0.5448643634520511
+    ],
+    "bench_outs": 3,
+    "prize_losses": 16,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M4_F4_1088": {
+    "name": "HYB_F1_FireSafeguard_ChiYu_M4_F4_1088",
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1088,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 10,
+    "prize_losses": 20,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_12G_7R_1159": {
+    "name": "HYB_F5_DualOgerpon_H3_CY0_12G_7R_1159",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "wins": 9,
+    "losses": 21,
+    "draws": 0,
+    "win_rate": 0.3,
+    "wilson_ci": [
+      0.16664748268243793,
+      0.47875787458714947
+    ],
+    "bench_outs": 1,
+    "prize_losses": 20,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M4_F4_1159": {
+    "name": "HYB_F1_FireSafeguard_ChiYu_M4_F4_1159",
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1159,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 5,
+    "prize_losses": 25,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_14G_3R_2PRISM_1159": {
+    "name": "HYB_F5_DualOgerpon_H3_CY0_14G_3R_2PRISM_1159",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "wins": 9,
+    "losses": 21,
+    "draws": 0,
+    "win_rate": 0.3,
+    "wilson_ci": [
+      0.16664748268243793,
+      0.47875787458714947
+    ],
+    "bench_outs": 3,
+    "prize_losses": 17,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F1_FireSafeguard_ChiYu_M4_F4_1158": {
+    "name": "HYB_F1_FireSafeguard_ChiYu_M4_F4_1158",
+    "family": "Fire_Safeguard",
+    "p1": "ChiYu",
+    "p2": "Mimikyu",
+    "ace": 1158,
+    "wins": 0,
+    "losses": 30,
+    "draws": 0,
+    "win_rate": 0.0,
+    "wilson_ci": [
+      0.0,
+      0.11351339317396876
+    ],
+    "bench_outs": 14,
+    "prize_losses": 16,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_15G_4R_1158": {
+    "name": "HYB_F5_DualOgerpon_H3_CY0_15G_4R_1158",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "wins": 6,
+    "losses": 24,
+    "draws": 0,
+    "win_rate": 0.2,
+    "wilson_ci": [
+      0.0950510717728987,
+      0.3730569641314825
+    ],
+    "bench_outs": 1,
+    "prize_losses": 23,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_12G_7R_1158": {
+    "name": "HYB_F5_DualOgerpon_H3_CY0_12G_7R_1158",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "wins": 7,
+    "losses": 23,
+    "draws": 0,
+    "win_rate": 0.23333333333333334,
+    "wilson_ci": [
+      0.11792388144489496,
+      0.40928326158122164
+    ],
+    "bench_outs": 5,
+    "prize_losses": 18,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_14G_3R_2PRISM_1158": {
+    "name": "HYB_F5_DualOgerpon_H3_CY0_14G_3R_2PRISM_1158",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "wins": 10,
+    "losses": 20,
+    "draws": 0,
+    "win_rate": 0.3333333333333333,
+    "wilson_ci": [
+      0.19230498083676134,
+      0.5121994835545616
+    ],
+    "bench_outs": 5,
+    "prize_losses": 14,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_15G_4R_1155": {
+    "name": "HYB_F5_DualOgerpon_H3_CY0_15G_4R_1155",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "wins": 15,
+    "losses": 15,
+    "draws": 0,
+    "win_rate": 0.5,
+    "wilson_ci": [
+      0.33154125640533766,
+      0.6684587435946623
+    ],
+    "bench_outs": 1,
+    "prize_losses": 13,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_12G_7R_1155": {
+    "name": "HYB_F5_DualOgerpon_H3_CY0_12G_7R_1155",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "wins": 8,
+    "losses": 22,
+    "draws": 0,
+    "win_rate": 0.26666666666666666,
+    "wilson_ci": [
+      0.14182663319596317,
+      0.4444796169518888
+    ],
+    "bench_outs": 4,
+    "prize_losses": 18,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY0_14G_3R_2PRISM_1155": {
+    "name": "HYB_F5_DualOgerpon_H3_CY0_14G_3R_2PRISM_1155",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "wins": 11,
+    "losses": 19,
+    "draws": 0,
+    "win_rate": 0.36666666666666664,
+    "wilson_ci": [
+      0.21873920806100708,
+      0.5448643634520511
+    ],
+    "bench_outs": 4,
+    "prize_losses": 15,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_15G_4R_1088": {
+    "name": "HYB_F5_DualOgerpon_H3_CY2_15G_4R_1088",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "wins": 9,
+    "losses": 21,
+    "draws": 0,
+    "win_rate": 0.3,
+    "wilson_ci": [
+      0.16664748268243793,
+      0.47875787458714947
+    ],
+    "bench_outs": 4,
+    "prize_losses": 14,
+    "deckouts": 3,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_12G_7R_1088": {
+    "name": "HYB_F5_DualOgerpon_H3_CY2_12G_7R_1088",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "wins": 4,
+    "losses": 26,
+    "draws": 0,
+    "win_rate": 0.13333333333333333,
+    "wilson_ci": [
+      0.053096554840547455,
+      0.296813266820363
+    ],
+    "bench_outs": 1,
+    "prize_losses": 24,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_14G_3R_2PRISM_1088": {
+    "name": "HYB_F5_DualOgerpon_H3_CY2_14G_3R_2PRISM_1088",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1088,
+    "wins": 7,
+    "losses": 23,
+    "draws": 0,
+    "win_rate": 0.23333333333333334,
+    "wilson_ci": [
+      0.11792388144489496,
+      0.40928326158122164
+    ],
+    "bench_outs": 4,
+    "prize_losses": 18,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_15G_4R_1159": {
+    "name": "HYB_F5_DualOgerpon_H3_CY2_15G_4R_1159",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "wins": 11,
+    "losses": 19,
+    "draws": 0,
+    "win_rate": 0.36666666666666664,
+    "wilson_ci": [
+      0.21873920806100708,
+      0.5448643634520511
+    ],
+    "bench_outs": 2,
+    "prize_losses": 16,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_12G_7R_1159": {
+    "name": "HYB_F5_DualOgerpon_H3_CY2_12G_7R_1159",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "wins": 7,
+    "losses": 23,
+    "draws": 0,
+    "win_rate": 0.23333333333333334,
+    "wilson_ci": [
+      0.11792388144489496,
+      0.40928326158122164
+    ],
+    "bench_outs": 2,
+    "prize_losses": 21,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_14G_3R_2PRISM_1159": {
+    "name": "HYB_F5_DualOgerpon_H3_CY2_14G_3R_2PRISM_1159",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1159,
+    "wins": 12,
+    "losses": 18,
+    "draws": 0,
+    "win_rate": 0.4,
+    "wilson_ci": [
+      0.24590628116801852,
+      0.5767963974667752
+    ],
+    "bench_outs": 2,
+    "prize_losses": 15,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_15G_4R_1158": {
+    "name": "HYB_F5_DualOgerpon_H3_CY2_15G_4R_1158",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "wins": 6,
+    "losses": 24,
+    "draws": 0,
+    "win_rate": 0.2,
+    "wilson_ci": [
+      0.0950510717728987,
+      0.3730569641314825
+    ],
+    "bench_outs": 5,
+    "prize_losses": 19,
+    "deckouts": 0,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_12G_7R_1158": {
+    "name": "HYB_F5_DualOgerpon_H3_CY2_12G_7R_1158",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "wins": 7,
+    "losses": 23,
+    "draws": 0,
+    "win_rate": 0.23333333333333334,
+    "wilson_ci": [
+      0.11792388144489496,
+      0.40928326158122164
+    ],
+    "bench_outs": 1,
+    "prize_losses": 21,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_14G_3R_2PRISM_1158": {
+    "name": "HYB_F5_DualOgerpon_H3_CY2_14G_3R_2PRISM_1158",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1158,
+    "wins": 6,
+    "losses": 24,
+    "draws": 0,
+    "win_rate": 0.2,
+    "wilson_ci": [
+      0.0950510717728987,
+      0.3730569641314825
+    ],
+    "bench_outs": 2,
+    "prize_losses": 20,
+    "deckouts": 2,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_15G_4R_1155": {
+    "name": "HYB_F5_DualOgerpon_H3_CY2_15G_4R_1155",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "wins": 8,
+    "losses": 22,
+    "draws": 0,
+    "win_rate": 0.26666666666666666,
+    "wilson_ci": [
+      0.14182663319596317,
+      0.4444796169518888
+    ],
+    "bench_outs": 1,
+    "prize_losses": 20,
+    "deckouts": 1,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_12G_7R_1155": {
+    "name": "HYB_F5_DualOgerpon_H3_CY2_12G_7R_1155",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "wins": 6,
+    "losses": 24,
+    "draws": 0,
+    "win_rate": 0.2,
+    "wilson_ci": [
+      0.0950510717728987,
+      0.3730569641314825
+    ],
+    "bench_outs": 0,
+    "prize_losses": 22,
+    "deckouts": 2,
+    "crashes": 0
+  },
+  "HYB_F5_DualOgerpon_H3_CY2_14G_3R_2PRISM_1155": {
+    "name": "HYB_F5_DualOgerpon_H3_CY2_14G_3R_2PRISM_1155",
+    "family": "Dual_Ogerpon_Splash",
+    "p1": "Teal Ogerpon",
+    "p2": "Hearthflame Ogerpon",
+    "ace": 1155,
+    "wins": 12,
+    "losses": 18,
+    "draws": 0,
+    "win_rate": 0.4,
+    "wilson_ci": [
+      0.24590628116801852,
+      0.5767963974667752
+    ],
+    "bench_outs": 1,
+    "prize_losses": 17,
+    "deckouts": 0,
+    "crashes": 0
+  }
+}

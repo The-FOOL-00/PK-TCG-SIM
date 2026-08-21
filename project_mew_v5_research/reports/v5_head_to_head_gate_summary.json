@@ -1,0 +1,121 @@
+{
+  "date": "2026-08-16",
+  "primary_300g_paired_result": {
+    "corrected_v4": {
+      "wins": 223,
+      "wr_pct": 74.33333333333333,
+      "ci": [
+        69.10472027434069,
+        78.94665759616541
+      ]
+    },
+    "v5_alakazam": {
+      "wins": 253,
+      "wr_pct": 84.33333333333334,
+      "ci": [
+        79.78920773939222,
+        88.00931172173283
+      ]
+    },
+    "net_gain_wins": 30,
+    "mcnemar": {
+      "chi2": 7.787037037037037,
+      "p_value": 0.0038,
+      "significant": true
+    }
+  },
+  "fresh_seed_replication_300g": {
+    "corrected_v4": {
+      "wins": 219,
+      "wr_pct": 73.0
+    },
+    "v5_alakazam": {
+      "wins": 243,
+      "wr_pct": 81.0
+    },
+    "advantage": 24
+  },
+  "high_elo_stress_600g": {
+    "corrected_v4_wr": 61.166666666666664,
+    "v5_alakazam_wr": 84.0,
+    "breakdown": {
+      "vs_Alakazam_100g": {
+        "Corrected_V4": 83,
+        "V5_Alakazam": 85
+      },
+      "vs_Crustle_Wall_100g": {
+        "Corrected_V4": 41,
+        "V5_Alakazam": 82
+      },
+      "vs_Cornerstone_100g": {
+        "Corrected_V4": 0,
+        "V5_Alakazam": 86
+      },
+      "vs_Garchomp_ex_100g": {
+        "Corrected_V4": 93,
+        "V5_Alakazam": 87
+      },
+      "vs_Grimmsnarl_100g": {
+        "Corrected_V4": 83,
+        "V5_Alakazam": 81
+      },
+      "vs_Starmie_100g": {
+        "Corrected_V4": 67,
+        "V5_Alakazam": 83
+      }
+    }
+  },
+  "ablation_2x2": {
+    "Corrected_V4_Policy_plus_E19_Deck": {
+      "meta_wr": 76.67,
+      "stress_wr": 61.17,
+      "mulligan": 60.05,
+      "role": "Baseline Control"
+    },
+    "Corrected_V4_Policy_plus_Alakazam_Deck": {
+      "meta_wr": 80.33,
+      "stress_wr": 79.5,
+      "mulligan": 14.2,
+      "role": "Deck Effect Alone"
+    },
+    "V5_Adaptive_Policy_plus_E19_Deck": {
+      "meta_wr": 78.33,
+      "stress_wr": 68.83,
+      "mulligan": 60.05,
+      "role": "Policy Effect Alone"
+    },
+    "V5_Adaptive_Policy_plus_Alakazam_Deck": {
+      "meta_wr": 83.0,
+      "stress_wr": 84.0,
+      "mulligan": 14.2,
+      "role": "Full Synergy (V5 Master)"
+    }
+  },
+  "temporal_holdout": {
+    "Corrected_V4": {
+      "reversals": "3/5 (60.0%)",
+      "retention": "14/15 (93.3%)",
+      "score": "17/20 (85.0%)"
+    },
+    "V5_Alakazam": {
+      "reversals": "5/5 (100.0%)",
+      "retention": "15/15 (100.0%)",
+      "score": "20/20 (100.0%)"
+    }
+  },
+  "coupling_profile": {
+    "Corrected_V4": {
+      "legality": "100.0%",
+      "fallbacks": 0,
+      "avg_latency_us": 14.2,
+      "max_ms": 0.85
+    },
+    "V5_Alakazam": {
+      "legality": "100.0%",
+      "fallbacks": 0,
+      "avg_latency_us": 22.4,
+      "max_ms": 1.2
+    }
+  },
+  "final_gate_verdict": "V5_ALAKAZAM_STATISTICALLY_SUPERIOR_TO_CORRECTED_V4"
+}

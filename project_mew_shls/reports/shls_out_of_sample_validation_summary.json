@@ -1,0 +1,51 @@
+{
+  "dataset": {
+    "total_games": 925,
+    "train_games": 555,
+    "val_games": 185,
+    "test_games": 185,
+    "temporal_games": 185
+  },
+  "criticality_gate": {
+    "trigger_rate": 0.07518427518427519,
+    "triggers_per_game": 0.827027027027027,
+    "validation_recall": 0.857
+  },
+  "unseen_test_critical_reversal_rate": 0.875,
+  "runtime_ms": {
+    "v21_avg": 0.0005630900472169742,
+    "shls_avg": 0.002739009988727048,
+    "shls_p99": 0.005599984433501959,
+    "shls_max": 0.12340000830590725
+  },
+  "paired_benchmark_300": {
+    "V1": {
+      "wins": 223,
+      "losses": 77,
+      "wr": 0.7433,
+      "ci": [
+        0.691,
+        0.789
+      ]
+    },
+    "V2.1": {
+      "wins": 238,
+      "losses": 62,
+      "wr": 0.7933,
+      "ci": [
+        0.744,
+        0.835
+      ]
+    },
+    "SHLS": {
+      "wins": 245,
+      "losses": 55,
+      "wr": 0.8167,
+      "ci": [
+        0.769,
+        0.856
+      ]
+    }
+  },
+  "high_elo_archaludon_gain": 0.06
+}

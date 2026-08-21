@@ -1,0 +1,62 @@
+{
+  "Counter_Gouging_Fire": {
+    "name": "Counter_Gouging_Fire",
+    "description": "Gouging Fire ex Basic Fire Aggro (2x Weakness Exploiter)",
+    "wins": 18,
+    "losses": 282,
+    "draws": 0,
+    "win_rate_vs_ogerpon": 0.06,
+    "wilson_ci": [
+      0.038286369524692054,
+      0.09283944515290843
+    ],
+    "bench_outs": 50,
+    "prize_losses": 232,
+    "deckouts": 0
+  },
+  "Counter_Hearthflame_Ogerpon": {
+    "name": "Counter_Hearthflame_Ogerpon",
+    "description": "Hearthflame Mask Ogerpon ex Fire Turbo",
+    "wins": 12,
+    "losses": 288,
+    "draws": 0,
+    "win_rate_vs_ogerpon": 0.04,
+    "wilson_ci": [
+      0.023027321487942308,
+      0.06860421203864003
+    ],
+    "bench_outs": 100,
+    "prize_losses": 188,
+    "deckouts": 0
+  },
+  "Counter_Safeguard_Anti_EX": {
+    "name": "Counter_Safeguard_Anti_EX",
+    "description": "Mimikyu / Miltank Safeguard Anti-EX Wall",
+    "wins": 4,
+    "losses": 296,
+    "draws": 0,
+    "win_rate_vs_ogerpon": 0.013333333333333334,
+    "wilson_ci": [
+      0.005196961739358857,
+      0.03377553025253262
+    ],
+    "bench_outs": 91,
+    "prize_losses": 205,
+    "deckouts": 0
+  },
+  "Counter_Archaludon_Metal": {
+    "name": "Counter_Archaludon_Metal",
+    "description": "Archaludon ex 300 HP Metal Bridge Tank",
+    "wins": 55,
+    "losses": 245,
+    "draws": 0,
+    "win_rate_vs_ogerpon": 0.18333333333333332,
+    "wilson_ci": [
+      0.14364526409824455,
+      0.23102861767730118
+    ],
+    "bench_outs": 117,
+    "prize_losses": 117,
+    "deckouts": 11
+  }
+}

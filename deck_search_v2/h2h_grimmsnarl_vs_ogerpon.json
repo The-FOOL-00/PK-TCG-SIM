@@ -1,0 +1,32 @@
+{
+  "challenger": "metaG_grimmsnarl_top10.csv+BS_CEI=1+BS_CEI_2PLY=1+BS_CEI_DETS=2+DYN_DECK_TABLES=1",
+  "incumbent": "metaZ_teal_ogerpon_top10.csv",
+  "games": 300,
+  "wins": 35,
+  "losses": 265,
+  "draws": 0,
+  "wins_by_seat": [
+    21,
+    14
+  ],
+  "win_rate": 0.11666666666666667,
+  "wilson95": [
+    0.08509313461466292,
+    0.15793314332415567
+  ],
+  "verdict": "FAIL",
+  "crashes": {
+    "chal": 0,
+    "inc": 0
+  },
+  "reasons_won": {
+    "1": 6,
+    "3": 29
+  },
+  "reasons_lost": {
+    "1": 252,
+    "3": 13
+  },
+  "calibration": null,
+  "teacher_stats": null
+}

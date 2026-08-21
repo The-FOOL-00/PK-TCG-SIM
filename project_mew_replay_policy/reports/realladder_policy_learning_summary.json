@@ -1,0 +1,67 @@
+{
+  "valid_replays": 925,
+  "excluded_replays": 0,
+  "tier_stratification": {
+    "MEDIUM": 639,
+    "HIGH": 264,
+    "HIGH_HIGH": 22
+  },
+  "splits": {
+    "train": 647,
+    "val": 138,
+    "test": 140,
+    "temporal": 138
+  },
+  "behavioral_patterns": {
+    "TEMPO_ATTACK_PRESSURE": 3029,
+    "LETHAL_EXECUTION": 2827,
+    "BENCH_ENERGY_PRESERVATION": 1209,
+    "TACTICAL_GUST_CONVERSION": 52
+  },
+  "held_out_accuracy": {
+    "V1": 0.0,
+    "V2": 0.925974025974026,
+    "V2.1": 1.0,
+    "StrongReplayPolicy_V1": 1.0
+  },
+  "strong_live_proxy": {
+    "V1": {
+      "wins": 143,
+      "losses": 57,
+      "wr": 0.715,
+      "ci": [
+        0.652,
+        0.773
+      ]
+    },
+    "V2": {
+      "wins": 151,
+      "losses": 49,
+      "wr": 0.755,
+      "ci": [
+        0.694,
+        0.809
+      ]
+    },
+    "V2.1": {
+      "wins": 159,
+      "losses": 41,
+      "wr": 0.795,
+      "ci": [
+        0.736,
+        0.846
+      ]
+    },
+    "StrongReplayPolicy_V1": {
+      "wins": 160,
+      "losses": 40,
+      "wr": 0.8,
+      "ci": [
+        0.742,
+        0.85
+      ]
+    }
+  },
+  "archive_sha256": "ba6ddfe083b6b2253e219907d3c461cfe8a205cafe153062e729743493278e87",
+  "deck_sha256": "17f815f0d275af0534d26b4f3f5f66f16be47fe664854dd6f9736e6ab37f736e"
+}

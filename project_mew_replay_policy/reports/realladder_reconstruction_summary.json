@@ -1,0 +1,27 @@
+{
+  "total_replays": 300,
+  "high_tier_replays": 114,
+  "strong_vs_strong_replays": 8,
+  "total_decisions": 3300,
+  "splits": {
+    "train": 210,
+    "val": 45,
+    "test": 45
+  },
+  "behavioral_patterns": {
+    "LETHAL_EXECUTION": 1361,
+    "TEMPO_ATTACK_PRESSURE": 1318,
+    "BENCH_ENERGY_PRESERVATION": 471,
+    "TACTICAL_GUST_CONVERSION": 150
+  },
+  "held_out_accuracy": {
+    "v1": 0.0,
+    "v2": 0.898989898989899,
+    "v21": 1.0
+  },
+  "live_proxy_wr": {
+    "v1": 0.715,
+    "v2": 0.755,
+    "v21": 0.795
+  }
+}

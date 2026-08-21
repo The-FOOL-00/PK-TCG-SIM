@@ -1,0 +1,82 @@
+{
+  "Starmie_S0": {
+    "name": "Starmie_S0",
+    "description": "Mega Starmie ex Fast Aggro (Baseline Control)",
+    "path": "deck_search\\candidates\\Starmie_S0.csv",
+    "cards": 60,
+    "unique": 15,
+    "sanity_wins": 7,
+    "sanity_crashes": 0,
+    "status": "PASS"
+  },
+  "Alakazam_Psychic": {
+    "name": "Alakazam_Psychic",
+    "description": "Alakazam ex / Dudunsparce Psychic Control",
+    "path": "deck_search\\candidates\\Alakazam_Psychic.csv",
+    "cards": 60,
+    "unique": 19,
+    "sanity_wins": 3,
+    "sanity_crashes": 0,
+    "status": "PASS"
+  },
+  "Grimmsnarl_Dark": {
+    "name": "Grimmsnarl_Dark",
+    "description": "Grimmsnarl / Dark / Non-EX Disruption",
+    "path": "deck_search\\candidates\\Grimmsnarl_Dark.csv",
+    "cards": 60,
+    "unique": 19,
+    "sanity_wins": 5,
+    "sanity_crashes": 0,
+    "status": "PASS"
+  },
+  "Mewtwo_Stall": {
+    "name": "Mewtwo_Stall",
+    "description": "Mewtwo ex / Energy Denial / Stall",
+    "path": "deck_search\\candidates\\Mewtwo_Stall.csv",
+    "cards": 60,
+    "unique": 20,
+    "sanity_wins": 6,
+    "sanity_crashes": 0,
+    "status": "PASS"
+  },
+  "Dragapult_Spread": {
+    "name": "Dragapult_Spread",
+    "description": "Dragapult ex Phantom Dive Bench Spread",
+    "path": "deck_search\\candidates\\Dragapult_Spread.csv",
+    "cards": 60,
+    "unique": 22,
+    "sanity_wins": 6,
+    "sanity_crashes": 0,
+    "status": "PASS"
+  },
+  "Archaludon_Metal": {
+    "name": "Archaludon_Metal",
+    "description": "Archaludon ex Metal Bridge High-HP Tank",
+    "path": "deck_search\\candidates\\Archaludon_Metal.csv",
+    "cards": 60,
+    "unique": 15,
+    "sanity_wins": 3,
+    "sanity_crashes": 0,
+    "status": "PASS"
+  },
+  "Ogerpon_Grass": {
+    "name": "Ogerpon_Grass",
+    "description": "Teal Mask Ogerpon ex Teal Dance Acceleration",
+    "path": "deck_search\\candidates\\Ogerpon_Grass.csv",
+    "cards": 60,
+    "unique": 19,
+    "sanity_wins": 6,
+    "sanity_crashes": 0,
+    "status": "PASS"
+  },
+  "Bellibolt_Lightning": {
+    "name": "Bellibolt_Lightning",
+    "description": "Iono's Bellibolt ex Lightning Tempo",
+    "path": "deck_search\\candidates\\Bellibolt_Lightning.csv",
+    "cards": 60,
+    "unique": 15,
+    "sanity_wins": 2,
+    "sanity_crashes": 0,
+    "status": "PASS"
+  }
+}

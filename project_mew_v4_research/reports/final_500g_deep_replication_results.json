@@ -1,0 +1,53 @@
+{
+  "HYB_F6_OgerponSafeguard_M2_1159": {
+    "name": "HYB_F6_OgerponSafeguard_M2_1159",
+    "games": 500,
+    "wins": 216,
+    "losses": 284,
+    "draws": 0,
+    "win_rate": 0.432,
+    "wilson_ci": [
+      0.3892622537365845,
+      0.47577465656618667
+    ],
+    "bench_outs": 83,
+    "prize_losses": 197,
+    "deckouts": 4,
+    "crashes": 0,
+    "eval_time_sec": 87.4
+  },
+  "LOC_E19_Safeguard_M2_26G_1P_2Grow_Cape": {
+    "name": "LOC_E19_Safeguard_M2_26G_1P_2Grow_Cape",
+    "games": 500,
+    "wins": 268,
+    "losses": 232,
+    "draws": 0,
+    "win_rate": 0.536,
+    "wilson_ci": [
+      0.492179234494295,
+      0.5792718129924732
+    ],
+    "bench_outs": 69,
+    "prize_losses": 160,
+    "deckouts": 3,
+    "crashes": 0,
+    "eval_time_sec": 86.2
+  },
+  "HYB_F5_DualOgerpon_H1_CY0_14G_3R_2PRISM_1158": {
+    "name": "HYB_F5_DualOgerpon_H1_CY0_14G_3R_2PRISM_1158",
+    "games": 500,
+    "wins": 158,
+    "losses": 342,
+    "draws": 0,
+    "win_rate": 0.316,
+    "wilson_ci": [
+      0.27678362811990814,
+      0.3580221291699432
+    ],
+    "bench_outs": 87,
+    "prize_losses": 255,
+    "deckouts": 0,
+    "crashes": 0,
+    "eval_time_sec": 89.4
+  }
+}

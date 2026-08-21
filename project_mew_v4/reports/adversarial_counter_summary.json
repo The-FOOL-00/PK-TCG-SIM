@@ -1,0 +1,86 @@
+{
+  "vulnerability_map": {
+    "deck_identity": "E19 Ogerpon ex (19 Grass Energy)",
+    "active_hp": 210,
+    "energy_type": "Grass",
+    "weakness": "Fire (x2 damage)",
+    "retreat_cost": 1,
+    "prize_yield": 2,
+    "vulnerabilities": [
+      {
+        "category": "FIRE_WEAKNESS",
+        "severity": "CRITICAL",
+        "mechanism": "Fire attackers dealing 110+ base damage deal 220+ to 1-shot 210 HP Ogerpon.",
+        "exploitability": "HIGH (If Fire attacker is Basic and attaches in 1 turn; LOW if Stage 2 setup required)."
+      },
+      {
+        "category": "HIGH_HP_TANKING",
+        "severity": "HIGH",
+        "mechanism": "280+ HP Metal/Water tanks (Archaludon/Blastoise) survive 210 damage and counter-retaliate.",
+        "exploitability": "MODERATE (Mitigated by V4 Pattern 1 Anti-Tank Gust redirect)."
+      },
+      {
+        "category": "ENERGY_DISRUPTION",
+        "severity": "MODERATE",
+        "mechanism": "Crushing Hammer / Energy discard prevents reaching 120-180 damage threshold.",
+        "exploitability": "LOW (Teal Dance attaches from hand + normal attachment = 2 energies per turn)."
+      },
+      {
+        "category": "ANTI_EX_SAFEGUARD",
+        "severity": "CRITICAL",
+        "mechanism": "Mimikyu / Safeguard blocks all damage from Pokemon ex, forcing a 2-prize deckout lock.",
+        "exploitability": "HIGH in theory; MODERATE in practice (V4 can gust around or stall for energy)."
+      },
+      {
+        "category": "BENCH_GUST_TRAP",
+        "severity": "HIGH",
+        "mechanism": "Hunting 60 HP basic Pokemon in 2-prize race.",
+        "exploitability": "ELIMINATED in V4 by Pattern 3 (Restrains benching in <=2 prize endgames)."
+      }
+    ]
+  },
+  "h2h_300": {
+    "Mimikyu_Anti_EX": {
+      "vs_e19_wins": 192,
+      "vs_e19_wr": 64.0,
+      "p_val": 1e-06,
+      "meta_wr": 46.0
+    },
+    "Gouging_Fire_Turbo": {
+      "vs_e19_wins": 186,
+      "vs_e19_wr": 62.0,
+      "p_val": 3.8e-05,
+      "meta_wr": 54.0
+    },
+    "Chi_Yu_Fire_Aggro": {
+      "vs_e19_wins": 174,
+      "vs_e19_wr": 58.0,
+      "p_val": 0.0068,
+      "meta_wr": 52.0
+    }
+  },
+  "meta_comparison": {
+    "E19_Ogerpon": {
+      "vs_e19": 50.0,
+      "vs_starmie": 74.0,
+      "vs_archaludon": 72.0,
+      "vs_miraidon": 74.3,
+      "overall_meta": 86.67
+    },
+    "Gouging_Fire": {
+      "vs_e19": 62.0,
+      "vs_starmie": 18.0,
+      "vs_archaludon": 78.0,
+      "vs_miraidon": 49.0,
+      "overall_meta": 54.0
+    },
+    "Mimikyu_AntiEX": {
+      "vs_e19": 64.0,
+      "vs_starmie": 38.0,
+      "vs_archaludon": 41.0,
+      "vs_miraidon": 44.0,
+      "overall_meta": 46.0
+    }
+  },
+  "verdict": "E19 REMAINS CHAMPION"
+}

@@ -1,0 +1,13 @@
+{
+  "archive_name": "project_mew_v5_alakazam_master_challenger.tar.gz",
+  "archive_sha256": "2906bbd8acf0a4c5cde8f0ea91ed4134a3342b44d110c01cd1add092fca9d7b3",
+  "checks": {
+    "static_hook_present": true,
+    "deck_60_cards": true,
+    "deck_valid": true,
+    "zero_runtime_fallbacks": true,
+    "clean_process_exit": true
+  },
+  "extracted_files_count": 77,
+  "verdict": "PASS (Production execution verified)"
+}

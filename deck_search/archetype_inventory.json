@@ -1,0 +1,961 @@
+{
+  "Starmie_S0": {
+    "name": "Starmie_S0",
+    "path": "meta_starmie.csv",
+    "total_cards": 60,
+    "unique_cards": 15,
+    "cards": [
+      {
+        "id": 3,
+        "name": "Basic {W} Energy",
+        "count": 17,
+        "type": 5,
+        "hp": 0
+      },
+      {
+        "id": 1030,
+        "name": "Staryu",
+        "count": 4,
+        "type": 0,
+        "hp": 70
+      },
+      {
+        "id": 1031,
+        "name": "Mega Starmie ex",
+        "count": 4,
+        "type": 0,
+        "hp": 330
+      },
+      {
+        "id": 1086,
+        "name": "Buddy-Buddy Poffin",
+        "count": 4,
+        "type": 1,
+        "hp": 0
+      },
+      {
+        "id": 1121,
+        "name": "Ultra Ball",
+        "count": 4,
+        "type": 1,
+        "hp": 0
+      },
+      {
+        "id": 1227,
+        "name": "Lillie's Determination",
+        "count": 4,
+        "type": 3,
+        "hp": 0
+      },
+      {
+        "id": 1235,
+        "name": "Waitress",
+        "count": 4,
+        "type": 3,
+        "hp": 0
+      },
+      {
+        "id": 1145,
+        "name": "Mega Signal",
+        "count": 4,
+        "type": 1,
+        "hp": 0
+      },
+      {
+        "id": 131,
+        "name": "Duskull",
+        "count": 3,
+        "type": 0,
+        "hp": 60
+      },
+      {
+        "id": 1079,
+        "name": "Rare Candy",
+        "count": 3,
+        "type": 1,
+        "hp": 0
+      },
+      {
+        "id": 132,
+        "name": "Dusclops",
+        "count": 2,
+        "type": 0,
+        "hp": 90
+      },
+      {
+        "id": 133,
+        "name": "Dusknoir",
+        "count": 2,
+        "type": 0,
+        "hp": 160
+      },
+      {
+        "id": 720,
+        "name": "Mantine",
+        "count": 2,
+        "type": 0,
+        "hp": 110
+      },
+      {
+        "id": 1205,
+        "name": "Cyrano",
+        "count": 2,
+        "type": 3,
+        "hp": 0
+      },
+      {
+        "id": 1158,
+        "name": "Maximum Belt",
+        "count": 1,
+        "type": 2,
+        "hp": 0
+      }
+    ]
+  },
+  "Alakazam_Psychic": {
+    "name": "Alakazam_Psychic",
+    "path": "metaB_alakazam.csv",
+    "total_cards": 60,
+    "unique_cards": 19,
+    "cards": [
+      {
+        "id": 19,
+        "name": "Unknown_19",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 305,
+        "name": "Unknown_305",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 741,
+        "name": "Unknown_741",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 742,
+        "name": "Unknown_742",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 743,
+        "name": "Unknown_743",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1079,
+        "name": "Rare Candy",
+        "count": 4,
+        "type": 1,
+        "hp": 0
+      },
+      {
+        "id": 1081,
+        "name": "Unknown_1081",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1086,
+        "name": "Buddy-Buddy Poffin",
+        "count": 4,
+        "type": 1,
+        "hp": 0
+      },
+      {
+        "id": 1152,
+        "name": "Unknown_1152",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1225,
+        "name": "Unknown_1225",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1231,
+        "name": "Unknown_1231",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 5,
+        "name": "Unknown_5",
+        "count": 3,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 66,
+        "name": "Unknown_66",
+        "count": 3,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1097,
+        "name": "Unknown_1097",
+        "count": 3,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1182,
+        "name": "Unknown_1182",
+        "count": 3,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 13,
+        "name": "Unknown_13",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1129,
+        "name": "Unknown_1129",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1184,
+        "name": "Unknown_1184",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1264,
+        "name": "Unknown_1264",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      }
+    ]
+  },
+  "Grimmsnarl_Dark": {
+    "name": "Grimmsnarl_Dark",
+    "path": "metaG_grimmsnarl_top10.csv",
+    "total_cards": 60,
+    "unique_cards": 19,
+    "cards": [
+      {
+        "id": 7,
+        "name": "Unknown_7",
+        "count": 10,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 112,
+        "name": "Unknown_112",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 646,
+        "name": "Unknown_646",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1086,
+        "name": "Buddy-Buddy Poffin",
+        "count": 4,
+        "type": 1,
+        "hp": 0
+      },
+      {
+        "id": 1152,
+        "name": "Unknown_1152",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1219,
+        "name": "Unknown_1219",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1227,
+        "name": "Lillie's Determination",
+        "count": 4,
+        "type": 3,
+        "hp": 0
+      },
+      {
+        "id": 1259,
+        "name": "Unknown_1259",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 647,
+        "name": "Unknown_647",
+        "count": 3,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 648,
+        "name": "Unknown_648",
+        "count": 3,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1079,
+        "name": "Rare Candy",
+        "count": 3,
+        "type": 1,
+        "hp": 0
+      },
+      {
+        "id": 1097,
+        "name": "Unknown_1097",
+        "count": 3,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 104,
+        "name": "Unknown_104",
+        "count": 2,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 860,
+        "name": "Unknown_860",
+        "count": 2,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1182,
+        "name": "Unknown_1182",
+        "count": 2,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1080,
+        "name": "Unknown_1080",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1122,
+        "name": "Unknown_1122",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1137,
+        "name": "Unknown_1137",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1231,
+        "name": "Unknown_1231",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      }
+    ]
+  },
+  "Mewtwo_Stall": {
+    "name": "Mewtwo_Stall",
+    "path": "meta_mewtwo_stall.csv",
+    "total_cards": 60,
+    "unique_cards": 20,
+    "cards": [
+      {
+        "id": 6,
+        "name": "Unknown_6",
+        "count": 5,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 341,
+        "name": "Unknown_341",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 379,
+        "name": "Unknown_379",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 380,
+        "name": "Unknown_380",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 20,
+        "name": "Unknown_20",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1086,
+        "name": "Buddy-Buddy Poffin",
+        "count": 4,
+        "type": 1,
+        "hp": 0
+      },
+      {
+        "id": 1142,
+        "name": "Unknown_1142",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1152,
+        "name": "Unknown_1152",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1227,
+        "name": "Lillie's Determination",
+        "count": 4,
+        "type": 3,
+        "hp": 0
+      },
+      {
+        "id": 342,
+        "name": "Unknown_342",
+        "count": 3,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 381,
+        "name": "Unknown_381",
+        "count": 3,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1173,
+        "name": "Unknown_1173",
+        "count": 3,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1225,
+        "name": "Unknown_1225",
+        "count": 3,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 387,
+        "name": "Unknown_387",
+        "count": 2,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1097,
+        "name": "Unknown_1097",
+        "count": 2,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1182,
+        "name": "Unknown_1182",
+        "count": 2,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1261,
+        "name": "Unknown_1261",
+        "count": 2,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1080,
+        "name": "Unknown_1080",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1203,
+        "name": "Unknown_1203",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1197,
+        "name": "Unknown_1197",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      }
+    ]
+  },
+  "Dragapult_Spread": {
+    "name": "Dragapult_Spread",
+    "path": "metaZ_dragapult_top10.csv",
+    "total_cards": 60,
+    "unique_cards": 22,
+    "cards": [
+      {
+        "id": 2,
+        "name": "Unknown_2",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 5,
+        "name": "Unknown_5",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 119,
+        "name": "Unknown_119",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 120,
+        "name": "Unknown_120",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1086,
+        "name": "Buddy-Buddy Poffin",
+        "count": 4,
+        "type": 1,
+        "hp": 0
+      },
+      {
+        "id": 1120,
+        "name": "Unknown_1120",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1121,
+        "name": "Ultra Ball",
+        "count": 4,
+        "type": 1,
+        "hp": 0
+      },
+      {
+        "id": 1152,
+        "name": "Unknown_1152",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1227,
+        "name": "Lillie's Determination",
+        "count": 4,
+        "type": 3,
+        "hp": 0
+      },
+      {
+        "id": 121,
+        "name": "Unknown_121",
+        "count": 3,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1182,
+        "name": "Unknown_1182",
+        "count": 3,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1198,
+        "name": "Unknown_1198",
+        "count": 3,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 7,
+        "name": "Unknown_7",
+        "count": 2,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 112,
+        "name": "Unknown_112",
+        "count": 2,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 235,
+        "name": "Unknown_235",
+        "count": 2,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1097,
+        "name": "Unknown_1097",
+        "count": 2,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1246,
+        "name": "Unknown_1246",
+        "count": 2,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 140,
+        "name": "Unknown_140",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1071,
+        "name": "Unknown_1071",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1080,
+        "name": "Unknown_1080",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1213,
+        "name": "Unknown_1213",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1231,
+        "name": "Unknown_1231",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      }
+    ]
+  },
+  "Archaludon_Metal": {
+    "name": "Archaludon_Metal",
+    "path": "metaX_archaludon_sanjay.csv",
+    "total_cards": 60,
+    "unique_cards": 15,
+    "cards": [
+      {
+        "id": 8,
+        "name": "Unknown_8",
+        "count": 11,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 169,
+        "name": "Unknown_169",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 190,
+        "name": "Unknown_190",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 666,
+        "name": "Unknown_666",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1244,
+        "name": "Unknown_1244",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1152,
+        "name": "Unknown_1152",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1121,
+        "name": "Ultra Ball",
+        "count": 4,
+        "type": 1,
+        "hp": 0
+      },
+      {
+        "id": 1122,
+        "name": "Unknown_1122",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1147,
+        "name": "Unknown_1147",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1182,
+        "name": "Unknown_1182",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1185,
+        "name": "Unknown_1185",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1227,
+        "name": "Lillie's Determination",
+        "count": 4,
+        "type": 3,
+        "hp": 0
+      },
+      {
+        "id": 1097,
+        "name": "Unknown_1097",
+        "count": 3,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 57,
+        "name": "Unknown_57",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1159,
+        "name": "Unknown_1159",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      }
+    ]
+  },
+  "Ogerpon_Grass": {
+    "name": "Ogerpon_Grass",
+    "path": "metaZ_teal_ogerpon_top10.csv",
+    "total_cards": 60,
+    "unique_cards": 19,
+    "cards": [
+      {
+        "id": 1,
+        "name": "Unknown_1",
+        "count": 17,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 96,
+        "name": "Unknown_96",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1127,
+        "name": "Unknown_1127",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1094,
+        "name": "Unknown_1094",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1120,
+        "name": "Unknown_1120",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1213,
+        "name": "Unknown_1213",
+        "count": 4,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1227,
+        "name": "Lillie's Determination",
+        "count": 4,
+        "type": 3,
+        "hp": 0
+      },
+      {
+        "id": 1122,
+        "name": "Unknown_1122",
+        "count": 3,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 18,
+        "name": "Unknown_18",
+        "count": 2,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1119,
+        "name": "Unknown_1119",
+        "count": 2,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1182,
+        "name": "Unknown_1182",
+        "count": 2,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1147,
+        "name": "Unknown_1147",
+        "count": 2,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1251,
+        "name": "Unknown_1251",
+        "count": 2,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1118,
+        "name": "Unknown_1118",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1137,
+        "name": "Unknown_1137",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1201,
+        "name": "Unknown_1201",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1221,
+        "name": "Unknown_1221",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1223,
+        "name": "Unknown_1223",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      },
+      {
+        "id": 1159,
+        "name": "Unknown_1159",
+        "count": 1,
+        "type": -1,
+        "hp": 0
+      }
+    ]
+  }
+}

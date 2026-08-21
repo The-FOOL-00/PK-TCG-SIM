@@ -1,0 +1,20 @@
+{
+  "FIRE_WEAKNESS": {
+    "mechanism": "Teal Mask Ogerpon ex is Grass-type, taking 2x weakness damage from Fire attacks.",
+    "impact": "110+ Fire base damage deals 220+ damage, scoring instant 1-hit KOs on 210 HP Ogerpon.",
+    "counter_family": "Fire Basic Aggro (Gouging Fire ex / Hearthflame Ogerpon ex)",
+    "confidence": "HIGH"
+  },
+  "SAFEGUARD_ANTI_EX_IMMUNITY": {
+    "mechanism": "Ogerpon is exclusively a 2-prize Pokemon ex; Mimikyu/Miltank block all damage from ex Pokemon.",
+    "impact": "Ogerpon cannot damage Safeguard single-prize walls, forcing pass-turns and stall deckouts.",
+    "counter_family": "Single-Prize Anti-EX Wall (Mimikyu / Miltank / Crushing Hammer)",
+    "confidence": "HIGH"
+  },
+  "HIGH_HP_METAL_RESISTANCE": {
+    "mechanism": "Archaludon ex possesses 300 HP and Metal energy recovery, requiring 3+ attacks to breach.",
+    "impact": "Absorbs multiple Ogerpon hits while trading 2-prize knockouts.",
+    "counter_family": "Metal High-HP Tank (Archaludon ex)",
+    "confidence": "MEDIUM"
+  }
+}

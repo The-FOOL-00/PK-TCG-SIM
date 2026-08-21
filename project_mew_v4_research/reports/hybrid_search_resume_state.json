@@ -1,0 +1,14 @@
+{
+  "timestamp": 1786864894.2979703,
+  "control_deck_sha256": "3c0db7bc29599ff1a0a910fc3fbf091c0a5b87735db0c0ec62d774a9c010e8dc",
+  "v4_bundle_sha256": "a7ee61995f5dd42c5ca4380d6bb9b76e45c3d923c08cdb0d98b7e434f1c1a894",
+  "candidates_generated_total": 255,
+  "stage1a_screened_count": 224,
+  "stage1b_deep_screened_count": 33,
+  "stage2_metapool_tested_count": 10,
+  "stage3_direct_e19_tested_count": 4,
+  "stage4_replicated_count": 4,
+  "missing_records_count": 0,
+  "corrupted_records_count": 0,
+  "status": "RESUMED_AND_HEALTHY"
+}

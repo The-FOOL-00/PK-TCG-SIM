@@ -1,0 +1,550 @@
+{
+  "A_FIRE_WEAKNESS": {
+    "A_FIRE_WEAKNESS": {
+      "score": 100,
+      "synergy": "SELF",
+      "desc": "Identical mechanism"
+    },
+    "B_ANTI_EX": {
+      "score": 78,
+      "synergy": "HIGH",
+      "energy_cohesion": "MEDIUM (Dual Fire/Psychic or Prism)",
+      "desc": "Fire 1HKOs Grass ex, Mimikyu walls non-Fire ex."
+    },
+    "C_HIGH_HP_TANK": {
+      "score": 72,
+      "synergy": "MEDIUM",
+      "energy_cohesion": "MEDIUM",
+      "desc": "Fire provides offensive tempo, Tank absorbs counter-attacks."
+    },
+    "D_ENERGY_DENIAL": {
+      "score": 88,
+      "synergy": "VERY_HIGH",
+      "energy_cohesion": "HIGH (Colorless Hammers)",
+      "desc": "Hammers slow down Ogerpon while Fire scores fast 1HKOs."
+    },
+    "E_BENCH_DENIAL": {
+      "score": 85,
+      "synergy": "VERY_HIGH",
+      "energy_cohesion": "HIGH",
+      "desc": "Gust brings benched Ogerpons into active for 1HKO."
+    },
+    "F_PRIZE_CONTROL": {
+      "score": 92,
+      "synergy": "VERY_HIGH",
+      "energy_cohesion": "HIGH (Chi-Yu single-prize Fire attacker)",
+      "desc": "Chi-Yu takes 2 prizes for 1 energy while conceding 1 prize."
+    },
+    "G_FAST_BASIC_AGGRESSION": {
+      "score": 95,
+      "synergy": "VERY_HIGH",
+      "energy_cohesion": "VERY_HIGH (Mono-Fire)",
+      "desc": "Hearthflame + Gouging Fire creates overwhelming T1-T2 pressure."
+    },
+    "H_TEAL_DANCE_DISRUPTION": {
+      "score": 82,
+      "synergy": "HIGH",
+      "energy_cohesion": "HIGH",
+      "desc": "Judge strips Ogerpon hands while Fire maintains board lead."
+    },
+    "I_DAMAGE_ABSORPTION_REDUCTION": {
+      "score": 80,
+      "synergy": "HIGH",
+      "energy_cohesion": "HIGH",
+      "desc": "Hero's Cape / Survival Brace prevents Ogerpon from revenge KOing Fire active."
+    },
+    "J_RESOURCE_EXHAUSTION": {
+      "score": 60,
+      "synergy": "MEDIUM_LOW",
+      "energy_cohesion": "MEDIUM",
+      "desc": "Aggro fire wants fast games; exhaustion wants long games."
+    }
+  },
+  "B_ANTI_EX": {
+    "A_FIRE_WEAKNESS": {
+      "score": 78,
+      "synergy": "HIGH",
+      "energy_cohesion": "MEDIUM (Dual Fire/Psychic or Prism)",
+      "desc": "Fire 1HKOs Grass ex, Mimikyu walls non-Fire ex."
+    },
+    "B_ANTI_EX": {
+      "score": 100,
+      "synergy": "SELF",
+      "desc": "Identical mechanism"
+    },
+    "C_HIGH_HP_TANK": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "D_ENERGY_DENIAL": {
+      "score": 90,
+      "synergy": "VERY_HIGH",
+      "energy_cohesion": "VERY_HIGH",
+      "desc": "Mimikyu stalls while Hammers strip energy, forcing pass turns."
+    },
+    "E_BENCH_DENIAL": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "F_PRIZE_CONTROL": {
+      "score": 88,
+      "synergy": "VERY_HIGH",
+      "energy_cohesion": "HIGH",
+      "desc": "Single-prize walls force 6 distinct KOs while trading efficiently."
+    },
+    "G_FAST_BASIC_AGGRESSION": {
+      "score": 75,
+      "synergy": "MEDIUM_HIGH",
+      "energy_cohesion": "MEDIUM",
+      "desc": "Fast basic attacks while Mimikyu provides bench shelter."
+    },
+    "H_TEAL_DANCE_DISRUPTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "I_DAMAGE_ABSORPTION_REDUCTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "J_RESOURCE_EXHAUSTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    }
+  },
+  "C_HIGH_HP_TANK": {
+    "A_FIRE_WEAKNESS": {
+      "score": 72,
+      "synergy": "MEDIUM",
+      "energy_cohesion": "MEDIUM",
+      "desc": "Fire provides offensive tempo, Tank absorbs counter-attacks."
+    },
+    "B_ANTI_EX": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "C_HIGH_HP_TANK": {
+      "score": 100,
+      "synergy": "SELF",
+      "desc": "Identical mechanism"
+    },
+    "D_ENERGY_DENIAL": {
+      "score": 84,
+      "synergy": "HIGH",
+      "energy_cohesion": "HIGH",
+      "desc": "Tank absorbs hits while Hammers prevent opponent from reaching lethal."
+    },
+    "E_BENCH_DENIAL": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "F_PRIZE_CONTROL": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "G_FAST_BASIC_AGGRESSION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "H_TEAL_DANCE_DISRUPTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "I_DAMAGE_ABSORPTION_REDUCTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "J_RESOURCE_EXHAUSTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    }
+  },
+  "D_ENERGY_DENIAL": {
+    "A_FIRE_WEAKNESS": {
+      "score": 88,
+      "synergy": "VERY_HIGH",
+      "energy_cohesion": "HIGH (Colorless Hammers)",
+      "desc": "Hammers slow down Ogerpon while Fire scores fast 1HKOs."
+    },
+    "B_ANTI_EX": {
+      "score": 90,
+      "synergy": "VERY_HIGH",
+      "energy_cohesion": "VERY_HIGH",
+      "desc": "Mimikyu stalls while Hammers strip energy, forcing pass turns."
+    },
+    "C_HIGH_HP_TANK": {
+      "score": 84,
+      "synergy": "HIGH",
+      "energy_cohesion": "HIGH",
+      "desc": "Tank absorbs hits while Hammers prevent opponent from reaching lethal."
+    },
+    "D_ENERGY_DENIAL": {
+      "score": 100,
+      "synergy": "SELF",
+      "desc": "Identical mechanism"
+    },
+    "E_BENCH_DENIAL": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "F_PRIZE_CONTROL": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "G_FAST_BASIC_AGGRESSION": {
+      "score": 86,
+      "synergy": "VERY_HIGH",
+      "energy_cohesion": "HIGH",
+      "desc": "Disrupts opponent setup while fast basic takes early prize lead."
+    },
+    "H_TEAL_DANCE_DISRUPTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "I_DAMAGE_ABSORPTION_REDUCTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "J_RESOURCE_EXHAUSTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    }
+  },
+  "E_BENCH_DENIAL": {
+    "A_FIRE_WEAKNESS": {
+      "score": 85,
+      "synergy": "VERY_HIGH",
+      "energy_cohesion": "HIGH",
+      "desc": "Gust brings benched Ogerpons into active for 1HKO."
+    },
+    "B_ANTI_EX": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "C_HIGH_HP_TANK": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "D_ENERGY_DENIAL": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "E_BENCH_DENIAL": {
+      "score": 100,
+      "synergy": "SELF",
+      "desc": "Identical mechanism"
+    },
+    "F_PRIZE_CONTROL": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "G_FAST_BASIC_AGGRESSION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "H_TEAL_DANCE_DISRUPTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "I_DAMAGE_ABSORPTION_REDUCTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "J_RESOURCE_EXHAUSTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    }
+  },
+  "F_PRIZE_CONTROL": {
+    "A_FIRE_WEAKNESS": {
+      "score": 92,
+      "synergy": "VERY_HIGH",
+      "energy_cohesion": "HIGH (Chi-Yu single-prize Fire attacker)",
+      "desc": "Chi-Yu takes 2 prizes for 1 energy while conceding 1 prize."
+    },
+    "B_ANTI_EX": {
+      "score": 88,
+      "synergy": "VERY_HIGH",
+      "energy_cohesion": "HIGH",
+      "desc": "Single-prize walls force 6 distinct KOs while trading efficiently."
+    },
+    "C_HIGH_HP_TANK": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "D_ENERGY_DENIAL": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "E_BENCH_DENIAL": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "F_PRIZE_CONTROL": {
+      "score": 100,
+      "synergy": "SELF",
+      "desc": "Identical mechanism"
+    },
+    "G_FAST_BASIC_AGGRESSION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "H_TEAL_DANCE_DISRUPTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "I_DAMAGE_ABSORPTION_REDUCTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "J_RESOURCE_EXHAUSTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    }
+  },
+  "G_FAST_BASIC_AGGRESSION": {
+    "A_FIRE_WEAKNESS": {
+      "score": 95,
+      "synergy": "VERY_HIGH",
+      "energy_cohesion": "VERY_HIGH (Mono-Fire)",
+      "desc": "Hearthflame + Gouging Fire creates overwhelming T1-T2 pressure."
+    },
+    "B_ANTI_EX": {
+      "score": 75,
+      "synergy": "MEDIUM_HIGH",
+      "energy_cohesion": "MEDIUM",
+      "desc": "Fast basic attacks while Mimikyu provides bench shelter."
+    },
+    "C_HIGH_HP_TANK": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "D_ENERGY_DENIAL": {
+      "score": 86,
+      "synergy": "VERY_HIGH",
+      "energy_cohesion": "HIGH",
+      "desc": "Disrupts opponent setup while fast basic takes early prize lead."
+    },
+    "E_BENCH_DENIAL": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "F_PRIZE_CONTROL": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "G_FAST_BASIC_AGGRESSION": {
+      "score": 100,
+      "synergy": "SELF",
+      "desc": "Identical mechanism"
+    },
+    "H_TEAL_DANCE_DISRUPTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "I_DAMAGE_ABSORPTION_REDUCTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "J_RESOURCE_EXHAUSTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    }
+  },
+  "H_TEAL_DANCE_DISRUPTION": {
+    "A_FIRE_WEAKNESS": {
+      "score": 82,
+      "synergy": "HIGH",
+      "energy_cohesion": "HIGH",
+      "desc": "Judge strips Ogerpon hands while Fire maintains board lead."
+    },
+    "B_ANTI_EX": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "C_HIGH_HP_TANK": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "D_ENERGY_DENIAL": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "E_BENCH_DENIAL": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "F_PRIZE_CONTROL": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "G_FAST_BASIC_AGGRESSION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "H_TEAL_DANCE_DISRUPTION": {
+      "score": 100,
+      "synergy": "SELF",
+      "desc": "Identical mechanism"
+    },
+    "I_DAMAGE_ABSORPTION_REDUCTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "J_RESOURCE_EXHAUSTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    }
+  },
+  "I_DAMAGE_ABSORPTION_REDUCTION": {
+    "A_FIRE_WEAKNESS": {
+      "score": 80,
+      "synergy": "HIGH",
+      "energy_cohesion": "HIGH",
+      "desc": "Hero's Cape / Survival Brace prevents Ogerpon from revenge KOing Fire active."
+    },
+    "B_ANTI_EX": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "C_HIGH_HP_TANK": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "D_ENERGY_DENIAL": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "E_BENCH_DENIAL": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "F_PRIZE_CONTROL": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "G_FAST_BASIC_AGGRESSION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "H_TEAL_DANCE_DISRUPTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "I_DAMAGE_ABSORPTION_REDUCTION": {
+      "score": 100,
+      "synergy": "SELF",
+      "desc": "Identical mechanism"
+    },
+    "J_RESOURCE_EXHAUSTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    }
+  },
+  "J_RESOURCE_EXHAUSTION": {
+    "A_FIRE_WEAKNESS": {
+      "score": 60,
+      "synergy": "MEDIUM_LOW",
+      "energy_cohesion": "MEDIUM",
+      "desc": "Aggro fire wants fast games; exhaustion wants long games."
+    },
+    "B_ANTI_EX": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "C_HIGH_HP_TANK": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "D_ENERGY_DENIAL": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "E_BENCH_DENIAL": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "F_PRIZE_CONTROL": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "G_FAST_BASIC_AGGRESSION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "H_TEAL_DANCE_DISRUPTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "I_DAMAGE_ABSORPTION_REDUCTION": {
+      "score": 50,
+      "synergy": "NEUTRAL",
+      "desc": "Standard interaction"
+    },
+    "J_RESOURCE_EXHAUSTION": {
+      "score": 100,
+      "synergy": "SELF",
+      "desc": "Identical mechanism"
+    }
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "BM_FAST_SCREEN_30G": {
+    "name": "Stage 1A Fast Screen",
+    "games_per_deck": 30,
+    "opponent_deck": "metaZ_teal_ogerpon_top10.csv (E19 Ogerpon)",
+    "opponent_policy": "V4 Strong Tactical",
+    "seed_range": [
+      42,
+      71
+    ],
+    "seat_protocol": "Alternating seats (P1=even, P2=odd)",
+    "purpose": "High-throughput coarse pruning of unviable hybrid candidates"
+  },
+  "BM_DEEP_SCREEN_100G": {
+    "name": "Stage 1B Deep Screen",
+    "games_per_deck": 100,
+    "opponent_deck": "metaZ_teal_ogerpon_top10.csv (E19 Ogerpon)",
+    "opponent_policy": "V4 Strong Tactical",
+    "seed_range": [
+      100,
+      199
+    ],
+    "seat_protocol": "Alternating seats",
+    "purpose": "Medium-throughput family differentiation and variance reduction"
+  },
+  "BM_METAPOOL_V2_480G": {
+    "name": "MetaPoolGate v2 Matrix",
+    "games_per_deck": 480,
+    "matrix": "6 Archetypes x 4 Policy Tiers x 20 Games/Cell",
+    "opponent_decks": [
+      "Mega Starmie ex (Water Aggro)",
+      "Teal Mask Ogerpon ex (Grass Mirror)",
+      "Dragapult ex (Dragon Spread)",
+      "Archaludon ex (Metal Tank)",
+      "Grimmsnarl Disruption (Dark Disruption)",
+      "Cynthia's Garchomp ex (Fighting Power)"
+    ],
+    "policy_tiers": [
+      "Tier 1: Greedy Heuristic",
+      "Tier 2: Neural Hybrid",
+      "Tier 3: PIMC Searcher",
+      "Tier 4: Minimax V1.5c"
+    ],
+    "seed_range": [
+      1000,
+      1479
+    ],
+    "seat_protocol": "Alternating seats",
+    "purpose": "Definitive multi-tier broad field evaluation"
+  },
+  "BM_METAPOOL_V1_312G": {
+    "name": "MetaPoolGate v1 Historical Matrix",
+    "games_per_deck": 312,
+    "matrix": "6 Archetypes x 3 Policy Tiers (T1-T3) x 16-20 Games/Cell",
+    "purpose": "Historical baseline from Project Mew V2 calibration"
+  },
+  "BM_HEAD_TO_HEAD_300G": {
+    "name": "Stage 3 Dedicated Direct E19 H2H",
+    "games_per_deck": 300,
+    "opponent_deck": "metaZ_teal_ogerpon_top10.csv (E19 Ogerpon)",
+    "opponent_policy": "V4 Strong Tactical",
+    "seed_range": [
+      5000,
+      5299
+    ],
+    "seat_protocol": "Alternating seats",
+    "purpose": "Primary paired statistical validation vs frozen champion"
+  },
+  "BM_INDEPENDENT_REPLICATION_300G": {
+    "name": "Stage 4 Independent Replication",
+    "games_per_deck": 300,
+    "opponent_deck": "metaZ_teal_ogerpon_top10.csv (E19 Ogerpon)",
+    "opponent_policy": "V4 Strong Tactical",
+    "seed_range": [
+      9000,
+      9299
+    ],
+    "seat_protocol": "Alternating seats",
+    "purpose": "Fresh-seed replication proving resistance to RNG artifacts"
+  },
+  "BM_HIGH_ELO_STRESS_500G": {
+    "name": "High-Elo Hard-Pool Stress Benchmark",
+    "games_per_deck": 500,
+    "matrix": "5 Hard Matchups x 100 Games",
+    "matchups": [
+      "Minimax V1.5c Mega Starmie ex",
+      "PIMC Archaludon ex",
+      "PIMC Dragapult ex",
+      "V4 Strong Tactical E19 Mirror",
+      "Cynthia Garchomp (Minimax v1.5c)"
+    ],
+    "seed_range": [
+      15000,
+      15499
+    ],
+    "purpose": "Extreme top-tier tournament survival audit"
+  }
+}

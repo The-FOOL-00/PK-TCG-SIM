@@ -1,0 +1,236 @@
+[
+  {
+    "archetype_id": "Ogerpon_S0_Control",
+    "name": "Teal Mask Ogerpon ex",
+    "family": "Grass Acceleration (FROZEN CHAMPION)",
+    "path": "metaZ_teal_ogerpon_top10.csv",
+    "games": 100,
+    "wins": 80,
+    "losses": 20,
+    "draws": 0,
+    "win_rate": 0.8,
+    "wilson_ci": [
+      0.7111708344068411,
+      0.8666330666689676
+    ],
+    "bench_out_losses": 14,
+    "prize_losses": 6,
+    "deckout_losses": 0
+  },
+  {
+    "archetype_id": "Starmie_S0_Aggro",
+    "name": "Mega Starmie ex",
+    "family": "Water Aggro",
+    "path": "meta_starmie.csv",
+    "games": 100,
+    "wins": 42,
+    "losses": 54,
+    "draws": 4,
+    "win_rate": 0.4375,
+    "wilson_ci": [
+      0.3425682747577502,
+      0.5372411737244593
+    ],
+    "bench_out_losses": 16,
+    "prize_losses": 38,
+    "deckout_losses": 0
+  },
+  {
+    "archetype_id": "Alakazam_Psychic",
+    "name": "Alakazam ex / Dudunsparce",
+    "family": "Psychic Control",
+    "path": "metaB_alakazam.csv",
+    "games": 100,
+    "wins": 24,
+    "losses": 76,
+    "draws": 0,
+    "win_rate": 0.24,
+    "wilson_ci": [
+      0.16691325556948772,
+      0.33232336349814473
+    ],
+    "bench_out_losses": 33,
+    "prize_losses": 8,
+    "deckout_losses": 35
+  },
+  {
+    "archetype_id": "Grimmsnarl_Dark",
+    "name": "Grimmsnarl Disruption",
+    "family": "Dark Disruption / Single-Prize",
+    "path": "metaG_grimmsnarl_top10.csv",
+    "games": 100,
+    "wins": 48,
+    "losses": 50,
+    "draws": 2,
+    "win_rate": 0.4897959183673469,
+    "wilson_ci": [
+      0.3930921034542956,
+      0.5872695289971671
+    ],
+    "bench_out_losses": 11,
+    "prize_losses": 39,
+    "deckout_losses": 0
+  },
+  {
+    "archetype_id": "Mewtwo_Stall",
+    "name": "Mewtwo ex Stall",
+    "family": "Energy Denial / Stall",
+    "path": "meta_mewtwo_stall.csv",
+    "games": 100,
+    "wins": 47,
+    "losses": 52,
+    "draws": 1,
+    "win_rate": 0.47474747474747475,
+    "wilson_ci": [
+      0.37917455773475883,
+      0.5722069176222022
+    ],
+    "bench_out_losses": 9,
+    "prize_losses": 38,
+    "deckout_losses": 5
+  },
+  {
+    "archetype_id": "Dragapult_Spread",
+    "name": "Dragapult ex",
+    "family": "Dragon / Spread Damage",
+    "path": "metaZ_dragapult_top10.csv",
+    "games": 100,
+    "wins": 22,
+    "losses": 77,
+    "draws": 1,
+    "win_rate": 0.2222222222222222,
+    "wilson_ci": [
+      0.15158101831950355,
+      0.31361521060706726
+    ],
+    "bench_out_losses": 15,
+    "prize_losses": 36,
+    "deckout_losses": 26
+  },
+  {
+    "archetype_id": "Archaludon_Metal",
+    "name": "Archaludon ex",
+    "family": "Metal High-HP Tank",
+    "path": "metaX_archaludon_sanjay.csv",
+    "games": 100,
+    "wins": 32,
+    "losses": 68,
+    "draws": 0,
+    "win_rate": 0.32,
+    "wilson_ci": [
+      0.23669147324999093,
+      0.41662618610452384
+    ],
+    "bench_out_losses": 41,
+    "prize_losses": 22,
+    "deckout_losses": 5
+  },
+  {
+    "archetype_id": "Fezandipiti_Revenge",
+    "name": "Fezandipiti ex",
+    "family": "Psychic Revenge Draw",
+    "path": "metaX_fezandipiti_top10.csv",
+    "games": 100,
+    "wins": 33,
+    "losses": 67,
+    "draws": 0,
+    "win_rate": 0.33,
+    "wilson_ci": [
+      0.24563122734128034,
+      0.4269465620490947
+    ],
+    "bench_out_losses": 18,
+    "prize_losses": 7,
+    "deckout_losses": 42
+  },
+  {
+    "archetype_id": "Garchomp_Fighting",
+    "name": "Cynthia's Garchomp ex",
+    "family": "Fighting / Power Setup",
+    "path": "metaC_garchomp_nasuo.csv",
+    "games": 100,
+    "wins": 45,
+    "losses": 55,
+    "draws": 0,
+    "win_rate": 0.45,
+    "wilson_ci": [
+      0.3561453797951198,
+      0.5475539700255787
+    ],
+    "bench_out_losses": 13,
+    "prize_losses": 38,
+    "deckout_losses": 4
+  },
+  {
+    "archetype_id": "Kangaskhan_Tank",
+    "name": "Mega Kangaskhan ex",
+    "family": "Colorless Tank",
+    "path": "metaX_kangaskhan_top10.csv",
+    "games": 100,
+    "wins": 23,
+    "losses": 77,
+    "draws": 0,
+    "win_rate": 0.23,
+    "wilson_ci": [
+      0.15843265880303448,
+      0.3215438302287378
+    ],
+    "bench_out_losses": 3,
+    "prize_losses": 62,
+    "deckout_losses": 12
+  },
+  {
+    "archetype_id": "Bellibolt_Lightning",
+    "name": "Iono's Bellibolt ex",
+    "family": "Lightning Tempo",
+    "path": "deck_search/candidates/Bellibolt_Lightning.csv",
+    "games": 100,
+    "wins": 16,
+    "losses": 82,
+    "draws": 2,
+    "win_rate": 0.16326530612244897,
+    "wilson_ci": [
+      0.10306803521803501,
+      0.24886583568023965
+    ],
+    "bench_out_losses": 32,
+    "prize_losses": 39,
+    "deckout_losses": 11
+  },
+  {
+    "archetype_id": "Junlee_Garchomp_Turbo",
+    "name": "Junlee Garchomp Turbo",
+    "family": "Fighting Turbo Setup",
+    "path": "junlee789_garchomp.csv",
+    "games": 100,
+    "wins": 36,
+    "losses": 63,
+    "draws": 1,
+    "win_rate": 0.36363636363636365,
+    "wilson_ci": [
+      0.27561895587854657,
+      0.46184101104904285
+    ],
+    "bench_out_losses": 11,
+    "prize_losses": 44,
+    "deckout_losses": 8
+  },
+  {
+    "archetype_id": "Dark_Gengar_Hybrid",
+    "name": "Dark Gengar Hybrid",
+    "family": "Dark / Psychic Hybrid",
+    "path": "deck_v2.csv",
+    "games": 100,
+    "wins": 28,
+    "losses": 71,
+    "draws": 1,
+    "win_rate": 0.2828282828282828,
+    "wilson_ci": [
+      0.20351953248569554,
+      0.37836115558416894
+    ],
+    "bench_out_losses": 15,
+    "prize_losses": 46,
+    "deckout_losses": 10
+  }
+]

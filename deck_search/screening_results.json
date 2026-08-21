@@ -1,0 +1,138 @@
+[
+  {
+    "archetype": "Starmie_S0",
+    "description": "Mega Starmie ex Fast Aggro (Control S0)",
+    "deck_path": "meta_starmie.csv",
+    "games": 100,
+    "wins": 59,
+    "losses": 41,
+    "draws": 0,
+    "win_rate": 0.59,
+    "wilson_ci": [
+      0.4920143005341078,
+      0.6813268697886348
+    ],
+    "bench_out_losses": 15,
+    "prize_losses": 26,
+    "deckout_losses": 0
+  },
+  {
+    "archetype": "Alakazam_Psychic",
+    "description": "Alakazam ex / Dudunsparce Psychic Control",
+    "deck_path": "deck_search/candidates/Alakazam_Psychic.csv",
+    "games": 100,
+    "wins": 19,
+    "losses": 81,
+    "draws": 0,
+    "win_rate": 0.19,
+    "wilson_ci": [
+      0.12514751509768735,
+      0.27778845379064376
+    ],
+    "bench_out_losses": 20,
+    "prize_losses": 20,
+    "deckout_losses": 41
+  },
+  {
+    "archetype": "Grimmsnarl_Dark",
+    "description": "Grimmsnarl / Dark / Non-EX Disruption",
+    "deck_path": "deck_search/candidates/Grimmsnarl_Dark.csv",
+    "games": 100,
+    "wins": 35,
+    "losses": 64,
+    "draws": 1,
+    "win_rate": 0.35353535353535354,
+    "wilson_ci": [
+      0.26644852931138896,
+      0.45156402775898485
+    ],
+    "bench_out_losses": 14,
+    "prize_losses": 50,
+    "deckout_losses": 0
+  },
+  {
+    "archetype": "Mewtwo_Stall",
+    "description": "Mewtwo ex / Energy Denial / Stall",
+    "deck_path": "deck_search/candidates/Mewtwo_Stall.csv",
+    "games": 100,
+    "wins": 34,
+    "losses": 65,
+    "draws": 1,
+    "win_rate": 0.3434343434343434,
+    "wilson_ci": [
+      0.25732131645748857,
+      0.44124383075566953
+    ],
+    "bench_out_losses": 7,
+    "prize_losses": 55,
+    "deckout_losses": 3
+  },
+  {
+    "archetype": "Dragapult_Spread",
+    "description": "Dragapult ex Phantom Dive Bench Spread",
+    "deck_path": "deck_search/candidates/Dragapult_Spread.csv",
+    "games": 100,
+    "wins": 15,
+    "losses": 85,
+    "draws": 0,
+    "win_rate": 0.15,
+    "wilson_ci": [
+      0.0930598528365663,
+      0.23283559590832364
+    ],
+    "bench_out_losses": 13,
+    "prize_losses": 55,
+    "deckout_losses": 17
+  },
+  {
+    "archetype": "Archaludon_Metal",
+    "description": "Archaludon ex Metal Bridge High-HP Tank",
+    "deck_path": "deck_search/candidates/Archaludon_Metal.csv",
+    "games": 100,
+    "wins": 27,
+    "losses": 73,
+    "draws": 0,
+    "win_rate": 0.27,
+    "wilson_ci": [
+      0.1926958414957634,
+      0.36432116767944994
+    ],
+    "bench_out_losses": 48,
+    "prize_losses": 20,
+    "deckout_losses": 5
+  },
+  {
+    "archetype": "Ogerpon_Grass",
+    "description": "Teal Mask Ogerpon ex Teal Dance Acceleration",
+    "deck_path": "deck_search/candidates/Ogerpon_Grass.csv",
+    "games": 100,
+    "wins": 68,
+    "losses": 32,
+    "draws": 0,
+    "win_rate": 0.68,
+    "wilson_ci": [
+      0.5833738138954762,
+      0.7633085267500092
+    ],
+    "bench_out_losses": 19,
+    "prize_losses": 13,
+    "deckout_losses": 0
+  },
+  {
+    "archetype": "Bellibolt_Lightning",
+    "description": "Iono's Bellibolt ex Lightning Tempo",
+    "deck_path": "deck_search/candidates/Bellibolt_Lightning.csv",
+    "games": 100,
+    "wins": 14,
+    "losses": 85,
+    "draws": 1,
+    "win_rate": 0.1414141414141414,
+    "wilson_ci": [
+      0.08614485607449507,
+      0.2234720939943508
+    ],
+    "bench_out_losses": 40,
+    "prize_losses": 45,
+    "deckout_losses": 0
+  }
+]

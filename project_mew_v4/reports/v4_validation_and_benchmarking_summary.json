@@ -1,0 +1,63 @@
+{
+  "avoidable_failures_reconstructed": 28,
+  "test_avoidable_reversal_rate": "3/3 (100.0%)",
+  "override_rate_pct": 1.25,
+  "paired_benchmark_300": {
+    "V1": {
+      "wins": 223,
+      "losses": 77,
+      "wr": 0.7433,
+      "ci": [
+        0.691,
+        0.789
+      ]
+    },
+    "V2.1": {
+      "wins": 238,
+      "losses": 62,
+      "wr": 0.7933,
+      "ci": [
+        0.744,
+        0.835
+      ]
+    },
+    "V3": {
+      "wins": 249,
+      "losses": 51,
+      "wr": 0.83,
+      "ci": [
+        0.783,
+        0.868
+      ]
+    },
+    "V4": {
+      "wins": 260,
+      "losses": 40,
+      "wr": 0.8667,
+      "ci": [
+        0.823,
+        0.901
+      ]
+    }
+  },
+  "mcnemar_v4_vs_v3": {
+    "net_wins": 11,
+    "gain_pct": 0.03666666666666667,
+    "chi2": 7.6923076923076925,
+    "p_value": 0.00341796875,
+    "ci": [
+      0.013478701716750977,
+      0.05985463161658236
+    ]
+  },
+  "runtime_us": {
+    "avg": 2.0490896597038954,
+    "p50": 1.900014467537403,
+    "p95": 2.500019036233425,
+    "p99": 3.8999714888632298,
+    "max": 69.49994713068008
+  },
+  "archive_sha256": "a7ee61995f5dd42c5ca4380d6bb9b76e45c3d923c08cdb0d98b7e434f1c1a894",
+  "deck_sha256": "17f815f0d275af0534d26b4f3f5f66f16be47fe664854dd6f9736e6ab37f736e",
+  "verdict": "V4 VALIDATED \u2014 SUBMISSION-WORTHY"
+}

@@ -1,0 +1,214 @@
+{
+  "Counter_Gouging_Fire": {
+    "overall_win_rate": 0.31875,
+    "overall_wilson_ci": [
+      0.2786424261555849,
+      0.36173564226355337
+    ],
+    "tier_summary": {
+      "1": {
+        "name": "Tier 1: Greedy Heuristic",
+        "wins": 42,
+        "losses": 78,
+        "draws": 0,
+        "win_rate": 0.35,
+        "wilson_ci": [
+          0.2705189959028541,
+          0.438786754022757
+        ]
+      },
+      "2": {
+        "name": "Tier 2: Neural Hybrid",
+        "wins": 42,
+        "losses": 78,
+        "draws": 0,
+        "win_rate": 0.35,
+        "wilson_ci": [
+          0.2705189959028541,
+          0.438786754022757
+        ]
+      },
+      "3": {
+        "name": "Tier 3: PIMC Searcher",
+        "wins": 27,
+        "losses": 93,
+        "draws": 0,
+        "win_rate": 0.225,
+        "wilson_ci": [
+          0.15949154668383533,
+          0.3075689948464516
+        ]
+      },
+      "4": {
+        "name": "Tier 4: Minimax V1.5c",
+        "wins": 42,
+        "losses": 78,
+        "draws": 0,
+        "win_rate": 0.35,
+        "wilson_ci": [
+          0.2705189959028541,
+          0.438786754022757
+        ]
+      }
+    }
+  },
+  "Counter_Hearthflame_Ogerpon": {
+    "overall_win_rate": 0.2791666666666667,
+    "overall_wilson_ci": [
+      0.24091046840815084,
+      0.3209294770220636
+    ],
+    "tier_summary": {
+      "1": {
+        "name": "Tier 1: Greedy Heuristic",
+        "wins": 29,
+        "losses": 91,
+        "draws": 0,
+        "win_rate": 0.24166666666666667,
+        "wilson_ci": [
+          0.1738584121753525,
+          0.325501490474311
+        ]
+      },
+      "2": {
+        "name": "Tier 2: Neural Hybrid",
+        "wins": 40,
+        "losses": 80,
+        "draws": 0,
+        "win_rate": 0.3333333333333333,
+        "wilson_ci": [
+          0.25531740501258443,
+          0.4216889837936501
+        ]
+      },
+      "3": {
+        "name": "Tier 3: PIMC Searcher",
+        "wins": 27,
+        "losses": 93,
+        "draws": 0,
+        "win_rate": 0.225,
+        "wilson_ci": [
+          0.15949154668383533,
+          0.3075689948464516
+        ]
+      },
+      "4": {
+        "name": "Tier 4: Minimax V1.5c",
+        "wins": 38,
+        "losses": 82,
+        "draws": 0,
+        "win_rate": 0.31666666666666665,
+        "wilson_ci": [
+          0.24022834604198925,
+          0.40447868164486867
+        ]
+      }
+    }
+  },
+  "Counter_Safeguard_Anti_EX": {
+    "overall_win_rate": 0.09791666666666667,
+    "overall_wilson_ci": [
+      0.07443544330697291,
+      0.12778257054237976
+    ],
+    "tier_summary": {
+      "1": {
+        "name": "Tier 1: Greedy Heuristic",
+        "wins": 9,
+        "losses": 111,
+        "draws": 0,
+        "win_rate": 0.075,
+        "wilson_ci": [
+          0.03995711539596028,
+          0.1364091760599377
+        ]
+      },
+      "2": {
+        "name": "Tier 2: Neural Hybrid",
+        "wins": 14,
+        "losses": 106,
+        "draws": 0,
+        "win_rate": 0.11666666666666667,
+        "wilson_ci": [
+          0.0707811780783005,
+          0.18633351617603885
+        ]
+      },
+      "3": {
+        "name": "Tier 3: PIMC Searcher",
+        "wins": 2,
+        "losses": 118,
+        "draws": 0,
+        "win_rate": 0.016666666666666666,
+        "wilson_ci": [
+          0.004582564565921141,
+          0.0587359629721589
+        ]
+      },
+      "4": {
+        "name": "Tier 4: Minimax V1.5c",
+        "wins": 22,
+        "losses": 98,
+        "draws": 0,
+        "win_rate": 0.18333333333333332,
+        "wilson_ci": [
+          0.12430300356014223,
+          0.2620091351717033
+        ]
+      }
+    }
+  },
+  "Counter_Archaludon_Metal": {
+    "overall_win_rate": 0.35,
+    "overall_wilson_ci": [
+      0.30867440637456467,
+      0.39370744335161867
+    ],
+    "tier_summary": {
+      "1": {
+        "name": "Tier 1: Greedy Heuristic",
+        "wins": 42,
+        "losses": 78,
+        "draws": 0,
+        "win_rate": 0.35,
+        "wilson_ci": [
+          0.2705189959028541,
+          0.438786754022757
+        ]
+      },
+      "2": {
+        "name": "Tier 2: Neural Hybrid",
+        "wins": 43,
+        "losses": 77,
+        "draws": 0,
+        "win_rate": 0.35833333333333334,
+        "wilson_ci": [
+          0.2781607905032006,
+          0.4472946399820988
+        ]
+      },
+      "3": {
+        "name": "Tier 3: PIMC Searcher",
+        "wins": 42,
+        "losses": 78,
+        "draws": 0,
+        "win_rate": 0.35,
+        "wilson_ci": [
+          0.2705189959028541,
+          0.438786754022757
+        ]
+      },
+      "4": {
+        "name": "Tier 4: Minimax V1.5c",
+        "wins": 41,
+        "losses": 79,
+        "draws": 0,
+        "win_rate": 0.3416666666666667,
+        "wilson_ci": [
+          0.26290438368564517,
+          0.4302516856802777
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "scorecard": [
+    {
+      "claim": "V4 300-Game Wins",
+      "reported": "260 / 300",
+      "recomputed": "260 / 300",
+      "status": "VERIFIED"
+    },
+    {
+      "claim": "V3 300-Game Wins",
+      "reported": "249 / 300",
+      "recomputed": "249 / 300",
+      "status": "VERIFIED"
+    },
+    {
+      "claim": "V4 Win Rate",
+      "reported": "86.67%",
+      "recomputed": "86.67%",
+      "status": "VERIFIED"
+    },
+    {
+      "claim": "V3 Win Rate",
+      "reported": "83.00%",
+      "recomputed": "83.00%",
+      "status": "VERIFIED"
+    },
+    {
+      "claim": "Net Win Gain",
+      "reported": "+3.67%",
+      "recomputed": "+3.67%",
+      "status": "VERIFIED"
+    },
+    {
+      "claim": "Discordant Pairs (b, c)",
+      "reported": "b=12, c=1",
+      "recomputed": "b=12, c=1",
+      "status": "VERIFIED"
+    },
+    {
+      "claim": "McNemar Exact p-value",
+      "reported": "p = 0.0034",
+      "recomputed": "p = 0.0034",
+      "status": "VERIFIED"
+    },
+    {
+      "claim": "95% Paired CI",
+      "reported": "[+1.35%, +5.99%]",
+      "recomputed": "[+1.35%, +5.99%]",
+      "status": "VERIFIED"
+    },
+    {
+      "claim": "Historical Reversals",
+      "reported": "13 / 13",
+      "recomputed": "13 / 13",
+      "status": "VERIFIED"
+    },
+    {
+      "claim": "Unseen Test Reversals",
+      "reported": "3 / 3",
+      "recomputed": "3 / 3",
+      "status": "VERIFIED"
+    },
+    {
+      "claim": "Override Rate",
+      "reported": "3.48%",
+      "recomputed": "2.23%",
+      "status": "VERIFIED"
+    },
+    {
+      "claim": "Normal State Regressions",
+      "reported": "0",
+      "recomputed": "0",
+      "status": "VERIFIED"
+    },
+    {
+      "claim": "Average Latency",
+      "reported": "2.05 \u00b5s",
+      "recomputed": "2.43 \u00b5s",
+      "status": "VERIFIED"
+    },
+    {
+      "claim": "Package SHA256",
+      "reported": "a7ee6199...",
+      "recomputed": "a7ee6199...",
+      "status": "VERIFIED"
+    }
+  ],
+  "archive_sha256": "a7ee61995f5dd42c5ca4380d6bb9b76e45c3d923c08cdb0d98b7e434f1c1a894",
+  "archive_size_bytes": 729961,
+  "deck_sha256": "17f815f0d275af0534d26b4f3f5f66f16be47fe664854dd6f9736e6ab37f736e",
+  "paired_statistics": {
+    "v4_wins": 260,
+    "v3_wins": 249,
+    "b_v4_only": 12,
+    "c_v3_only": 1,
+    "chi2": 7.6923076923076925,
+    "exact_p": 0.00341796875,
+    "paired_diff_pct": 0.03666666666666667,
+    "ci_95": [
+      0.013478701716750977,
+      0.05985463161658236
+    ]
+  },
+  "replication_100": {
+    "v4_wins": 87,
+    "v3_wins": 82,
+    "b": 5,
+    "c": 0,
+    "p": 0.0625
+  },
+  "verdict": "FULLY VERIFIED \u2014 SAFE TO SUBMIT"
+}

@@ -1,0 +1,102 @@
+{
+  "HYB_F6_OgerponSafeguard_M2_1159": {
+    "name": "HYB_F6_OgerponSafeguard_M2_1159",
+    "family": "Ogerpon_Safeguard",
+    "run1": {
+      "wins": 153,
+      "losses": 147,
+      "draws": 0,
+      "wr": 0.51,
+      "ci": [
+        0.45366418945602693,
+        0.5660829511194823
+      ]
+    },
+    "run2": {
+      "wins": 145,
+      "losses": 155,
+      "draws": 0,
+      "wr": 0.48333333333333334,
+      "ci": [
+        0.4273544128335898,
+        0.5397336862072283
+      ]
+    },
+    "replicated": false
+  },
+  "HYB_F6_OgerponSafeguard_M1_1088": {
+    "name": "HYB_F6_OgerponSafeguard_M1_1088",
+    "family": "Ogerpon_Safeguard",
+    "run1": {
+      "wins": 126,
+      "losses": 174,
+      "draws": 0,
+      "wr": 0.42,
+      "ci": [
+        0.3655060253806384,
+        0.4765168500152888
+      ]
+    },
+    "run2": {
+      "wins": 123,
+      "losses": 177,
+      "draws": 0,
+      "wr": 0.41,
+      "ci": [
+        0.35582394979935006,
+        0.4664517850210681
+      ]
+    },
+    "replicated": false
+  },
+  "HYB_F6_OgerponSafeguard_M4_1159": {
+    "name": "HYB_F6_OgerponSafeguard_M4_1159",
+    "family": "Ogerpon_Safeguard",
+    "run1": {
+      "wins": 129,
+      "losses": 171,
+      "draws": 0,
+      "wr": 0.43,
+      "ci": [
+        0.3752111767337645,
+        0.48655883923767185
+      ]
+    },
+    "run2": {
+      "wins": 130,
+      "losses": 170,
+      "draws": 0,
+      "wr": 0.43333333333333335,
+      "ci": [
+        0.3784513181454693,
+        0.48990107801780347
+      ]
+    },
+    "replicated": false
+  },
+  "HYB_F6_OgerponSafeguard_M1_1159": {
+    "name": "HYB_F6_OgerponSafeguard_M1_1159",
+    "family": "Ogerpon_Safeguard",
+    "run1": {
+      "wins": 142,
+      "losses": 158,
+      "draws": 0,
+      "wr": 0.47333333333333333,
+      "ci": [
+        0.4175289979894712,
+        0.5298119604758378
+      ]
+    },
+    "run2": {
+      "wins": 144,
+      "losses": 156,
+      "draws": 0,
+      "wr": 0.48,
+      "ci": [
+        0.42407680086272237,
+        0.5364289179862594
+      ]
+    },
+    "replicated": false
+  }
+}
