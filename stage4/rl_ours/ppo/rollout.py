@@ -143,6 +143,10 @@ def worker_collect(job):
     (state, rows, action, logprob, adv, ret) per decision."""
     import torch as _t
     from . import net as _net
+    # One intra-op thread per worker: rollouts are single-sample forwards, so
+    # intra-op parallelism buys nothing, and W workers x N threads would
+    # oversubscribe the box (10x12 = 120 threads on 12 cores).
+    _t.set_num_threads(1)
     policy_sd, value_sd, cfg, opp_specs, seats, seed = job
     pnet = _net.make_policy(cfg)
     pnet.load_state_dict(_t.load(policy_sd, map_location="cpu"))

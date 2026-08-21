@@ -262,8 +262,17 @@ def train(cfg, n_iters, out_dir, log_path=None, ckpt_every=10, verbose=True):
     executor = None
     tmpdir = tempfile.mkdtemp(prefix="ppo_")
     if cfg.get("workers", 1) > 1:
+        import multiprocessing as _mp
         from concurrent.futures import ProcessPoolExecutor
-        executor = ProcessPoolExecutor(max_workers=cfg["workers"])
+        # SPAWN, not fork. The wide embed copies 170x320 and 320x160 tensors,
+        # which exceed torch's parallel grain size (32768) and so spin up the
+        # OpenMP thread pool in this process. libgomp is not fork-safe: forked
+        # children inherit its mutexes but none of its threads and deadlock on
+        # their first parallel op (load_state_dict of those same wide tensors)
+        # before running a single game. The narrow net stays under the grain
+        # size, never starts the pool, and so survived fork by luck.
+        executor = ProcessPoolExecutor(max_workers=cfg["workers"],
+                                       mp_context=_mp.get_context("spawn"))
     try:
         for it in range(n_iters):
             # incumbent-share curriculum ramp (0 -> incumbent_final): the direct
