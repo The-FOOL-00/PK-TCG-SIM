@@ -1,0 +1,14 @@
+{
+  "data": [
+    "data/bs_cei_v1",
+    "data/q_failure_v1"
+  ],
+  "n_features": 194,
+  "metrics": {
+    "params": 91137,
+    "val_logloss": 0.5356929302215576,
+    "val_auc": 0.8103629492628573,
+    "val_brier": 0.17952817678451538,
+    "val_ece": 0.0408277729867511
+  }
+}

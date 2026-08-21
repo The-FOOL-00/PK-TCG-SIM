@@ -118,6 +118,8 @@ def train(layers, xtr, ytr, xva, yva, epochs, batch, lr, seed, tag):
     ms = [[np.zeros_like(w), np.zeros_like(b)] for w, b in layers]
     vs = [[np.zeros_like(w), np.zeros_like(b)] for w, b in layers]
     beta1, beta2, eps, t = 0.9, 0.999, 1e-8, 0
+    best_va = float("inf")
+    best_layers = [[w.copy(), b.copy()] for w, b in layers]
     for epoch in range(1, epochs + 1):
         order = rng.permutation(len(ytr))
         t0 = time.perf_counter()
@@ -135,9 +137,15 @@ def train(layers, xtr, ytr, xva, yva, epochs, batch, lr, seed, tag):
                     layer[j] -= lr * mh / (np.sqrt(vh) + eps)
         tr = logloss(forward(layers, xtr)[0], ytr)
         va = logloss(forward(layers, xva)[0], yva)
+        if va < best_va:
+            best_va = va
+            best_layers = [[w.copy(), b.copy()] for w, b in layers]
+            marker = "*"
+        else:
+            marker = ""
         print(f"[{tag}] epoch {epoch}/{epochs}: train logloss {tr:.4f} "
-              f"val logloss {va:.4f} ({time.perf_counter()-t0:.0f}s)", flush=True)
-    return layers
+              f"val logloss {va:.4f} {marker} ({time.perf_counter()-t0:.0f}s)", flush=True)
+    return best_layers
 
 
 # -------------------------------------------------------------- metrics ----
@@ -155,6 +163,23 @@ def auc(p, y):
     if n_pos == 0 or n_neg == 0:
         return float("nan")
     return float((ranks[y == 1].sum() - n_pos * (n_pos + 1) / 2) / (n_pos * n_neg))
+
+
+def brier_score(p, y):
+    return float(np.mean((p - y) ** 2))
+
+
+def expected_calibration_error(p, y, buckets=10):
+    ece = 0.0
+    n_total = len(y)
+    for i in range(buckets):
+        lo, hi = i / buckets, (i + 1) / buckets
+        m = (p >= lo) & (p < hi) if i < buckets - 1 else (p >= lo) & (p <= hi)
+        if m.any():
+            pred_m = p[m].mean()
+            act_m = y[m].mean()
+            ece += (m.sum() / n_total) * abs(pred_m - act_m)
+    return float(ece)
 
 
 def calibration(p, y, buckets=10):
@@ -176,8 +201,12 @@ def evaluate(layers, xtr, ytr, xva, yva):
     pva, _ = forward(layers, xva)
     return {
         "params": int(sum(w.size + b.size for w, b in layers)),
-        "train_logloss": logloss(ptr, ytr), "val_logloss": logloss(pva, yva),
-        "train_auc": auc(ptr, ytr), "val_auc": auc(pva, yva),
+        "train_logloss": logloss(ptr, ytr),
+        "val_logloss": logloss(pva, yva),
+        "train_auc": auc(ptr, ytr),
+        "val_auc": auc(pva, yva),
+        "val_brier": brier_score(pva, yva),
+        "val_ece": expected_calibration_error(pva, yva),
         "val_calibration": calibration(pva, yva),
     }
 
@@ -212,26 +241,32 @@ def main():
     nf = xtr.shape[1]
     rng = np.random.default_rng(args.seed)
 
+    print(f"Training Value Models on {len(ytr)} train rows, {len(yva)} val rows (dim={nf})...")
+
     logreg = train(init_layers([nf, 1], rng), xtr, ytr, xva, yva,
                    args.epochs, args.batch, args.lr, args.seed, "logreg")
     mlp = train(init_layers([nf, 128, 64, 1], rng), xtr, ytr, xva, yva,
                 args.epochs, args.batch, args.lr, args.seed, "mlp")
+    mlp_deep = train(init_layers([nf, 256, 128, 64, 1], rng), xtr, ytr, xva, yva,
+                      args.epochs, args.batch, args.lr, args.seed, "mlp_deep")
+
+    models = {"logreg": logreg, "mlp": mlp, "mlp_deep": mlp_deep}
+    evals = {name: evaluate(m, xtr, ytr, xva, yva) for name, m in models.items()}
 
     metrics = {"data": str(args.data), "rows_train": len(ytr), "rows_val": len(yva),
                "epochs": args.epochs, "batch": args.batch, "lr": args.lr,
-               "logreg": evaluate(logreg, xtr, ytr, xva, yva),
-               "mlp": evaluate(mlp, xtr, ytr, xva, yva)}
-    save_weights(out / "value_weights_logreg.npz", logreg, "logreg", nf)
-    save_weights(out / "value_weights_mlp.npz", mlp, "mlp", nf)
-    best_name, best = min((("logreg", logreg), ("mlp", mlp)),
-                          key=lambda kv: metrics[kv[0]]["val_logloss"])
+               "evaluations": evals}
+    for name, m in models.items():
+        save_weights(out / f"value_weights_{name}.npz", m, name, nf)
+
+    best_name = min(evals.keys(), key=lambda k: evals[k]["val_logloss"])
     metrics["best"] = best_name
-    save_weights(out / "value_weights.npz", best, best_name, nf)
+    save_weights(out / "value_weights.npz", models[best_name], best_name, nf)
     (out / "metrics.json").write_text(json.dumps(metrics, indent=2), encoding="utf-8")
     print(f"wrote {out / 'metrics.json'}", flush=True)
-    print(f"BEST: {best_name}  val logloss "
-          f"{metrics[best_name]['val_logloss']:.4f}  val AUC "
-          f"{metrics[best_name]['val_auc']:.4f}", flush=True)
+    print(f"BEST MODEL: {best_name} | Val LogLoss: {evals[best_name]['val_logloss']:.4f} | "
+          f"Val AUC: {evals[best_name]['val_auc']:.4f} | Val Brier: {evals[best_name]['val_brier']:.4f} | "
+          f"Val ECE: {evals[best_name]['val_ece']:.4f}", flush=True)
 
 
 if __name__ == "__main__":

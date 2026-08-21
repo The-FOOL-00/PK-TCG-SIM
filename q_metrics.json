@@ -1,0 +1,15 @@
+{
+  "data": "data/q_failure_v1",
+  "rows_train": 750702,
+  "rows_val": 87110,
+  "n_features": 246,
+  "metrics": {
+    "params": 41985,
+    "train_logloss": 0.4406999349594116,
+    "val_logloss": 0.5454696416854858,
+    "train_auc": 0.8753356046690941,
+    "val_auc": 0.8059473085104731,
+    "val_brier": 0.18300366401672363,
+    "val_ece": 0.057976644581042444
+  }
+}
