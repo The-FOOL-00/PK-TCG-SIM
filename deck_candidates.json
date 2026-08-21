@@ -1,0 +1,211 @@
+{
+  "S0_baseline": {
+    "candidate_id": "S0_baseline",
+    "changes": "baseline S0 (17 Energy, 0 Boss, 0 Switch, 1 Max Belt)",
+    "hypothesis": "Incumbent benchmark",
+    "deck_path": "data\\decks\\S0_baseline.csv",
+    "games": 100,
+    "wins": 30,
+    "losses": 68,
+    "draws": 2,
+    "win_rate": 0.30612244897959184,
+    "wilson_ci": [
+      0.2236265981656448,
+      0.40324441841214975
+    ],
+    "bench_out_losses": 41,
+    "prize_losses": 27,
+    "deckout_losses": 0,
+    "timestamp": 1786723534.2213259
+  },
+  "S1_plus_1_boss": {
+    "candidate_id": "S1_plus_1_boss",
+    "changes": "+1 Boss's Orders (1182), -1 Water Energy (3)",
+    "hypothesis": "Target access: Allows gusting benched 2-prize EX targets",
+    "deck_path": "data\\decks\\S1_plus_1_boss.csv",
+    "games": 100,
+    "wins": 31,
+    "losses": 68,
+    "draws": 1,
+    "win_rate": 0.31313131313131315,
+    "wilson_ci": [
+      0.23020787273174337,
+      0.41001504490976803
+    ],
+    "bench_out_losses": 37,
+    "prize_losses": 31,
+    "deckout_losses": 0,
+    "timestamp": 1786723542.3192139
+  },
+  "S2_plus_2_boss": {
+    "candidate_id": "S2_plus_2_boss",
+    "changes": "+2 Boss's Orders (1182), -2 Water Energy (3)",
+    "hypothesis": "High target access: 2x Boss's Orders to reliably close prize race",
+    "deck_path": "data\\decks\\S2_plus_2_boss.csv",
+    "games": 100,
+    "wins": 38,
+    "losses": 60,
+    "draws": 2,
+    "win_rate": 0.3877551020408163,
+    "wilson_ci": [
+      0.29726468270356593,
+      0.4867132742625256
+    ],
+    "bench_out_losses": 37,
+    "prize_losses": 23,
+    "deckout_losses": 0,
+    "timestamp": 1786723553.6572442
+  },
+  "S3_plus_1_switch": {
+    "candidate_id": "S3_plus_1_switch",
+    "changes": "+1 Switch (1123), -1 Water Energy (3)",
+    "hypothesis": "Mobility/Survival: Enables free active swap when damaged",
+    "deck_path": "data\\decks\\S3_plus_1_switch.csv",
+    "games": 100,
+    "wins": 27,
+    "losses": 73,
+    "draws": 0,
+    "win_rate": 0.27,
+    "wilson_ci": [
+      0.1926958414957634,
+      0.36432116767944994
+    ],
+    "bench_out_losses": 35,
+    "prize_losses": 38,
+    "deckout_losses": 0,
+    "timestamp": 1786723575.601433
+  },
+  "S4_prime_catcher": {
+    "candidate_id": "S4_prime_catcher",
+    "changes": "+1 Prime Catcher (1088), -1 Maximum Belt (1158)",
+    "hypothesis": "ACE SPEC upgrade: Gust opponent bench + switch active in 1 item",
+    "deck_path": "data\\decks\\S4_prime_catcher.csv",
+    "games": 100,
+    "wins": 32,
+    "losses": 65,
+    "draws": 3,
+    "win_rate": 0.32989690721649484,
+    "wilson_ci": [
+      0.24438091722640704,
+      0.42837272610716276
+    ],
+    "bench_out_losses": 37,
+    "prize_losses": 28,
+    "deckout_losses": 0,
+    "timestamp": 1786723595.7762206
+  },
+  "S5_boss_and_switch": {
+    "candidate_id": "S5_boss_and_switch",
+    "changes": "+1 Boss's Orders (1182), +1 Switch (1123), -2 Water Energy (3)",
+    "hypothesis": "Target access + mobility combined",
+    "deck_path": "data\\decks\\S5_boss_and_switch.csv",
+    "games": 100,
+    "wins": 40,
+    "losses": 59,
+    "draws": 1,
+    "win_rate": 0.40404040404040403,
+    "wilson_ci": [
+      0.31271856818224286,
+      0.502531038174209
+    ],
+    "bench_out_losses": 30,
+    "prize_losses": 29,
+    "deckout_losses": 0,
+    "timestamp": 1786723611.31422
+  },
+  "S6_2boss_and_switch": {
+    "candidate_id": "S6_2boss_and_switch",
+    "changes": "+2 Boss's Orders (1182), +1 Switch (1123), -3 Water Energy (3)",
+    "hypothesis": "Max target access (2x Boss) + mobility (1x Switch), 14 Energy",
+    "deck_path": "data\\decks\\S6_2boss_and_switch.csv",
+    "games": 100,
+    "wins": 41,
+    "losses": 58,
+    "draws": 1,
+    "win_rate": 0.41414141414141414,
+    "wilson_ci": [
+      0.3220949941765153,
+      0.5126020220371521
+    ],
+    "bench_out_losses": 34,
+    "prize_losses": 24,
+    "deckout_losses": 0,
+    "timestamp": 1786723626.8957822
+  },
+  "S7_prime_and_boss": {
+    "candidate_id": "S7_prime_and_boss",
+    "changes": "+1 Prime Catcher (1088), +1 Boss's Orders (1182), -1 Max Belt (1158), -1 Energy (3)",
+    "hypothesis": "Dual Gust suite (Prime Catcher + Boss's Orders)",
+    "deck_path": "data\\decks\\S7_prime_and_boss.csv",
+    "games": 100,
+    "wins": 38,
+    "losses": 61,
+    "draws": 1,
+    "win_rate": 0.3838383838383838,
+    "wilson_ci": [
+      0.2940864603561134,
+      0.4822683262859071
+    ],
+    "bench_out_losses": 35,
+    "prize_losses": 26,
+    "deckout_losses": 0,
+    "timestamp": 1786723641.640383
+  },
+  "S8_plus_mantine": {
+    "candidate_id": "S8_plus_mantine",
+    "changes": "+1 Mantine (720), -1 Water Energy (3)",
+    "hypothesis": "Basic density: 3x Mantine to reduce bench-out losses",
+    "deck_path": "data\\decks\\S8_plus_mantine.csv",
+    "games": 100,
+    "wins": 29,
+    "losses": 70,
+    "draws": 1,
+    "win_rate": 0.29292929292929293,
+    "wilson_ci": [
+      0.2123663249451079,
+      0.3889617729819722
+    ],
+    "bench_out_losses": 32,
+    "prize_losses": 38,
+    "deckout_losses": 0,
+    "timestamp": 1786723658.742982
+  },
+  "S9_mantine_and_boss": {
+    "candidate_id": "S9_mantine_and_boss",
+    "changes": "+1 Mantine (720), +1 Boss's Orders (1182), -2 Water Energy (3)",
+    "hypothesis": "Bench safety + target access combined",
+    "deck_path": "data\\decks\\S9_mantine_and_boss.csv",
+    "games": 100,
+    "wins": 44,
+    "losses": 55,
+    "draws": 1,
+    "win_rate": 0.4444444444444444,
+    "wilson_ci": [
+      0.35046067385103263,
+      0.5425785719342816
+    ],
+    "bench_out_losses": 23,
+    "prize_losses": 32,
+    "deckout_losses": 0,
+    "timestamp": 1786723673.9637327
+  },
+  "S10_full_tactical_suite": {
+    "candidate_id": "S10_full_tactical_suite",
+    "changes": "+1 Prime Catcher (1088), +1 Boss's Orders (1182), +1 Switch (1123), -1 Max Belt (1158), -2 Energy (3)",
+    "hypothesis": "Complete tactical suite: Prime Catcher + Boss + Switch, 15 Energy",
+    "deck_path": "data\\decks\\S10_full_tactical_suite.csv",
+    "games": 100,
+    "wins": 35,
+    "losses": 63,
+    "draws": 2,
+    "win_rate": 0.35714285714285715,
+    "wilson_ci": [
+      0.2693153421722757,
+      0.4557475121482044
+    ],
+    "bench_out_losses": 28,
+    "prize_losses": 35,
+    "deckout_losses": 0,
+    "timestamp": 1786723682.6247485
+  }
+}
