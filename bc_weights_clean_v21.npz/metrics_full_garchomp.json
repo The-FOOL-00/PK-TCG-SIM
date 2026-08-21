@@ -1,0 +1,444 @@
+{
+  "params": 27842,
+  "best_epoch": 40,
+  "val_top1_main": 0.5382585751978892,
+  "val_top1_card": 0.7228260869565217,
+  "val_ce_main": 1.2788738012313843,
+  "val_ce_card": 0.8516120910644531,
+  "floors_main": {
+    "uniform": 0.16018171881361576,
+    "always_index_0": 0.21372031662269128,
+    "v1_agreement": 0.21635883905013192
+  },
+  "floors_card": {
+    "uniform": 0.23296336815358556,
+    "always_index_0": 0.5163043478260869,
+    "v1_agreement": 0.5543478260869565
+  },
+  "card_per_context": {
+    "SWITCH/bench": {
+      "n_val": 13,
+      "acc": 0.9230769230769231,
+      "uniform_floor": 0.21923076923076928,
+      "v1_agree_floor": 0.6153846153846154
+    },
+    "TO_ACTIVE/bench": {
+      "n_val": 16,
+      "acc": 0.8125,
+      "uniform_floor": 0.21770833333333334,
+      "v1_agree_floor": 0.5
+    },
+    "TO_BENCH/deck": {
+      "n_val": 11,
+      "acc": 0.8181818181818182,
+      "uniform_floor": 0.17709235209235208,
+      "v1_agree_floor": 0.36363636363636365
+    },
+    "TO_HAND/deck": {
+      "n_val": 84,
+      "acc": 0.5714285714285714,
+      "uniform_floor": 0.24510796742939597,
+      "v1_agree_floor": 0.5595238095238095
+    },
+    "TO_HAND/discard": {
+      "n_val": 10,
+      "acc": 0.7,
+      "uniform_floor": 0.2231746031746032,
+      "v1_agree_floor": 0.4
+    },
+    "TO_HAND/prize": {
+      "n_val": 27,
+      "acc": 1.0,
+      "uniform_floor": 0.2728395061728395,
+      "v1_agree_floor": 1.0
+    },
+    "DISCARD/hand": {
+      "n_val": 23,
+      "acc": 0.7391304347826086,
+      "uniform_floor": 0.19114906832298137,
+      "v1_agree_floor": 0.17391304347826086
+    }
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "val_acc_main": 0.40369393139841686,
+      "val_acc_card": 0.5706521739130435,
+      "val_acc_combined": 0.458259325044405,
+      "val_ce_main": 1.9662163257598877,
+      "val_ce_card": 1.494497537612915,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 2,
+      "val_acc_main": 0.40105540897097625,
+      "val_acc_card": 0.592391304347826,
+      "val_acc_combined": 0.4635879218472469,
+      "val_ce_main": 1.878910779953003,
+      "val_ce_card": 1.4419565200805664,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 3,
+      "val_acc_main": 0.40897097625329815,
+      "val_acc_card": 0.5869565217391305,
+      "val_acc_combined": 0.46714031971580816,
+      "val_ce_main": 1.795753002166748,
+      "val_ce_card": 1.4005873203277588,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 4,
+      "val_acc_main": 0.43007915567282323,
+      "val_acc_card": 0.592391304347826,
+      "val_acc_combined": 0.48312611012433393,
+      "val_ce_main": 1.723431944847107,
+      "val_ce_card": 1.3618451356887817,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 5,
+      "val_acc_main": 0.42480211081794195,
+      "val_acc_card": 0.592391304347826,
+      "val_acc_combined": 0.47957371225577267,
+      "val_ce_main": 1.6576286554336548,
+      "val_ce_card": 1.32363760471344,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 6,
+      "val_acc_main": 0.43535620052770446,
+      "val_acc_card": 0.5869565217391305,
+      "val_acc_combined": 0.4849023090586146,
+      "val_ce_main": 1.6018831729888916,
+      "val_ce_card": 1.2873904705047607,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 7,
+      "val_acc_main": 0.43271767810026385,
+      "val_acc_card": 0.5869565217391305,
+      "val_acc_combined": 0.48312611012433393,
+      "val_ce_main": 1.5639232397079468,
+      "val_ce_card": 1.2535099983215332,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 8,
+      "val_acc_main": 0.42744063324538256,
+      "val_acc_card": 0.592391304347826,
+      "val_acc_combined": 0.48134991119005327,
+      "val_ce_main": 1.53132164478302,
+      "val_ce_card": 1.22467041015625,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 9,
+      "val_acc_main": 0.43271767810026385,
+      "val_acc_card": 0.5978260869565217,
+      "val_acc_combined": 0.4866785079928952,
+      "val_ce_main": 1.5072442293167114,
+      "val_ce_card": 1.1995047330856323,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 10,
+      "val_acc_main": 0.43535620052770446,
+      "val_acc_card": 0.592391304347826,
+      "val_acc_combined": 0.4866785079928952,
+      "val_ce_main": 1.485970139503479,
+      "val_ce_card": 1.1774157285690308,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 11,
+      "val_acc_main": 0.43799472295514513,
+      "val_acc_card": 0.5978260869565217,
+      "val_acc_combined": 0.49023090586145646,
+      "val_ce_main": 1.470902442932129,
+      "val_ce_card": 1.1574712991714478,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 12,
+      "val_acc_main": 0.44063324538258575,
+      "val_acc_card": 0.592391304347826,
+      "val_acc_combined": 0.49023090586145646,
+      "val_ce_main": 1.4571430683135986,
+      "val_ce_card": 1.139256238937378,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 13,
+      "val_acc_main": 0.44327176781002636,
+      "val_acc_card": 0.5978260869565217,
+      "val_acc_combined": 0.4937833037300178,
+      "val_ce_main": 1.4404345750808716,
+      "val_ce_card": 1.121575117111206,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 14,
+      "val_acc_main": 0.44591029023746703,
+      "val_acc_card": 0.6032608695652174,
+      "val_acc_combined": 0.49733570159857904,
+      "val_ce_main": 1.4328429698944092,
+      "val_ce_card": 1.1049796342849731,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 15,
+      "val_acc_main": 0.46437994722955145,
+      "val_acc_card": 0.6086956521739131,
+      "val_acc_combined": 0.5115452930728241,
+      "val_ce_main": 1.4251424074172974,
+      "val_ce_card": 1.0860766172409058,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 16,
+      "val_acc_main": 0.46701846965699206,
+      "val_acc_card": 0.6141304347826086,
+      "val_acc_combined": 0.5150976909413855,
+      "val_ce_main": 1.407874584197998,
+      "val_ce_card": 1.0720449686050415,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 17,
+      "val_acc_main": 0.46965699208443273,
+      "val_acc_card": 0.6304347826086957,
+      "val_acc_combined": 0.522202486678508,
+      "val_ce_main": 1.4002147912979126,
+      "val_ce_card": 1.0573679208755493,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 18,
+      "val_acc_main": 0.46701846965699206,
+      "val_acc_card": 0.6358695652173914,
+      "val_acc_combined": 0.522202486678508,
+      "val_ce_main": 1.3934667110443115,
+      "val_ce_card": 1.04464852809906,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 19,
+      "val_acc_main": 0.48548812664907653,
+      "val_acc_card": 0.6521739130434783,
+      "val_acc_combined": 0.5399644760213144,
+      "val_ce_main": 1.3790820837020874,
+      "val_ce_card": 1.0296008586883545,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 20,
+      "val_acc_main": 0.46701846965699206,
+      "val_acc_card": 0.657608695652174,
+      "val_acc_combined": 0.5293072824156305,
+      "val_ce_main": 1.3783293962478638,
+      "val_ce_card": 1.0177377462387085,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 21,
+      "val_acc_main": 0.48812664907651715,
+      "val_acc_card": 0.6630434782608695,
+      "val_acc_combined": 0.5452930728241563,
+      "val_ce_main": 1.3632642030715942,
+      "val_ce_card": 1.00592839717865,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 22,
+      "val_acc_main": 0.49604221635883905,
+      "val_acc_card": 0.6521739130434783,
+      "val_acc_combined": 0.5470692717584369,
+      "val_ce_main": 1.3596020936965942,
+      "val_ce_card": 0.9938803911209106,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 23,
+      "val_acc_main": 0.48284960422163586,
+      "val_acc_card": 0.6467391304347826,
+      "val_acc_combined": 0.5364120781527532,
+      "val_ce_main": 1.3567146062850952,
+      "val_ce_card": 0.981673538684845,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 24,
+      "val_acc_main": 0.49340369393139843,
+      "val_acc_card": 0.6521739130434783,
+      "val_acc_combined": 0.5452930728241563,
+      "val_ce_main": 1.340092658996582,
+      "val_ce_card": 0.9739482998847961,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 25,
+      "val_acc_main": 0.49868073878627966,
+      "val_acc_card": 0.6630434782608695,
+      "val_acc_combined": 0.5523978685612788,
+      "val_ce_main": 1.3375933170318604,
+      "val_ce_card": 0.9602780342102051,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 26,
+      "val_acc_main": 0.5118733509234829,
+      "val_acc_card": 0.657608695652174,
+      "val_acc_combined": 0.5595026642984015,
+      "val_ce_main": 1.323565125465393,
+      "val_ce_card": 0.945975661277771,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 27,
+      "val_acc_main": 0.503957783641161,
+      "val_acc_card": 0.6630434782608695,
+      "val_acc_combined": 0.5559502664298401,
+      "val_ce_main": 1.3307621479034424,
+      "val_ce_card": 0.9431157112121582,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 28,
+      "val_acc_main": 0.503957783641161,
+      "val_acc_card": 0.6684782608695652,
+      "val_acc_combined": 0.5577264653641207,
+      "val_ce_main": 1.3176389932632446,
+      "val_ce_card": 0.9342479109764099,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 29,
+      "val_acc_main": 0.49868073878627966,
+      "val_acc_card": 0.6793478260869565,
+      "val_acc_combined": 0.5577264653641207,
+      "val_ce_main": 1.3207319974899292,
+      "val_ce_card": 0.9230747222900391,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 30,
+      "val_acc_main": 0.49604221635883905,
+      "val_acc_card": 0.6739130434782609,
+      "val_acc_combined": 0.5541740674955595,
+      "val_ce_main": 1.3185654878616333,
+      "val_ce_card": 0.9136067032814026,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 31,
+      "val_acc_main": 0.5013192612137203,
+      "val_acc_card": 0.6847826086956522,
+      "val_acc_combined": 0.5612788632326821,
+      "val_ce_main": 1.2994128465652466,
+      "val_ce_card": 0.899531900882721,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 32,
+      "val_acc_main": 0.5065963060686016,
+      "val_acc_card": 0.6793478260869565,
+      "val_acc_combined": 0.5630550621669627,
+      "val_ce_main": 1.3125313520431519,
+      "val_ce_card": 0.9026302099227905,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 33,
+      "val_acc_main": 0.5145118733509235,
+      "val_acc_card": 0.6956521739130435,
+      "val_acc_combined": 0.5737122557726465,
+      "val_ce_main": 1.293492078781128,
+      "val_ce_card": 0.8895859122276306,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 34,
+      "val_acc_main": 0.5145118733509235,
+      "val_acc_card": 0.6956521739130435,
+      "val_acc_combined": 0.5737122557726465,
+      "val_ce_main": 1.3068352937698364,
+      "val_ce_card": 0.8878065943717957,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 35,
+      "val_acc_main": 0.5065963060686016,
+      "val_acc_card": 0.6902173913043478,
+      "val_acc_combined": 0.566607460035524,
+      "val_ce_main": 1.3040155172348022,
+      "val_ce_card": 0.8777812719345093,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 36,
+      "val_acc_main": 0.5171503957783641,
+      "val_acc_card": 0.7065217391304348,
+      "val_acc_combined": 0.5790408525754884,
+      "val_ce_main": 1.3162164688110352,
+      "val_ce_card": 0.8761407732963562,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 37,
+      "val_acc_main": 0.5197889182058048,
+      "val_acc_card": 0.7010869565217391,
+      "val_acc_combined": 0.5790408525754884,
+      "val_ce_main": 1.2843648195266724,
+      "val_ce_card": 0.8646340370178223,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 38,
+      "val_acc_main": 0.5329815303430079,
+      "val_acc_card": 0.717391304347826,
+      "val_acc_combined": 0.5932504440497336,
+      "val_ce_main": 1.2759515047073364,
+      "val_ce_card": 0.857364296913147,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 39,
+      "val_acc_main": 0.5329815303430079,
+      "val_acc_card": 0.7228260869565217,
+      "val_acc_combined": 0.5950266429840142,
+      "val_ce_main": 1.2816585302352905,
+      "val_ce_card": 0.8499071002006531,
+      "seconds": 0.2
+    },
+    {
+      "epoch": 40,
+      "val_acc_main": 0.5382585751978892,
+      "val_acc_card": 0.7228260869565217,
+      "val_acc_combined": 0.5985790408525755,
+      "val_ce_main": 1.2788738012313843,
+      "val_ce_card": 0.8516120910644531,
+      "seconds": 0.2
+    }
+  ],
+  "decisions": {
+    "main_train": 4231,
+    "main_val": 379,
+    "card_train": 2213,
+    "card_val": 184
+  },
+  "args": {
+    "data": "data/bc_top_dir",
+    "out": "bc_weights_clean_v21.npz",
+    "trunk": "80,48",
+    "head": "48",
+    "dropout": 0.2,
+    "wd": 0.0001,
+    "epochs": 40,
+    "patience": 25,
+    "batch": 256,
+    "lr": 0.001,
+    "seed": 0,
+    "tag": "garchomp"
+  }
+}
