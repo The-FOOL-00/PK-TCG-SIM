@@ -1,0 +1,66 @@
+{
+  "architecture": "FAST AGGRESSIVE BASE + 5 CONDITION-SPECIFIC SURGICAL OVERRIDES",
+  "overrides": [
+    {
+      "id": "OVERRIDE_1_ANTI_TANK_GUST",
+      "function": "detect_pattern_1_anti_tank_gust",
+      "trigger_condition": "opp_active_max_hp >= 160 AND opp_has_lethal_counter == True AND bench_has_1shot_ko == True",
+      "affected_actions": [
+        "ATTACK (Non-lethal into tank)"
+      ],
+      "replacement_action": "BOSS_ORDERS / GUST (1-shot bench target)",
+      "intended_failure_mode": "Prevents suicidal chip damage into lethal retaliating tanks",
+      "source_evidence": "V1 losses (8 losses in Window C/D)",
+      "estimated_trigger_rate_pct": 1.45
+    },
+    {
+      "id": "OVERRIDE_2_ACTIVE_ENERGY_SPILLOVER",
+      "function": "detect_pattern_2_loaded_energy_spillover",
+      "trigger_condition": "active_energy >= 3 AND bench_count > 0",
+      "affected_actions": [
+        "ATTACH_ACTIVE / TEAL_DANCE_ACTIVE"
+      ],
+      "replacement_action": "ATTACH_BENCH / TEAL_DANCE_BENCH (Healthy benched attacker)",
+      "intended_failure_mode": "Prevents over-stacking energy on doomed or fully-loaded active",
+      "source_evidence": "V1/V3 telemetry and energy dissipation replays",
+      "estimated_trigger_rate_pct": 1.82
+    },
+    {
+      "id": "OVERRIDE_3_ENDGAME_BENCH_RESTRAINT",
+      "function": "detect_pattern_3_endgame_bench_restraint",
+      "trigger_condition": "opp_prizes_left <= 2 AND active_hp >= 140 AND active_energy >= 2 AND bench_ready_attackers >= 1",
+      "affected_actions": [
+        "NEST_BALL / BUDDY_POFFIN / BENCH_BASIC"
+      ],
+      "replacement_action": "Veto benching -> Select next highest aggressive action (ATTACK / ATTACH)",
+      "intended_failure_mode": "Prevents offering 2-prize bench-gust KO targets in 2-prize endgame",
+      "source_evidence": "V3 live failure cluster (13 of 23 live losses)",
+      "estimated_trigger_rate_pct": 0.85
+    },
+    {
+      "id": "OVERRIDE_4_ALAKAZAM_ENERGY_CAP",
+      "function": "detect_pattern_4_alakazam_energy_cap",
+      "trigger_condition": "opp_archetype == Alakazam AND active_energy >= 2 AND bench_count > 0",
+      "affected_actions": [
+        "ATTACH_ACTIVE"
+      ],
+      "replacement_action": "ATTACH_BENCH",
+      "intended_failure_mode": "Caps active energy at 2 to minimize Alakazam Psychic damage scaling (10 + 30/energy)",
+      "source_evidence": "V4/V5 live replay mining (Alakazam spread matchup)",
+      "estimated_trigger_rate_pct": 0.52
+    },
+    {
+      "id": "OVERRIDE_5_ANTI_IMMUNITY_GUST",
+      "function": "detect_pattern_5_anti_immunity_gust",
+      "trigger_condition": "opp_active_ex_immune == True AND opp_bench_count > 0",
+      "affected_actions": [
+        "ATTACK (0 damage into immune active)"
+      ],
+      "replacement_action": "BOSS_ORDERS / GUST (Non-immune bench target)",
+      "intended_failure_mode": "Avoids 0-damage turns against Cornerstone Mask ex / ex-immunity walls",
+      "source_evidence": "V4 Cornerstone 0% auto-loss live replays",
+      "estimated_trigger_rate_pct": 0.27
+    }
+  ],
+  "default_fallback": "select_base_aggressive_action (100% preserves original aggressive tactical priority)"
+}

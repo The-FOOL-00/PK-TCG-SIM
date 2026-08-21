@@ -1,0 +1,141 @@
+[
+  {
+    "branch_id": "V1_STRONG_TACTICAL_E17",
+    "package_name": "project_mew_strong_policy_challenger.tar.gz",
+    "submission_id": 55527083,
+    "submission_date": "2026-08-15 12:00:21",
+    "deck_name": "E17 Ogerpon S0 (4 Ogerpon ex, 17 Basic Grass, 2 Grow Grass, 37 Trainers)",
+    "policy_description": "High-tempo greedy tactical heuristic (1000pt lethal KO, 500pt chip, 200pt trainer attachment)",
+    "sha256": "bb1f9464866f2d85e3a9cd6c5bf4b6b4c7858a5052488978e2914e7ce95bbad5",
+    "environment_flags": {
+      "ENABLE_TACTICAL_BRAKE": "0",
+      "SEARCH_DEPTH": "0"
+    },
+    "search_usage": "None (0-ply deterministic priority list)",
+    "brake_usage": "None (0% brake)",
+    "override_rate": 0.0,
+    "base_action_policy": "Greedy Tactical KO > Greedy Chip > Energy Acceleration",
+    "average_latency_ms": 0.045
+  },
+  {
+    "branch_id": "V1_5_STRONG_TACTICAL_E19",
+    "package_name": "project_mew_ogerpon_deckopt_A.tar.gz",
+    "submission_id": 55522053,
+    "submission_date": "2026-08-15 07:02:13",
+    "deck_name": "E19 Ogerpon (4 Ogerpon ex, 19 Basic Grass, 2 Grow Grass, 35 Trainers)",
+    "policy_description": "Strong Tactical Baseline + E19 high-velocity energy engine (+2 Grass replacing 2 Jumbo Ice Cream)",
+    "sha256": "f02f49d47011e21a3ce023bca213308754d1eb6574cbf86d2eb9444f71d4a064",
+    "environment_flags": {
+      "ENABLE_TACTICAL_BRAKE": "0"
+    },
+    "search_usage": "None",
+    "brake_usage": "None",
+    "override_rate": 0.0,
+    "base_action_policy": "Greedy Tactical KO > Greedy Chip > E19 Accelerated Attachment",
+    "average_latency_ms": 0.048
+  },
+  {
+    "branch_id": "V2_BROAD_TACTICAL_BRAKE",
+    "package_name": "project_mew_strong_policy_v2_fixed.tar.gz",
+    "submission_id": 55528352,
+    "submission_date": "2026-08-15 13:15:17",
+    "deck_name": "E19 Ogerpon",
+    "policy_description": "V1 Tactical + Broad Safety Brake (Veto non-lethal attack into lethal retaliation)",
+    "sha256": "c20d52b05fa54c312fbe219a3b50db90a9073d4db5def6efe769ce5db3520308",
+    "environment_flags": {
+      "ENABLE_TACTICAL_BRAKE": "1"
+    },
+    "search_usage": "None",
+    "brake_usage": "Broad tactical brake (triggered on all retaliatory lethal boards)",
+    "override_rate": 14.8,
+    "base_action_policy": "Tactical + Defensive Retreat/Pass Veto",
+    "average_latency_ms": 0.062
+  },
+  {
+    "branch_id": "V2_1_OUTCOME_CONDITIONAL_BRAKE",
+    "package_name": "project_mew_strong_policy_v21_candidate.tar.gz",
+    "submission_id": 55529585,
+    "submission_date": "2026-08-15 14:23:28",
+    "deck_name": "E19 Ogerpon",
+    "policy_description": "Outcome-conditional brake: Triggers ONLY against >160 HP tanks with confirmed bench KO alternative",
+    "sha256": "5511c1a0d337232cca9c47d008c1a4fe4f61650c832365d2c5069010f231e33f",
+    "environment_flags": {
+      "ENABLE_TACTICAL_BRAKE": "2"
+    },
+    "search_usage": "None",
+    "brake_usage": "Conditional brake (triggered only when 1-shot bench KO exists)",
+    "override_rate": 4.2,
+    "base_action_policy": "Tactical + Selective Anti-Tank Gust",
+    "average_latency_ms": 0.058
+  },
+  {
+    "branch_id": "SHLS_SELECTIVE_SEARCH",
+    "package_name": "project_mew_shls_challenger.tar.gz",
+    "submission_id": 55532708,
+    "submission_date": "2026-08-15 17:18:13",
+    "deck_name": "E19 Ogerpon",
+    "policy_description": "Selective High-Leverage Search (Criticality Gate + 2-ply lookahead on top 3 candidates)",
+    "sha256": "13e43f58020c6a315d5d21a0ca087588baf0c852998956978b545a060a93534f",
+    "environment_flags": {
+      "ENABLE_SHLS": "1",
+      "SEARCH_DEPTH": "2"
+    },
+    "search_usage": "2-ply Minimax on critical turns (~18% of turns)",
+    "brake_usage": "Lookahead-based evaluation score",
+    "override_rate": 18.3,
+    "base_action_policy": "Heuristic + Selective Search Lookahead",
+    "average_latency_ms": 2.74
+  },
+  {
+    "branch_id": "V3_HIGH_ELO_STABILIZATION",
+    "package_name": "project_mew_v3_challenger.tar.gz",
+    "submission_id": 55541564,
+    "submission_date": "2026-08-16 02:49:43",
+    "deck_name": "E19 Ogerpon",
+    "policy_description": "Minimal surgical overrides: Pattern 1 (Anti-Tank Gust) + Pattern 2 (Loaded Active Energy Spillover)",
+    "sha256": "3f46daf3b15d59e271c4b418a488817fd3808f4c085df24ff105750e2e255ab9",
+    "environment_flags": {
+      "ENABLE_V3_PATTERNS": "1"
+    },
+    "search_usage": "None",
+    "brake_usage": "Pattern 1 Anti-Tank Gust + Pattern 2 Energy Routing",
+    "override_rate": 1.85,
+    "base_action_policy": "Aggressive Core + Pattern 1/2 Surgical Layer",
+    "average_latency_ms": 0.052
+  },
+  {
+    "branch_id": "V4_ENDGAME_BENCH_RESTRAINT_PACKAGED",
+    "package_name": "project_mew_v4_challenger.tar.gz",
+    "submission_id": 55543695,
+    "submission_date": "2026-08-16 04:51:08",
+    "deck_name": "E19 Ogerpon",
+    "policy_description": "Intended V4 (Pattern 1 + 2 + 3 Bench Restraint), but suffered P0 root main.py import bypass",
+    "sha256": "a7ee61995f5dd42c5ca4380d6bb9b76e45c3d923c08cdb0d98b7e434f1c1a894",
+    "environment_flags": {
+      "ENABLE_V4_PATTERNS": "1"
+    },
+    "search_usage": "None",
+    "brake_usage": "Uninvoked in production (P0 Bug)",
+    "override_rate": 0.0,
+    "base_action_policy": "Fell back to legacy unpatched heuristic",
+    "average_latency_ms": 0.045
+  },
+  {
+    "branch_id": "V4_CORRECTED_CANDIDATE",
+    "package_name": "project_mew_v4_corrected_candidate.tar.gz",
+    "submission_id": 55553469,
+    "submission_date": "2026-08-16 12:55:18",
+    "deck_name": "E19 Ogerpon",
+    "policy_description": "Verified V4 Production Package: Pattern 1 (Anti-Tank Gust) + Pattern 2 (Energy Spillover) + Pattern 3 (Bench Restraint)",
+    "sha256": "44456613a43b0be713894393334e72271ab10b730f3076ba71a7c7b9733a6261",
+    "environment_flags": {
+      "ENABLE_V4_PATTERNS": "1",
+      "PRODUCTION_VERIFIED": "1"
+    },
+    "search_usage": "None",
+    "brake_usage": "Surgical Patterns 1, 2, 3 only",
+    "override_rate": 2.15,
+    "base_action_policy": "Aggressive Fast Path + Surgical Override Engine",
+    "average_latency_ms": 0.054
+  }
+]

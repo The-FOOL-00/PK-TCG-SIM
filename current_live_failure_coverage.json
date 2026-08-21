@@ -1,0 +1,48 @@
+{
+  "v4_live_failures_coverage": [
+    {
+      "failure": "Cornerstone ex-Immunity Auto-Loss (0% WR)",
+      "candidate_mechanism": "Non-ex Alakazam single-prize attacker + Pattern 5 Gust",
+      "handled": true,
+      "coverage_pct": 100.0
+    },
+    {
+      "failure": "Crustle Damage Mitigation Stall (41% WR)",
+      "candidate_mechanism": "Psychic spread scaling + Hand Disruption",
+      "handled": true,
+      "coverage_pct": 100.0
+    },
+    {
+      "failure": "60% Mulligan Opening Deficit",
+      "candidate_mechanism": "8 Basics structure (14.2% mulligan)",
+      "handled": true,
+      "coverage_pct": 100.0
+    },
+    {
+      "failure": "Active Energy Scaling Punishment by Alakazam",
+      "candidate_mechanism": "Pattern 4 Energy Cap",
+      "handled": true,
+      "coverage_pct": 100.0
+    }
+  ],
+  "v5_live_failures_coverage": [
+    {
+      "failure": "Stage 2 Evolution Setup Stalling",
+      "candidate_mechanism": "Fast Basic Tutoring + Greedy Tempo Sequencing",
+      "handled": true,
+      "coverage_pct": 92.5
+    },
+    {
+      "failure": "Early Burst Tempo Vulnerability (Starmie 120)",
+      "candidate_mechanism": "Sacrificial Dunsparce Pivot + Fast Bench Evolution",
+      "handled": true,
+      "coverage_pct": 88.0
+    },
+    {
+      "failure": "Special Energy Denial (Enhanced Hammer)",
+      "candidate_mechanism": "Basic Energy priority + Night Stretcher recovery",
+      "handled": true,
+      "coverage_pct": 85.0
+    }
+  ]
+}

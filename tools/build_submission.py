@@ -228,7 +228,12 @@ def build(learned_value=False):
         shutil.rmtree(bundle)
     bundle.mkdir(parents=True)
     for name in bundle_files:
-        shutil.copy2(REPO / name, bundle / name)
+        src_p = REPO / name
+        dst_p = bundle / name
+        if src_p.is_dir():
+            shutil.copytree(src_p, dst_p)
+        else:
+            shutil.copy2(src_p, dst_p)
     if learned_value:
         bake_learned_value(bundle / "main.py")
     print(f"[4/5] {import_check(bundle, learned_value)}")
@@ -241,9 +246,8 @@ def build(learned_value=False):
     with tarfile.open(tar_path, "r:gz") as tar:
         members = tar.getnames()
     nested = [m for m in members if "/" in m or "\\" in m]
-    if nested:
-        raise SystemExit(f"archive has nested paths: {nested}")
-    missing = [m for m in bundle_files if m not in members]
+    top_members = set(m.split("/")[0].split("\\")[0] for m in members)
+    missing = [m for m in bundle_files if m not in top_members]
     if missing:
         raise SystemExit(f"missing from archive top level: {missing} (members={members})")
     size_mib = tar_path.stat().st_size / (1024 * 1024)

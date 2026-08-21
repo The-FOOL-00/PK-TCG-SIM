@@ -110,11 +110,20 @@ def bake_card_data(cards, attacks):
     return {"cards": out_cards, "attacks": out_attacks, "pool": pool}
 
 
-def bake_ship_config(main_path, rollout, cap, version, bc=""):
+def bake_ship_config(main_path, rollout, cap, version, bc="", end_veto="",
+                     card_rules="", v1_only=False, seq_rules="", target_rules="",
+                     ke_rules="", fetch_rules=""):
     """Stamp the ship config into the bundled main.py: search defaults ON
     (search ship) or the BC flag baked (BC ship, search stays off)."""
     src = main_path.read_text(encoding="utf-8")
-    if bc:
+    if v1_only:
+        # v1-alone ship: search OFF, BC off, no engine, no weights. DECK_SWITCH.md
+        # measured this as the strongest configuration on the Grimmsnarl list.
+        subs = [
+            ('AGENT_VERSION = "ptcg-heuristic-v1.0.0"',
+             f'AGENT_VERSION = "{version}"'),
+        ]
+    elif bc:
         subs = [
             ('BC = os.environ.get("PTCG_BC", "")',
              f'BC = os.environ.get("PTCG_BC", "{bc}")'),
@@ -134,6 +143,67 @@ def bake_ship_config(main_path, rollout, cap, version, bc=""):
             ('AGENT_VERSION = "ptcg-heuristic-v1.0.0"',
              f'AGENT_VERSION = "{version}"'),
         ]
+        if end_veto:
+            subs.append(
+                ('END_VETO = os.environ.get("PTCG_END_VETO", "")',
+                 f'END_VETO = os.environ.get("PTCG_END_VETO", "{end_veto}")'))
+    # Card-knowledge rules (PILOT_KNOWLEDGE.md). These MUST be baked explicitly:
+    # a rule that is only ever enabled by setting the module attribute in a test
+    # harness is not in the shipped agent. That is exactly how A-WEIGHT came to
+    # be measured for 60 games while being unreachable in every bundle.
+    for tag in [t.strip() for t in (card_rules or "").split(",") if t.strip()]:
+        flag = {"r1": "CARD_R1_SEARCH_ABILITY", "r2": "CARD_R2_BENCH_ATTACH",
+                "r3": "CARD_R3_RAGING_CURSE"}.get(tag.lower())
+        env = {"r1": "PTCG_CARD_R1", "r2": "PTCG_CARD_R2",
+               "r3": "PTCG_CARD_R3"}.get(tag.lower())
+        if flag is None:
+            raise SystemExit(f"unknown card rule {tag!r} (expected r1/r2/r3)")
+        subs.append((f'{flag} = os.environ.get("{env}", "0") == "1"',
+                     f'{flag} = os.environ.get("{env}", "1") == "1"'))
+    # Conditional ordering gates (CONDITIONAL_DESIGN.md). Same lesson as the
+    # card rules and A-WEIGHT before them: a flag that is only ever set on the
+    # module by a test harness is NOT in the shipped agent. Bake it explicitly.
+    for tag in [t.strip() for t in (seq_rules or "").split(",") if t.strip()]:
+        flag = {"e1": "SEQ_E1", "e2": "SEQ_E2", "e3": "SEQ_E3", "e4": "SEQ_E4",
+                "e1b": "SEQ_E1B_LETHAL", "e1c": "SEQ_E1C_DOOMED"}.get(tag.lower())
+        env = {"e1": "PTCG_SEQ_E1", "e2": "PTCG_SEQ_E2", "e3": "PTCG_SEQ_E3",
+               "e4": "PTCG_SEQ_E4", "e1b": "PTCG_SEQ_E1B",
+               "e1c": "PTCG_SEQ_E1C"}.get(tag.lower())
+        if flag is None:
+            raise SystemExit(f"unknown seq rule {tag!r} (expected e1/e2/e3/e4/e1b/e1c)")
+        subs.append((f'{flag} = os.environ.get("{env}", "0") == "1"',
+                     f'{flag} = os.environ.get("{env}", "1") == "1"'))
+    # Target-selection fixes (MATCHUP_MINING.md). Fifth occurrence of the same
+    # unbaked-flag lesson (PILOT, A-WEIGHT, CARD_R1-3, SEQ_E1-4): bake explicitly
+    # or it ships dead.
+    for tag in [t.strip() for t in (target_rules or "").split(",") if t.strip()]:
+        flag = {"t1": "TARGET_T1_BOSS_PRIZE", "t2": "TARGET_T2_SPLASH_RATIO",
+                 "t3": "TARGET_T3_FEZ_TIEBREAK"}.get(tag.lower())
+        env = {"t1": "PTCG_TARGET_T1", "t2": "PTCG_TARGET_T2",
+               "t3": "PTCG_TARGET_T3"}.get(tag.lower())
+        if flag is None:
+            raise SystemExit(f"unknown target rule {tag!r} (expected t1/t2/t3)")
+        subs.append((f'{flag} = os.environ.get("{env}", "0") == "1"',
+                     f'{flag} = os.environ.get("{env}", "1") == "1"'))
+    # Kangaskhan-native rules (KE12_CROSSDECK.md). Sixth occurrence of the
+    # unbaked-flag lesson: bake explicitly or ships dead.
+    for tag in [t.strip() for t in (ke_rules or "").split(",") if t.strip()]:
+        flag = {"ke1": "KE1_FREE_DRAW",
+                "ke2": "KE2_ABIL_BEFORE_ATTACH"}.get(tag.lower())
+        env = {"ke1": "PTCG_KE1", "ke2": "PTCG_KE2"}.get(tag.lower())
+        if flag is None:
+            raise SystemExit(f"unknown ke rule {tag!r} (expected ke1/ke2)")
+        subs.append((f'{flag} = os.environ.get("{env}", "0") == "1"',
+                     f'{flag} = os.environ.get("{env}", "1") == "1"'))
+    # Fetch-selection rules (FETCH_MINE.md). Seventh occurrence of the
+    # unbaked-flag lesson: bake explicitly or ships dead.
+    for tag in [t.strip() for t in (fetch_rules or "").split(",") if t.strip()]:
+        flag = {"f1": "FETCH_F1_ENERGY_FIRST"}.get(tag.lower())
+        env = {"f1": "PTCG_FETCH_F1"}.get(tag.lower())
+        if flag is None:
+            raise SystemExit(f"unknown fetch rule {tag!r} (expected f1)")
+        subs.append((f'{flag} = os.environ.get("{env}", "0") == "1"',
+                     f'{flag} = os.environ.get("{env}", "1") == "1"'))
     for old, new in subs:
         if old not in src:
             raise SystemExit(f"bake: expected line not found: {old!r}")
@@ -165,6 +235,28 @@ if want_cg:
 else:
     assert eng is None, "cg loaded but bundle has none"
 print("EXEC-CHECK-OK cg=%s pool=%d" % (want_cg, len(env["_pool"]())))
+'''
+
+EXEC_CHECK_V1 = r'''
+import os, sys
+bundle = sys.argv[1]
+with open(os.path.join(bundle, "main.py"), encoding="utf-8") as f:
+    src = f.read()
+sys.path.append(bundle)
+env = {}
+exec(compile(src, "main.py", "exec"), env)
+ag = [v for v in env.values() if callable(v)][-1]
+assert ag.__name__ == "agent", ag.__name__
+assert env["SEARCH"] is False, "search must be OFF in the v1 ship"
+assert env["BC"] == "", "BC must be off in the v1 ship"
+assert env["PILOT"] == "", "PILOT must be empty (ship value)"
+assert len(env["DECK"]) == 60, len(env["DECK"])
+deck = ag({"select": None, "logs": [], "current": None})
+assert isinstance(deck, list) and len(deck) == 60 and all(isinstance(x, int) for x in deck)
+r = ag({"select": {"type": 0, "context": 0, "minCount": 1, "maxCount": 1,
+                   "option": [{"type": 14}]}, "logs": [], "current": None})
+assert r == [0], r
+print("EXEC-CHECK-V1-OK deck=%d energy=%d" % (len(env["DECK"]), env["TOTAL_BASIC_ENERGY"]))
 '''
 
 EXEC_CHECK_BC = r'''
@@ -200,7 +292,7 @@ def run(code, args, cwd, timeout=300):
                           cwd=cwd, capture_output=True, text=True, timeout=timeout)
 
 
-def build(rollout, cap, games, deck_file="deck.csv", version=SHIP_VERSION, bc=""):
+def build(rollout, cap, games, deck_file="deck.csv", version=SHIP_VERSION, bc="", end_veto="", force_weights=False, card_rules="", v1_only=False, seq_rules="", target_rules="", ke_rules="", fetch_rules=""):
     cards, attacks = load_engine_db()
     deck = read_deck(REPO / deck_file)
     errs = validate_deck(deck, cards)
@@ -208,11 +300,14 @@ def build(rollout, cap, games, deck_file="deck.csv", version=SHIP_VERSION, bc=""
         raise SystemExit(f"{deck_file} INVALID: " + "; ".join(errs))
     print(f"[1/6] {deck_file} valid (60 cards, {len(set(deck))} unique)  version={version}")
 
-    if bc:
+    if v1_only:
+        need_value = need_policy = False
+        extra = []
+    elif bc:
         need_value = need_policy = False
         extra = [(f"bc_weights_{bc}.npz", True)]
     else:
-        need_value = cap > 0
+        need_value = cap > 0 or force_weights
         need_policy = rollout == "s1"
         extra = ([("value_weights.npz", need_value)] +
                  [("policy_weights.npz", need_policy)])
@@ -220,11 +315,11 @@ def build(rollout, cap, games, deck_file="deck.csv", version=SHIP_VERSION, bc=""
         if need and not (REPO / fn).is_file():
             raise SystemExit(f"{fn} required for this config but missing")
 
-    bundle = REPO / "build" / ("bc_bundle" if bc else "search_bundle")
+    bundle = REPO / "build" / ("v1_bundle" if v1_only else ("bc_bundle" if bc else "search_bundle"))
     if bundle.exists():
         shutil.rmtree(bundle)
-    if bc:
-        bundle.mkdir(parents=True)   # BC ship carries no engine: cg/ omitted
+    if v1_only or bc:
+        bundle.mkdir(parents=True)   # no engine needed: cg/ omitted
     else:
         (bundle / "cg").mkdir(parents=True)
 
@@ -235,17 +330,34 @@ def build(rollout, cap, games, deck_file="deck.csv", version=SHIP_VERSION, bc=""
     for fn, need in extra:
         if need:
             shutil.copy2(REPO / fn, bundle / fn)
-    if not bc:
+    if not (bc or v1_only):
         for name in CG_FILES:
             shutil.copy2(SAMPLE_CG / name, bundle / "cg" / name)
-    bake_ship_config(bundle / "main.py", rollout, cap, version, bc)
+    bake_ship_config(bundle / "main.py", rollout, cap, version, bc, end_veto,
+                     card_rules, v1_only, seq_rules, target_rules, ke_rules,
+                     fetch_rules)
     top_files = ["main.py", "deck.csv", "card_data.json"] + \
                 [fn for fn, need in extra if need]
-    print(f"[2/6] bundle assembled: {top_files}" + ("" if bc else " + cg/") + "  "
+    print(f"[2/6] bundle assembled: {top_files}" + ("" if (bc or v1_only) else " + cg/") + "  "
           + (f"(config: BC={bc} search=off)" if bc else
              f"(config: belief=comp rollout={rollout} cap={cap} governor=on)"))
 
-    if bc:
+    if v1_only:
+        with tempfile.TemporaryDirectory() as td:
+            p = run(EXEC_CHECK_V1, [bundle], td)
+        if p.returncode != 0 or "EXEC-CHECK-V1-OK" not in p.stdout:
+            raise SystemExit(f"exec-load check FAILED:\n{p.stdout}\n{p.stderr}")
+        print(f"[3/6] exec-load check OK ({p.stdout.strip().splitlines()[-1]})")
+        with tempfile.TemporaryDirectory() as td:
+            stripped = Path(td) / "b"
+            shutil.copytree(bundle, stripped)
+            (stripped / "card_data.json").unlink()
+            p = run(EXEC_CHECK_V1, [stripped], td)
+        if p.returncode != 0 or "EXEC-CHECK-V1-OK" not in p.stdout:
+            raise SystemExit(f"no-carddata fallback FAILED:\n{p.stdout}\n{p.stderr}")
+        print("[4/6] no-card_data fallback OK (agent loads + answers legally)")
+        print(f"[5/6] {smoke_parallel(read_deck(bundle / 'deck.csv'), rollout, cap, games, v1_only=True)}")
+    elif bc:
         with tempfile.TemporaryDirectory() as td:
             p = run(EXEC_CHECK_BC, [bundle, "weights"], td)
         if p.returncode != 0 or "EXEC-CHECK-BC-OK" not in p.stdout:
@@ -281,12 +393,12 @@ def build(rollout, cap, games, deck_file="deck.csv", version=SHIP_VERSION, bc=""
         print(f"[5/6] {smoke_parallel(read_deck(bundle / 'deck.csv'), rollout, cap, games)}")
 
     suffix = "" if deck_file == "deck.csv" else "_" + Path(deck_file).stem
-    prefix = "submission_bc" if bc else "submission_search"
+    prefix = "submission_v1" if v1_only else ("submission_bc" if bc else "submission_search")
     tar_path = REPO / f"{prefix}{suffix}.tar.gz"
     with tarfile.open(tar_path, "w:gz") as tar:
         for name in top_files:
             tar.add(bundle / name, arcname=name)
-        if not bc:
+        if not (bc or v1_only):
             tar.add(bundle / "cg", arcname="cg",
                     filter=lambda ti: None if "__pycache__" in ti.name else ti)
     with tarfile.open(tar_path, "r:gz") as tar:
@@ -298,7 +410,7 @@ def build(rollout, cap, games, deck_file="deck.csv", version=SHIP_VERSION, bc=""
     if size_mib > MAX_SIZE_MIB:
         raise SystemExit(f"{size_mib:.1f} MiB > {MAX_SIZE_MIB}")
     print(f"[6/6] {tar_path.name} OK: {size_mib:.2f} MiB, {len(members)} members")
-    print(f"{'BC' if bc else 'SEARCH'} BUNDLE OK  ({version})")
+    print(f"{'V1' if v1_only else ('BC' if bc else 'SEARCH')} BUNDLE OK  ({version})")
 
 
 def _smoke_chunk(args):
@@ -308,7 +420,7 @@ def _smoke_chunk(args):
     import contextlib
     import io
     import time as _t
-    deck, rollout, cap, n, bc = args
+    deck, rollout, cap, n, bc, v1_only = args
     import main
     from tools import deck_compare
     crashes = fallbacks = 0
@@ -319,7 +431,11 @@ def _smoke_chunk(args):
             if obs.get("select") is None:
                 return list(deck)
             main.DECK = list(deck)   # belief sampler samples our zones from DECK
-            if bc:
+            if v1_only:
+                main.SEARCH = False
+                main.BC = ""
+                main.PILOT = ""
+            elif bc:
                 main.BC = bc
                 main.DYN_DECK_TABLES = True
                 main.SEARCH = False
@@ -348,10 +464,10 @@ def _smoke_chunk(args):
     return crashes, fallbacks, dec_ms
 
 
-def smoke_parallel(deck, rollout, cap, games, workers=6, bc=""):
+def smoke_parallel(deck, rollout, cap, games, workers=6, bc="", v1_only=False):
     from concurrent.futures import ProcessPoolExecutor
     base, extra = divmod(games, workers)
-    jobs = [(deck, rollout, cap, base + (1 if w < extra else 0), bc)
+    jobs = [(deck, rollout, cap, base + (1 if w < extra else 0), bc, v1_only)
             for w in range(workers)]
     jobs = [j for j in jobs if j[3]]
     crashes = fallbacks = 0
@@ -374,6 +490,22 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--rollout", choices=["v1", "s1"], default="v1")
     ap.add_argument("--cap", type=int, default=0)
+    ap.add_argument("--end-veto", default="", choices=["", "narrow", "broad"])
+    ap.add_argument("--target-rules", default="",
+                    help="comma list of target-selection fixes to bake ON: t1,t2")
+    ap.add_argument("--seq-rules", default="",
+                    help="comma list of ordering gates to bake ON: e1,e2,e3,e4")
+    ap.add_argument("--v1-only", action="store_true",
+                    help="v1-alone ship: search OFF, no engine, no weights")
+    ap.add_argument("--card-rules", default="",
+                    help="comma list of card-knowledge rules to bake ON: r1,r2,r3")
+    ap.add_argument("--fetch-rules", default="",
+                    help="comma list of fetch-selection rules to bake ON: f1")
+    ap.add_argument("--ke-rules", default="",
+                    help="comma list of Kangaskhan-native rules to bake ON: ke1,ke2")
+    ap.add_argument("--force-weights", action="store_true",
+                    help="bundle value_weights.npz even at cap=0 (the value net still "
+                         "scores the ~0.5%% of rollouts that reach the 400-step cap)")
     ap.add_argument("--games", type=int, default=30)
     ap.add_argument("--deck", default="deck.csv", help="deck file to bundle as deck.csv")
     ap.add_argument("--version", default=SHIP_VERSION, help="AGENT_VERSION to stamp")
@@ -382,4 +514,6 @@ if __name__ == "__main__":
     args = ap.parse_args()
     if args.bc and args.version == SHIP_VERSION:
         raise SystemExit("--bc requires an explicit --version (ptcg-bc-...)")
-    build(args.rollout, args.cap, args.games, args.deck, args.version, args.bc)
+    build(args.rollout, args.cap, args.games, args.deck, args.version, args.bc,
+          args.end_veto, args.force_weights, args.card_rules, args.v1_only,
+          args.seq_rules, args.target_rules, args.ke_rules, args.fetch_rules)

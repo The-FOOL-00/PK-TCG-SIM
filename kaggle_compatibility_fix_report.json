@@ -1,0 +1,18 @@
+{
+  "candidate_name": "project_mew_aggressive_surgical_kaggle_fixed_candidate",
+  "new_archive_path": "project_mew_aggressive_surgical_kaggle_fixed_candidate.tar.gz",
+  "new_archive_sha256": "0ee9c21a51f139e20de9038ae34e90d860f4d43603bdb20142107ec72146a4c8",
+  "new_archive_size_bytes": 2540,
+  "new_main_sha256": "faafeacd4565da79338041400c3faa7370ee37175ab4acf811111067edc65016",
+  "policy_sha256": "b40c01a68ba43cc2cc93b8183535f19fa7cc7e27ef82c5c2af84d65458032646",
+  "deck_sha256": "0f8fb632ade2833645af8c6ffe2b282fe24e7446ee8b23f3e468b8410d8ea36c",
+  "old_archive_sha256": "0a8ae33ec27941d2cf6d5bad92e2826ac8542566cc5ca7799c55347294c58288",
+  "old_archive_preserved": true,
+  "policy_identity_verified": true,
+  "deck_identity_verified": true,
+  "kaggle_loader_verified": true,
+  "all_5_overrides_verified": true,
+  "stress_test_50_processes_passed": true,
+  "stress_test_10k_decisions_passed": true,
+  "verdict": "OPTION A: FIX VERIFIED \u2014 NEW PACKAGE IS KAGGLE-COMPATIBLE"
+}

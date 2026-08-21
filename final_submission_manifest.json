@@ -1,0 +1,15 @@
+{
+  "candidate_name": "project_mew_aggressive_surgical_final",
+  "final_archive_path": "project_mew_aggressive_surgical_final.tar.gz",
+  "final_archive_sha256": "0a8ae33ec27941d2cf6d5bad92e2826ac8542566cc5ca7799c55347294c58288",
+  "final_archive_size_bytes": 2577,
+  "policy_sha256": "b40c01a68ba43cc2cc93b8183535f19fa7cc7e27ef82c5c2af84d65458032646",
+  "main_sha256": "9f5052860ad09187d7fd5ec72c4d98ce97d52c4231338fe622f025e8c5912d7d",
+  "deck_sha256": "0f8fb632ade2833645af8c6ffe2b282fe24e7446ee8b23f3e468b8410d8ea36c",
+  "all_overrides_reachable": true,
+  "exact_postbuild_verified": true,
+  "mean_latency_ms": 0.0010909998090937734,
+  "p99_latency_ms": 0.0020999577827751637,
+  "clean_execution_status": "PASS",
+  "final_verdict": "OPTION A: GO \u2014 FINAL PACKAGE VERIFIED AND READY FOR MANUAL SUBMISSION (NOT SUBMITTED)"
+}

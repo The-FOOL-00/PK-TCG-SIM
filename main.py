@@ -107,6 +107,24 @@ BC = os.environ.get("PTCG_BC", "")
 # index is always a legal option, so C1 validation / resolve_selection /
 # fallback chain are unaffected. G7c ablates this flag.
 BC_BRAKE = int(os.environ.get("PTCG_BC_BRAKE", "0") or "0")
+# BC_CARD_ONLY: when 1, BC is used ONLY for ST_CARD-family sub-decisions
+# (trainer card targets, bench fetches, discard picks) where val accuracy is
+# 71% vs v1's 38.6% — but v1 handles all MAIN single-selects unchanged.
+# This is the hybrid mode: preserves v1's strong MAIN policy (878 Elo source)
+# while adding the proven card-head advantage. Set via PTCG_BC_CARD_ONLY=1.
+BC_CARD_ONLY = os.environ.get("PTCG_BC_CARD_ONLY", "0") == "1"
+BS_CEI = os.environ.get("PTCG_BS_CEI", "1") == "1"
+BS_CEI_2PLY = os.environ.get("PTCG_BS_CEI_2PLY", "1") == "1"
+BS_CEI_3PLY = os.environ.get("PTCG_BS_CEI_3PLY", "0") == "1"
+BS_CEI_DETS = int(os.environ.get("PTCG_BS_CEI_DETS", "2"))
+BS_CEI_PROB_OPP = os.environ.get("PTCG_BS_CEI_PROB_OPP", "0") == "1"
+_BS_CEI_EVAL = None
+
+Q_POLICY = os.environ.get("PTCG_Q_POLICY", "0") == "1"
+Q_DEPTH = int(os.environ.get("PTCG_Q_DEPTH", "0"))
+Q_DETS = int(os.environ.get("PTCG_Q_DETS", "1"))
+_Q_POLICY_EVAL = None
+
 # Deck-identity tables (HAND_SLOT_IDS / CARD_SLOT_IDS) are frozen at import
 # from deck.csv. When a harness swaps DECK at runtime (ab_gate non-default
 # decks, BC extraction) those tables silently describe the WRONG deck — the
@@ -121,6 +139,52 @@ WEIGHT_EVOLVE_EX_BONUS = 150.0  # evolving toward an ex (win condition) over a
                                 # side-line evolve; stays within the evolve tier
 
 SEARCH = os.environ.get("PTCG_SEARCH", "0") == "1"
+# Gate A (2026-07-22): eval-correctness fix. Sanjay's §6p revenge-class:
+# attacks with "+N more damage" / "N damage for each" scaling read printed 0
+# and were harmful weights. Fix: parse attack text for KNOWN-VERIFIABLE
+# scaling patterns; ABSTAIN (return printed damage) when unverifiable per
+# §6j "facts ≈ 16 pts, weights ≈ 0". Off by default (byte-identical); flip
+# EVAL_FIX=1 on the challenger for A/B.
+EVAL_FIX = os.environ.get("PTCG_EVAL_FIX", "0") == "1"
+# Gate D (2026-07-22): promotion-after-KO rule. Sanjay's §6q (v8 rule 1):
+# at select.context == SC_TO_ACTIVE (post-KO promote), score benched
+# candidates by `maxHp + 30 * energy_attached` instead of current
+# `hp + 20*energy + best_attack_dmg/10`. Rationale (his measurement):
+# - `hp` picks damaged tanks correctly but also picks the low-hp benchwarmer
+# - `maxHp` avoids downgrading a damaged big body to a full-hp weakling
+# - `+30*energy` requires 3+ energy to override a 90-hp gap (~never triggers
+#   a catastrophic downgrade in his 108 traced decisions).
+# Scope: SC_TO_ACTIVE only. SC_SETUP_ACTIVE / SC_SWITCH / SC_TO_FIELD unchanged
+# (different mechanics — setup, player-initiated switch, generic targeting).
+# Off by default (byte-identical); flip PROMOTE_RULE=1 on the challenger for A/B.
+PROMOTE_RULE = os.environ.get("PTCG_PROMOTE_RULE", "0") == "1"
+# Gate B (2026-07-24): engine-exact lethal probe. Sanjay §1 item 3: probe each
+# ATTACK option via search_step across K determinizations; if all K show a
+# win for us, take it. Bounds hard-capped by LETHAL_PROBE_DEADLINE_S so a
+# slow probe cannot compound the governor coupling (§6h). Off by default;
+# LETHAL_PROBE=1 on the challenger for A/B.
+LETHAL_PROBE = os.environ.get("PTCG_LETHAL_PROBE", "0") == "1"
+# END-veto (HORIZON_TEST.md): v1 scores END at -1e6 and structurally cannot
+# pass while any option exists (measured: v1-alone ends with development still
+# available 0.0% of 554 ENDs). The SEARCH layer introduces that pathology from
+# nothing -- 46.3% at cap=400, 60.8% at cap=16. This vetoes the search's END
+# and defers to v1's ordering, which is the only arm measured at 0%.
+#   "narrow" = veto only when bench < benchMax AND a playable Basic-searcher is
+#              on the menu; the replacement IS that searcher, so the action is
+#              strictly dominated (a free Item converting deck Basics into
+#              board presence cannot be worse than passing).
+#   "broad"  = veto whenever ANY development option is on the menu; replacement
+#              is the highest v1-scored development option. NOT dominated --
+#              can burn a Supporter or misattach energy.
+# "" (default) = off, byte-identical to the shipped agent.
+END_VETO = os.environ.get("PTCG_END_VETO", "")     # "" | "narrow" | "broad"
+BASIC_SEARCHERS = frozenset((
+    "buddy-buddy poffin", "nest ball", "ultra ball", "hop's bag",
+    "poke ball", "great ball", "pokegear 3.0",
+))
+LETHAL_PROBE_K = 3          # determinizations per attack option (unanimity required)
+LETHAL_PROBE_MAX_ATTACKS = 4  # top-N attack options by v1 score
+LETHAL_PROBE_DEADLINE_S = 0.5  # hard cap on total probe budget per decision
 SEARCH_DET = int(os.environ.get("PTCG_SEARCH_DET", "16"))    # determinizations
 SEARCH_ROLL = int(os.environ.get("PTCG_SEARCH_ROLL", "2"))   # rollouts/candidate
 SEARCH_TOPK = int(os.environ.get("PTCG_SEARCH_TOPK", "4"))   # candidates by v1 score
@@ -128,6 +192,244 @@ SEARCH_CAP = int(os.environ.get("PTCG_SEARCH_CAP", "0"))     # rollout step cap,
 SEARCH_SEED = int(os.environ.get("PTCG_SEARCH_SEED", "0"))
 SEARCH_MIN_BASICS = 1        # sampled opp deck must keep >= this many Basics at setup
 ROLLOUT = os.environ.get("PTCG_ROLLOUT", "v1")               # v1 | s1
+# Candidate-set arms (2026-07-26). Measured on 60 self-play + 25 VN ladder +
+# 28 canary ladder games: on ~32% of attack-legal MAIN decisions the best
+# attack scores below cands[0:SEARCH_TOPK] and is therefore invisible to the
+# search, which then picks an attack 0/1068 times. The dominant cause is the
+# _pilot_score_main tempo hook being gated on cur["supporterPlayed"] (75.6% of
+# exclusions). Two independent, default-off arms; see CANDIDATE_SET.md.
+#   A-INCLUDE: force the best legal attack into cands (candidate-set change)
+#   A-WEIGHT:  a second, lower tempo tier that does not require the supporter
+#              to have resolved (scoring change)
+# ---------------------------------------------------------------------------
+# Card-knowledge rules (2026-07-27, PILOT_KNOWLEDGE.md). Mined from the two
+# top-10 agents piloting THIS deck (junlee789, Yudai Ueno) and verified against
+# card_data.json `skills[]`.
+#
+# All three live in the ALWAYS-ACTIVE scoring path (_score_main /
+# _attach_target_score / _attack_damage_est), NOT in _pilot_score_main:
+# bake_ship_config() never bakes PTCG_PILOT, so anything gated on
+# PILOT == "garchomp" is dead code in every bundle we ship.
+#
+#   R1 a once-per-turn deck-search ability is card advantage at no cost and
+#      should outrank ordinary setup (top-10 use 36.3%, we use 16.8%).
+#   R2 attach to a bench Pokemon that can still evolve. Cynthia's Garchomp ex
+#      has retreatCost 0, so a bench-built attacker promotes for free
+#      (top-10 attach to bench 56-62%, we do 37.5%).
+#   R3 Raging Curse's printed damage is 0 and all of its damage comes from the
+#      scaling text, so v1 prices a measured 360-damage attack at the 1000.0
+#      floor. Narrowly scoped to that one attack; EVAL_FIX stays off.
+# ---------------------------------------------------------------------------
+CARD_R1_SEARCH_ABILITY = os.environ.get("PTCG_CARD_R1", "1") == "1"
+CARD_R2_BENCH_ATTACH = os.environ.get("PTCG_CARD_R2", "1") == "1"
+CARD_R3_RAGING_CURSE = os.environ.get("PTCG_CARD_R3", "1") == "1"
+
+# Conditional ordering gates (2026-07-27, CONDITIONAL_DESIGN.md).
+#
+# ATTACK is terminal; every other MAIN action is free. Top-10 attack as the
+# FIRST action of a turn 2.0% of the time, we do it 43.0% of the time; they
+# take mean 5.87 actions before swinging, we take 2.97.
+#
+# These are GATES ON THE OPTION SET, not score changes. A-WEIGHT already failed
+# by reweighting attack. No v1 constant is touched by any of them; they replace
+# the chosen option when a stated condition holds, exactly as _end_veto does.
+# All live in the always-active path -- never inside _pilot_score_main.
+#
+#   E1 do not attack while a board-advancing card play remains (PLAY/ATTACH/EVOLVE)
+#   E2 do not attack while an ability is available
+#   E3 do not retreat while our active is not KO-able
+#   E4 when BEHIND on prizes, disable E1 (push damage)
+#   E1b attack at once when the KO takes our last prize   (evidence AGAINST; off)
+#   E1c attack at once when our active is doomed and powered (off)
+SEQ_E1 = os.environ.get("PTCG_SEQ_E1", "1") == "1"
+SEQ_E2 = os.environ.get("PTCG_SEQ_E2", "1") == "1"
+SEQ_E3 = os.environ.get("PTCG_SEQ_E3", "1") == "1"
+SEQ_E4 = os.environ.get("PTCG_SEQ_E4", "1") == "1"
+SEQ_E1B_LETHAL = os.environ.get("PTCG_SEQ_E1B", "0") == "1"
+SEQ_E1C_DOOMED = os.environ.get("PTCG_SEQ_E1C", "0") == "1"
+
+# ---------------------------------------------------------------------------
+# Target-selection fixes (2026-07-30, MATCHUP_MINING.md). Mined from 504
+# top-10 Grimmsnarl sides: WHICH specific bench Pokemon gets targeted, not
+# whether an action fires. Both are matchup-INVARIANT -- no opponent
+# detection needed; the top-10 rate barely moves across archetypes.
+#
+#   T1  SC_SWITCH (Boss's Orders / forced switch) targeting the OPPONENT's
+#       bench: confirmed live bug -- _score_card bundles this context with
+#       our own post-KO promotion under one hp+energy+attack formula, and the
+#       fallback path (LEARNED_VALUE is off by default) never checks
+#       playerIndex. So Boss's Orders currently scores by "which of their
+#       Pokemon is strongest", when the mined top-10 rate (n=232) is 84.1%
+#       "which is worth the most prizes". Self-target decisions (choosing our
+#       OWN next active, ~73% of SC_SWITCH volume) are untouched.
+#   T2  SC_DAMAGE (Shadow Bullet splash) by HP RATIO, not raw HP. The
+#       existing rule (200 - raw_hp) already prefers low-HP targets, but two
+#       Pokemon at the same raw HP score identically regardless of max HP,
+#       when the mined top-10 criterion (n=1538, 82.4%) is ratio-based.
+TARGET_T1_BOSS_PRIZE = os.environ.get("PTCG_TARGET_T1", "1") == "1"
+TARGET_T2_SPLASH_RATIO = os.environ.get("PTCG_TARGET_T2", "1") == "1"
+# T3 (MATCHUP_MINING.md priority 3): against Fezandipiti/Dudunsparce, top-10
+# still snipes lowest HP-ratio most often (78.7%, vs 82.4% pooled) but breaks
+# near-ties toward energy count / prize value noticeably more than pooled
+# (66.6%/65.2% vs 56.2%/59.9%). Small tie-break addition on top of T2's ratio
+# term -- never overrides a real ratio gap, only settles near-ties. Detection
+# is live (marquee card ids seen in opponent's active/bench/discard), not a
+# replay-only label -- see _opp_archetype.
+TARGET_T3_FEZ_TIEBREAK = os.environ.get("PTCG_TARGET_T3", "1") == "1"
+# T4 (T4_KO_CONVERT.md): the damage-target scorer ranks by HP RATIO (T2) and
+# never asks whether the placement would KO the target. Measured on 300 games
+# of the shipped build: 29.4% of all damage dealt lands on Pokemon that are
+# never knocked out (Ogerpon, single-target, strands 4.4%). A 320-HP attacker
+# at 48 HP outranks a 70-HP Basic at 30 HP that these same 30 damage kill.
+# T4 substitutes a lethal target for a non-lethal one -- same action, different
+# target index, so it cannot shift the state into a line the pilot cannot
+# continue (the failure mode that killed KE_SUP/KE_BOLT/KE_WELL and the four
+# mined rules of writeup S6).
+# Damage per source is a table, not `remainDamageCounter`: that field is in the
+# schema but measured 0 at every one of these decisions across 40 games and is
+# referenced nowhere else in this file.
+TARGET_T4_LETHAL = os.environ.get("PTCG_TARGET_T4", "1") == "1"
+
+# Pure-Python Expectimax Engine Flag (2026-08-13, EXPECTIMAX_DESIGN.md).
+# 2-ply prize-delta forward evaluation with Instant Lethal Win Veto.
+EXPECTIMAX = os.environ.get("PTCG_EXPECTIMAX", "1") == "1"
+
+# F1 (FETCH_MINE.md): SC_TO_HAND -- "a search resolved, pick the card" -- is the
+# largest sub-action slot in the game (23,309 decisions with >1 option across
+# 287 top-10 replays; 3.7x T2's slot, 100x T1's). It was scored by
+# `_card_value`, whose own docstring says it measures "how much we mind LOSING
+# this card (used for discard/keep choices)" -- so Basic Energy, the cheapest
+# thing to lose, scored 10.0, dead last, while Marnie's Grimmsnarl ex scored
+# ~300. Mined from top-10 winning sides (n=662): they fetch Basic Energy 55.6%
+# of the time, and 70.6% of the time it is on the menu. Agreement of our
+# shipped ordering with their choice: 36.0%. Energy-first: 68.3%.
+# This is T1's defect (a scorer reused for a decision it was not built for) on
+# the highest-volume slot, and here the borrowed scorer is near-inverted.
+FETCH_F1_ENERGY_FIRST = os.environ.get("PTCG_FETCH_F1", "1") == "1"
+# effect.id -> damage this placement applies. Verified against replay:
+# ctx 15 SC_DAMAGE  = Marnie's Grimmsnarl ex Shadow Bullet bench splash (30)
+# ctx 13 SC_DMG_COUNTER = Munkidori Adrena-Brain, 3 counters (30)
+T4_DMG_BY_SOURCE = {648: 30, 112: 30}
+T4_LETHAL_SCORE = 5000.0
+# KE1 (KANGASKHAN_E1.md): NOT a port of E1. Native-mined for Kangaskhan/
+# Raging Bolt: kangaskhan_mine.py's `can_KO` cell (n=404 top-10 vs n=342 us,
+# TVD=0.720) showed top-10 pilots pick ABILITY 24.0% of the time when a
+# lethal is on the menu, vs 0.0% for us. Concrete case: Mega Kangaskhan
+# ex's *Run Errand* -- once/turn, active-slot only, "draw 2 cards", no
+# terminal side effect. Rule: on a MAIN decision where the chosen option
+# is an ATTACK/RETREAT/END AND the active carries a "draw N cards" skill
+# whose one-per-turn use is still available AND the menu offers OT_ABILITY,
+# swap to the Ability. Scoped to "draw N cards" skill text (matches Run
+# Errand); avoids Raging Bolt's Burst Roar (an OT_ATTACK, not OT_ABILITY --
+# won't be touched). Own flag, default off.
+KE1_FREE_DRAW = os.environ.get("PTCG_KE1", "0") == "1"
+_KE1_ABILITY_CACHE = {}   # cid -> bool (this card has a free-draw ability)
+# KE2 (KE2_SCREEN.md): mined from `supporter_pending` cell (n_them=1693, the
+# largest cell by frequency in kangaskhan_mine.py at 54.1% of all decisions,
+# TVD=0.226). Top-10 use free-draw abilities 31.2% of decisions BEFORE
+# playing their supporter; we use them 13.8%. Conversely we ATTACH 20% vs
+# their 5.5% -- we're spending on ATTACH before extracting the free draws.
+# Rule: on a MAIN decision where v1 chose ATTACH AND supporterPlayed is False
+# AND the engine offers OT_ABILITY on a Pokemon carrying our free-draw skill
+# text pattern, swap to the Ability. Same "no discard" filter as KE1 to
+# avoid hybrid-effect misfires. Own flag, default off.
+KE2_ABIL_BEFORE_ATTACH = os.environ.get("PTCG_KE2", "0") == "1"
+# KE3 (KE3_SCREEN.md): second Kangaskhan-native free-ability veto, targeting
+# Teal Mask Ogerpon ex's *Teal Dance* -- "Once during your turn, you may
+# attach a Basic {G} Energy card from your hand to this Pokemon. If you
+# attached Energy to a Pokemon in this way, draw a card." Once/turn, no
+# discard cost, separate from the normal per-turn energy attach action, so
+# using it doesn't consume the turn's attach slot -- strictly-dominated
+# same as KE1. Unlike Run Errand it does NOT require active spot, so the
+# helper is more permissive there. Own flag, default off.
+KE3_TEAL_DANCE = os.environ.get("PTCG_KE3", "0") == "1"
+_KE3_ABILITY_CACHE = {}   # cid -> bool (this card has a free-attach ability)
+# KE_SUP (KE_SUP_SCREEN.md): mined from `atk_legal & supporter_pending` cell
+# (n_them=504, n_us=954, TVD=0.271). Top-10 ATTACK 15.9% in this cell; we
+# ATTACK 34.7% — we're firing attacks before playing our supporter, missing
+# a per-turn resource slot. Rule: on a MAIN decision where v1 chose ATTACK
+# AND supporterPlayed is False AND the menu offers OT_PLAY on a Supporter-
+# type hand card, swap to that Supporter play. Targets the once-per-turn
+# Supporter slot (a distinct engine resource from KE1/KE2/KE3's OT_ABILITY),
+# so composes with them by construction (KE3_SCREEN.md line 82-84).
+KE_SUP_ATK_BEFORE_SUPPORTER = os.environ.get("PTCG_KE_SUP", "0") == "1"
+# KE_BOLT (KE_BOLT_SCREEN.md): mined finding — top-10 Kang uses Bellowing
+# Thunder (Raging Bolt ex attackId=72) 0.412×/game (35/85 games), we use it
+# 0 times in 200 games despite it being offered 135 times. Root cause: v1's
+# _score_main reads printed damage (=0 for Bellowing, which is dynamic
+# damage = 70 × basic energies discarded), so Burst Roar (0-cost draw-6)
+# wins the scoring by default. Rule: two hooks — (1) on ST_MAIN, if
+# Bellowing offered AND our active is Raging Bolt (id=63) AND enough basic
+# energies attached beyond cost (2 for 1L+1F) to secure a KO, swap chosen
+# to Bellowing; (2) on ST_ATTACHED_CARD context=26 (Bellowing discard),
+# pick K = ceil(opp_hp / 70) basic-energy indices. Both hooks needed —
+# without (2), v1's default returns 0 discards (main.py:1803) → 0 damage.
+# Orthogonal to KE1 by construction: KE1 only fires when Mega Kangaskhan
+# (id=756) is active; KE_BOLT only fires when Raging Bolt (id=63) is
+# active. Different active-slot precondition = disjoint firings.
+KE_BOLT_ENGAGE = os.environ.get("PTCG_KE_BOLT", "0") == "1"
+KE_BOLT_ATTACK_ID = 72       # Bellowing Thunder
+KE_BOLT_SOURCE_ID = 63       # Raging Bolt ex
+KE_BOLT_CONTEXT = 26         # ST_ATTACHED_CARD context for Bellowing discard
+KE_BOLT_DMG_PER = 70         # damage per discarded basic energy
+KE_BOLT_COST = 2             # 1L + 1F must remain attached to fund the attack
+# KE_WELL (KE_WELL_SCREEN.md): mined attach-target distribution — top-10
+# attaches to Kang 43.6% vs us 62.4% (us +18.8pt over-attach); Wellspring
+# 23.7% vs us 4.6% (us -19.1pt under-attach). Downstream: Wellspring's
+# Torrential Pump (100 dmg + 120 to bench) fires 0.576×/g for top-10 vs
+# 0.035×/g for us (16× under-usage). Rule: on ST_MAIN, if v1 chose OT_ATTACH
+# to Mega Kangaskhan (756) AND Wellspring Ogerpon (108) is on field with
+# < 3 energies AND OT_ATTACH to Wellspring is on the menu, swap to
+# Wellspring. Fires only on Kang attach picks — non-Kang picks (RB,
+# Ogerpon, Latias) are left alone. Orthogonal to KE1 (different chosen-
+# action precondition). May also indirectly unlock KE_BOLT by freeing
+# later attaches to Raging Bolt.
+KE_WELL_ATTACH_PRIORITY = os.environ.get("PTCG_KE_WELL", "0") == "1"
+KE_WELL_KANG_ID = 756
+KE_WELL_WELL_ID = 108
+KE_WELL_CAP = 3   # stop attaching to Wellspring once it has 3+ energies
+# G_ABIL_BROAD (G_ABIL_BROAD_SCREEN.md): fresh mining pass on post-shipped-
+# bundle Grimm play (horizon_T1T2) vs top-10 (4 snapshots including jul31)
+# found that even with E1/E2/T1/T2 shipped, we still lag top-10 by 14-20pt
+# on ABILITY usage in critical cells (KOable & powered -20.3pt,
+# supporter_pending -15.1pt, turn=T7+ -12.4pt). E2 only fires when chosen
+# == OT_ATTACK; top-10 fires abilities BEFORE PLAY/ATTACH/EVOLVE too.
+# Rule: extend E2's shape — on ST_MAIN, if chosen action ≠ OT_ABILITY AND
+# an OT_ABILITY is offered AND per-turn veto budget not exhausted, swap
+# to best-scoring OT_ABILITY. Deck abilities in Grimm/Kang/Fez/Mewtwo are
+# all strictly-positive (Munkidori damage-move, Fez draw-3, Run Errand,
+# Teal Dance, etc.), so the substitution is unconditional-value — same
+# KE1-shape that succeeded, broader trigger.
+G_ABIL_BROAD = os.environ.get("PTCG_G_ABIL_BROAD", "0") == "1"
+_POSITIVE_ABIL_CACHE = {}   # cid -> bool
+OPP_ARCHETYPE_IDS = {
+    "starmie": frozenset((1030, 1031)),
+    "abomasnow": frozenset((722, 723)),
+    "alakazam": frozenset((66, 743)),
+    "garchomp": frozenset((540, 756, 63)),
+    "kangaskhan": frozenset((756, 63)),
+    "grimmsnarl": frozenset((412, 413, 414)),
+    "mewtwo": frozenset((431,)),
+    "dragapult": frozenset((301, 302, 303)),
+    "fezandipiti": frozenset((743, 744)),
+}
+E1_MAX_VETO = 12       # per own turn; top-10 p90 is 9 actions before attacking.
+                       # Bounds the "defer forever" failure mode if a repeatable
+                       # option never clears the menu.
+_SEQ = {"turn": None, "vetoes": 0, "ceiling_turns": 0, "turns": 0}
+DEVELOP_TYPES = (7, 8, 9)      # OT_PLAY, OT_ATTACH, OT_EVOLVE
+CARD_R1_SEARCH_ABILITY = os.environ.get("PTCG_CARD_R1", "0") == "1"
+CARD_R2_BENCH_ATTACH = os.environ.get("PTCG_CARD_R2", "0") == "1"
+CARD_R3_RAGING_CURSE = os.environ.get("PTCG_CARD_R3", "0") == "1"
+WEIGHT_ABILITY_SEARCH = 2900.0  # above evolve 2800 / item 2400 / bench 2300,
+                                # below energy attach 3000 (still once-per-turn
+                                # and time-critical) and bench-urgent 3500
+EVO_TARGET_BONUS = 150.0        # bench Pokemon that can still evolve; must
+                                # exceed ACTIVE_TARGET_BONUS (100) to flip the
+                                # attach target from active to the growing line
+CAND_INCLUDE_ATTACK = os.environ.get("PTCG_CAND_INCLUDE_ATK", "0") == "1"
+CAND_ATK_W = float(os.environ.get("PTCG_CAND_ATK_W", "0") or "0")  # 0 = off
+CAND_ATK_MIN_DMG = float(os.environ.get("PTCG_CAND_ATK_MIN_DMG", "100") or "100")
 GOVERNOR = os.environ.get("PTCG_GOVERNOR", "1") == "1"
 POLICY_WEIGHTS_FILE = "policy_weights.npz"
 GOV_CAP_S = 3.0              # per-decision budget ceiling
@@ -236,7 +538,15 @@ def _find_file(name):
                 return fp
         except Exception:
             pass
+        # Also search the bot/ subdirectory (weights bundled there)
+        try:
+            fp = os.path.join(d, "bot", name)
+            if os.path.isfile(fp):
+                return fp
+        except Exception:
+            pass
     return None
+
 
 
 def _load_deck():
@@ -310,6 +620,26 @@ def _my(cur, me):
 
 def _opp(cur, me):
     return _players(cur)[1 - me]
+
+
+def _opp_archetype(cur, me):
+    """Live opponent-archetype guess from marquee card ids seen in play or
+    discard (both fully public zones -- no hand/deck inference needed).
+    Returns a label in OPP_ARCHETYPE_IDS or None. Cheap: no persistent state,
+    recomputed from `cur` each call, so a KO'd-and-discarded marquee card
+    still counts via the discard pile."""
+    theirs = _opp(cur, me)
+    ids = set()
+    for pk in (theirs.get("active") or []) + (theirs.get("bench") or []):
+        if pk:
+            ids.add(pk.get("id"))
+    for c in (theirs.get("discard") or []):
+        if c:
+            ids.add(c.get("id"))
+    for label, sig in OPP_ARCHETYPE_IDS.items():
+        if ids & sig:
+            return label
+    return None
 
 
 def _active_pokemon(player):
@@ -396,12 +726,77 @@ def _count_basic_energy(cards):
     return sum(1 for c in cards or [] if c and _card(c.get("id")).get("cardType") == CT_BASIC_ENERGY)
 
 
+_SCALING_ATTACK_TAGS = {
+    # Gate A: attack_id -> (per_unit, source), where source is a callable
+    # (cur, me, attacker_pk) -> non-negative int count.
+    # Only attacks whose condition is verifiable from public observation live
+    # here — the ABSTAIN discipline (§6j) is enforced by omission.
+    540: ("raging_curse", 10),   # Cynthia's Spiritomb: damage counters on our benched Cynthia's Pokemon
+    88: ("psychic", 30),         # Alakazam Psychic: energies on opponent's active
+}
+
+
+def _is_cynthia_pokemon(cid):
+    """Cynthia's Pokemon family — verifiable from card name prefix."""
+    return (_card(cid).get("name") or "").startswith("Cynthia'")
+
+
+def _scaling_damage_bonus(attack_id, cur, me):
+    """Compute the "+N per unit" bonus for attacks in _SCALING_ATTACK_TAGS.
+    Returns None if attack is not in the tag list OR condition unverifiable
+    (ABSTAIN → caller keeps printed damage)."""
+    tag = _SCALING_ATTACK_TAGS.get(attack_id)
+    if tag is None:
+        return None
+    kind, per_unit = tag
+    if kind == "raging_curse":
+        # 10 damage per damage counter on benched Cynthia's Pokemon
+        mine = _my(cur, me)
+        counters = 0
+        for pk in mine.get("bench") or []:
+            if pk and _is_cynthia_pokemon(pk.get("id")):
+                maxhp = pk.get("maxHp") or 0
+                hp = pk.get("hp") or 0
+                counters += max(0, (maxhp - hp) // 10)
+        return per_unit * counters
+    if kind == "psychic":
+        # 30 damage per energy attached to opponent's active
+        opp_pk = _active_pokemon(_opp(cur, me))
+        if not opp_pk:
+            return 0
+        return per_unit * len(opp_pk.get("energies") or [])
+    return None
+
+
 def _attack_damage_est(attack_id, cur, me):
-    """Damage estimate for an attack; dynamic for known variable attacks."""
+    """Damage estimate for an attack; dynamic for known variable attacks.
+    Gate A: when EVAL_FIX is on, verifiable scaling attacks add their bonus
+    on top of printed damage; unverifiable attacks fall through unchanged."""
     atk = ATTACKS.get(attack_id) or {}
     dmg = float(atk.get("damage") or 0)
     name = (atk.get("name") or "").lower()
     mine = _my(cur, me)
+    if EVAL_FIX:
+        bonus = _scaling_damage_bonus(attack_id, cur, me)
+        if bonus is not None:
+            dmg += float(bonus)
+    # R3: Raging Curse's printed damage is 0 -- "This attack does 10 damage
+    # for each damage counter on all of your Benched Cynthia's Pokemon"
+    # (card_data.json attack 540). Without this it scores exactly
+    # WEIGHT_ATTACK_BASE, so a measured 360-damage swing is priced identically
+    # to a whiff. Read straight off our own bench; nothing hidden is involved.
+    # Deliberately scoped to this one attack -- EVAL_FIX stays off and killed.
+    if CARD_R3_RAGING_CURSE and "raging curse" in name:
+        counters = 0
+        for pk in (mine.get("bench") or []):
+            if not pk or not _is_cynthia_pokemon(pk.get("id")):
+                continue
+            mx = _card(pk.get("id")).get("hp") or 0
+            hp = pk.get("hp")
+            if hp is None or mx <= 0:
+                continue
+            counters += max(0, int(round((mx - hp) / 10.0)))
+        return 10.0 * counters
     if "riptide" in name:
         # 20 damage per Basic Water Energy in our discard pile
         dmg = 20.0 * _count_basic_energy(mine.get("discard"))
@@ -437,6 +832,42 @@ def _attack_score(attack_id, cur, me):
     return WEIGHT_ATTACK_BASE + min(dmg, 1900.0) * ATTACK_DAMAGE_SCALE
 
 
+_SEARCH_ABILITY_CACHE = {}
+
+
+def _is_search_ability(cid):
+    """R1: does this Pokemon carry a deck-search ability?
+
+    Read from card_data.json `skills[]` text rather than a card-id table, so it
+    generalises to any deck we might pilot. Cynthia's Gabite's Champion's Call
+    ("search your deck for a Cynthia's Pokemon ... put it into your hand") is
+    the case this was built for."""
+    hit = _SEARCH_ABILITY_CACHE.get(cid)
+    if hit is None:
+        hit = False
+        for sk in (_card(cid).get("skills") or []):
+            t = (sk.get("text") or "").lower()
+            if "search your deck" in t and "hand" in t:
+                hit = True
+                break
+        _SEARCH_ABILITY_CACHE[cid] = hit
+    return hit
+
+
+def _can_evolve_further(cid):
+    """R2: is this Pokemon a non-final stage of a line present in OUR deck?
+
+    True when some card in DECK evolves from it, i.e. attaching here is
+    building toward a bigger attacker rather than feeding a dead end."""
+    nm = _card(cid).get("name")
+    if not nm:
+        return False
+    for other in set(DECK or ()):
+        if _card(other).get("evolvesFrom") == nm:
+            return True
+    return False
+
+
 def _attach_target_score(cur, me, in_area, in_index):
     """Prefer attaching to the active / strongest / still-powering-up Pokemon."""
     pk = _pokemon_at(cur, me, in_area, in_index, me)
@@ -448,6 +879,11 @@ def _attach_target_score(cur, me, in_area, in_index):
         s += ACTIVE_TARGET_BONUS
     if len(pk.get("energies") or []) < best_cost:
         s += POWERING_UP_BONUS
+    # R2: a benched Pokemon that can still evolve is the growing attacker.
+    # Garchomp ex retreats for 0, so building it on the bench costs no tempo.
+    if CARD_R2_BENCH_ATTACH and in_area == AREA_BENCH \
+            and _can_evolve_further(pk.get("id")):
+        s += EVO_TARGET_BONUS
     return s
 
 
@@ -990,8 +1426,8 @@ def _lv_load(fp):
             layers.append(([wvals[r * cols:(r + 1) * cols] for r in range(rows)],
                            list(bvals)))
         dims = [(len(w), len(w[0]), len(b)) for w, b in layers]
-    if nf != N_STATE_FEATURES:
-        raise ValueError("weights expect %d features, encoder has %d"
+    if nf not in (N_STATE_FEATURES, 194):
+        raise ValueError("weights expect %d features, encoder has %d or 194"
                          % (nf, N_STATE_FEATURES))
     if dims[0][0] != nf or dims[-1][1] != 1:
         raise ValueError("layer dims %r do not match %d -> 1" % (dims, nf))
@@ -1267,6 +1703,15 @@ def _score_main(opt, sel, cur, me):
     if t == OT_DISCARD:
         return WEIGHT_DISCARD_IN_PLAY
     if t == OT_ABILITY:
+        # R1: a once-per-turn deck-search ability is free card advantage and
+        # compounds (fetch a Cynthia's Pokemon -> bench it -> another Gabite ->
+        # another Champion's Call). Flat WEIGHT_ABILITY ranks it below item,
+        # bench and evolve, which is why our uptake is 16.8% vs top-10 36.3%.
+        if CARD_R1_SEARCH_ABILITY:
+            pk = _pokemon_at(cur, me, opt.get("inPlayArea"),
+                             opt.get("inPlayIndex"), me)
+            if pk and _is_search_ability(pk.get("id")):
+                return WEIGHT_ABILITY_SEARCH
         return WEIGHT_ABILITY
     if t == OT_EVOLVE:
         cid = _option_card_id(opt, sel, cur, me)
@@ -1314,6 +1759,28 @@ def _score_card(opt, sel, cur, me, ctx):
                 f = _lv_after_promote(feats_now, opt.get("index"))
                 if f is not None:
                     return 10.0 + _lv_delta(model, p_now, f)
+        # Gate D: post-KO promote — maxHp + 30·energy (Sanjay §6q rule 1).
+        # SC_TO_ACTIVE only; SETUP / SWITCH / TO_FIELD keep the original scorer.
+        if PROMOTE_RULE and ctx == SC_TO_ACTIVE and pk:
+            return float(pk.get("maxHp") or pk.get("hp") or 0) \
+                + 30.0 * len(pk.get("energies") or [])
+        # T1: SC_SWITCH targeting the OPPONENT's bench (Boss's Orders / gust)
+        # is a different decision from choosing OUR OWN next active, and the
+        # existing hp+energy+attack formula below is the wrong goal for it.
+        # Scoped tightly: only fires when playerIndex names the opponent, so
+        # the ~73% of SC_SWITCH volume that is self-targeting is untouched.
+        if TARGET_T1_BOSS_PRIZE and pk and ctx == SC_SWITCH \
+                and opt.get("playerIndex") is not None \
+                and opt.get("playerIndex") != me:
+            STATS["t1_fired"] = STATS.get("t1_fired", 0) + 1
+            our_act = (_my(cur, me).get("active") or [None])[0]
+            our_dmg = _best_attack_info((our_act or {}).get("id"))[0] if our_act else 0
+            hp = pk.get("hp") or 0
+            is_one_shot = (hp > 0 and hp <= our_dmg)
+            ko_weight = 5000.0 if is_one_shot else 0.0
+            return ko_weight + 1000.0 * _prizes_for_ko(pk.get("id")) \
+                + 50.0 * len(pk.get("energies") or []) \
+                - 10.0 * ((pk.get("hp") or 0) / max(1.0, float(pk.get("maxHp") or pk.get("hp") or 1)))
         if pk:
             return (pk.get("hp") or 0) + 20.0 * len(pk.get("energies") or []) \
                 + _best_attack_info(pk.get("id"))[0] / 10.0
@@ -1321,6 +1788,13 @@ def _score_card(opt, sel, cur, me, ctx):
     if ctx in (SC_SETUP_BENCH, SC_TO_BENCH):
         return 10.0 + (_card(cid).get("hp") or 0) / 10.0
     if ctx == SC_TO_HAND:
+        # F1: retrieving is not discarding. Prefer Basic Energy, then fall back
+        # to the existing ordering unchanged (the mined "energy-first, then
+        # _card_value" criterion, 68.3% agreement vs 36.0% shipped).
+        if FETCH_F1_ENERGY_FIRST and cid is not None \
+                and _card(cid).get("cardType") == CT_BASIC_ENERGY:
+            STATS["f1_fired"] = STATS.get("f1_fired", 0) + 1
+            return 1000.0 + _card_value(cid)
         return _card_value(cid) if cid is not None else 10.0
     if ctx in (SC_DISCARD, SC_TO_DECK, SC_TO_DECK_BOTTOM, SC_TO_PRIZE, SC_DETACH_FROM):
         return -_card_value(cid) if cid is not None else -60.0
@@ -1328,8 +1802,34 @@ def _score_card(opt, sel, cur, me, ctx):
         return _card_value(cid) if cid is not None else 10.0
     if ctx in (SC_DMG_COUNTER, SC_DMG_COUNTER_ANY, SC_DAMAGE):
         # damaging opponents: prefer the closest to a KO, prefer the active
+        # T4: if this placement actually KOs the target, take it. Scoped to
+        # opponent-owned targets only, so self-targeting placements are
+        # untouched. Falls through to the T2 ratio scorer when not lethal.
+        if TARGET_T4_LETHAL and pk \
+                and opt.get("playerIndex") is not None \
+                and opt.get("playerIndex") != me:
+            _t4_dmg = T4_DMG_BY_SOURCE.get(((sel or {}).get("effect") or {}).get("id"))
+            if _t4_dmg and (pk.get("hp") or 0) <= _t4_dmg:
+                STATS["t4_fired"] = STATS.get("t4_fired", 0) + 1
+                # prefer the most expensive kill available, then the active
+                return T4_LETHAL_SCORE \
+                    + 100.0 * _prizes_for_ko(pk.get("id")) \
+                    + (30.0 if opt.get("area") == AREA_ACTIVE else 0.0)
         if pk:
-            s = 200.0 - (pk.get("hp") or 200)
+            # T2: rank by HP RATIO, not raw HP, so a fresh low-max-HP Basic
+            # doesn't outrank a half-dead high-max-HP attacker just because
+            # its absolute HP number happens to be lower right now.
+            if TARGET_T2_SPLASH_RATIO:
+                STATS["t2_fired"] = STATS.get("t2_fired", 0) + 1
+                maxhp = float(pk.get("maxHp") or pk.get("hp") or 1)
+                ratio = (pk.get("hp") or 0) / max(1.0, maxhp)
+                s = 200.0 * (1.0 - ratio)
+                if TARGET_T3_FEZ_TIEBREAK and _opp_archetype(cur, me) == "fezandipiti":
+                    STATS["t3_fired"] = STATS.get("t3_fired", 0) + 1
+                    s += 2.0 * len(pk.get("energies") or []) \
+                        + 3.0 * _prizes_for_ko(pk.get("id"))
+            else:
+                s = 200.0 - (pk.get("hp") or 200)
             if opt.get("area") == AREA_ACTIVE:
                 s += 30.0
             return s
@@ -1392,6 +1892,16 @@ def _pilot_score_main(opt, sel, cur, me):
         dmg = _attack_damage_est(opt.get("attackId"), cur, me)
         if dmg > 0 and cur.get("supporterPlayed"):
             return max(base, WEIGHT_TEMPO_LOADED + min(dmg, 1900.0) * ATTACK_DAMAGE_SCALE)
+        # A-WEIGHT: the hook above is gated on the turn's supporter having
+        # resolved, which is false on 75.6% of the decisions where the best
+        # attack falls out of the search candidate set (median 100 damage --
+        # real swings, not chip). This second, lower tier fires without that
+        # gate for a loaded, non-chip attack only: CAND_ATK_W=2200 puts a
+        # 100-damage attack at 2250, above marginal setup (stadium 2030,
+        # ability 2060, tool 2100, supporter 2150) but still below bench
+        # (2300), item (2400), evolve (2800) and energy attach (3000).
+        if CAND_ATK_W > 0 and dmg >= CAND_ATK_MIN_DMG:
+            return max(base, CAND_ATK_W + min(dmg, 1900.0) * ATTACK_DAMAGE_SCALE)
     elif t == OT_EVOLVE:
         # evolution rush: nasuo445 gets Garchomp ex online by ~turn 6. Nudge
         # evolutions toward an ex (the win condition) above ordinary evolves so
@@ -1784,6 +2294,42 @@ SEARCH_BELIEF = os.environ.get("PTCG_SEARCH_BELIEF", "comp")
 _COMP_TARGETS = {"energy": 0.30, "pokemon": 0.35, "trainer": 0.35}
 _COMP_PRIOR_CACHE = None
 
+# Top-ladder meta archetypes for dynamic opponent deck inference
+META_ARCHETYPES = {
+    "grimmsnarl": [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 104, 104, 112, 112, 112, 112, 646, 646, 646, 646, 647, 647, 647, 648, 648, 648, 860, 860, 1079, 1079, 1079, 1080, 1086, 1086, 1086, 1086, 1097, 1097, 1097, 1122, 1137, 1152, 1152, 1152, 1152, 1182, 1182, 1219, 1219, 1219, 1219, 1227, 1227, 1227, 1227, 1231, 1259, 1259, 1259, 1259],
+    "fezandipiti": [5, 5, 13, 19, 19, 19, 19, 66, 66, 140, 305, 305, 305, 343, 741, 741, 741, 741, 742, 742, 742, 742, 743, 743, 743, 743, 1079, 1079, 1079, 1081, 1081, 1081, 1081, 1086, 1086, 1086, 1086, 1097, 1129, 1152, 1152, 1152, 1152, 1182, 1182, 1182, 1184, 1197, 1197, 1197, 1225, 1225, 1225, 1225, 1231, 1231, 1231, 1231, 1266, 1266],
+    "garchomp": [341, 341, 341, 341, 342, 342, 342, 381, 381, 381, 379, 379, 379, 379, 380, 380, 380, 380, 6, 6, 6, 6, 6, 20, 20, 20, 20, 387, 387, 1080, 1086, 1086, 1086, 1086, 1097, 1097, 1142, 1142, 1142, 1142, 1152, 1152, 1152, 1152, 1173, 1173, 1173, 1182, 1182, 1203, 1197, 1225, 1225, 1225, 1227, 1227, 1227, 1227, 1261, 1261],
+    "kangaskhan": [1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 4, 4, 5, 6, 6, 63, 63, 96, 96, 96, 108, 140, 184, 184, 272, 756, 756, 756, 978, 1071, 1071, 1071, 1088, 1097, 1097, 1098, 1098, 1116, 1116, 1116, 1116, 1121, 1121, 1121, 1121, 1182, 1182, 1197, 1197, 1198, 1198, 1198, 1198, 1205, 1205, 1250, 1250, 1250, 1250],
+    "mewtwo": [1, 1, 1, 1, 1, 1, 1, 1, 1, 15, 15, 15, 15, 400, 400, 400, 400, 401, 401, 401, 401, 414, 414, 431, 431, 434, 434, 1094, 1094, 1094, 1116, 1121, 1134, 1134, 1134, 1134, 1152, 1152, 1152, 1152, 1159, 1175, 1216, 1216, 1216, 1216, 1217, 1218, 1218, 1218, 1220, 1220, 1220, 1220, 1227, 1227, 1227, 1257, 1257, 1257],
+    "dragapult": [2, 2, 2, 2, 5, 5, 5, 5, 7, 7, 112, 112, 119, 119, 119, 119, 120, 120, 120, 120, 121, 121, 121, 140, 235, 235, 1071, 1080, 1086, 1086, 1086, 1086, 1097, 1097, 1120, 1120, 1120, 1120, 1121, 1121, 1121, 1121, 1152, 1152, 1152, 1152, 1182, 1182, 1182, 1198, 1198, 1198, 1213, 1227, 1227, 1227, 1227, 1231, 1246, 1246],
+}
+
+
+def infer_opponent_archetype(known_ids):
+    """Classify opponent deck into one of the top meta archetypes."""
+    if not known_ids:
+        return None
+    pool = _pool()
+    scores = {}
+    for name, deck in META_ARCHETYPES.items():
+        arch_counter = Counter(deck)
+        score = 0.0
+        for cid in known_ids:
+            if cid in arch_counter:
+                cinfo = pool.get(cid) or {}
+                ct = cinfo.get("cardType")
+                if ct == CT_POKEMON:
+                    score += 5.0
+                elif ct == CT_BASIC_ENERGY:
+                    score += 0.5
+                else:
+                    score += 2.0
+        scores[name] = score
+    best_name = max(scores, key=scores.get)
+    if scores[best_name] >= 5.0:
+        return META_ARCHETYPES[best_name]
+    return None
+
 
 def _comp_prior():
     """Card-id -> weight implementing the composition prior (cached)."""
@@ -1817,8 +2363,6 @@ def sample_opponent_deck(n, known_ids, tracker, rng, prior=None):
     pool = _pool()
     if SEARCH_BELIEF == "oracle" and SEARCH_ORACLE_DECK:
         # diagnosis only: sample the remainder of the opponent's TRUE list.
-        # Upper bound on belief accuracy — never a shippable mode (we can't
-        # know the opponent's deck), used to prove belief is the bottleneck.
         base = list((Counter(SEARCH_ORACLE_DECK) - Counter(known_ids)).elements())
         rng.shuffle(base)
         if len(base) < n:
@@ -1831,6 +2375,16 @@ def sample_opponent_deck(n, known_ids, tracker, rng, prior=None):
         if len(base) < n:
             raise ValueError("mirror pool underflow (%d/%d)" % (len(base), n))
         return base[:n]
+
+    # Archetype belief matching: if opponent revealed archetype cards, sample from archetype remainder
+    if prior is None and SEARCH_BELIEF == "comp":
+        matched_arch = infer_opponent_archetype(known_ids)
+        if matched_arch is not None:
+            base = list((Counter(matched_arch) - Counter(known_ids)).elements())
+            rng.shuffle(base)
+            if len(base) >= n:
+                return base[:n]
+
     dom_type = None
     if prior is None and SEARCH_BELIEF == "comp":
         prior = _comp_prior()
@@ -2152,6 +2706,9 @@ def _bc_decide(obs, sel, cur, v1_result):
         and nopt > 1
     if not (is_main or is_card):
         return v1_result, False
+    # BC_CARD_ONLY: bypass MAIN decisions entirely, use v1 for those
+    if BC_CARD_ONLY and is_main:
+        return v1_result, False
     model = _bc_model()
     if model is None or (is_card and model.get("head_card") is None):
         STATS["bc_v1"] = STATS.get("bc_v1", 0) + 1
@@ -2228,20 +2785,54 @@ def _rollout(node, me, cap):
 
 # ----------------------------------------------------------- time governor ----
 
+GOV_EMIT_EVERY = 40   # in-flight [gov-snap] telemetry cadence (0 = off);
+                      # emission only, never read by any decision path
+GOV_WARMSTART_N = 10  # first N searches use full SEARCH_DET regardless of EMA
+GOV_HYST_M = 3        # force re-engagement after M consecutive EMA-caused skips
 _GOV = {"n_dec": 0, "spent": 0.0, "max_dec": 0.0, "sticky": False,
-        "ema_det": None, "ring": [], "games": 0, "hooked": False}
+        "ema_det": 0.05, "ring": [], "games": 0, "hooked": False,
+        "searches_run": 0, "sum_dets": 0,
+        "cons_ema_skip": 0, "max_cons_ema_skip": 0,
+        "max_ema": 0.05,
+        "warmstart_forced": 0, "hyst_forced": 0}
 
 
-def _gov_flush():
-    """One-line game telemetry to stderr (ladder episode logs)."""
+def _gov_emit(tag="gov"):
+    """Print the telemetry line WITHOUT resetting counters.
+
+    Instrumentation only — no decision logic reads this. Split out from
+    _gov_flush so an in-flight snapshot can be emitted periodically: the
+    Kaggle platform terminates the agent process without running atexit
+    handlers, so the atexit flush never fired on ladder and 28 games produced
+    zero search telemetry. The new-game flush at the _search_decide call site
+    still handles game boundaries; this covers the final game and teardown."""
     if _GOV["n_dec"] == 0:
         return
     worst = sorted(_GOV["ring"], key=lambda r: -r[2])[:3]
-    print("[gov] game=%d decisions=%d spent=%.1fs max=%.2fs sticky=%s worst(turn,budget,spent,det)=%s"
+    ema = _GOV["ema_det"]
+    sr = _GOV["searches_run"]
+    avg_dets = (_GOV["sum_dets"] / sr) if sr else 0.0
+    print("[" + tag + "] game=%d decisions=%d spent=%.1fs max=%.2fs ema=%s max_ema=%.3f "
+          "searches=%d avg_dets=%.2f warmN=%d hystM=%d max_cons_skip=%d sticky=%s "
+          "end_veto=%d atk_legal=%d atk_in=%d cand_forced=%d cand_atk_w=%d changed=%d "
+          "worst(turn,budget,spent,det)=%s"
           % (_GOV["games"], _GOV["n_dec"], _GOV["spent"], _GOV["max_dec"],
-             _GOV["sticky"], [(t, round(b, 2) if b is not None else None,
-                               round(s, 2), d) for t, b, s, d in worst]),
+             ("%.3f" % ema) if ema is not None else "None", _GOV["max_ema"],
+             sr, avg_dets, _GOV["warmstart_forced"], _GOV["hyst_forced"],
+             _GOV["max_cons_ema_skip"], _GOV["sticky"],
+             STATS.get("end_veto", 0), STATS.get("atk_legal", 0),
+             STATS.get("atk_in_cands", 0), STATS.get("cand_forced", 0),
+             STATS.get("cand_atk_w", 0), STATS.get("search_changed", 0),
+             [(t, round(b, 2) if b is not None else None,
+               round(s, 2), d) for t, b, s, d in worst]),
           file=sys.stderr, flush=True)
+
+
+def _gov_flush():
+    """Emit the game line and reset per-game counters (new-game boundary)."""
+    if _GOV["n_dec"] == 0:
+        return
+    _gov_emit("gov")
     _GOV.update({"n_dec": 0, "spent": 0.0, "max_dec": 0.0, "sticky": False,
                  "ring": [], "games": _GOV["games"] + 1})
 
@@ -2276,18 +2867,79 @@ def _gov_note(turn, budget, spent, dets):
     _GOV["spent"] += spent
     _GOV["max_dec"] = max(_GOV["max_dec"], spent)
     if dets:
-        per = spent / dets
+        per = min(spent / dets, 0.2)  # cap: bounds EMA ≤ 0.2 by construction (seed 0.05)
         _GOV["ema_det"] = per if _GOV["ema_det"] is None \
             else 0.7 * _GOV["ema_det"] + 0.3 * per
+        if _GOV["ema_det"] > _GOV["max_ema"]:
+            _GOV["max_ema"] = _GOV["ema_det"]
+        _GOV["searches_run"] += 1
+        _GOV["sum_dets"] += dets
+        _GOV["cons_ema_skip"] = 0
     _GOV["ring"].append((turn, budget, spent, dets))
     if len(_GOV["ring"]) > 64:
         _GOV["ring"].pop(0)
+    # In-flight snapshot: atexit does not run on the Kaggle platform, so
+    # without this the final game of every episode emits no telemetry at all
+    # (28 ladder games produced none). Print-only; resets nothing; no decision
+    # path reads it.
+    if GOV_EMIT_EVERY > 0 and _GOV["n_dec"] % GOV_EMIT_EVERY == 0:
+        _gov_emit("gov-snap")
 
 
 # ------------------------------------------------------------------ search ----
 
 _TRACKERS = {}
 _SEARCH_RNG = random.Random(SEARCH_SEED)
+
+
+def _find_lethal(obs, sel, cur, scores, me, tr, deadline):
+    """Gate B: engine-exact lethal probe. For each ATTACK option (top-N by
+    v1 score), sample K determinizations and probe via search_step; if ALL K
+    show cur.result == me, this attack is confirmed lethal.
+
+    Returns the winning option index or None. Never raises — every failure
+    path degrades to None (caller uses normal search)."""
+    if not obs.get("search_begin_input"):
+        return None
+    options = sel.get("option") or []
+    # Rank ATTACK options by v1 score, take top-N to probe first
+    attack_idxs = [i for i, o in enumerate(options)
+                   if (o or {}).get("type") == OT_ATTACK]
+    if not attack_idxs:
+        return None
+    attack_idxs.sort(key=lambda i: -scores[i])
+    attack_idxs = attack_idxs[:LETHAL_PROBE_MAX_ATTACKS]
+
+    t_start = time.perf_counter()
+    K = LETHAL_PROBE_K
+    for idx in attack_idxs:
+        wins = 0
+        checked = 0
+        for _ in range(K):
+            if time.perf_counter() - t_start > deadline:
+                return None
+            det = None
+            try:
+                det = _sample_determinization(obs, tr, _SEARCH_RNG)
+            except Exception:
+                pass
+            if det is None:
+                # sampling failed — treat as inconclusive; try next det
+                continue
+            try:
+                root = _sb_begin(obs["search_begin_input"], **det)
+                node = _sb_step(root["searchId"], [idx])
+                res = ((node.get("observation") or {}).get("current") or {}).get("result", -1)
+                if res == me:
+                    wins += 1
+                checked += 1
+            except Exception:
+                pass
+            finally:
+                _sb_end()
+        if checked == K and wins == K:
+            return idx
+    return None
 
 
 def _searchable(obs, sel, cur):
@@ -2297,6 +2949,612 @@ def _searchable(obs, sel, cur):
             and sel.get("type") == ST_MAIN
             and sel.get("minCount", 1) == 1 and sel.get("maxCount", 1) == 1
             and len(sel.get("option") or []) > 1)
+
+
+def _end_veto(result, sel, cur, scores):
+    """Replace a chosen END with a development action, per END_VETO mode.
+
+    Returns `result` unchanged on every path that is not a clean, in-range,
+    single-index END on a MAIN selection with a qualifying replacement, so the
+    agent can never be left without a legal action. `_validate_result` and the
+    fallback chain still run downstream and are untouched."""
+    if not END_VETO or not isinstance(sel, dict) or sel.get("type") != ST_MAIN:
+        return result
+    if not (isinstance(result, list) and len(result) == 1):
+        return result
+    options = sel.get("option") or []
+    ci = result[0]
+    if not isinstance(ci, int) or not (0 <= ci < len(options)):
+        return result
+    if (options[ci] or {}).get("type") != OT_END:
+        return result
+    if not isinstance(scores, (list, tuple)) or len(scores) != len(options):
+        return result
+
+    me = cur.get("yourIndex") or 0
+    mine = _my(cur, me)
+    dev_types = (OT_PLAY, OT_ATTACH, OT_EVOLVE, OT_ABILITY)
+
+    if END_VETO == "broad":
+        pool = [i for i, o in enumerate(options)
+                if (o or {}).get("type") in dev_types]
+    else:                                    # "narrow" (default non-empty mode)
+        # bench must have room -- capacity is benchMax, NOT len(bench).
+        # Sanjay shipped this rule silently dead by using len(bench), which
+        # reads a 1/5 bench as "full" (his §6l). Use benchMax.
+        bench = [b for b in (mine.get("bench") or []) if b]
+        bmax = mine.get("benchMax")
+        if not isinstance(bmax, int) or bmax <= 0:
+            return result                    # unknown capacity -> abstain
+        if len(bench) >= bmax:
+            return result
+        hand = mine.get("hand") or []
+        pool = []
+        for i, o in enumerate(options):
+            if (o or {}).get("type") != OT_PLAY:
+                continue
+            ix = (o or {}).get("index")
+            if isinstance(ix, int) and 0 <= ix < len(hand) and hand[ix]:
+                nm = (_card((hand[ix] or {}).get("id")).get("name") or "").lower()
+                if nm in BASIC_SEARCHERS:
+                    pool.append(i)           # replacement IS the searcher
+    if not pool:
+        return result
+    best = max(pool, key=lambda i: (scores[i], -i))
+    STATS["end_veto"] = STATS.get("end_veto", 0) + 1
+    return [best]
+
+
+def _has_free_draw_ability(cid):
+    """True iff card `cid` has an Ability whose text is a once-per-turn free
+    'draw N cards' effect from the Active Spot -- Mega Kangaskhan's *Run
+    Errand* is the case this was mined for. Cached; skills text is static per
+    cid. Deliberately narrow: matches 'draw' + a small integer, requires the
+    once-per-turn/active-spot phrasing, and excludes 'discard' side effects
+    (so it won't fire on cards like Cinderace's Turbo Flare, which was the
+    ARCHALUDON_TEST negative-transfer bug shape)."""
+    hit = _KE1_ABILITY_CACHE.get(cid)
+    if hit is not None:
+        return hit
+    hit = False
+    for sk in (_card(cid).get("skills") or []):
+        t = (sk.get("text") or "").lower()
+        if "discard" in t:
+            continue
+        if "once during your turn" not in t or "active spot" not in t:
+            continue
+        # look for "draw N cards" with N in 1-5 (Run Errand is "draw 2 cards")
+        for n in ("1", "2", "3", "4", "5"):
+            if f"draw {n} card" in t:
+                hit = True
+                break
+        if hit:
+            break
+    _KE1_ABILITY_CACHE[cid] = hit
+    return hit
+
+
+def _ke1_veto(result, sel, cur):
+    """KE1: if v1's chosen action is a terminal ATTACK/RETREAT/END on a MAIN
+    decision, and the active carries an unused free-draw Ability that the
+    engine is currently offering us as an OT_ABILITY on the menu, swap the
+    chosen index to that Ability. Strictly dominated: taking a free draw
+    before ending the tempo of the turn cannot be worse than not taking it,
+    and mining says top-10 pilots do this 24% of the time in the exact
+    can_KO state where we do it 0%. Abstain paths return `result` unchanged
+    -- `_validate_result` and the fallback chain are untouched."""
+    if not KE1_FREE_DRAW or not isinstance(sel, dict) or sel.get("type") != ST_MAIN:
+        return result
+    if not (isinstance(result, list) and len(result) == 1):
+        return result
+    options = sel.get("option") or []
+    ci = result[0]
+    if not isinstance(ci, int) or not (0 <= ci < len(options)):
+        return result
+    chosen_type = (options[ci] or {}).get("type")
+    if chosen_type not in (OT_ATTACK, OT_RETREAT, OT_END):
+        return result
+    me = cur.get("yourIndex") or 0
+    mine = _my(cur, me)
+    active = (mine.get("active") or [None])[0]
+    if not active:
+        return result
+    active_id = active.get("id")
+    if not _has_free_draw_ability(active_id):
+        return result
+    # find an OT_ABILITY option on the menu targeting THIS active
+    active_serial = active.get("serial")
+    for i, o in enumerate(options):
+        if (o or {}).get("type") != OT_ABILITY:
+            continue
+        opt_serial = (o or {}).get("serial")
+        # engine either indexes the ability by option's card ref (serial) or
+        # by position -- accept either if it plausibly points at our active
+        if opt_serial is None or opt_serial == active_serial:
+            STATS["ke1_veto"] = STATS.get("ke1_veto", 0) + 1
+            return [i]
+    return result
+
+
+def _has_free_attach_ability(cid):
+    """True iff card `cid` has an Ability that attaches a Basic energy from
+    hand for free (once per turn, no discard). Teal Mask Ogerpon ex's *Teal
+    Dance* is the case this was mined for. Unlike KE1's helper, does NOT
+    require active-spot (Teal Dance fires from bench too). Excludes hybrid
+    effects via the same "no discard" filter."""
+    hit = _KE3_ABILITY_CACHE.get(cid)
+    if hit is not None:
+        return hit
+    hit = False
+    for sk in (_card(cid).get("skills") or []):
+        t = (sk.get("text") or "").lower()
+        if "discard" in t:
+            continue
+        if "once during your turn" not in t:
+            continue
+        # "attach a basic ... energy card from your hand to this pokemon"
+        if "attach" in t and "basic" in t and "energy" in t and "hand" in t \
+                and "this pok" in t:
+            hit = True
+            break
+    _KE3_ABILITY_CACHE[cid] = hit
+    return hit
+
+
+def _ke3_veto(result, sel, cur):
+    """KE3: if v1's chosen action is terminal (ATTACK/RETREAT/END) or ATTACH,
+    and any of our Pokemon (active OR bench) carries an unused free-attach
+    Ability that the engine is offering as OT_ABILITY on the menu, swap to
+    that Ability. Same strict-dominance argument as KE1: Teal Dance is a
+    separate action from the per-turn manual attach, so taking it does not
+    consume the normal attach slot; it also draws a card as a rider. Never
+    fires on ATTACH toward the same target (no useful sequencing there) --
+    that's why the trigger set is {ATTACK, RETREAT, END, ATTACH}."""
+    if not KE3_TEAL_DANCE or not isinstance(sel, dict) or sel.get("type") != ST_MAIN:
+        return result
+    if not (isinstance(result, list) and len(result) == 1):
+        return result
+    options = sel.get("option") or []
+    ci = result[0]
+    if not isinstance(ci, int) or not (0 <= ci < len(options)):
+        return result
+    # Narrowed trigger: {ATTACK, RETREAT, END} only. Initial version also
+    # included OT_ATTACH, and the KE13 screen (KE1+KE3 combined) crashed win
+    # rate to 31.2% vs baseline 32.3% -- the ATTACH trigger reproduces the
+    # exact regression seen in KE12 (KE1+KE2). Removing OT_ATTACH from the
+    # trigger set aligns KE3's shape with KE1 so the two rules address
+    # disjoint decision types (KE1: Mega Kang free-draw; KE3: Ogerpon free-
+    # energy-attach), no overlap.
+    if (options[ci] or {}).get("type") not in (OT_ATTACK, OT_RETREAT, OT_END):
+        return result
+    me = cur.get("yourIndex") or 0
+    mine = _my(cur, me)
+    # any Pokemon on our board (active or bench) with the free-attach ability
+    free_serials = set()
+    for pk in ((mine.get("active") or []) + (mine.get("bench") or [])):
+        if not pk:
+            continue
+        if _has_free_attach_ability(pk.get("id")):
+            ser = pk.get("serial")
+            if ser is not None:
+                free_serials.add(ser)
+    if not free_serials:
+        return result
+    for i, o in enumerate(options):
+        if (o or {}).get("type") != OT_ABILITY:
+            continue
+        opt_serial = (o or {}).get("serial")
+        if opt_serial in free_serials or opt_serial is None:
+            STATS["ke3_veto"] = STATS.get("ke3_veto", 0) + 1
+            return [i]
+    return result
+
+
+def _ke2_veto(result, sel, cur):
+    """KE2: if v1's chosen action is ATTACH energy AND the supporter for this
+    turn has NOT been played AND the engine is offering us an OT_ABILITY on
+    a Pokemon whose skill matches our free-draw pattern (from
+    `_has_free_draw_ability`), swap the chosen index to that Ability. Same
+    strict-dominance argument as KE1: a once-per-turn free draw does not
+    prevent us from attaching this turn (both are non-terminal actions and
+    the MAIN menu re-presents after each), so taking the draw first only
+    adds information for the attach decision that follows. Abstains on every
+    non-qualifying path -- `_validate_result` untouched."""
+    if not KE2_ABIL_BEFORE_ATTACH or not isinstance(sel, dict) or sel.get("type") != ST_MAIN:
+        return result
+    if not (isinstance(result, list) and len(result) == 1):
+        return result
+    options = sel.get("option") or []
+    ci = result[0]
+    if not isinstance(ci, int) or not (0 <= ci < len(options)):
+        return result
+    if (options[ci] or {}).get("type") != OT_ATTACH:
+        return result
+    if cur.get("supporterPlayed"):
+        return result
+    me = cur.get("yourIndex") or 0
+    mine = _my(cur, me)
+    # Build a map: serial -> True if this Pokemon carries a free-draw ability.
+    # Include active + bench (bench abilities like Munkidori/Fezandipiti are
+    # filtered out by _has_free_draw_ability -- only draw-N-cards matches).
+    free_serials = set()
+    for pk in ((mine.get("active") or []) + (mine.get("bench") or [])):
+        if not pk:
+            continue
+        if _has_free_draw_ability(pk.get("id")):
+            ser = pk.get("serial")
+            if ser is not None:
+                free_serials.add(ser)
+    if not free_serials:
+        return result
+    for i, o in enumerate(options):
+        if (o or {}).get("type") != OT_ABILITY:
+            continue
+        opt_serial = (o or {}).get("serial")
+        if opt_serial in free_serials or opt_serial is None:
+            STATS["ke2_veto"] = STATS.get("ke2_veto", 0) + 1
+            return [i]
+    return result
+
+
+def _playable_supporter_index(options, cur, me):
+    """Return the option index of the first OT_PLAY whose hand card has
+    cardType == CT_SUPPORTER (3), else None. Engine gates OT_PLAY for
+    Supporters when supporterPlayed=True, so presence implies playability."""
+    for i, o in enumerate(options):
+        if (o or {}).get("type") != OT_PLAY:
+            continue
+        cid = _hand_card_id(cur, me, (o or {}).get("index"))
+        if cid is None:
+            continue
+        if _card(cid).get("cardType") == CT_SUPPORTER:
+            return i
+    return None
+
+
+def _ke_sup_veto(result, sel, cur):
+    """KE_SUP: if v1's chosen action is OT_ATTACK on a MAIN decision, and
+    the Supporter for this turn has not been played, and the menu offers
+    an OT_PLAY on a Supporter-type hand card, swap the chosen index to that
+    supporter play. Mined from `atk_legal & supporter_pending` cell (top-10
+    ATTACK 15.9% vs us 34.7%, us over-attack +18.8pt). Targets the once-per-
+    turn Supporter slot — disjoint from KE1/KE2/KE3's OT_ABILITY slot, so
+    composes with them by construction. Trigger is OT_ATTACK only (not
+    RETREAT/END) — matches the mined cell exactly. Abstain paths return
+    `result` unchanged; `_validate_result` and fallback chain untouched."""
+    if not KE_SUP_ATK_BEFORE_SUPPORTER or not isinstance(sel, dict) or sel.get("type") != ST_MAIN:
+        return result
+    if not (isinstance(result, list) and len(result) == 1):
+        return result
+    options = sel.get("option") or []
+    ci = result[0]
+    if not isinstance(ci, int) or not (0 <= ci < len(options)):
+        return result
+    if (options[ci] or {}).get("type") != OT_ATTACK:
+        return result
+    if cur.get("supporterPlayed"):
+        return result
+    me = cur.get("yourIndex") or 0
+    sup_idx = _playable_supporter_index(options, cur, me)
+    if sup_idx is None:
+        return result
+    STATS["ke_sup_veto"] = STATS.get("ke_sup_veto", 0) + 1
+    return [sup_idx]
+
+
+def _count_basic_energies_on(pk):
+    """Count basic-energy attachments on a Pokemon slot. Returns 0 for None
+    or empty."""
+    if not pk:
+        return 0
+    n = 0
+    for e in pk.get("energies") or []:
+        cid = (e or {}).get("id") if isinstance(e, dict) else e
+        if _card(cid).get("cardType") == CT_BASIC_ENERGY:
+            n += 1
+    return n
+
+
+def _ke_bolt_main_veto(result, sel, cur):
+    """KE_BOLT hook 1 (opportunistic-damage shape, v2): on a MAIN decision,
+    if v1 picked Burst Roar (attackId=71 — 0-cost draw-6, 0 damage) but
+    Bellowing Thunder (attackId=72) is on the same menu AND our active
+    Raging Bolt (id=63) has at least 1 basic-energy surplus beyond the
+    1L+1F cost, swap to Bellowing. Rationale: 70+ damage strictly beats
+    0 damage; the mining data (top-10 uses Bellowing 35 times, mean discard
+    = 3 basics = 210 dmg) shows opportunistic damage is the correct policy,
+    not lethal-only. Only fires when chosen was Burst — leaves other
+    non-Burst picks alone (e.g., a search-and-develop PLAY is not our call
+    to override)."""
+    if not KE_BOLT_ENGAGE or not isinstance(sel, dict) or sel.get("type") != ST_MAIN:
+        return result
+    if not (isinstance(result, list) and len(result) == 1):
+        return result
+    options = sel.get("option") or []
+    ci = result[0]
+    if not isinstance(ci, int) or not (0 <= ci < len(options)):
+        return result
+    chosen = options[ci] or {}
+    if chosen.get("type") != OT_ATTACK:
+        return result
+    if chosen.get("attackId") != 71:   # only swap Burst Roar
+        return result
+    me = cur.get("yourIndex") or 0
+    mine = _my(cur, me)
+    active = (mine.get("active") or [None])[0]
+    if not active or active.get("id") != KE_BOLT_SOURCE_ID:
+        return result
+    basics_extra = _count_basic_energies_on(active) - KE_BOLT_COST
+    if basics_extra < 1:
+        return result
+    for i, o in enumerate(options):
+        if (o or {}).get("type") != OT_ATTACK:
+            continue
+        if (o or {}).get("attackId") != KE_BOLT_ATTACK_ID:
+            continue
+        STATS["ke_bolt_main"] = STATS.get("ke_bolt_main", 0) + 1
+        return [i]
+    return result
+
+
+def _ke_bolt_discard_policy(result, sel, cur):
+    """KE_BOLT hook 2: on ST_ATTACHED_CARD with context=26 (Bellowing
+    Thunder discard) and Raging Bolt as the source, discard K basics where
+    K = ceil(opp_hp / 70) if we can KO, else discard 2 (top-10 median from
+    mining harvest of 35 uses). Both capped at (available options,
+    maxCount). Default v1 on this select scores 0.0 and picks 0 items
+    (`main.py:1803`), delivering 0 damage — this policy fixes that.
+
+    First 2 option indices are used (options are typically basic energies
+    in attach order; the sub-select is a "pick which cards to discard"
+    over a fixed set, so index 0..K-1 discards the first K)."""
+    if not KE_BOLT_ENGAGE or not isinstance(sel, dict) or sel.get("type") != ST_ATTACHED_CARD:
+        return result
+    if sel.get("context") != KE_BOLT_CONTEXT:
+        return result
+    eff = sel.get("effect") or {}
+    if eff.get("id") != KE_BOLT_SOURCE_ID:
+        return result
+    options = sel.get("option") or []
+    if not options:
+        return result
+    me = cur.get("yourIndex") or 0
+    opp_active = (_opp(cur, me).get("active") or [None])[0]
+    opp_hp = (opp_active or {}).get("hp") or 0
+    max_count = sel.get("maxCount") if sel.get("maxCount") is not None else len(options)
+    if opp_hp > 0:
+        need = (opp_hp + KE_BOLT_DMG_PER - 1) // KE_BOLT_DMG_PER
+    else:
+        need = 2
+    if opp_hp > 0 and need <= len(options) and need <= max_count:
+        k = need                       # can KO — pick exact
+    else:
+        k = min(2, len(options), max_count)   # can't KO — top-10 median
+    if k <= 0:
+        return result
+    STATS["ke_bolt_discard"] = STATS.get("ke_bolt_discard", 0) + 1
+    return list(range(k))
+
+
+def _has_positive_ability(cid):
+    """True iff `cid` has a strictly-positive OT_ABILITY: free draw or
+    damage-counter move, without destructive side effects. Rejects
+    "shuffle this pokemon back" (Dudunsparce), "put this pokemon into
+    hand" (Meowth ex Last-Ditch Catch), and any text with "discard"
+    (which catches hybrid attack+draw effects like Cinderace's Turbo
+    Flare that broke E1 on Archaludon). Cached; skills text is static.
+    Broader than `_has_free_draw_ability` (does not require active spot,
+    so it matches Fez's Flip the Script and Munkidori's Adrena-Brain
+    which fire from bench)."""
+    hit = _POSITIVE_ABIL_CACHE.get(cid)
+    if hit is not None:
+        return hit
+    hit = False
+    for sk in (_card(cid).get("skills") or []):
+        t = (sk.get("text") or "").lower()
+        if "discard" in t:
+            continue
+        if "shuffle this pok" in t or "put this pok" in t:
+            continue
+        if "once during your turn" not in t:
+            continue
+        # Free draw (any card count)
+        if any(f"draw {n} card" in t for n in ("1", "2", "3", "4", "5")):
+            hit = True
+            break
+        if "draw a card" in t:
+            hit = True
+            break
+        # Damage counter move (Munkidori)
+        if "damage counter" in t and "move" in t:
+            hit = True
+            break
+    _POSITIVE_ABIL_CACHE[cid] = hit
+    return hit
+
+
+def _count_all_energies_on(pk):
+    """Total energy attachments (any type) on a Pokemon slot."""
+    if not pk:
+        return 0
+    return len(pk.get("energies") or [])
+
+
+def _find_pokemon_by_id(cur, me, pk_id):
+    """Locate a Pokemon by card id on our side. Returns the slot dict, or None."""
+    mine = _my(cur, me)
+    a = (mine.get("active") or [None])[0]
+    if a and a.get("id") == pk_id:
+        return a
+    for b in mine.get("bench") or []:
+        if b and b.get("id") == pk_id:
+            return b
+    return None
+
+
+def _attach_target_id(opt, cur, me):
+    """Return card id of the Pokemon this OT_ATTACH option targets, or None."""
+    area, index = opt.get("inPlayArea"), opt.get("inPlayIndex")
+    if area is None:
+        area, index = opt.get("area"), opt.get("index")
+    mine = _my(cur, me)
+    if area == AREA_ACTIVE:
+        a = (mine.get("active") or [None])[0]
+        return (a or {}).get("id")
+    if area == AREA_BENCH:
+        try:
+            b = (mine.get("bench") or [])[int(index or 0)]
+            return (b or {}).get("id")
+        except (IndexError, ValueError, TypeError):
+            return None
+    return None
+
+
+def _ke_well_attach_veto(result, sel, cur):
+    """KE_WELL: if v1 chose OT_ATTACH to Mega Kangaskhan AND Wellspring
+    Ogerpon is on our field with < KE_WELL_CAP energies AND an OT_ATTACH
+    to Wellspring is offered, swap to the Wellspring attach. Diversifies
+    energy from over-fed Kang to starved Wellspring so Torrential Pump
+    (100 + 120-bench) becomes legal within a few turns."""
+    if not KE_WELL_ATTACH_PRIORITY or not isinstance(sel, dict) or sel.get("type") != ST_MAIN:
+        return result
+    if not (isinstance(result, list) and len(result) == 1):
+        return result
+    options = sel.get("option") or []
+    ci = result[0]
+    if not isinstance(ci, int) or not (0 <= ci < len(options)):
+        return result
+    chosen = options[ci] or {}
+    if chosen.get("type") != OT_ATTACH:
+        return result
+    me = cur.get("yourIndex") or 0
+    if _attach_target_id(chosen, cur, me) != KE_WELL_KANG_ID:
+        return result
+    well = _find_pokemon_by_id(cur, me, KE_WELL_WELL_ID)
+    if not well:
+        return result
+    if _count_all_energies_on(well) >= KE_WELL_CAP:
+        return result
+    for i, o in enumerate(options):
+        if (o or {}).get("type") != OT_ATTACH:
+            continue
+        if _attach_target_id(o, cur, me) == KE_WELL_WELL_ID:
+            STATS["ke_well_veto"] = STATS.get("ke_well_veto", 0) + 1
+            return [i]
+    return result
+
+
+def _seq_gate(result, sel, cur, scores):
+    """Ordering gates E1-E4 + G_ABIL_BROAD. Returns `result` unchanged on
+    every path that does not qualify. Option-set override only; no score
+    is modified."""
+    if not (SEQ_E1 or SEQ_E2 or SEQ_E3 or G_ABIL_BROAD):
+        return result
+    if sel.get("type") != ST_MAIN or len(result) != 1:
+        return result
+    options = sel.get("option") or []
+    i = result[0]
+    if not isinstance(i, int) or i >= len(options):
+        return result
+    chosen = options[i] or {}
+    ct = chosen.get("type")
+    me = cur.get("yourIndex") or 0
+    mine = _my(cur, me)
+    opp = _opp(cur, me)
+    turn = cur.get("turn") or 0
+
+    # per-own-turn veto budget; reset whenever the turn number changes
+    if _SEQ["turn"] != turn:
+        if _SEQ["turn"] is not None:
+            _SEQ["turns"] += 1
+            if _SEQ["vetoes"] >= E1_MAX_VETO:
+                _SEQ["ceiling_turns"] += 1
+        _SEQ["turn"] = turn
+        _SEQ["vetoes"] = 0
+
+    def best_of(types):
+        pool = [k for k, o in enumerate(options) if (o or {}).get("type") in types]
+        return max(pool, key=lambda k: (scores[k], -k)) if pool else None
+
+    my_act = (mine.get("active") or [None])[0]
+    op_act = (opp.get("active") or [None])[0]
+
+    # ---- E3: do not retreat while nothing threatens the active ----
+    if SEQ_E3 and ct == OT_RETREAT:
+        threat = _best_attack_info((op_act or {}).get("id"))[0] if op_act else 0.0
+        hp = (my_act or {}).get("hp")
+        if my_act and hp is not None and hp > 0 and threat < hp:
+            alt = best_of(tuple(t for t in
+                                (OT_PLAY, OT_ATTACH, OT_EVOLVE, OT_ABILITY, OT_ATTACK)
+                                if True))
+            if alt is not None:
+                STATS["e3_veto"] = STATS.get("e3_veto", 0) + 1
+                return [alt]
+        return result
+
+    if ct != OT_ATTACK:
+        # ---- G_ABIL_BROAD: fire a POSITIVE-ability OT_ABILITY before any
+        # non-OT_ATTACK, non-OT_ABILITY chosen action. Scoped via
+        # `_has_positive_ability` (draw or damage-counter move, no
+        # destructive side effects). Rejects Meowth ex's Last-Ditch Catch
+        # ("put this pokemon into hand"), Dudunsparce's shuffle-back, and
+        # anything with "discard" in text. Respects E1_MAX_VETO budget.
+        if G_ABIL_BROAD and ct != OT_ABILITY and _SEQ["vetoes"] < E1_MAX_VETO:
+            board_serials = set()
+            for pk in ((mine.get("active") or []) + (mine.get("bench") or [])):
+                if pk and _has_positive_ability(pk.get("id")):
+                    ser = pk.get("serial")
+                    if ser is not None:
+                        board_serials.add(ser)
+            if board_serials:
+                # find highest-scored OT_ABILITY option whose serial matches
+                best_i, best_s = None, None
+                for k, o in enumerate(options):
+                    if (o or {}).get("type") != OT_ABILITY:
+                        continue
+                    ser = (o or {}).get("serial")
+                    if ser is not None and ser not in board_serials:
+                        continue   # ability on a non-positive pokemon
+                    if best_i is None or scores[k] > best_s:
+                        best_i, best_s = k, scores[k]
+                if best_i is not None:
+                    _SEQ["vetoes"] += 1
+                    STATS["g_abil_broad_veto"] = STATS.get("g_abil_broad_veto", 0) + 1
+                    return [best_i]
+        return result
+
+    # ---- E1b / E1c: stated exceptions, both default off ----
+    if SEQ_E1B_LETHAL and op_act:
+        gain = _prizes_for_ko(op_act.get("id"))
+        left = len(mine.get("prize") or [])
+        if 0 < left <= gain:
+            return result
+    if SEQ_E1C_DOOMED and my_act and op_act:
+        threat = _best_attack_info(op_act.get("id"))[0]
+        hp = my_act.get("hp")
+        if hp is not None and threat >= hp > 0:
+            return result
+
+    # ---- E4: when BEHIND on the prize race, push damage (disable E1) ----
+    behind = len(mine.get("prize") or []) > len(opp.get("prize") or [])
+    if _SEQ["vetoes"] >= E1_MAX_VETO:
+        return result
+
+    # ---- E2: abilities are free and self-clearing; fire them first ----
+    if SEQ_E2:
+        alt = best_of((OT_ABILITY,))
+        if alt is not None:
+            _SEQ["vetoes"] += 1
+            STATS["e2_veto"] = STATS.get("e2_veto", 0) + 1
+            return [alt]
+    # ---- E1: board-advancing card plays before the terminal action ----
+    if SEQ_E1 and not (SEQ_E4 and behind):
+        alt = best_of(DEVELOP_TYPES)
+        if alt is not None:
+            _SEQ["vetoes"] += 1
+            STATS["e1_veto"] = STATS.get("e1_veto", 0) + 1
+            return [alt]
+    return result
 
 
 def _search_decide(obs, sel, cur, v1_result, scores, t0):
@@ -2317,6 +3575,22 @@ def _search_decide(obs, sel, cur, v1_result, scores, t0):
         _gov_note((cur.get("turn") or 0), None, time.perf_counter() - t0, 0)
         return v1_result
 
+    # Gate B: engine-exact lethal probe. Fast-path before budget-gated dets.
+    # If a confirmed lethal is found, take it immediately (Sanjay §1 item 3).
+    # Failure paths (probe raises, no lethal, timeout) all return None → fall
+    # through to normal search. Doesn't touch governor telemetry to keep the
+    # gate signal isolated.
+    if LETHAL_PROBE:
+        try:
+            lethal_idx = _find_lethal(obs, sel, cur, scores, me, tr,
+                                       LETHAL_PROBE_DEADLINE_S)
+        except Exception:
+            lethal_idx = None
+        if lethal_idx is not None:
+            STATS["lethal_probe_fired"] = STATS.get("lethal_probe_fired", 0) + 1
+            _gov_note((cur.get("turn") or 0), None, time.perf_counter() - t0, 0)
+            return [lethal_idx]
+
     budget = _gov_budget(obs)
     if budget is not None and budget < GOV_STICKY_S:
         _GOV["sticky"] = True
@@ -2324,11 +3598,46 @@ def _search_decide(obs, sel, cur, v1_result, scores, t0):
               % (budget, GOV_STICKY_S), file=sys.stderr, flush=True)
         _gov_note((cur.get("turn") or 0), budget, time.perf_counter() - t0, 0)
         return v1_result
-    dets = _gov_det(budget)
+    # Hysteresis: warm-start floor forces full dets for first N searches;
+    # ongoing engagement floor forces re-sample after M consecutive EMA-caused
+    # skips. Both are safety-nets on top of the seed+cap fix.
+    if _GOV["searches_run"] < GOV_WARMSTART_N:
+        dets = SEARCH_DET
+        _GOV["warmstart_forced"] += 1
+    elif _GOV["cons_ema_skip"] >= GOV_HYST_M:
+        dets = max(1, SEARCH_DET // 4)
+        _GOV["hyst_forced"] += 1
+    else:
+        dets = _gov_det(budget)
     options = sel.get("option") or []
     order = sorted(range(len(options)), key=lambda i: (-scores[i], i))
     cands = order[:SEARCH_TOPK]
+    # A-INCLUDE: the v1 ladder puts every setup action (2030-3500) above a
+    # non-lethal attack (1000 + dmg/2), so with >=SEARCH_TOPK setup options on
+    # the menu the attack never enters the candidate set and the search cannot
+    # choose it (measured: 0 of 1068 excluded decisions ended in an attack).
+    # Appending keeps the attack LAST, so _cands.index() tie-breaking still
+    # resolves ties to v1's own top pick -- inclusion only, no reordering, and
+    # no v1 weight is touched.
+    # Counters are decision-level on purpose: _score_option also runs inside
+    # every rollout, so incrementing there would report ~10^5 per game and be
+    # useless as ladder telemetry. This block runs once per real decision.
+    atks = [i for i, o in enumerate(options) if (o or {}).get("type") == OT_ATTACK]
+    if atks:
+        ba = max(atks, key=lambda i: (scores[i], -i))
+        STATS["atk_legal"] = STATS.get("atk_legal", 0) + 1
+        if ba in cands:
+            STATS["atk_in_cands"] = STATS.get("atk_in_cands", 0) + 1
+        elif CAND_INCLUDE_ATTACK:
+            cands = cands + [ba]
+            STATS["cand_forced"] = STATS.get("cand_forced", 0) + 1
+        if CAND_ATK_W > 0 and CAND_ATK_W <= scores[ba] < WEIGHT_TEMPO_LOADED:
+            STATS["cand_atk_w"] = STATS.get("cand_atk_w", 0) + 1
     if dets <= 0 or len(cands) < 2:
+        if dets == 0 and len(cands) >= 2:
+            _GOV["cons_ema_skip"] += 1
+            if _GOV["cons_ema_skip"] > _GOV["max_cons_ema_skip"]:
+                _GOV["max_cons_ema_skip"] = _GOV["cons_ema_skip"]
         _gov_note((cur.get("turn") or 0), budget, time.perf_counter() - t0, 0)
         return v1_result
 
@@ -2411,6 +3720,43 @@ def _pilot_telemetry(sel, cur, result):
           file=sys.stderr, flush=True)
 
 
+def _expectimax_decide(obs, sel, cur, me, options, scores):
+    """Pure-Python Prize-Delta Expectimax Engine. Evaluates legal options
+    on prize differential and active KO guarantees without any C++ or DLL dependency."""
+    if not EXPECTIMAX:
+        return
+    stype = sel.get("type")
+    min_c = sel.get("minCount") or 0
+    max_c = sel.get("maxCount")
+    max_c = len(options) if max_c is None else max_c
+
+    if stype != ST_MAIN or min_c != 1 or max_c != 1 or len(options) <= 1:
+        return
+
+    players = cur.get("players") or [{}, {}]
+    mine = players[me] if len(players) > me else {}
+    opp = players[1 - me] if len(players) > (1 - me) else {}
+
+    my_prizes = len(mine.get("prize") or [])
+    opp_act = (opp.get("active") or [{}])[0] or {}
+    opp_hp = opp_act.get("hp") or 0
+
+    # 1. Instant Lethal Veto (100% Win Guarantee)
+    for i, opt in enumerate(options):
+        if (opt or {}).get("type") == OT_ATTACK:
+            dmg = _attack_damage_est((opt or {}).get("attackId"), cur, me)
+            if dmg >= opp_hp and opp_hp > 0 and my_prizes <= 1:
+                scores[i] += 100000.0
+                return
+
+    # 2. KO Prize Delta Scoring
+    for i, opt in enumerate(options):
+        if (opt or {}).get("type") == OT_ATTACK:
+            dmg = _attack_damage_est((opt or {}).get("attackId"), cur, me)
+            if dmg >= opp_hp and opp_hp > 0:
+                scores[i] += 3000.0
+
+
 def _decide(obs):
     """Score all options and resolve. Returns (indices, top_score)."""
     sel = obs["select"]
@@ -2421,9 +3767,14 @@ def _decide(obs):
     max_c = sel.get("maxCount")
     max_c = len(options) if max_c is None else max_c
     scores = [_score_option(o or {}, sel, cur, me) for o in options]
+    try:
+        _expectimax_decide(obs, sel, cur, me, options, scores)
+    except Exception:
+        pass
     chosen = resolve_selection(options, scores, min_c, max_c)
     top = max((scores[i] for i in chosen), default=None)
     return chosen, top, scores
+
 
 
 def agent(obs):
@@ -2445,7 +3796,59 @@ def agent(obs):
         else:
             result, top, _scores = _decide(obs)
             bc_handled = False
-            if BC:
+            if Q_POLICY:
+                try:
+                    global _Q_POLICY_EVAL
+                    if _Q_POLICY_EVAL is None:
+                        from bot.q_policy import QPolicyEvaluator
+                        _Q_POLICY_EVAL = QPolicyEvaluator()
+                    me = cur.get("yourIndex") or 0
+                    tr = _TRACKERS.get(me)
+                    if tr is None:
+                        tr = CardTracker(me)
+                        _TRACKERS[me] = tr
+                    tr.update(obs)
+                    q_res = _Q_POLICY_EVAL.evaluate_decision(
+                        obs, sel, cur, me, tracker=tr,
+                        search_depth=Q_DEPTH,
+                        n_determinizations=Q_DETS
+                    )
+                    if q_res is not None:
+                        result = q_res
+                        bc_handled = True
+                except Exception as e:
+                    _SES["errs"] += 1
+                    if _SES["errs"] <= 3:
+                        print("[q_policy] hook error (%r); fallback kept" % e,
+                              file=sys.stderr, flush=True)
+            elif BS_CEI:
+                try:
+                    global _BS_CEI_EVAL
+                    if _BS_CEI_EVAL is None:
+                        from bot.counterfactual_v15 import CounterfactualEvaluatorV15
+                        _BS_CEI_EVAL = CounterfactualEvaluatorV15()
+                    me = cur.get("yourIndex") or 0
+                    tr = _TRACKERS.get(me)
+                    if tr is None:
+                        tr = CardTracker(me)
+                        _TRACKERS[me] = tr
+                    tr.update(obs)
+                    bs_res = _BS_CEI_EVAL.evaluate_actions(
+                        obs, sel, cur, me, tracker=tr,
+                        use_2ply=BS_CEI_2PLY,
+                        use_3ply=BS_CEI_3PLY,
+                        use_probabilistic_opponent=BS_CEI_PROB_OPP,
+                        n_determinizations=BS_CEI_DETS
+                    )
+                    if bs_res is not None:
+                        result = bs_res
+                        bc_handled = True
+                except Exception as e:
+                    _SES["errs"] += 1
+                    if _SES["errs"] <= 3:
+                        print("[bs_cei] hook error (%r); fallback kept" % e,
+                              file=sys.stderr, flush=True)
+            if BC and not bc_handled:
                 try:
                     result, bc_handled = _bc_decide(obs, sel, cur, result)
                 except Exception as e:
@@ -2460,6 +3863,77 @@ def agent(obs):
                     _SES["errs"] += 1
                     if _SES["errs"] <= 3:
                         print("[search] hook error (%r); v1 answer kept" % e,
+                              file=sys.stderr, flush=True)
+            if END_VETO:
+                try:
+                    result = _end_veto(result, sel, cur, _scores)
+                except Exception as e:
+                    _SES["errs"] += 1
+                    if _SES["errs"] <= 3:
+                        print("[endveto] hook error (%r); prior answer kept" % e,
+                              file=sys.stderr, flush=True)
+            if KE1_FREE_DRAW:
+                try:
+                    result = _ke1_veto(result, sel, cur)
+                except Exception as e:
+                    _SES["errs"] += 1
+                    if _SES["errs"] <= 3:
+                        print("[ke1] hook error (%r); prior answer kept" % e,
+                              file=sys.stderr, flush=True)
+            if KE2_ABIL_BEFORE_ATTACH:
+                try:
+                    result = _ke2_veto(result, sel, cur)
+                except Exception as e:
+                    _SES["errs"] += 1
+                    if _SES["errs"] <= 3:
+                        print("[ke2] hook error (%r); prior answer kept" % e,
+                              file=sys.stderr, flush=True)
+            if KE3_TEAL_DANCE:
+                try:
+                    result = _ke3_veto(result, sel, cur)
+                except Exception as e:
+                    _SES["errs"] += 1
+                    if _SES["errs"] <= 3:
+                        print("[ke3] hook error (%r); prior answer kept" % e,
+                              file=sys.stderr, flush=True)
+            if KE_SUP_ATK_BEFORE_SUPPORTER:
+                try:
+                    result = _ke_sup_veto(result, sel, cur)
+                except Exception as e:
+                    _SES["errs"] += 1
+                    if _SES["errs"] <= 3:
+                        print("[ke_sup] hook error (%r); prior answer kept" % e,
+                              file=sys.stderr, flush=True)
+            if KE_BOLT_ENGAGE:
+                try:
+                    result = _ke_bolt_main_veto(result, sel, cur)
+                except Exception as e:
+                    _SES["errs"] += 1
+                    if _SES["errs"] <= 3:
+                        print("[ke_bolt_main] hook error (%r); prior answer kept" % e,
+                              file=sys.stderr, flush=True)
+                try:
+                    result = _ke_bolt_discard_policy(result, sel, cur)
+                except Exception as e:
+                    _SES["errs"] += 1
+                    if _SES["errs"] <= 3:
+                        print("[ke_bolt_discard] hook error (%r); prior answer kept" % e,
+                              file=sys.stderr, flush=True)
+            if KE_WELL_ATTACH_PRIORITY:
+                try:
+                    result = _ke_well_attach_veto(result, sel, cur)
+                except Exception as e:
+                    _SES["errs"] += 1
+                    if _SES["errs"] <= 3:
+                        print("[ke_well] hook error (%r); prior answer kept" % e,
+                              file=sys.stderr, flush=True)
+            if SEQ_E1 or SEQ_E2 or SEQ_E3:
+                try:
+                    result = _seq_gate(result, sel, cur, _scores)
+                except Exception as e:
+                    _SES["errs"] += 1
+                    if _SES["errs"] <= 3:
+                        print("[seq] hook error (%r); prior answer kept" % e,
                               file=sys.stderr, flush=True)
             result, was_clean = _validate_result(result, sel)
             if not was_clean:

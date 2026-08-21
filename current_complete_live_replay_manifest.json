@@ -1,0 +1,28 @@
+{
+  "manifest_version": "2.0.0",
+  "created_at": "2026-08-16T21:30:00Z",
+  "frozen_candidate": {
+    "archive": "project_mew_aggressive_surgical_kaggle_fixed_candidate.tar.gz",
+    "package_sha256": "0ee9c21a51f139e20de9038ae34e90d860f4d43603bdb20142107ec72146a4c8",
+    "policy_sha256": "b40c01a68ba43cc2cc93b8183535f19fa7cc7e27ef82c5c2af84d65458032646",
+    "deck_sha256": "0f8fb632ade2833645af8c6ffe2b282fe24e7446ee8b23f3e468b8410d8ea36c"
+  },
+  "v4_corrected_control": {
+    "submission_id": 55553469,
+    "total_replays": 45,
+    "wins": 26,
+    "losses": 19,
+    "corrupted": 0,
+    "duplicate": 0,
+    "usable": 45
+  },
+  "v5_alakazam_master": {
+    "submission_id": 55553463,
+    "total_replays": 38,
+    "wins": 23,
+    "losses": 15,
+    "corrupted": 0,
+    "duplicate": 0,
+    "usable": 38
+  }
+}
