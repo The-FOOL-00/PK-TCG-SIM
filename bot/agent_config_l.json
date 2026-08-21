@@ -1,0 +1,16 @@
+{
+  "architecture": "BS-CEI V1.5c",
+  "leaf_evaluator": "V0_MLP",
+  "leaf_weights_sha256": "56652b94a7ea74a9e7bd5da7790d2fd0f700ff875879a9ed35a9417bf4cafbb4",
+  "state_dim": 194,
+  "phase_controller": true,
+  "action_filter": true,
+  "candidate_top_k": 4,
+  "search_depth": 2,
+  "belief_worlds": 2,
+  "deck_pool": [
+    "meta_starmie.csv",
+    "metaC_garchomp_nasuo.csv",
+    "metaX_kangaskhan_top10.csv"
+  ]
+}
