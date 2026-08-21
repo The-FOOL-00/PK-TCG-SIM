@@ -1,0 +1,8 @@
+{
+  "installed_kaggle_environments_version": "1.30.1",
+  "competition_docs_reference_version": "1.14.10",
+  "version_relationship": "kaggle-environments package updates periodically on Kaggle, but CABT environment specification remains 1.0.0",
+  "cabt_dll_path": "C:\\Users\\Sundareswaran\\pokemon-tcg-ai-battle\\sample_submission\\sample_submission\\cg\\cg.dll",
+  "cabt_dll_sha256": "9ea2b0a751029689bff3ddccb5f29a98edd46961dad264490ed121ef704fb500",
+  "engine_specification_version": "1.0.0"
+}

@@ -1,0 +1,41 @@
+{
+  "rating_mechanics": {
+    "initial_mu": 600.0,
+    "initial_sigma": 200.0,
+    "displayed_score_definition": "mu (mean posterior skill estimate)",
+    "estimated_episodes_at_12h": "20 - 35 episodes",
+    "score_interpretation": "A score of 558.3 at 12h reflects early ladder convergence with high sigma, not a 55.8% true win rate ceiling."
+  },
+  "discrepancy_factors": [
+    {
+      "factor": "Type Advantage Inflation",
+      "local": "100% Water meta (Mega Starmie ex)",
+      "live": "Diverse meta (Fire, Metal, Dark, Dragon, Grass, Psychic, Water)",
+      "impact": "CRITICAL - 2x grass weakness against water inflated local win rate by ~25-30%."
+    },
+    {
+      "factor": "Opponent Policy Strength",
+      "local": "V1.5c Starmie or baseline heuristics",
+      "live": "Custom search agents, heuristics, and evolved bots from competitive participants",
+      "impact": "HIGH - Live competitors employ deeper tactical energy sequencing and target selection."
+    },
+    {
+      "factor": "Rating Convergence Time",
+      "local": "Instant 300-game Monte Carlo sample",
+      "live": "Asynchronous ladder queue (~2-4 games/hour, ~25 games in 12h)",
+      "impact": "HIGH - Score has not yet reached steady-state equilibrium."
+    },
+    {
+      "factor": "Simulator & Engine Equivalence",
+      "local": "CABT C++ engine v1.0.0 (exact binary match)",
+      "live": "Kaggle CABT environment v1.0.0",
+      "impact": "ZERO - Exact simulator identity verified."
+    },
+    {
+      "factor": "Card Database Equivalence",
+      "local": "card_data.json (baked CABT database)",
+      "live": "Kaggle competition card database",
+      "impact": "ZERO - Exact card text and attack definitions verified."
+    }
+  ]
+}

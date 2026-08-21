@@ -1,0 +1,88 @@
+{
+  "kaggle_environments_version": "1.30.1",
+  "cabt_env_name": "cabt",
+  "cabt_specification": {
+    "name": "cabt",
+    "title": "Card Battle",
+    "description": "Limited Card Battle.",
+    "version": "1.0.0",
+    "agents": [
+      2
+    ],
+    "configuration": {
+      "episodeSteps": {
+        "description": "Maximum number of steps in the episode.",
+        "type": "integer",
+        "minimum": 1,
+        "default": 10000
+      },
+      "actTimeout": {
+        "description": "Maximum runtime (seconds) to obtain an action from an agent.",
+        "type": "number",
+        "minimum": 0,
+        "default": 0
+      },
+      "runTimeout": {
+        "description": "Maximum runtime (seconds) of an episode (not necessarily DONE).",
+        "type": "number",
+        "minimum": 0,
+        "default": 3000
+      }
+    },
+    "reward": {
+      "description": "Lost:-1, Won:1, Draw:0",
+      "enum": [
+        -1,
+        0,
+        1
+      ],
+      "default": 0,
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "observation": {
+      "remainingOverageTime": {
+        "description": "Total remaining banked time (seconds) that can be used in excess of per-step actTimeouts -- agent is disqualified with TIMEOUT status when this drops below 0.",
+        "shared": false,
+        "type": "number",
+        "minimum": 0,
+        "default": 600
+      },
+      "step": {
+        "description": "Current step within the episode.",
+        "type": "integer",
+        "shared": true,
+        "minimum": 0,
+        "default": 0
+      }
+    },
+    "action": {
+      "description": "List of option index.",
+      "type": "array",
+      "default": []
+    },
+    "status": {
+      "defaults": [
+        "INACTIVE",
+        "INACTIVE"
+      ]
+    },
+    "info": {}
+  },
+  "engine_cards_count": 1267,
+  "engine_attacks_count": 1556,
+  "ogerpon_engine": {
+    "name": "Teal Mask Ogerpon ex",
+    "hp": 210,
+    "cardType": 0,
+    "energyType": 1,
+    "retreatCost": 1
+  },
+  "incumbent_parsed_attrs": {},
+  "seed_handling": {
+    "engine_run_seeds": "Passed via env.run() or default random",
+    "state_caching_risk": "Check if CardTracker or global variables leak across matches"
+  }
+}
