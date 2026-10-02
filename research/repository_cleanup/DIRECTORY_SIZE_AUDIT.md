@@ -1,0 +1,54 @@
+# Directory Size Audit (Top 50 Largest Directories)
+
+| Rank | Directory Path | Recursive Size | File Count |
+|---|---|---|---|
+| 1 | `scratchpad` | 48.52 GB | 12718 |
+| 2 | `scratchpad/s3` | 48.50 GB | 12664 |
+| 3 | `data` | 9.51 GB | 3101 |
+| 4 | `data/top_replays_bulk` | 7.81 GB | 1895 |
+| 5 | `analysis` | 7.75 GB | 1930 |
+| 6 | `analysis/phase2_meta_shift` | 7.33 GB | 1803 |
+| 7 | `data/top_replays_bulk/junlee789_garchomp` | 3.99 GB | 968 |
+| 8 | `analysis/phase2_meta_shift/replays_current_top10` | 2.48 GB | 612 |
+| 9 | `stage4` | 1.91 GB | 690 |
+| 10 | `stage4/data` | 1.90 GB | 469 |
+| 11 | `stage4/data/replays_list0` | 1.90 GB | 457 |
+| 12 | `scratchpad/s3/horizon_K1` | 1.59 GB | 400 |
+| 13 | `scratchpad/s3/horizon_KE12` | 1.59 GB | 400 |
+| 14 | `scratchpad/s3/horizon_KE1` | 1.57 GB | 400 |
+| 15 | `scratchpad/s3/horizon_K0` | 1.57 GB | 400 |
+| 16 | `scratchpad/s3/horizon_KE2` | 1.52 GB | 400 |
+| 17 | `scratchpad/s3/horizon_T1T2_EV` | 1.34 GB | 300 |
+| 18 | `scratchpad/s3/horizon_C2` | 1.33 GB | 300 |
+| 19 | `data/realladder` | 1.31 GB | 303 |
+| 20 | `data/realladder/raw` | 1.31 GB | 300 |
+| 21 | `scratchpad/s3/horizon_ZG_SHIP` | 1.31 GB | 300 |
+| 22 | `scratchpad/s3/horizon_T4` | 1.30 GB | 300 |
+| 23 | `scratchpad/s3/horizon_T1T2` | 1.30 GB | 300 |
+| 24 | `scratchpad/s3/horizon_TE_FULL` | 1.29 GB | 300 |
+| 25 | `analysis/phase2_meta_shift/replays_top10_jul31` | 1.24 GB | 287 |
+| 26 | `analysis/phase2_meta_shift/replays_top10_jul26` | 1.17 GB | 278 |
+| 27 | `scratchpad/s3/horizon_TE_NOE1` | 1.16 GB | 300 |
+| 28 | `scratchpad/s3/horizon_ZG_V1` | 1.12 GB | 300 |
+| 29 | `analysis/phase2_meta_shift/replays_top10_jul21` | 1.12 GB | 278 |
+| 30 | `scratchpad/s3/horizon_C0_EV` | 1.10 GB | 300 |
+| 31 | `scratchpad/s3/horizon_ZO_V1` | 1.09 GB | 300 |
+| 32 | `scratchpad/s3/horizon_ZO_SHIP` | 1.09 GB | 300 |
+| 33 | `analysis/phase2_meta_shift/replays_top10_jul22` | 1.07 GB | 262 |
+| 34 | `scratchpad/s3/horizon_T1T2_GAB` | 890.50 MB | 200 |
+| 35 | `scratchpad/s3/horizon_T2` | 857.69 MB | 200 |
+| 36 | `scratchpad/s3/cdk_grimmsnarl_ke1_bolt` | 843.28 MB | 200 |
+| 37 | `scratchpad/s3/cdk_grimmsnarl_ke12` | 836.42 MB | 200 |
+| 38 | `scratchpad/s3/cdk_grimmsnarl_ke1` | 821.67 MB | 200 |
+| 39 | `scratchpad/s3/cdk_grimmsnarl_ke1_gab` | 808.49 MB | 200 |
+| 40 | `scratchpad/s3/cdk_grimmsnarl_ke13` | 808.13 MB | 200 |
+| 41 | `scratchpad/s3/cdk_grimmsnarl_ke1_sup` | 803.79 MB | 200 |
+| 42 | `scratchpad/s3/cdk_grimmsnarl_ke1_well` | 803.19 MB | 200 |
+| 43 | `scratchpad/s3/cdk_grimmsnarl_ke2` | 795.23 MB | 200 |
+| 44 | `scratchpad/s3/cdk_grimmsnarl_ke_sup` | 794.67 MB | 200 |
+| 45 | `scratchpad/s3/cdk_grimmsnarl_ke3` | 793.34 MB | 200 |
+| 46 | `scratchpad/s3/cdk_grimmsnarl_ke_well` | 791.68 MB | 200 |
+| 47 | `scratchpad/s3/cdk_grimmsnarl_ke_bolt` | 786.82 MB | 200 |
+| 48 | `scratchpad/s3/cdk_grimmsnarl_none` | 763.40 MB | 200 |
+| 49 | `scratchpad/s3/horizon_DZ` | 734.60 MB | 200 |
+| 50 | `scratchpad/s3/horizon_SW_MEW` | 560.36 MB | 100 |
