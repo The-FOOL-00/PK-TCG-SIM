@@ -1,6 +1,8 @@
-# --- Official competition data & assets (do not redistribute) ---
-# Redistribution violates the Kaggle competition rules. Teammates must
-# download these themselves from the competition's Data tab (see README).
+# =============================================================================
+# Pokemon TCG AI Battle Competition — Hardened .gitignore
+# =============================================================================
+
+# --- Official competition data & assets (non-redistributable per rules) ---
 ptcg_engine/
 sample_submission/
 Card_ID List_EN.pdf
@@ -9,22 +11,48 @@ EN_Card_Data.csv
 JP_Card_Data.csv
 card_data.json
 
-# --- Build/run artifacts (regenerated locally, derived from the above) ---
+# --- Build & Runtime Artifacts ---
 build/
-submission.tar.gz
+dist/
 runs/
+submission.tar.gz
+/*.tar.gz
 
-# --- Generated game data (self-play / distillation shards; never commit) ---
-# data/* + negation (not `data/`): git can't re-include a file whose parent
-# directory is excluded, and the schema doc must stay in version control.
-data/*
-!data/README_DATA.md
-
-# --- Python / environment ---
+# --- Python Environments & Caches ---
 venv/
+.venv/
+env/
+test_env/
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.cache/
 
-# --- Local machine-specific tool config ---
+# --- Scratch & Simulation Dumps ---
+scratchpad/
+*.log
+episode-*.json
+
+# --- Large Datasets & Replay Corpora ---
+data/*
+!data/README_DATA.md
+!data/MANIFEST.csv
+analysis/**/replays_*/
+stage4/data/replays_*/
+
+# --- Credentials & Secrets Prevention ---
+kaggle.json
+credentials.json
+.env
+.env.*
+*.key
+*.pem
+id_rsa
+id_ed25519
+
+# --- Local IDE & Tool Configuration ---
 .claude/settings.local.json
 /cg/
