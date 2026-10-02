@@ -11,7 +11,7 @@ EN_Card_Data.csv
 JP_Card_Data.csv
 card_data.json
 
-# --- Build & Runtime Artifacts ---
+# --- Build, Staging & Disposable Runtime Artifacts ---
 build/
 dist/
 runs/
@@ -24,16 +24,19 @@ venv/
 env/
 test_env/
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
 *.pyd
 .pytest_cache/
 .mypy_cache/
+.ruff_cache/
 .cache/
 
-# --- Scratch & Simulation Dumps ---
+# --- Scratch, Logs & Temporary Dumps ---
 scratchpad/
 *.log
+*.tmp
+*.temp
 episode-*.json
 
 # --- Large Datasets & Replay Corpora ---
@@ -42,12 +45,15 @@ data/*
 !data/MANIFEST.csv
 analysis/**/replays_*/
 stage4/data/replays_*/
+stage4/data/bc_v2/
+stage4/rl_ours/runs/
 
 # --- Credentials & Secrets Prevention ---
 kaggle.json
 credentials.json
 .env
 .env.*
+!.env.example
 *.key
 *.pem
 id_rsa
