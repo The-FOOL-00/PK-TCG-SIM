@@ -1,4 +1,4 @@
-# Git Branch Audit & Consolidation Strategy
+# Git Branch Audit & Historical Lineage Verification
 
 Date: 2026-10-02  
 Workspace: `c:\Users\Sundareswaran\pokemon-tcg-ai-battle`  
@@ -11,47 +11,48 @@ Remote: `origin` (`https://github.com/The-FOOL-00/PK-TCG-SIM.git`)
 Command: `git branch -avv`
 
 ```text
-* main                7f3bd4a [origin/main: ahead 69] docs(report): add final writeup documents, review notes, and publication figures
-  remotes/origin/main 66ada6c Initial commit: heuristic agent v1, eval tools, gitignore competition data
+  archive/project-mew-v4                        d7849c8 feat(project_mew): add Project Mew research pipelines, deck searches, and audit reports
+  archive/stage4-ppo-league                     ce30384 Stage 4 capacity ladder: run1 capacity-limited verdict; 128k built+validated; 256k grower + verdict.py + run3 pkg + Gumbel scoping
+  archive/v1-heuristic                          66ada6c Initial commit: heuristic agent v1, eval tools, gitignore competition data
+  archive/v2-search-determinized                e8c7e25 Phase F: 6x governor stress PASS (max own-time 48.5s/600s); ab_gate sets DECK per side
+  archive/v3-behavior-cloning                   148a58c G6b-full PASS 69.7% [64.2,74.6]: Option A gate matrix complete, all green
+* main                                          291d2e2 [origin/main] research(cleanup): add comprehensive repository cleanup, size audit, and archival reports
+  remotes/origin/HEAD                           -> origin/main
+  remotes/origin/archive/project-mew-v4         d7849c8 feat(project_mew): add Project Mew research pipelines, deck searches, and audit reports
+  remotes/origin/archive/stage4-ppo-league      ce30384 Stage 4 capacity ladder: run1 capacity-limited verdict; 128k built+validated; 256k grower + verdict.py + run3 pkg + Gumbel scoping
+  remotes/origin/archive/v1-heuristic           66ada6c Initial commit: heuristic agent v1, eval tools, gitignore competition data
+  remotes/origin/archive/v2-search-determinized e8c7e25 Phase F: 6x governor stress PASS (max own-time 48.5s/600s); ab_gate sets DECK per side
+  remotes/origin/archive/v3-behavior-cloning    148a58c G6b-full PASS 69.7% [64.2,74.6]: Option A gate matrix complete, all green
+  remotes/origin/main                           291d2e2 research(cleanup): add comprehensive repository cleanup, size audit, and archival reports
 ```
 
-### Analysis of Branch Heads
-- **Local `main`**: Commit `7f3bd4a` (HEAD). Ahead of `origin/main` by 69 logically sequenced commits containing all modular code, bot architectures, training suites, stage4 experiments, project mew pipelines, reports, and documentation.
-- **Remote `origin/main`**: Commit `66ada6c` (Initial baseline commit).
-- **Merge Status**: Fast-forward linear history. `git merge-base --is-ancestor origin/main main` is **TRUE**. No divergence, no conflicts, no force-push needed.
-
 ---
 
-## 2. Historical Milestone Branches to Establish & Push
+## 2. Ancestry & Divergence Verification
 
-In accordance with Section 8 ("Prefer: main, archive/vXX, research/vXX over copying historical versions into the same physical folder"), we establish dedicated historical archive branch references pointing to the major validated architectural milestones in the commit history:
+Every archive branch was formally checked via `git merge-base --is-ancestor <branch> main`:
 
-| Branch Name | Commit Hash | Historical Phase / Purpose | Classification | Action |
+| Branch Name | Commit Hash | Ancestor of `main`? | Remote Match (`origin/<branch>`)? | Historical Significance |
 |---|---|---|---|---|
-| **`main`** | `7f3bd4a` (HEAD + cleanup) | Canonical completed competition project: final agent, writeups, reports, hardened config. | **Active / Canonical** | Keep as default branch, push to `origin/main`. |
-| **`archive/v1-heuristic`** | `66ada6c` | Initial baseline: pure deterministic heuristic agent v1, eval tools, and initial setup. | **C — Historical Milestone** | Create branch reference at `66ada6c`, push to origin. |
-| **`archive/v2-search-determinized`** | `e8c7e25` | Search & Determinization milestone: belief-sampled determinized Monte-Carlo search on cg API engine. | **C — Historical Milestone** | Create branch reference at `e8c7e25`, push to origin. |
-| **`archive/v3-behavior-cloning`** | `148a58c` | Supervised imitation milestone: two-headed Behavior Cloning network (Option A gate pass 69.7%). | **C — Historical Milestone** | Create branch reference at `148a58c`, push to origin. |
-| **`archive/stage4-ppo-league`** | `ce30384` | Reinforcement Learning milestone: PPO league self-play, capacity ladder (128k/256k), KL-to-BC anchor. | **C — Historical Milestone** | Create branch reference at `ce30384`, push to origin. |
-| **`archive/project-mew-v4`** | `d7849c8` | Project Mew research milestone: 243-deck hybrid search, E19 velocity engine, V3/V4 surgical overrides. | **C — Historical Milestone** | Create branch reference at `d7849c8`, push to origin. |
+| **`main`** | `291d2e2` | Self | **100% Match** | Canonical production branch containing final agent, full verification suite, and archival documentation. |
+| **`archive/v1-heuristic`** | `66ada6c` | **TRUE** | **100% Match** | Initial baseline heuristic agent v1 with basic card scoring and eval tools. |
+| **`archive/v2-search-determinized`** | `e8c7e25` | **TRUE** | **100% Match** | Belief-sampled Monte-Carlo determinized search milestone on cg engine. |
+| **`archive/v3-behavior-cloning`** | `148a58c` | **TRUE** | **100% Match** | Supervised two-headed neural imitation learning network (69.7% gate pass). |
+| **`archive/stage4-ppo-league`** | `ce30384` | **TRUE** | **100% Match** | PPO league self-play, capacity ladder experiments, GAE, and kill criteria verdicts. |
+| **`archive/project-mew-v4`** | `d7849c8` | **TRUE** | **100% Match** | Project Mew 243-deck hybrid search, E19 high-velocity engine, and surgical override development. |
 
 ---
 
-## 3. Branch Classification Matrix
+## 3. Worktree & Stash Audit
 
-| Branch | Classification | Rationale | Disposition |
-|---|---|---|---|
-| `main` | **Canonical** | Contains all project work, final agent, benchmarks, documentation. | Retain & Push |
-| `archive/v1-heuristic` | **C — Historical** | Preserves initial competition submission state. | Retain & Push |
-| `archive/v2-search-determinized` | **C — Historical** | Preserves search phase implementation before the BC pivot. | Retain & Push |
-| `archive/v3-behavior-cloning` | **C — Historical** | Preserves behavior cloning breakthrough and gate validations. | Retain & Push |
-| `archive/stage4-ppo-league` | **C — Historical** | Preserves PPO trainer, capacity ladder experiments, and kill verdicts. | Retain & Push |
-| `archive/project-mew-v4` | **C — Historical** | Preserves Project Mew deck search pipelines and empirical ledger. | Retain & Push |
+- `git worktree list`: Exactly **1 active worktree** (`main` at `c:\Users\Sundareswaran\pokemon-tcg-ai-battle`). Zero stale or detached worktrees.
+- `git stash list`: **0 stashes** (clean stash stack).
+- `git tag -l`: **0 tags**.
 
 ---
 
-## 4. Redundant Branch Deletion & Cleanup Policy
+## 4. Branch Retention & Safety Conclusion
 
-- **Local Branches Fully Contained in `main`**: None currently exist outside `main`.
-- **Remote Branches**: `origin/main` is an ancestor of local `main`. No remote branch deletion is warranted.
-- **Historical Retention**: All 5 archive branches point to immutable commits already incorporated into the history of `main`. They provide immediate, permanent navigation points in GitHub without creating repository bloat.
+- All 5 historical archive branches are preserved both locally and remotely on GitHub (`The-FOOL-00/PK-TCG-SIM`).
+- No branch deletions were executed or required; every milestone represents a necessary rung in the competition provenance.
+- History is strictly linear and fast-forward; no force pushes or history rewrites are necessary.

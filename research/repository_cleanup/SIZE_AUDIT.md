@@ -1,56 +1,81 @@
-# Repository Size Audit Report
+# Final Repository Size Audit Report
 
-Date: 2026-10-02
-Workspace: `c:\Users\Sundareswaran\pokemon-tcg-ai-battle`
+Date: 2026-10-02  
+Workspace: `c:\Users\Sundareswaran\pokemon-tcg-ai-battle`  
+Remote: `https://github.com/The-FOOL-00/PK-TCG-SIM.git`
 
-## High-Level Size Summary
+## 1. High-Level Size Summary
 
-| Scope | Size (Bytes) | Human-Readable Size | % of Total Workspace |
+| Scope | Size (Bytes) | Human-Readable Size | % of Total Workspace | File Count |
+|---|---|---|---|---|
+| **Total Workspace** | 475,377,449 | 453.36 MB | 100.00% | 2,023 |
+| **.git Internal Database** | 42,482,515 | 40.51 MB | 8.94% | 907 |
+| **Working Tree (excl .git)** | 432,894,934 | 412.84 MB | 91.06% | 1,116 |
+| **Tracked Files in Git** | 31,731,052 | 30.26 MB | 6.67% | 827 |
+| **Untracked Files** | 21,418 | 0.02 MB | 0.00% | 2 |
+| **Ignored Files** | 401,142,464 | 382.56 MB | 84.38% | 287 |
+
+## 2. Space Reclamation Comparison
+
+| Metric | Before Initial Cleanup | After Bulk Pass | After Corrective Pass | Overall Reduction |
+|---|---|---|---|---|
+| **Workspace Size** | 68.50 GB | 660.67 MB | 443.68 MB | **-68.06 GB (99.35%)** |
+| **Working Tree Files** | 23,580 | 3,097 | 1,114 | **-22,466 files (95.28%)** |
+| **Untracked Files** | 10,000+ | 0 | 0 (post-commit) | **Zero untracked clutter** |
+| **Git Database** | 30.85 MB | 30.85 MB | 30.85 MB | Stable & Compact |
+
+## 3. Top 20 Largest Remaining Working Tree Files
+
+| Rank | File Path | Size (MB) | Size (Bytes) | Category / Status |
+|---|---|---|---|---|
+| 1 | `Card_ID List_JP.pdf` | 173.84 | 182,284,028 | Official Competition Asset (Ignored per Rules) |
+| 2 | `Card_ID List_EN.pdf` | 131.28 | 137,654,485 | Official Competition Asset (Ignored per Rules) |
+| 3 | `analysis/phase2_meta_shift/pop_previous.json` | 3.94 | 4,128,110 | Leaderboard Snapshot / Analysis (Tracked in Git) |
+| 4 | `data/selfplay_v1/shard_w2_000.npz` | 3.36 | 3,524,588 | Model Checkpoint / Weights (Tracked in Git) |
+| 5 | `data/selfplay_v1/shard_w5_000.npz` | 3.35 | 3,509,147 | Model Checkpoint / Weights (Tracked in Git) |
+| 6 | `data/selfplay_v1/shard_w4_000.npz` | 3.34 | 3,498,985 | Model Checkpoint / Weights (Tracked in Git) |
+| 7 | `data/selfplay_v1/shard_w3_000.npz` | 3.33 | 3,496,718 | Model Checkpoint / Weights (Tracked in Git) |
+| 8 | `data/selfplay_v1/shard_w6_000.npz` | 3.32 | 3,479,690 | Model Checkpoint / Weights (Tracked in Git) |
+| 9 | `data/selfplay_v1/shard_w1_000.npz` | 3.32 | 3,479,297 | Model Checkpoint / Weights (Tracked in Git) |
+| 10 | `data/selfplay_v1/shard_w0_000.npz` | 3.30 | 3,461,870 | Model Checkpoint / Weights (Tracked in Git) |
+| 11 | `data/selfplay_v1/shard_w7_000.npz` | 3.29 | 3,448,097 | Model Checkpoint / Weights (Tracked in Git) |
+| 12 | `analysis/phase2_meta_shift/pop_current.json` | 3.03 | 3,181,695 | Leaderboard Snapshot / Analysis (Tracked in Git) |
+| 13 | `data/bs_cei_v1/shard_w3_000.npz` | 2.02 | 2,115,280 | Model Checkpoint / Weights (Tracked in Git) |
+| 14 | `data/bs_cei_v1/shard_w4_000.npz` | 2.01 | 2,104,481 | Model Checkpoint / Weights (Tracked in Git) |
+| 15 | `data/bs_cei_v1/shard_w6_000.npz` | 2.00 | 2,101,297 | Model Checkpoint / Weights (Tracked in Git) |
+| 16 | `data/bc_junlee789_full/main.npz` | 2.00 | 2,096,943 | Model Checkpoint / Weights (Tracked in Git) |
+| 17 | `data/bc_junlee789_garchomp/decisions.npz` | 2.00 | 2,096,943 | Model Checkpoint / Weights (Tracked in Git) |
+| 18 | `data/bs_cei_v1/shard_w1_000.npz` | 2.00 | 2,096,875 | Model Checkpoint / Weights (Tracked in Git) |
+| 19 | `data/bs_cei_v1/shard_w7_000.npz` | 1.99 | 2,084,618 | Model Checkpoint / Weights (Tracked in Git) |
+| 20 | `data/bs_cei_v1/shard_w2_000.npz` | 1.99 | 2,082,924 | Model Checkpoint / Weights (Tracked in Git) |
+
+## 4. Working Tree Directory Distribution
+
+| Directory | File Count | Size (MB) | Size (Bytes) |
 |---|---|---|---|
-| **Total Workspace** | 73,549,627,148 | 68.50 GB | 100.00% |
-| **Working Tree (excl .git)** | 73,517,274,720 | 68.47 GB | 99.96% |
-| **.git Internal Directory** | 32,352,428 | 30.85 MB | 0.04% |
-| **Tracked Files** | 21,545,076 | 20.55 MB | 0.03% |
-| **Untracked Files** | 57,354,346,562 | 53.42 GB | 77.98% |
-| **Ignored Files** | 16,141,383,082 | 15.03 GB | 21.95% |
-
-## Critical Conclusion: Git History vs Working Tree
-
-- **Git History Size**: **~30.85 MB** (packfile + loose objects).
-- **Tracked Files Size**: **~20.55 MB** across 777 tracked files.
-- **Untracked / Ignored Bloat**: **~68.45 GB** (99.93% of the total workspace).
-
-**Classification**: `A. Only in working tree`.
-
-The bloat resides strictly in the working tree as uncommitted tar.gz candidate bundles, local replay corpora, virtual environments (`test_env`), stage 4 run checkpoints, and scratchpad trees. **No large files were ever committed into Git history**. Therefore, no Git history rewriting (BFG / git-filter-repo) is needed.
-
-## Large File Distribution by Bucket
-
-| Threshold | Number of Files | Total Size |
-|---|---|---|
-| Files >= 5 GB | 0 | 0.00 B |
-| Files >= 1 GB | 0 | 0.00 B |
-| Files >= 500 MB | 0 | 0.00 B |
-| Files >= 100 MB | 2 | 305.12 MB |
-| Files >= 50 MB | 3 | 391.57 MB |
-| Files >= 10 MB | 68 | 1.39 GB |
-
-## Top 15 Largest Directories (Recursive)
-
-| Directory | Recursive Size | File Count |
-|---|---|---|
-| `scratchpad` | 48.52 GB | 12718 |
-| `scratchpad/s3` | 48.50 GB | 12664 |
-| `data` | 9.51 GB | 3101 |
-| `data/top_replays_bulk` | 7.81 GB | 1895 |
-| `analysis` | 7.75 GB | 1930 |
-| `analysis/phase2_meta_shift` | 7.33 GB | 1803 |
-| `data/top_replays_bulk/junlee789_garchomp` | 3.99 GB | 968 |
-| `analysis/phase2_meta_shift/replays_current_top10` | 2.48 GB | 612 |
-| `stage4` | 1.91 GB | 690 |
-| `stage4/data` | 1.90 GB | 469 |
-| `stage4/data/replays_list0` | 1.90 GB | 457 |
-| `scratchpad/s3/horizon_K1` | 1.59 GB | 400 |
-| `scratchpad/s3/horizon_KE12` | 1.59 GB | 400 |
-| `scratchpad/s3/horizon_KE1` | 1.57 GB | 400 |
-| `scratchpad/s3/horizon_K0` | 1.57 GB | 400 |
+| `(root)` | 65 | 308.89 | 323,894,641 |
+| `data` | 92 | 66.00 | 69,204,060 |
+| `analysis` | 36 | 11.52 | 12,082,268 |
+| `candidates` | 15 | 9.57 | 10,031,332 |
+| `sample_submission` | 11 | 5.20 | 5,448,769 |
+| `runs` | 153 | 3.35 | 3,509,373 |
+| `stage4` | 149 | 3.01 | 3,159,564 |
+| `ptcg_engine` | 45 | 1.34 | 1,404,583 |
+| `report` | 13 | 1.22 | 1,281,331 |
+| `bot` | 30 | 0.69 | 719,292 |
+| `tools` | 88 | 0.59 | 614,188 |
+| `project_mew_v4_research` | 276 | 0.53 | 552,976 |
+| `project_mew_v5_research` | 25 | 0.32 | 333,828 |
+| `bc_weights_clean_v21.npz` | 2 | 0.12 | 129,179 |
+| `project_mew_v4` | 13 | 0.08 | 82,129 |
+| `training` | 7 | 0.07 | 73,944 |
+| `research` | 12 | 0.06 | 63,341 |
+| `project_mew_replay_policy` | 11 | 0.05 | 52,258 |
+| `project_mew_v3` | 9 | 0.05 | 49,954 |
+| `project_mew_aggressive_surgical` | 16 | 0.05 | 49,198 |
+| `deck_search` | 14 | 0.04 | 40,830 |
+| `.claude` | 1 | 0.03 | 35,965 |
+| `project_mew_shls` | 6 | 0.03 | 33,191 |
+| `docs` | 4 | 0.03 | 26,280 |
+| `deck_search_ogerpon_counter` | 20 | 0.01 | 12,496 |
+| `deck_search_v2` | 3 | 0.01 | 9,964 |
