@@ -55,7 +55,29 @@ Documented in `kaggle_compatibility_fix_report.json` and `final_submission_manif
 
 ---
 
-## 4. Key Limitations & Operational Boundaries
+## 4. Historical Preserved Competition Candidates
+
+All historical candidate milestones are preserved and tracked under `candidates/historical/`:
+
+| Candidate Archive | SHA256 Checksum | Size (Bytes) | Evolutionary Role / Milestone |
+|---|---|---|---|
+| `project_mew_ogerpon_deckopt_A.tar.gz` | `f02f49d47011e21a3ce023bca213308754d1eb6574cbf86d2eb9444f71d4a064` | 945,720 | Optimized Ogerpon decklist candidate A |
+| `project_mew_shls_challenger.tar.gz` | `13e43f58020c6a315d5d21a0ca087588baf0c852998956978b545a060a93534f` | 963,053 | Soft-Horizon Lookahead Search (SHLS) policy candidate |
+| `project_mew_strong_policy_challenger.tar.gz` | `bb1f9464866f2d85e3a9cd6c5bf4b6b4c7858a5052488978e2914e7ce95bbad5` | 945,737 | Strong tactical baseline policy challenger |
+| `project_mew_strong_policy_v21_candidate.tar.gz` | `5511c1a0d337232cca9c47d008c1a4fe4f61650c832365d2c5069010f231e33f` | 946,679 | Version 2.1 calibrated strong policy package |
+| `project_mew_strong_policy_v2_fixed.tar.gz` | `c20d52b05fa54c312fbe219a3b50db90a9073d4db5def6efe769ce5db3520308` | 946,049 | Version 2.0 fixed strong policy candidate |
+| `project_mew_v3_challenger.tar.gz` | `3f46daf3b15d59e271c4b418a488817fd3808f4c085df24ff105750e2e255ab9` | 728,767 | Project Mew v3 evaluation pipeline candidate |
+| `project_mew_v4_challenger.tar.gz` | `a7ee61995f5dd42c5ca4380d6bb9b76e45c3d923c08cdb0d98b7e434f1c1a894` | 729,961 | Project Mew v4 hybrid heuristic search package |
+| `project_mew_v4_corrected_candidate.tar.gz` | `44456613a43b0be713894393334e72271ab10b730f3076ba71a7c7b9733a6261` | 758,871 | Project Mew v4 corrected deployment build |
+| `project_mew_v5_alakazam_master_challenger.tar.gz` | `2906bbd8acf0a4c5cde8f0ea91ed4134a3342b44d110c01cd1add092fca9d7b3` | 738,668 | Alakazam archetype counter-strategy candidate |
+| `submission_archaludon_v3.tar.gz` | `4aafba4749e58a8ce1d3cd2e928437f30b5173fb6480ea945af73e3381f9d655` | 2,036,389 | Archaludon ex heavy metal defense candidate |
+| `submission_mew_alakazam_master_v5.tar.gz` | `593b5064b439179be31c937412d03827d47342084dc06da151528c2aa70a14bc` | 68,083 | Compressed Alakazam master package |
+| `submission_mew_master_v4.tar.gz` | `bdddd1b7613ebe1de2d8c4062a9c4bdc32c325c1097861fd3eea4a1ff37de573` | 67,569 | Compressed Project Mew master v4 bundle |
+| `submission_v1_grimm_f1.tar.gz` | `c18313d9491743385defeed1aca9b198c7d851621f77fa41f87875d62089e1c0` | 150,669 | Initial v1 Grimmsnarl baseline submission |
+
+---
+
+## 5. Key Limitations & Operational Boundaries
 
 1. **Pure Heuristic / Zero Deep Lookahead**: The final submitted agent operates on a deterministic priority ladder with 5 surgical overrides. While it runs in <0.01 ms and completely avoids search timeouts and hallucinations, it does not simulate deep 5+ ply multi-turn branch combinations.
 2. **Deck Specialization**: The agent is tuned specifically for the high-velocity Teal Mask Ogerpon ex (E19) archetype. Cross-deck execution is supported via generic fallback priority ladders, but maximum envelope closure is achieved with the Ogerpon list.
