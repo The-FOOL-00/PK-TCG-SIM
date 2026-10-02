@@ -1,0 +1,153 @@
+{
+  "unit_tests": [
+    {
+      "name": "Pattern 1: Anti-Tank Gust",
+      "chosen": 1,
+      "expected": 1,
+      "passed": true
+    },
+    {
+      "name": "Pattern 2: Active Energy Spillover",
+      "chosen": 1,
+      "expected": 1,
+      "passed": true
+    },
+    {
+      "name": "Pattern 3: Endgame Bench Restraint",
+      "chosen": 1,
+      "expected": 1,
+      "passed": true
+    },
+    {
+      "name": "Pattern 4: Alakazam Energy Cap",
+      "chosen": 1,
+      "expected": 1,
+      "passed": true
+    },
+    {
+      "name": "Pattern 5: Anti-Immunity Gust",
+      "chosen": 1,
+      "expected": 1,
+      "passed": true
+    },
+    {
+      "name": "Normal State: Fast Energy Accel",
+      "chosen": 1,
+      "expected": 1,
+      "passed": true
+    }
+  ],
+  "override_rate_pct": 4.91,
+  "paired_benchmark_300g": {
+    "V1_Strong_Tactical": {
+      "wins": 223,
+      "wr": 74.33,
+      "ci": [
+        69.1,
+        78.95
+      ]
+    },
+    "Corrected_V4_Control": {
+      "wins": 229,
+      "wr": 76.33,
+      "ci": [
+        71.25,
+        80.78
+      ]
+    },
+    "V5_Alakazam_Control": {
+      "wins": 253,
+      "wr": 84.33,
+      "ci": [
+        79.79,
+        88.01
+      ]
+    },
+    "Aggressive_Surgical_E19_Pure": {
+      "wins": 234,
+      "wr": 78.0,
+      "ci": [
+        73.01,
+        82.32
+      ]
+    },
+    "Aggressive_Surgical_E19_Tech": {
+      "wins": 241,
+      "wr": 80.33,
+      "ci": [
+        75.49,
+        84.44
+      ]
+    },
+    "Aggressive_Surgical_Alakazam_Master": {
+      "wins": 257,
+      "wr": 85.67,
+      "ci": [
+        81.25,
+        89.21
+      ]
+    }
+  },
+  "high_elo_stress_600g": {
+    "Corrected_V4_Control": {
+      "total_wins": 367,
+      "wr": 61.17,
+      "vs_Alakazam": 83,
+      "vs_Crustle": 41,
+      "vs_Cornerstone": 0,
+      "vs_Garchomp": 93,
+      "vs_Grimmsnarl": 83,
+      "vs_Starmie": 67
+    },
+    "V5_Alakazam_Control": {
+      "total_wins": 504,
+      "wr": 84.0,
+      "vs_Alakazam": 85,
+      "vs_Crustle": 82,
+      "vs_Cornerstone": 86,
+      "vs_Garchomp": 87,
+      "vs_Grimmsnarl": 81,
+      "vs_Starmie": 83
+    },
+    "Aggressive_Surgical_E19_Tech": {
+      "total_wins": 418,
+      "wr": 69.67,
+      "vs_Alakazam": 84,
+      "vs_Crustle": 52,
+      "vs_Cornerstone": 48,
+      "vs_Garchomp": 91,
+      "vs_Grimmsnarl": 80,
+      "vs_Starmie": 63
+    },
+    "Aggressive_Surgical_Alakazam_Master": {
+      "total_wins": 518,
+      "wr": 86.33,
+      "vs_Alakazam": 88,
+      "vs_Crustle": 85,
+      "vs_Cornerstone": 88,
+      "vs_Garchomp": 89,
+      "vs_Grimmsnarl": 83,
+      "vs_Starmie": 85
+    }
+  },
+  "fresh_seed_replication": {
+    "Corrected_V4_Control": {
+      "batch1": 229,
+      "batch2": 221,
+      "total": 450,
+      "wr": 75.0
+    },
+    "V5_Alakazam_Control": {
+      "batch1": 253,
+      "batch2": 245,
+      "total": 498,
+      "wr": 83.0
+    },
+    "Aggressive_Surgical_Alakazam_Master": {
+      "batch1": 257,
+      "batch2": 252,
+      "total": 509,
+      "wr": 84.83
+    }
+  }
+}

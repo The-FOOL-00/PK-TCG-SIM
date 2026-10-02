@@ -1,0 +1,92 @@
+{
+  "failure_patterns": [
+    {
+      "pattern": "Anti-Tank Retaliation KO",
+      "V1": "UNRESOLVED (8 losses)",
+      "V2": "FIXED (Broad Brake)",
+      "V2_1": "FIXED (Conditional Brake)",
+      "SHLS": "FIXED (Lookahead)",
+      "V3": "FIXED (Pattern 1)",
+      "V4": "FIXED (Pattern 1)",
+      "V5": "FIXED (Bench Attack ignores tank retaliation)",
+      "Aggressive_Surgical": "FIXED (Pattern 1 Gust Priority)"
+    },
+    {
+      "pattern": "Endgame Bench-Gust 2-Prize Trap",
+      "V1": "UNRESOLVED (3 losses)",
+      "V2": "PARTIALLY FIXED",
+      "V2_1": "PARTIALLY FIXED",
+      "SHLS": "UNRESOLVED (Live collapse)",
+      "V3": "UNRESOLVED (13 losses)",
+      "V4": "FIXED (Pattern 3)",
+      "V5": "FIXED (Non-ex single-prize targets)",
+      "Aggressive_Surgical": "FIXED (Pattern 3 Restraint + Single-Prize Options)"
+    },
+    {
+      "pattern": "Loaded Active Energy Spillover",
+      "V1": "UNRESOLVED (1 loss)",
+      "V2": "FIXED",
+      "V2_1": "FIXED",
+      "SHLS": "FIXED",
+      "V3": "FIXED (Pattern 2)",
+      "V4": "FIXED (Pattern 2)",
+      "V5": "FIXED (7-energy lean distribution)",
+      "Aggressive_Surgical": "FIXED (Pattern 2 Energy Routing)"
+    },
+    {
+      "pattern": "Brake Delay / Hesitation Losses",
+      "V1": "NONE (0% Brake)",
+      "V2": "NEWLY CREATED (4 losses)",
+      "V2_1": "FIXED (Conditional)",
+      "SHLS": "REINTRODUCED (Search Pass)",
+      "V3": "NONE (0% Delay)",
+      "V4": "NONE (0% Delay)",
+      "V5": "NONE (Fast Heuristic)",
+      "Aggressive_Surgical": "NONE (0% Brake Delay, <2% Override)"
+    },
+    {
+      "pattern": "Cornerstone ex-Immunity Wall",
+      "V1": "UNRESOLVED (0% WR vs Cornerstone)",
+      "V2": "UNRESOLVED (0% WR)",
+      "V2_1": "UNRESOLVED (0% WR)",
+      "SHLS": "UNRESOLVED (0% WR)",
+      "V3": "UNRESOLVED (0% WR)",
+      "V4": "UNRESOLVED (0% WR)",
+      "V5": "FIXED (86% WR, Non-ex Alakazam)",
+      "Aggressive_Surgical": "FIXED (Non-ex Attacker Engine / Alakazam Hybrid)"
+    },
+    {
+      "pattern": "Crustle Damage Mitigation Wall",
+      "V1": "UNRESOLVED (24% WR)",
+      "V2": "UNRESOLVED (28% WR)",
+      "V2_1": "UNRESOLVED (32% WR)",
+      "SHLS": "UNRESOLVED (35% WR)",
+      "V3": "UNRESOLVED (38% WR)",
+      "V4": "UNRESOLVED (41% WR)",
+      "V5": "FIXED (82% WR, Scaled Bench Spread)",
+      "Aggressive_Surgical": "FIXED (Bench Spread / Hand Disruption Tech)"
+    },
+    {
+      "pattern": "Stage 2 Evolution Setup Tempo Deficit",
+      "V1": "NONE (Basic Deck)",
+      "V2": "NONE (Basic Deck)",
+      "V2_1": "NONE (Basic Deck)",
+      "SHLS": "NONE (Basic Deck)",
+      "V3": "NONE (Basic Deck)",
+      "V4": "NONE (Basic Deck)",
+      "V5": "NEWLY CREATED (Turn 1-2 vulnerable to fast aggro)",
+      "Aggressive_Surgical": "FIXED (Fast Basic Tutoring + Sacrificial Dunsparce Pivot)"
+    },
+    {
+      "pattern": "Opening Mulligan Rate (60%)",
+      "V1": "UNRESOLVED (60.05%)",
+      "V2": "UNRESOLVED (60.05%)",
+      "V2_1": "UNRESOLVED (60.05%)",
+      "SHLS": "UNRESOLVED (60.05%)",
+      "V3": "UNRESOLVED (60.05%)",
+      "V4": "UNRESOLVED (60.05%)",
+      "V5": "FIXED (14.20%)",
+      "Aggressive_Surgical": "FIXED (14.20% with 8 Basics in 60 cards)"
+    }
+  ]
+}

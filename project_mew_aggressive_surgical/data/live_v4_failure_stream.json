@@ -1,0 +1,54 @@
+{
+  "agent": "Corrected V4 (E19 Control)",
+  "observed_live_rating": 702.4,
+  "total_replays_analyzed": 45,
+  "wins": 26,
+  "losses": 19,
+  "live_win_rate": 57.78,
+  "loss_breakdown": [
+    {
+      "failure_id": "V4_LOSS_001",
+      "opponent_rating": 945.0,
+      "opponent_archetype": "Crustle Damage Mitigation Wall",
+      "turn": 18,
+      "decisive_state": "Crustle with Solid Crust + Battle Cage taking only 110 dmg from Ogerpon; Ogerpon energy depleted",
+      "action_taken": "Repeated non-lethal attack into damage-reduced wall",
+      "outcome": "Loss via Energy Starvation & Deckout",
+      "root_cause": "STRUCTURAL_DECK_LIMIT_NO_NON_EX_OR_SHRED_ATTACKER",
+      "counterfactual_reversal": "Requires non-ex attacker or shred damage mechanism"
+    },
+    {
+      "failure_id": "V4_LOSS_002",
+      "opponent_rating": 1012.0,
+      "opponent_archetype": "Cornerstone Mask Ogerpon ex",
+      "turn": 12,
+      "decisive_state": "Cornerstone Stance prevents all damage from ex Pokemon; pure Ogerpon ex deals 0 damage",
+      "action_taken": "Attacked for 0 damage",
+      "outcome": "Loss 0-6",
+      "root_cause": "STRUCTURAL_DECK_AUTO_LOSS_EX_IMMUNITY",
+      "counterfactual_reversal": "Requires non-ex attacker (e.g. Alakazam / Shaymin)"
+    },
+    {
+      "failure_id": "V4_LOSS_003",
+      "opponent_rating": 880.5,
+      "opponent_archetype": "Alakazam Spread",
+      "turn": 14,
+      "decisive_state": "Alakazam Dimensional Hand attacks from bench for 130 into 4-energy loaded Ogerpon active",
+      "action_taken": "Attached 4th energy to Active",
+      "outcome": "Active KO + Bench damage snipe",
+      "root_cause": "ENERGY_SCALING_PUNISHMENT_BY_ALAKAZAM",
+      "counterfactual_reversal": "Cap active energy at 2 against Alakazam / hand disruption"
+    },
+    {
+      "failure_id": "V4_LOSS_004",
+      "opponent_rating": 790.0,
+      "opponent_archetype": "Mulligan Tempo Handicap",
+      "turn": 1,
+      "decisive_state": "Opening 7 cards contained 0 basics; mulliganed 2 times giving opponent +2 cards",
+      "action_taken": "Mulligan forced by 4-basic deck structure",
+      "outcome": "Opponent Turn-1 expanded bench and steamrolled",
+      "root_cause": "HIGH_MULLIGAN_RATE (60.05%)",
+      "counterfactual_reversal": "Increase basic count to >=8 to drop mulligan to <25%"
+    }
+  ]
+}

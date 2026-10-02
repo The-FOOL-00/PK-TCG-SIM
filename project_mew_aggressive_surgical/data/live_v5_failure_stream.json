@@ -1,0 +1,43 @@
+{
+  "agent": "V5 Alakazam Master Challenger",
+  "observed_live_rating": 524.6,
+  "total_replays_analyzed": 38,
+  "wins": 23,
+  "losses": 15,
+  "live_win_rate": 60.53,
+  "loss_breakdown": [
+    {
+      "failure_id": "V5_LOSS_001",
+      "opponent_rating": 960.0,
+      "opponent_archetype": "Marnie Grimmsnarl ex",
+      "turn": 8,
+      "decisive_state": "Grimmsnarl deployed early Dark pressure while Kadabra was not yet evolved to Alakazam",
+      "action_taken": "Passed turn waiting for Rare Candy",
+      "outcome": "Active Abra KO before evolution",
+      "root_cause": "STAGE_2_EVOLUTION_TEMPO_BRICK",
+      "counterfactual_reversal": "Aggressive Dunsparce / Poffin tutoring prioritization on Turn 1"
+    },
+    {
+      "failure_id": "V5_LOSS_002",
+      "opponent_rating": 910.0,
+      "opponent_archetype": "Mega Starmie ex Burst",
+      "turn": 6,
+      "decisive_state": "Starmie Turn 2 120 burst KO on Kadabra (80 HP)",
+      "action_taken": "Attached energy to benched Abra instead of Active Kadabra retreat",
+      "outcome": "Lost active before Alakazam deployed",
+      "root_cause": "EARLY_BURST_TEMPO_VULNERABILITY",
+      "counterfactual_reversal": "Evolve on bench + promote sacrificial Dunsparce"
+    },
+    {
+      "failure_id": "V5_LOSS_003",
+      "opponent_rating": 840.0,
+      "opponent_archetype": "Enhanced Hammer Energy Denial",
+      "turn": 10,
+      "decisive_state": "Opponent played Enhanced Hammer removing Telepath Special Energy from Alakazam",
+      "action_taken": "0 energy Alakazam trapped on active",
+      "outcome": "Stalled 3 turns without attack",
+      "root_cause": "SPECIAL_ENERGY_RELIANCE_VULNERABILITY",
+      "counterfactual_reversal": "Prioritize Basic Psychic Energy attachments or Night Stretcher recovery"
+    }
+  ]
+}

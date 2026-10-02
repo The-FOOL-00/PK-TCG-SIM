@@ -1,0 +1,23 @@
+{
+  "immediate_attack_rate": 0.942,
+  "lethal_attack_priority": 1.0,
+  "non_lethal_tempo_attack_rate": 0.485,
+  "pass_delay_frequency": 0.021,
+  "gust_execution_priority": 0.82,
+  "retreat_frequency": 0.018,
+  "bench_expansion_rate_early": 0.784,
+  "bench_expansion_rate_endgame_uncontrolled": 0.78,
+  "bench_expansion_rate_endgame_controlled": 0.512,
+  "active_energy_commitment_ratio": 0.762,
+  "bench_energy_commitment_ratio": 0.238,
+  "first_prize_turn_timing": 2.44,
+  "first_attack_turn_timing": 1.16,
+  "average_damage_per_turn": 96.5,
+  "properties_that_must_not_be_lost": [
+    "Deterministic sub-millisecond action latency (<0.1ms)",
+    "Zero defensive pass hesitation when legal attacks exist",
+    "Immediate lethal conversion whenever opponent active is within KO range",
+    "Rapid prize tempo (Turn 1-2 energy acceleration and prize pressure)",
+    "100% legal action reliability (0 fallback invocations)"
+  ]
+}
